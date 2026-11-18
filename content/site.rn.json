@@ -1,0 +1,5 @@
+{
+  "_meta": {
+    "about": "Ikirundi — À TRADUIRE. Toute clé absente reprend automatiquement le texte français. Pour activer la langue : déplacer \"rn\" de READY_LOCALES vers ACTIVE_LOCALES dans src/i18n/config.ts."
+  }
+}

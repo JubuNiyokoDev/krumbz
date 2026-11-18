@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+public/vendor/
+public/basis/
+
+# Playwright / Lighthouse
+/test-results/
+/playwright-report/
+/blob-report/
+/reports/lighthouse/*.html
