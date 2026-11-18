@@ -8,7 +8,14 @@
     "start": "next start",
     "lint": "eslint",
     "postinstall": "node scripts/copy-vendor.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "content:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-content.mjs",
+    "images:readme": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/images-readme.mts",
+    "todo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/todo-report.mjs",
+    "icons": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/generate-brand-icons.mjs",
+    "budgets": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-budgets.mjs",
+    "lighthouse": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/lighthouse.mjs",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

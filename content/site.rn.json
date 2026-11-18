@@ -1,5 +1,8 @@
 {
   "_meta": {
-    "about": "Ikirundi — À TRADUIRE. Toute clé absente reprend automatiquement le texte français. Pour activer la langue : déplacer \"rn\" de READY_LOCALES vers ACTIVE_LOCALES dans src/i18n/config.ts."
+    "about": "Ikirundi — À TRADUIRE. Toute clé absente reprend automatiquement le texte français. Pour activer la langue : déplacer \"rn\" de READY_LOCALES vers ACTIVE_LOCALES dans src/i18n/config.ts.",
+    "status": "Aucune traduction pour l’instant : le site affiche le français pour toutes les clés. La traduction en kirundi doit être faite (ou relue) par une personne de langue maternelle kirundi ; aucune traduction automatique n’a été ajoutée volontairement, faute de pouvoir en garantir la qualité.",
+    "howTo": "1) Copier depuis content/site.fr.json la ou les sections à traduire (même structure, mêmes clés). 2) Traduire uniquement les textes : ne jamais modifier les clés, les identifiants (id, model, image), les prix, ni les variables entre accolades comme {count}, {name} ou {number} ; garder les formes {count, plural, …} en traduisant seulement les mots. 3) Un tableau (liste) remplace entièrement la version française : le copier en entier, dans le même ordre. 4) Laisser « À COMPLÉTER » tel quel tant que l’information n’est pas connue. 5) Vérifier avec `npm run content:check`. 6) Ajouter les chemins localisés de \"rn\" dans src/i18n/routing.ts puis activer la langue dans src/i18n/config.ts.",
+    "toComplete": "À COMPLÉTER"
   }
 }

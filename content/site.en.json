@@ -1,5 +1,498 @@
 {
   "_meta": {
-    "about": "Contenu en anglais. Toute clé absente reprend automatiquement le texte français (content/site.fr.json)."
+    "about": "English content. Same structure and ids as content/site.fr.json (the reference). Any missing key falls back to the French text. Values marked « TO BE COMPLETED (À COMPLÉTER) » are unknown and must be provided by Crispy Food Products. Arrays replace the French ones entirely: keep their length, order and data fields (id, model, price, image, indent) identical to French — `npm run content:check` verifies it. Phone numbers, social links and the WhatsApp number are not repeated here on purpose: they always come from the French file.",
+    "toComplete": "TO BE COMPLETED (À COMPLÉTER)",
+    "currency": "BIF"
+  },
+  "brand": {
+    "name": "Krumbz",
+    "company": "Crispy Food Products",
+    "tagline": "Simple, Croustillant",
+    "promise": "A nourishing biscuit for every moment of life.",
+    "origin": "Made in Burundi",
+    "base": "Made with mushrooms",
+    "audience": "For children, young people, couples, parents, teachers and working adults."
+  },
+  "contact": {
+    "whatsapp": {
+      "note": "TO BE COMPLETED (À COMPLÉTER): confirm which of the two numbers receives WhatsApp messages."
+    },
+    "email": "TO BE COMPLETED (À COMPLÉTER)",
+    "address": "TO BE COMPLETED (À COMPLÉTER)",
+    "city": "TO BE COMPLETED (À COMPLÉTER)",
+    "country": "Burundi",
+    "hours": "TO BE COMPLETED (À COMPLÉTER)"
+  },
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "story": "Our story",
+    "order": "Order",
+    "contact": "Contact",
+    "legal": "Legal notice",
+    "menu": "Menu",
+    "openMenu": "Open the menu",
+    "closeMenu": "Close the menu",
+    "cart": "Cart",
+    "openCart": "Open the cart ({count, plural, =0 {empty} one {# item} other {# items}})",
+    "language": "Language",
+    "skipToContent": "Skip to main content",
+    "mainNavigation": "Main navigation",
+    "footerNavigation": "Footer navigation"
+  },
+  "common": {
+    "toComplete": "TO BE COMPLETED (À COMPLÉTER)",
+    "orderNow": "Order",
+    "orderOnWhatsapp": "Order on WhatsApp",
+    "discoverProducts": "Discover the products",
+    "readStory": "Read our story",
+    "call": "Call",
+    "callNumber": "Call {number}",
+    "whatsapp": "WhatsApp",
+    "learnMore": "Learn more",
+    "backHome": "Back to home",
+    "close": "Close",
+    "priceOnRequest": "Price to be confirmed",
+    "quantity": "Quantity",
+    "increase": "Increase quantity",
+    "decrease": "Decrease quantity",
+    "remove": "Remove",
+    "addToCart": "Add to cart",
+    "added": "Added!",
+    "scrollHint": "Scroll down",
+    "loading3d": "Getting the biscuits ready…",
+    "loadingPercent": "{percent}%",
+    "staticModeNotice": "Simplified display to spare your device and your data.",
+    "imagePlaceholder": "Image coming soon",
+    "rights": "© {year} {company}. All rights reserved.",
+    "madeIn": "Made with care in Burundi"
+  },
+  "home": {
+    "intro": {
+      "eyebrow": "Krumbz · Crispy Food Products",
+      "title": "Simple, Crispy",
+      "subtitle": "The mushroom-based biscuit, made in Burundi, for every moment of life.",
+      "cta": "Order now",
+      "secondaryCta": "See the products",
+      "packAlt": "A pack of Krumbz biscuits opening as a biscuit comes out"
+    },
+    "moments": {
+      "eyebrow": "For every moment",
+      "title": "Krumbz, for every moment",
+      "subtitle": "As a couple, with family, at school, at a party or at work: there is always room for a Krumbz biscuit.",
+      "scenes": [
+        {
+          "id": "couple-jardin",
+          "label": "Together",
+          "title": "A moment for two in the garden",
+          "text": "A quiet break, a pack to share.",
+          "alt": "A couple sharing Krumbz biscuits in a garden"
+        },
+        {
+          "id": "famille-maison",
+          "label": "Family",
+          "title": "With the family, at home",
+          "text": "Young and old around the same table.",
+          "alt": "A family sharing Krumbz biscuits at home"
+        },
+        {
+          "id": "classe-enseignant",
+          "label": "At school",
+          "title": "In class, at break time",
+          "text": "For pupils and teachers alike.",
+          "alt": "A teacher and pupils in a classroom with Krumbz biscuits"
+        },
+        {
+          "id": "anniversaire",
+          "label": "Birthday",
+          "title": "To celebrate a birthday",
+          "text": "Biscuits to share with every guest.",
+          "alt": "A birthday party with Krumbz biscuits"
+        },
+        {
+          "id": "mariage",
+          "label": "Wedding",
+          "title": "At the wedding",
+          "text": "A little crispy treat for the big days.",
+          "alt": "Wedding guests with Krumbz biscuits"
+        },
+        {
+          "id": "pause-bureau",
+          "label": "At work",
+          "title": "The office break",
+          "text": "A biscuit between two meetings.",
+          "alt": "Colleagues taking a break at the office with Krumbz biscuits"
+        },
+        {
+          "id": "amis-sortie",
+          "label": "With friends",
+          "title": "A day out with friends",
+          "text": "In the bag, ready for adventure.",
+          "alt": "A group of friends on an outing sharing Krumbz biscuits"
+        }
+      ]
+    },
+    "benefits": {
+      "eyebrow": "Why Krumbz",
+      "title": "What makes Krumbz unique",
+      "items": [
+        {
+          "id": "crispy",
+          "title": "Simple and crispy",
+          "text": "A thin, golden biscuit with a clean crunch."
+        },
+        {
+          "id": "mushroom",
+          "title": "Made with mushrooms",
+          "text": "An original recipe that sets Krumbz apart."
+        },
+        {
+          "id": "burundi",
+          "title": "Made in Burundi",
+          "text": "Produced locally by Crispy Food Products."
+        },
+        {
+          "id": "everyone",
+          "title": "For everyone",
+          "text": "Children, young people, parents, teachers, working adults."
+        }
+      ],
+      "nutritionNote": "Detailed nutritional benefits: TO BE COMPLETED (À COMPLÉTER) (to be provided and validated by Crispy Food Products)."
+    },
+    "products": {
+      "eyebrow": "Our formats",
+      "title": "The pack and the carton",
+      "subtitle": "The pack for yourself, the carton for the family, school, the office or a party."
+    },
+    "cta": {
+      "title": "Fancy a crunch?",
+      "text": "Order in seconds: your order goes straight to WhatsApp.",
+      "button": "Order on WhatsApp",
+      "phoneLabel": "Or give us a call"
+    }
+  },
+  "products": {
+    "eyebrow": "Our products",
+    "title": "Krumbz biscuits",
+    "intro": "Turn, zoom, take a closer look: every Krumbz biscuit is thin, golden and crispy.",
+    "viewer": {
+      "label": "3D viewer",
+      "hint": "Drag to rotate, pinch or use the mouse wheel to zoom.",
+      "keyboardHint": "Arrow keys to rotate, + and − to zoom.",
+      "reset": "Recenter",
+      "rotateLeft": "Rotate left",
+      "rotateRight": "Rotate right",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out",
+      "show": "Show: {name}",
+      "fallbackAlt": "Photo of the {name} product",
+      "biscuit": "Krumbz biscuit",
+      "loading": "Loading the 3D model…",
+      "staticNotice": "Photo view: 3D is turned off on this device."
+    },
+    "items": [
+      {
+        "id": "sachet",
+        "model": "sachet",
+        "name": "Krumbz pack",
+        "short": "The single pack",
+        "description": "The handy format, to slip into a bag or a school bag.",
+        "weight": "TO BE COMPLETED (À COMPLÉTER)",
+        "unitsPerPack": "TO BE COMPLETED (À COMPLÉTER)",
+        "price": null,
+        "priceDisplay": "TO BE COMPLETED (À COMPLÉTER)"
+      },
+      {
+        "id": "carton",
+        "model": "carton",
+        "name": "Krumbz carton",
+        "short": "The carton of packs",
+        "description": "For the family, school, the office or events.",
+        "weight": "TO BE COMPLETED (À COMPLÉTER)",
+        "unitsPerPack": "TO BE COMPLETED (À COMPLÉTER)",
+        "price": null,
+        "priceDisplay": "TO BE COMPLETED (À COMPLÉTER)"
+      }
+    ],
+    "formats": {
+      "title": "Formats",
+      "weight": "Net weight",
+      "units": "Contents",
+      "price": "Price"
+    },
+    "ingredients": {
+      "title": "Ingredients",
+      "list": [
+        "TO BE COMPLETED (À COMPLÉTER)"
+      ],
+      "allergensTitle": "Allergens",
+      "allergens": "TO BE COMPLETED (À COMPLÉTER)",
+      "storageTitle": "Storage",
+      "storage": "TO BE COMPLETED (À COMPLÉTER)",
+      "shelfLifeTitle": "Shelf life",
+      "shelfLife": "TO BE COMPLETED (À COMPLÉTER)"
+    },
+    "nutrition": {
+      "title": "Nutrition facts",
+      "per": "Per 100 g",
+      "nutrientHeader": "Nutrient",
+      "valueHeader": "Value",
+      "rows": [
+        {
+          "label": "Energy",
+          "value": "TO BE COMPLETED (À COMPLÉTER)"
+        },
+        {
+          "label": "Fat",
+          "value": "TO BE COMPLETED (À COMPLÉTER)"
+        },
+        {
+          "label": "of which saturates",
+          "value": "TO BE COMPLETED (À COMPLÉTER)",
+          "indent": true
+        },
+        {
+          "label": "Carbohydrate",
+          "value": "TO BE COMPLETED (À COMPLÉTER)"
+        },
+        {
+          "label": "of which sugars",
+          "value": "TO BE COMPLETED (À COMPLÉTER)",
+          "indent": true
+        },
+        {
+          "label": "Fibre",
+          "value": "TO BE COMPLETED (À COMPLÉTER)"
+        },
+        {
+          "label": "Protein",
+          "value": "TO BE COMPLETED (À COMPLÉTER)"
+        },
+        {
+          "label": "Salt",
+          "value": "TO BE COMPLETED (À COMPLÉTER)"
+        }
+      ],
+      "disclaimer": "Values to be provided by Crispy Food Products from the official label."
+    }
+  },
+  "story": {
+    "eyebrow": "Our story",
+    "title": "Born in Burundi, inspired by the mushroom",
+    "intro": "Krumbz is a brand of Crispy Food Products. Our biscuits are made in Burundi, with mushrooms.",
+    "chapters": [
+      {
+        "id": "burundi",
+        "image": "burundi-collines",
+        "title": "Made in Burundi",
+        "text": "Krumbz is made in Burundi by Crispy Food Products. Company history, founding date and production site: TO BE COMPLETED (À COMPLÉTER).",
+        "alt": "The green hills of Burundi"
+      },
+      {
+        "id": "champignon",
+        "image": "champignons",
+        "title": "The mushroom origin",
+        "text": "Mushrooms are at the heart of the Krumbz recipe. Variety used and origin: TO BE COMPLETED (À COMPLÉTER).",
+        "alt": "Fresh mushrooms"
+      },
+      {
+        "id": "promesse",
+        "image": null,
+        "title": "Our promise",
+        "text": "A simple, crispy and nourishing biscuit, for every moment of life.",
+        "alt": ""
+      }
+    ],
+    "values": {
+      "title": "What guides us",
+      "items": [
+        {
+          "title": "Simplicity",
+          "text": "A simple biscuit that everyone loves."
+        },
+        {
+          "title": "Crunch",
+          "text": "The crunch that is the Krumbz signature."
+        },
+        {
+          "title": "Closeness",
+          "text": "A Burundian brand, close to its customers."
+        }
+      ]
+    }
+  },
+  "order": {
+    "eyebrow": "Order",
+    "title": "Your Krumbz order",
+    "intro": "Choose your products and fill in the form: your order opens in WhatsApp, ready to send.",
+    "catalogTitle": "Catalogue",
+    "cartTitle": "Your cart",
+    "cartEmpty": "Your cart is empty.",
+    "cartEmptyCta": "Add a pack or a carton to get started.",
+    "itemsCount": "{count, plural, =0 {No items} one {# item} other {# items}}",
+    "subtotal": "Subtotal",
+    "totalUnknown": "The total will be confirmed on WhatsApp.",
+    "clearCart": "Empty the cart",
+    "form": {
+      "title": "Your details",
+      "name": "Full name",
+      "namePlaceholder": "e.g. Aline Niyonzima",
+      "phone": "Phone",
+      "phonePlaceholder": "e.g. 62 697 087",
+      "phoneHelp": "Burundian number (+257), 8 digits.",
+      "city": "City",
+      "cityPlaceholder": "e.g. Bujumbura",
+      "district": "Neighbourhood",
+      "districtPlaceholder": "e.g. Rohero",
+      "notes": "Additional details (optional)",
+      "notesPlaceholder": "Preferred delivery time, landmark…",
+      "submit": "Send the order on WhatsApp",
+      "submitting": "Opening WhatsApp…",
+      "required": "required",
+      "errors": {
+        "name": "Enter your name (at least 2 characters).",
+        "phone": "Enter a valid 8-digit Burundian number.",
+        "city": "Enter your city.",
+        "district": "Enter your neighbourhood.",
+        "cart": "Add at least one product to the cart.",
+        "summary": "The form contains {count, plural, one {# error} other {# errors}}."
+      }
+    },
+    "payment": {
+      "title": "Payment",
+      "methodLabel": "Payment method",
+      "cash": "Cash on delivery",
+      "cashHelp": "Terms to be confirmed with Krumbz on WhatsApp.",
+      "lumicash": "Lumicash",
+      "ecocash": "EcoCash",
+      "soon": "Coming soon"
+    },
+    "delivery": {
+      "title": "Delivery",
+      "text": "Delivery areas, times and fees: TO BE COMPLETED (À COMPLÉTER)."
+    },
+    "whatsapp": {
+      "greeting": "Hello Krumbz! I would like to place an order:",
+      "line": "• {quantity} × {name}",
+      "subtotal": "Subtotal: {amount}",
+      "customer": "Name: {name}",
+      "phone": "Phone: {phone}",
+      "address": "Address: {district}, {city}",
+      "notes": "Details: {notes}",
+      "payment": "Payment: {method}",
+      "thanks": "Thank you!"
+    },
+    "success": {
+      "title": "Your order is ready in WhatsApp",
+      "text": "If WhatsApp did not open, use the button below.",
+      "retry": "Open WhatsApp",
+      "newOrder": "New order"
+    }
+  },
+  "contactPage": {
+    "eyebrow": "Contact",
+    "title": "Let’s talk biscuits",
+    "intro": "A question, an order for an event, interested in reselling Krumbz? Write to us or give us a call.",
+    "whatsappTitle": "WhatsApp",
+    "whatsappText": "The fastest way to reach us.",
+    "whatsappCta": "Message us on WhatsApp",
+    "whatsappPrefill": "Hello Krumbz, I have a question:",
+    "phoneTitle": "Phone",
+    "emailTitle": "Email",
+    "locationTitle": "Where to find us",
+    "hoursTitle": "Opening hours",
+    "mapCta": "Open in Google Maps",
+    "socialTitle": "Social media",
+    "socialEmpty": "Social media links: TO BE COMPLETED (À COMPLÉTER)."
+  },
+  "legal": {
+    "title": "Legal notice",
+    "updated": "Last updated: TO BE COMPLETED (À COMPLÉTER)",
+    "sections": [
+      {
+        "title": "Website publisher",
+        "body": [
+          "Crispy Food Products, Krumbz brand.",
+          "Legal form: TO BE COMPLETED (À COMPLÉTER).",
+          "Registered office: TO BE COMPLETED (À COMPLÉTER).",
+          "Tax identification number (NIF): TO BE COMPLETED (À COMPLÉTER).",
+          "Trade register: TO BE COMPLETED (À COMPLÉTER).",
+          "Phone: +257 62 697 087 / +257 72 369 113.",
+          "Publication director: TO BE COMPLETED (À COMPLÉTER)."
+        ]
+      },
+      {
+        "title": "Hosting",
+        "body": [
+          "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, United States — vercel.com."
+        ]
+      },
+      {
+        "title": "Intellectual property",
+        "body": [
+          "The Krumbz brand, logos, packaging, texts and images on this website are the property of Crispy Food Products or of their authors. Any reproduction without permission is prohibited."
+        ]
+      },
+      {
+        "title": "Personal data",
+        "body": [
+          "The cart is saved only in your browser (local storage) and is never sent to any server.",
+          "The information entered in the order form (name, phone, city, neighbourhood) is used only to prepare a WhatsApp message that you choose to send. It is not stored by the website.",
+          "This website does not use advertising cookies or third-party trackers.",
+          "For any request about your data: TO BE COMPLETED (À COMPLÉTER) (contact)."
+        ]
+      },
+      {
+        "title": "Liability",
+        "body": [
+          "Photos are for illustration only. Prices, formats and availability are confirmed when you order on WhatsApp."
+        ]
+      }
+    ]
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Oops, this biscuit crumbled!",
+    "text": "The page you are looking for does not exist or has been moved.",
+    "cta": "Back to home",
+    "secondary": "See the products"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "text": "Reload the page or go back to the home page.",
+    "retry": "Try again"
+  },
+  "seo": {
+    "siteName": "Krumbz",
+    "titleTemplate": "%s · Krumbz",
+    "defaultTitle": "Krumbz — Simple, Crispy",
+    "defaultDescription": "Krumbz, the mushroom-based biscuits made in Burundi by Crispy Food Products. Simple, crispy, for every moment of life. Order on WhatsApp.",
+    "ogAlt": "Krumbz biscuits and pack — Simple, Crispy",
+    "pages": {
+      "home": {
+        "title": "Krumbz — Simple, Crispy",
+        "description": "The mushroom-based biscuit made in Burundi, for every moment of life. Discover Krumbz and order on WhatsApp."
+      },
+      "products": {
+        "title": "Products",
+        "description": "Krumbz pack and carton: formats, ingredients and nutrition facts. Interactive 3D viewer."
+      },
+      "story": {
+        "title": "Our story",
+        "description": "Krumbz, made in Burundi by Crispy Food Products, with mushrooms."
+      },
+      "order": {
+        "title": "Order",
+        "description": "Order your Krumbz biscuits in seconds: your order goes straight to WhatsApp."
+      },
+      "contact": {
+        "title": "Contact",
+        "description": "Contact Krumbz on WhatsApp or by phone at +257 62 697 087 or +257 72 369 113."
+      },
+      "legal": {
+        "title": "Legal notice",
+        "description": "Legal notice and personal data for the Krumbz website."
+      }
+    }
   }
 }
