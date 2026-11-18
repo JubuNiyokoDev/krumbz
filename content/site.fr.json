@@ -220,7 +220,10 @@
       "zoomIn": "Zoomer",
       "zoomOut": "Dézoomer",
       "show": "Afficher : {name}",
-      "fallbackAlt": "Photo du produit {name}"
+      "fallbackAlt": "Photo du produit {name}",
+      "biscuit": "Biscuit Krumbz",
+      "loading": "Chargement du modèle 3D…",
+      "staticNotice": "Vue en photo : la 3D est désactivée sur cet appareil."
     },
     "items": [
       {
