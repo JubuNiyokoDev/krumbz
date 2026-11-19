@@ -13,7 +13,9 @@ import { chromium, defineConfig, devices } from "@playwright/test";
  * otherwise the system Google Chrome (channel "chrome").
  */
 const PORT = 3200;
-const baseURL = `http://localhost:${PORT}`;
+// PW_BASE_URL=http://localhost:3000 runs the suite against an already running server (e.g. `npm run dev`).
+const externalURL = process.env.PW_BASE_URL;
+const baseURL = externalURL ?? `http://localhost:${PORT}`;
 const channel = fs.existsSync(chromium.executablePath()) ? undefined : "chrome";
 
 export default defineConfig({
@@ -53,7 +55,9 @@ export default defineConfig({
       },
     },
   ],
-  webServer: {
+  webServer: externalURL
+    ? undefined
+    : {
     command: `npm run start -- -p ${PORT}`,
     url: `${baseURL}/robots.txt`,
     reuseExistingServer: !process.env.CI,

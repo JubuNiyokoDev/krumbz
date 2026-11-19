@@ -12,6 +12,8 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // Minimal, self-contained server bundle for the Docker image (see Dockerfile).
+  output: "standalone",
   images: {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [390, 640, 828, 1080, 1440, 1920],

@@ -1,0 +1,157 @@
+/*
+ * Scene layout (global CSS: Turbopack treats every *.css as plain CSS here, so no CSS modules), driven by per-scene CSS variables (src/lib/assets/scene-framing.ts):
+ *   --copy-w   desktop copy column width (vw)
+ *   --a-cx/--a-cy/--a-size   desktop 3D anchor centre (vw, svh) and size (svh)
+ *
+ * Two layouts on portrait screens (phones):
+ *   [data-layout="band"]  only the landscape photo exists: it is shown in a band
+ *                         (faces kept by object-position), copy + product below it.
+ *   [data-layout="full"]  a real -portrait.jpg exists: full-screen photo, copy on
+ *                         top, product in the free lower third.
+ */
+
+.ks-slide {
+  --band-top: var(--header-h); /* below the header (it reappears when scrolling up) */
+  --band-h: 50svh; /* overridden per scene (scene-framing.ts → mobileFraming) */
+  --m-anchor: min(38vw, calc((100svh - var(--band-top) - var(--band-h)) * 0.5), 13rem);
+}
+
+/* ---------- shared ---------- */
+.ks-media {
+  position: absolute;
+  inset: 0;
+}
+
+.ks-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ks-content {
+  position: relative;
+  z-index: 10;
+  height: 100%;
+  display: flex;
+  margin-inline: auto;
+  max-width: 88rem;
+}
+
+.ks-copy {
+  min-width: 0;
+}
+
+.ks-anchor {
+  position: relative;
+  flex: none;
+}
+
+.ks-title {
+  font-size: clamp(1.6rem, 7.2vw, 2.4rem);
+}
+
+.ks-text {
+  font-size: 1rem;
+}
+
+/* ---------- portrait screens (phones) ---------- */
+@media (orientation: portrait) {
+  .ks-slide[data-layout="band"] .ks-media {
+    top: var(--band-top);
+    bottom: auto;
+    height: var(--band-h);
+  }
+
+  .ks-slide[data-layout="band"] .ks-overlay {
+    /* only a soft fade into the navy panel, the photo itself stays clear */
+    background: linear-gradient(to bottom, transparent 94%, rgb(18 38 74 / 0.8) 100%);
+  }
+
+  .ks-slide[data-layout="full"] .ks-overlay {
+    background: linear-gradient(to bottom, rgb(18 38 74 / 0.9), rgb(18 38 74 / 0.45) 45%, transparent 70%);
+  }
+
+  .ks-slide[data-layout="band"] .ks-content {
+    padding: calc(var(--band-top) + var(--band-h) + 1.25rem) 1.25rem max(1.25rem, env(safe-area-inset-bottom));
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .ks-slide[data-layout="full"] .ks-content {
+    padding: calc(var(--header-h) + 2rem) 1.25rem 2rem;
+    flex-direction: column;
+  }
+
+  .ks-slide[data-layout="band"] .ks-copy {
+    flex: 1;
+  }
+
+  .ks-slide[data-layout="band"] .ks-anchor {
+    width: var(--m-anchor);
+    aspect-ratio: 1;
+  }
+
+  .ks-slide[data-layout="full"] .ks-anchor {
+    position: absolute;
+    left: 50%;
+    bottom: 5svh;
+    width: min(70vw, 34svh);
+    aspect-ratio: 1;
+    translate: -50% 0;
+  }
+}
+
+/* ---------- landscape screens (tablets in landscape, laptops, desktops) ---------- */
+@media (orientation: landscape) {
+  .ks-slide .ks-media {
+    inset: 0;
+    top: 0;
+    height: auto;
+  }
+  .ks-slide .ks-overlay {
+    background: linear-gradient(
+      var(--grad-dir),
+      rgb(18 38 74 / 0.88) 0%,
+      rgb(18 38 74 / 0.6) calc(var(--copy-w) * 0.75),
+      transparent calc(var(--copy-w) + 6vw)
+    );
+  }
+  .ks-slide[data-free="left"] .ks-overlay {
+    --grad-dir: to right;
+  }
+  .ks-slide[data-free="right"] .ks-overlay {
+    --grad-dir: to left;
+  }
+
+  .ks-slide .ks-content {
+    /* full-bleed box: the anchor's vw/svh coordinates map 1:1 to the viewport */
+    max-width: none;
+    flex-direction: column;
+    padding: calc(var(--header-h) + 1.5rem) 3vw 2rem;
+    align-items: flex-start;
+  }
+  .ks-slide[data-free="right"] .ks-content {
+    align-items: flex-end;
+  }
+  .ks-slide .ks-copy {
+    flex: none;
+    width: var(--copy-w);
+    max-width: 36rem;
+  }
+
+  .ks-slide .ks-anchor {
+    position: absolute;
+    width: var(--a-size);
+    left: calc(var(--a-cx) - var(--a-size) / 2);
+    top: calc(var(--a-cy) - var(--a-size) / 2);
+    bottom: auto;
+    translate: none;
+  }
+
+  .ks-title {
+    font-size: clamp(1.9rem, calc(var(--copy-w) * 0.14), 4.25rem);
+  }
+  .ks-text {
+    font-size: clamp(1rem, 1.3vw, 1.25rem);
+  }
+}

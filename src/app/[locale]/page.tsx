@@ -5,6 +5,7 @@ import { loadContent, type ProductContent } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo/site";
 import { resolveImage } from "@/lib/assets/server";
 import { scenePath, type SceneId } from "@/lib/assets/registry";
+import { SCENE_FRAMING } from "@/lib/assets/scene-framing";
 import { whatsappUrl } from "@/lib/order/whatsapp";
 import { BrandImage } from "@/components/ui/BrandImage";
 import { HomeIntro } from "@/components/sections/home/HomeIntro";
@@ -85,7 +86,17 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
               landscape={sceneImages[i].landscape}
               portrait={sceneImages[i].portrait}
               placeholderLabel={c.common.imagePlaceholder}
-              fallback={productFallback("(orientation: landscape) 34vw, 74vw")}
+              framing={SCENE_FRAMING[scene.id as SceneId]}
+              // Static mode: the cut-out MARIE biscuit sits cleanly on any photo.
+              fallback={
+                <BrandImage
+                  image={top}
+                  alt=""
+                  sizes="(orientation: landscape) 19vw, 36vw"
+                  placeholderLabel={c.common.imagePlaceholder}
+                  imgClassName="object-contain drop-shadow-[0_18px_30px_rgb(18_38_74/0.45)]"
+                />
+              }
             />
           ))}
         </MomentsMotion>

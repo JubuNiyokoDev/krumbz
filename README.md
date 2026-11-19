@@ -88,15 +88,41 @@ mentions légales, SEO) sont dans un seul fichier : **`content/site.fr.json`**.
 
 ---
 
-## 4. Déploiement sur Vercel
+## 4. Déploiement (Docker sur VPS, automatique)
 
-1. Poussez le dépôt sur GitHub, GitLab ou Bitbucket.
-2. Sur [vercel.com/new](https://vercel.com/new), importez le dépôt : Vercel détecte Next.js, aucun réglage de build n'est nécessaire.
-3. Variable d'environnement (Settings → Environment Variables) :
-   - `NEXT_PUBLIC_SITE_URL` = l'URL publique définitive, par ex. `https://www.krumbz.example` (sert aux balises canoniques,
-     Open Graph et au sitemap ; à défaut, l'URL de production Vercel est utilisée).
-4. Déployez. Chaque `git push` sur la branche principale redéploie le site ; les nouvelles images sont prises en compte à ce moment.
-5. Domaine : Settings → Domains → ajoutez votre nom de domaine et suivez les instructions DNS.
+Le site est livré en conteneur Docker et déployé automatiquement à chaque `git push` sur `main`, via
+`.github/workflows/deploy.yml` :
+
+1. **Build** : installe les dépendances, `typecheck`, `lint`, `content:check`, puis construit l'image Docker
+   (`Dockerfile`, build Next.js en mode `standalone`) et la pousse sur
+   [GitHub Container Registry](https://ghcr.io) : `ghcr.io/jubuniyokodev/krumbz:latest`.
+2. **Deploy** : envoie `docker-compose.yml` sur le VPS (`/opt/krumbz`) puis exécute
+   `docker compose pull && docker compose up -d` par SSH.
+3. Sur le VPS, nginx (hors conteneur) sert `https://krumbz.rundinova.com` et `https://www.krumbz.rundinova.com`
+   (certificat Let's Encrypt, renouvellement automatique via `certbot.timer`) et reverse-proxy vers le conteneur
+   (`127.0.0.1:19200`).
+
+**Secrets du dépôt GitHub** (Settings → Secrets and variables → Actions) : `VPS_HOST`, `VPS_USER`, `VPS_SSH_KEY`
+(clé privée dédiée au déploiement). `GITHUB_TOKEN` (fourni automatiquement) suffit pour pousser l'image sur GHCR.
+
+**Variable d'environnement** : `NEXT_PUBLIC_SITE_URL` est fixée à `https://krumbz.rundinova.com` au moment du build
+Docker (`build-args` du workflow) — elle sert aux balises canoniques, Open Graph et au sitemap.
+
+### Build et lancement manuels (sans CI)
+
+```bash
+docker build -t krumbz --build-arg NEXT_PUBLIC_SITE_URL=https://krumbz.rundinova.com .
+docker run --rm -p 3000:3000 krumbz
+```
+
+### Déploiement manuel sur le VPS (dépannage)
+
+```bash
+ssh root@31.97.33.141
+cd /opt/krumbz
+docker compose pull && docker compose up -d
+docker compose logs -f
+```
 
 ---
 
