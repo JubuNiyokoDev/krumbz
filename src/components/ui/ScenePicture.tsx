@@ -27,7 +27,7 @@ export function ScenePicture({
 
   if (!wide || !tall) {
     return (
-      <div className={`absolute inset-0 ${className}`}>
+      <div className={`absolute inset-0 ${className}`} data-placeholder={`${landscape.file} | ${portrait.file}`}>
         <div className="absolute inset-0 hidden landscape:block">
           <ImagePlaceholder image={landscape} label={placeholderLabel} />
         </div>
@@ -38,7 +38,8 @@ export function ScenePicture({
     );
   }
 
-  const common = { alt, fill: true, priority, quality: 75 } as const;
+  // Art direction: `preload` would fetch both files, so the LCP case uses fetchPriority instead.
+  const common = { alt, fill: true, quality: 75, ...(priority ? { fetchPriority: "high" as const, loading: "eager" as const } : {}) };
   const { props: wideProps } = getImageProps({
     ...common,
     src: wide.src!,

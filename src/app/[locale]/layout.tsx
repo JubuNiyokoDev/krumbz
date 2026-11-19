@@ -13,6 +13,7 @@ import { SiteShell } from "@/components/layout/SiteShell";
 import { ExperienceLayer } from "@/components/three/ExperienceLayer";
 import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 import "../globals.css";
+import "./krumbz.css";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -27,7 +28,6 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
     description: t("defaultDescription"),
     applicationName: "Krumbz",
     formatDetection: { telephone: false },
-    icons: { icon: "/favicon.ico" },
   };
 }
 

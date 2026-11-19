@@ -73,7 +73,8 @@
     "language": "Langue",
     "skipToContent": "Aller au contenu principal",
     "mainNavigation": "Navigation principale",
-    "footerNavigation": "Navigation du pied de page"
+    "footerNavigation": "Navigation du pied de page",
+    "homeLabel": "Krumbz, retour à l’accueil"
   },
   "common": {
     "toComplete": "À COMPLÉTER",
@@ -100,7 +101,9 @@
     "staticModeNotice": "Affichage simplifié pour préserver votre appareil et vos données.",
     "imagePlaceholder": "Image à venir",
     "rights": "© {year} {company}. Tous droits réservés.",
-    "madeIn": "Fabriqué avec soin au Burundi"
+    "madeIn": "Fabriqué avec soin au Burundi",
+    "addedToCart": "{name} ajouté au panier",
+    "toCompleteHint": "Information à fournir par Crispy Food Products"
   },
   "home": {
     "intro": {
@@ -165,7 +168,9 @@
           "text": "Dans le sac, prêt pour l’aventure.",
           "alt": "Un groupe d’amis en sortie partage des biscuits Krumbz"
         }
-      ]
+      ],
+      "progressLabel": "Progression des moments",
+      "goTo": "Aller au moment « {label} »"
     },
     "benefits": {
       "eyebrow": "Pourquoi Krumbz",
@@ -253,7 +258,8 @@
       "title": "Formats",
       "weight": "Poids net",
       "units": "Contenu",
-      "price": "Prix"
+      "price": "Prix",
+      "product": "Produit"
     },
     "ingredients": {
       "title": "Ingrédients",
@@ -309,7 +315,9 @@
         }
       ],
       "disclaimer": "Valeurs à fournir par Crispy Food Products d’après l’étiquette officielle."
-    }
+    },
+    "chooseTitle": "Choisissez votre format",
+    "factsTitle": "Composition et conservation"
   },
   "story": {
     "eyebrow": "Notre histoire",
@@ -390,8 +398,10 @@
         "city": "Indiquez votre ville.",
         "district": "Indiquez votre quartier.",
         "cart": "Ajoutez au moins un produit au panier.",
-        "summary": "Le formulaire contient {count, plural, one {# erreur} other {# erreurs}}."
-      }
+        "summary": "Le formulaire contient {count, plural, one {# erreur} other {# erreurs}}.",
+        "payment": "Ce mode de paiement n’est pas encore disponible : choisissez le paiement à la livraison."
+      },
+      "errorsTitle": "Vérifiez les champs suivants :"
     },
     "payment": {
       "title": "Paiement",
@@ -422,7 +432,11 @@
       "text": "Si WhatsApp ne s’est pas ouvert, utilisez le bouton ci-dessous.",
       "retry": "Ouvrir WhatsApp",
       "newOrder": "Nouvelle commande"
-    }
+    },
+    "checkout": "Finaliser la commande",
+    "continue": "Continuer mes achats",
+    "lineTotal": "{quantity} × {price}",
+    "summaryLoading": "Chargement du panier…"
   },
   "contactPage": {
     "eyebrow": "Contact",
@@ -438,7 +452,8 @@
     "hoursTitle": "Horaires",
     "mapCta": "Ouvrir dans Google Maps",
     "socialTitle": "Réseaux sociaux",
-    "socialEmpty": "Liens des réseaux sociaux : À COMPLÉTER."
+    "socialEmpty": "Liens des réseaux sociaux : À COMPLÉTER.",
+    "addressTitle": "Adresse"
   },
   "legal": {
     "title": "Mentions légales",
@@ -483,7 +498,8 @@
           "Les photos sont non contractuelles. Les prix, formats et disponibilités sont confirmés lors de la commande sur WhatsApp."
         ]
       }
-    ]
+    ],
+    "tocTitle": "Sur cette page"
   },
   "notFound": {
     "code": "404",
@@ -529,5 +545,10 @@
         "description": "Mentions légales et données personnelles du site Krumbz."
       }
     }
+  },
+  "footer": {
+    "navTitle": "Explorer",
+    "contactTitle": "Nous joindre",
+    "backToTop": "Revenir en haut"
   }
 }
