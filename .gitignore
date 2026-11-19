@@ -47,3 +47,8 @@ public/basis/
 /playwright-report/
 /blob-report/
 /reports/lighthouse/*.html
+
+# Agents / outils locaux
+/.claude/
+/.playwright-mcp/
+/reports/

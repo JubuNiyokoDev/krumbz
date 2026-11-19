@@ -3,6 +3,7 @@ import { routing, type AppPathname } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
 import { LOCALE_LABELS, type Locale } from "@/i18n/config";
 import { loadContent } from "@/lib/content";
+import { ogImage, ogImageUrl } from "./og";
 
 /**
  * Public site URL. Set NEXT_PUBLIC_SITE_URL in Vercel once the domain is known
@@ -43,8 +44,8 @@ export function pageMetadata(locale: Locale, page: PageKey, href: AppPathname): 
       url: canonical,
       title: page === "home" ? title : `${title} · Krumbz`,
       description,
-      images: [{ url: "/images/og/og-image.jpg", width: 1200, height: 630, alt: content.seo.ogAlt }],
+      images: [ogImage(content.seo.ogAlt)],
     },
-    twitter: { card: "summary_large_image", title, description, images: ["/images/og/og-image.jpg"] },
+    twitter: { card: "summary_large_image", title, description, images: [ogImageUrl()] },
   };
 }
