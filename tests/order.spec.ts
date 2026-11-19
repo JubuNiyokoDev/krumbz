@@ -57,7 +57,7 @@ test("commande valide : lien WhatsApp avec produits et client", async ({ page })
   const url = new URL(urls[0]);
   expect(url.hostname).toBe("wa.me");
   expect(url.pathname).toBe(`/${WHATSAPP}`);
-  expect(WHATSAPP).toBe("25762697087");
+  expect(WHATSAPP).toBe("25768497372");
 
   const text = url.searchParams.get("text") ?? "";
   expect(text).toContain(icu(c.order.whatsapp.line, { quantity: 2, name: product.name }, "fr"));

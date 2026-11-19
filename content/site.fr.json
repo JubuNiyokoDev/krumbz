@@ -29,11 +29,11 @@
       "display": "+257 68 49 73 72",
       "note": "Les deux numéros sont aussi joignables sur WhatsApp."
     },
-    "email": "À COMPLÉTER",
+    "email": "niyondikojoffreasjubu@gmail.com",
     "address": "Bwoga 2, n° 37",
     "city": "Gitega",
     "country": "Burundi",
-    "hours": "À COMPLÉTER",
+    "hours": "24h/24, 7j/7",
     "mapUrl": "",
     "socials": [
       {
@@ -65,6 +65,11 @@
         "network": "linkedin",
         "label": "LinkedIn",
         "url": "https://www.linkedin.com/in/niyondiko-joffre-062840277"
+      },
+      {
+        "network": "telegram",
+        "label": "Telegram",
+        "url": "https://t.me/jubu_niyoko"
       }
     ]
   },
@@ -248,7 +253,7 @@
         "short": "Le sachet individuel",
         "description": "Le format pratique, à glisser dans un sac ou un cartable.",
         "weight": "À COMPLÉTER",
-        "unitsPerPack": "À COMPLÉTER",
+        "unitsPerPack": "4 biscuits",
         "price": 850,
         "priceDisplay": "850 FBu (prix normal 1 000 FBu) — Promo Noël",
         "compareAtPrice": 1000
@@ -475,19 +480,19 @@
       {
         "title": "Éditeur du site",
         "body": [
-          "Crispy Food Products, marque Krumbz.",
-          "Forme juridique : À COMPLÉTER.",
-          "Siège social : À COMPLÉTER.",
-          "Numéro d’identification fiscale (NIF) : À COMPLÉTER.",
-          "Registre de commerce : À COMPLÉTER.",
+          "Niyondiko Joffre (« Jubu Niyoko »), distributeur agréé de la marque Krumbz (Crispy Food Products) à Gitega, Burundi. Ce site est édité par le distributeur, pas par le fabricant.",
+          "Forme juridique : personne physique (pas de société enregistrée).",
+          "Adresse : Gitega, Bwoga 2, n° 37, Burundi.",
+          "Numéro d'identification fiscale (NIF) : non applicable (personne physique).",
+          "Registre de commerce : non applicable (personne physique).",
           "Téléphone : +257 68 49 73 72 / +257 61 89 59 40.",
-          "Directeur de la publication : À COMPLÉTER."
+          "Directeur de la publication : Niyondiko Joffre."
         ]
       },
       {
         "title": "Hébergement",
         "body": [
-          "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis — vercel.com."
+          "Hostinger International Ltd., 61 Lordou Vironos Street, 6023 Larnaca, Chypre — hostinger.com."
         ]
       },
       {
@@ -502,7 +507,7 @@
           "Le panier est enregistré uniquement dans votre navigateur (stockage local) et n’est transmis à aucun serveur.",
           "Les informations saisies dans le formulaire de commande (nom, téléphone, ville, quartier) servent uniquement à préparer un message WhatsApp que vous choisissez d’envoyer. Elles ne sont pas stockées par le site.",
           "Ce site n’utilise pas de cookies publicitaires ni de traceurs tiers.",
-          "Pour toute demande concernant vos données : À COMPLÉTER (contact)."
+          "Pour toute demande concernant vos données : niyondikojoffreasjubu@gmail.com."
         ]
       },
       {

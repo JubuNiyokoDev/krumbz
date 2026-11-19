@@ -96,9 +96,15 @@ export default async function ProductsPage({ params }: PageProps<"/[locale]/prod
       <section aria-labelledby="formats-title" className="grain relative bg-cream py-20 sm:py-24 lg:py-28">
         <div className="mx-auto max-w-[88rem] px-4 sm:px-6 lg:px-10">
           <SectionHeading id="formats-title" title={p.formats.title} />
-          <div data-reveal className="mt-10 overflow-x-auto rounded-[2rem] bg-cream shadow-biscuit ring-1 ring-navy/10" tabIndex={0} role="region" aria-labelledby="formats-title">
-            <table className="w-full min-w-[36rem] border-collapse text-left">
-              <thead>
+          {/*
+            Below sm: a 4-column table has no room on a phone (the price column was
+            cut off, invisible without discovering a hidden horizontal scroll). The
+            <thead> stays in the DOM (sr-only) for screen readers; each row becomes a
+            card with its own repeated field labels instead.
+          */}
+          <div data-reveal className="mt-10 overflow-x-auto rounded-[2rem] bg-cream shadow-biscuit ring-1 ring-navy/10 max-sm:overflow-visible" tabIndex={0} role="region" aria-labelledby="formats-title">
+            <table className="w-full border-collapse text-left sm:min-w-[36rem]">
+              <thead className="max-sm:sr-only">
                 <tr className="bg-navy text-cream">
                   <th scope="col" className="px-6 py-4 font-display text-lg font-semibold">{p.formats.product}</th>
                   <th scope="col" className="px-6 py-4 font-display text-lg font-semibold">{p.formats.weight}</th>
@@ -106,13 +112,27 @@ export default async function ProductsPage({ params }: PageProps<"/[locale]/prod
                   <th scope="col" className="px-6 py-4 font-display text-lg font-semibold">{p.formats.price}</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="max-sm:block">
                 {products.map((product) => (
-                  <tr key={product.id} className="border-b border-navy/10 last:border-b-0">
-                    <th scope="row" className="px-6 py-5 font-display text-xl font-bold">{product.name}</th>
-                    <td className="px-6 py-5"><TextWithToComplete value={product.weight} {...tc} /></td>
-                    <td className="px-6 py-5"><TextWithToComplete value={product.unitsPerPack} {...tc} /></td>
-                    <td className="px-6 py-5"><PriceTag product={product} /></td>
+                  <tr
+                    key={product.id}
+                    className="border-b border-navy/10 last:border-b-0 max-sm:block max-sm:border-b-0 max-sm:border-t max-sm:first:border-t-0 max-sm:px-6 max-sm:py-5"
+                  >
+                    <th scope="row" className="px-6 py-5 font-display text-xl font-bold max-sm:block max-sm:px-0 max-sm:pb-3 max-sm:pt-0">
+                      {product.name}
+                    </th>
+                    <td className="px-6 py-5 max-sm:flex max-sm:items-center max-sm:justify-between max-sm:gap-4 max-sm:border-t max-sm:border-navy/10 max-sm:px-0 max-sm:py-2.5">
+                      <span className="hidden text-sm font-semibold text-navy/60 max-sm:inline">{p.formats.weight}</span>
+                      <TextWithToComplete value={product.weight} {...tc} />
+                    </td>
+                    <td className="px-6 py-5 max-sm:flex max-sm:items-center max-sm:justify-between max-sm:gap-4 max-sm:border-t max-sm:border-navy/10 max-sm:px-0 max-sm:py-2.5">
+                      <span className="hidden text-sm font-semibold text-navy/60 max-sm:inline">{p.formats.units}</span>
+                      <TextWithToComplete value={product.unitsPerPack} {...tc} />
+                    </td>
+                    <td className="px-6 py-5 max-sm:flex max-sm:items-center max-sm:justify-between max-sm:gap-4 max-sm:border-t max-sm:border-navy/10 max-sm:px-0 max-sm:py-2.5">
+                      <span className="hidden text-sm font-semibold text-navy/60 max-sm:inline">{p.formats.price}</span>
+                      <PriceTag product={product} />
+                    </td>
                   </tr>
                 ))}
               </tbody>

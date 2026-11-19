@@ -17,11 +17,11 @@
     "whatsapp": {
       "note": "Both numbers are also reachable on WhatsApp."
     },
-    "email": "TO BE COMPLETED (À COMPLÉTER)",
+    "email": "niyondikojoffreasjubu@gmail.com",
     "address": "Bwoga 2, n° 37",
     "city": "Gitega",
     "country": "Burundi",
-    "hours": "TO BE COMPLETED (À COMPLÉTER)"
+    "hours": "Open 24/7"
   },
   "nav": {
     "home": "Home",
@@ -203,7 +203,7 @@
         "short": "The single pack",
         "description": "The handy format, to slip into a bag or a school bag.",
         "weight": "TO BE COMPLETED (À COMPLÉTER)",
-        "unitsPerPack": "TO BE COMPLETED (À COMPLÉTER)",
+        "unitsPerPack": "4 biscuits",
         "price": 850,
         "priceDisplay": "850 BIF (regular price 1,000 BIF) — Christmas promo",
         "compareAtPrice": 1000
@@ -430,19 +430,19 @@
       {
         "title": "Website publisher",
         "body": [
-          "Crispy Food Products, Krumbz brand.",
-          "Legal form: TO BE COMPLETED (À COMPLÉTER).",
-          "Registered office: TO BE COMPLETED (À COMPLÉTER).",
-          "Tax identification number (NIF): TO BE COMPLETED (À COMPLÉTER).",
-          "Trade register: TO BE COMPLETED (À COMPLÉTER).",
+          "Niyondiko Joffre (\"Jubu Niyoko\"), authorized distributor of the Krumbz brand (Crispy Food Products) in Gitega, Burundi. This website is published by the distributor, not by the manufacturer.",
+          "Legal form: natural person (no registered company).",
+          "Address: Gitega, Bwoga 2, n° 37, Burundi.",
+          "Tax identification number (NIF): not applicable (natural person).",
+          "Trade register: not applicable (natural person).",
           "Phone: +257 68 49 73 72 / +257 61 89 59 40.",
-          "Publication director: TO BE COMPLETED (À COMPLÉTER)."
+          "Publication director: Niyondiko Joffre."
         ]
       },
       {
         "title": "Hosting",
         "body": [
-          "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, United States — vercel.com."
+          "Hostinger International Ltd., 61 Lordou Vironos Street, 6023 Larnaca, Cyprus — hostinger.com."
         ]
       },
       {
@@ -457,7 +457,7 @@
           "The cart is saved only in your browser (local storage) and is never sent to any server.",
           "The information entered in the order form (name, phone, city, neighbourhood) is used only to prepare a WhatsApp message that you choose to send. It is not stored by the website.",
           "This website does not use advertising cookies or third-party trackers.",
-          "For any request about your data: TO BE COMPLETED (À COMPLÉTER) (contact)."
+          "For any request about your data: niyondikojoffreasjubu@gmail.com."
         ]
       },
       {
