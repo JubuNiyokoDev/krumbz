@@ -15,11 +15,11 @@
   },
   "contact": {
     "whatsapp": {
-      "note": "TO BE COMPLETED (À COMPLÉTER): confirm which of the two numbers receives WhatsApp messages."
+      "note": "Both numbers are also reachable on WhatsApp."
     },
     "email": "TO BE COMPLETED (À COMPLÉTER)",
-    "address": "TO BE COMPLETED (À COMPLÉTER)",
-    "city": "TO BE COMPLETED (À COMPLÉTER)",
+    "address": "Bwoga 2, n° 37",
+    "city": "Gitega",
     "country": "Burundi",
     "hours": "TO BE COMPLETED (À COMPLÉTER)"
   },
@@ -204,8 +204,9 @@
         "description": "The handy format, to slip into a bag or a school bag.",
         "weight": "TO BE COMPLETED (À COMPLÉTER)",
         "unitsPerPack": "TO BE COMPLETED (À COMPLÉTER)",
-        "price": null,
-        "priceDisplay": "TO BE COMPLETED (À COMPLÉTER)"
+        "price": 850,
+        "priceDisplay": "850 BIF (regular price 1,000 BIF) — Christmas promo",
+        "compareAtPrice": 1000
       },
       {
         "id": "carton",
@@ -214,9 +215,10 @@
         "short": "The carton of packs",
         "description": "For the family, school, the office or events.",
         "weight": "TO BE COMPLETED (À COMPLÉTER)",
-        "unitsPerPack": "TO BE COMPLETED (À COMPLÉTER)",
-        "price": null,
-        "priceDisplay": "TO BE COMPLETED (À COMPLÉTER)"
+        "unitsPerPack": "24 packs",
+        "price": 16800,
+        "priceDisplay": "16,800 BIF per carton of 24 packs (regular price 20,400 BIF) — Christmas promo",
+        "compareAtPrice": 20400
       }
     ],
     "formats": {
@@ -282,7 +284,8 @@
       "disclaimer": "Values to be provided by Crispy Food Products from the official label."
     },
     "chooseTitle": "Choose your format",
-    "factsTitle": "Ingredients and storage"
+    "factsTitle": "Ingredients and storage",
+    "promoLabel": "Christmas promo"
   },
   "story": {
     "eyebrow": "Our story",
@@ -432,7 +435,7 @@
           "Registered office: TO BE COMPLETED (À COMPLÉTER).",
           "Tax identification number (NIF): TO BE COMPLETED (À COMPLÉTER).",
           "Trade register: TO BE COMPLETED (À COMPLÉTER).",
-          "Phone: +257 62 697 087 / +257 72 369 113.",
+          "Phone: +257 68 49 73 72 / +257 61 89 59 40.",
           "Publication director: TO BE COMPLETED (À COMPLÉTER)."
         ]
       },
@@ -503,7 +506,7 @@
       },
       "contact": {
         "title": "Contact",
-        "description": "Contact Krumbz on WhatsApp or by phone at +257 62 697 087 or +257 72 369 113."
+        "description": "Contact Krumbz on WhatsApp or by phone at +257 68 49 73 72 or +257 61 89 59 40."
       },
       "legal": {
         "title": "Legal notice",

@@ -16,22 +16,22 @@
   "contact": {
     "phones": [
       {
-        "display": "+257 62 697 087",
-        "e164": "+25762697087"
+        "display": "+257 68 49 73 72",
+        "e164": "+25768497372"
       },
       {
-        "display": "+257 72 369 113",
-        "e164": "+25772369113"
+        "display": "+257 61 89 59 40",
+        "e164": "+25761895940"
       }
     ],
     "whatsapp": {
-      "number": "25762697087",
-      "display": "+257 62 697 087",
-      "note": "À COMPLÉTER : confirmer lequel des deux numéros reçoit les messages WhatsApp."
+      "number": "25768497372",
+      "display": "+257 68 49 73 72",
+      "note": "Les deux numéros sont aussi joignables sur WhatsApp."
     },
     "email": "À COMPLÉTER",
-    "address": "À COMPLÉTER",
-    "city": "À COMPLÉTER",
+    "address": "Bwoga 2, n° 37",
+    "city": "Gitega",
     "country": "Burundi",
     "hours": "À COMPLÉTER",
     "mapUrl": "",
@@ -39,22 +39,32 @@
       {
         "network": "facebook",
         "label": "Facebook",
-        "url": ""
+        "url": "https://www.facebook.com/JubuNiyoko"
       },
       {
         "network": "instagram",
         "label": "Instagram",
-        "url": ""
+        "url": "https://www.instagram.com/jubu_niyoko/"
       },
       {
         "network": "tiktok",
         "label": "TikTok",
-        "url": ""
+        "url": "https://www.tiktok.com/@jubuniyoko?_r=1&_t=ZS-9BWqhuo26LN"
       },
       {
         "network": "youtube",
         "label": "YouTube",
-        "url": ""
+        "url": "https://www.youtube.com/@JubuNiyoko"
+      },
+      {
+        "network": "x",
+        "label": "X",
+        "url": "https://x.com/jubu_niyoko"
+      },
+      {
+        "network": "linkedin",
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/niyondiko-joffre-062840277"
       }
     ]
   },
@@ -239,8 +249,9 @@
         "description": "Le format pratique, à glisser dans un sac ou un cartable.",
         "weight": "À COMPLÉTER",
         "unitsPerPack": "À COMPLÉTER",
-        "price": null,
-        "priceDisplay": "À COMPLÉTER"
+        "price": 850,
+        "priceDisplay": "850 FBu (prix normal 1 000 FBu) — Promo Noël",
+        "compareAtPrice": 1000
       },
       {
         "id": "carton",
@@ -249,9 +260,10 @@
         "short": "Le carton de sachets",
         "description": "Pour la famille, l’école, le bureau ou les événements.",
         "weight": "À COMPLÉTER",
-        "unitsPerPack": "À COMPLÉTER",
-        "price": null,
-        "priceDisplay": "À COMPLÉTER"
+        "unitsPerPack": "24 sachets",
+        "price": 16800,
+        "priceDisplay": "16 800 FBu le carton de 24 sachets (prix normal 20 400 FBu) — Promo Noël",
+        "compareAtPrice": 20400
       }
     ],
     "formats": {
@@ -317,7 +329,8 @@
       "disclaimer": "Valeurs à fournir par Crispy Food Products d’après l’étiquette officielle."
     },
     "chooseTitle": "Choisissez votre format",
-    "factsTitle": "Composition et conservation"
+    "factsTitle": "Composition et conservation",
+    "promoLabel": "Promo Noël"
   },
   "story": {
     "eyebrow": "Notre histoire",
@@ -467,7 +480,7 @@
           "Siège social : À COMPLÉTER.",
           "Numéro d’identification fiscale (NIF) : À COMPLÉTER.",
           "Registre de commerce : À COMPLÉTER.",
-          "Téléphone : +257 62 697 087 / +257 72 369 113.",
+          "Téléphone : +257 68 49 73 72 / +257 61 89 59 40.",
           "Directeur de la publication : À COMPLÉTER."
         ]
       },
@@ -538,7 +551,7 @@
       },
       "contact": {
         "title": "Contact",
-        "description": "Contactez Krumbz par WhatsApp ou par téléphone au +257 62 697 087 ou +257 72 369 113."
+        "description": "Contactez Krumbz par WhatsApp ou par téléphone au +257 68 49 73 72 ou +257 61 89 59 40."
       },
       "legal": {
         "title": "Mentions légales",

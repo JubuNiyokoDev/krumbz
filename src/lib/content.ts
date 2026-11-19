@@ -9,7 +9,10 @@ import rn from "../../content/site.rn.json";
  */
 export type SiteContent = typeof fr;
 export type SceneContent = SiteContent["home"]["moments"]["scenes"][number];
-export type ProductContent = SiteContent["products"]["items"][number] & { price: number | null };
+export type ProductContent = SiteContent["products"]["items"][number] & {
+  price: number | null;
+  compareAtPrice: number | null;
+};
 
 const sources: Record<string, unknown> = { fr, en, rn };
 
