@@ -15,7 +15,9 @@
     "icons": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/generate-brand-icons.mjs",
     "budgets": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-budgets.mjs",
     "lighthouse": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/lighthouse.mjs",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "build:3d": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-3d.mjs",
+    "optimize:3d": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/optimize-3d.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
