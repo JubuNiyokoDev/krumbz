@@ -2,7 +2,7 @@
 
 > Fichier généré automatiquement par `npm run images:readme` à partir de `src/lib/assets/registry.ts`. Ne pas le modifier à la main.
 
-22 fichiers attendus. Pour voir ceux qui manquent encore : `npm run todo`.
+42 fichiers attendus. Pour voir ceux qui manquent encore : `npm run todo`.
 
 ## Comment remplacer une image
 
@@ -48,6 +48,26 @@ Chaque moment de vie existe en deux versions : **paysage** (ordinateur, tablette
 | `images/scenes/pause-bureau-portrait.jpg` | JPG | portrait | 1080 × 1920 (9:16), < 300 Ko | Accueil, scène « Au bureau » : pause entre collègues — téléphone. Laisser de l’espace libre dans le tiers inférieur pour le produit 3D. |
 | `images/scenes/amis-sortie-paysage.jpg` | JPG | paysage | 2400 × 1350 (16:9), < 400 Ko | Accueil, scène « Entre amis » : sortie entre amis — ordinateur et tablette en paysage. Laisser de l’espace libre au centre-droit pour le produit 3D. |
 | `images/scenes/amis-sortie-portrait.jpg` | JPG | portrait | 1080 × 1920 (9:16), < 300 Ko | Accueil, scène « Entre amis » : sortie entre amis — téléphone. Laisser de l’espace libre dans le tiers inférieur pour le produit 3D. |
+| `images/scenes/petit-dejeuner-paysage.jpg` | JPG | paysage | 2400 × 1350 (16:9), < 400 Ko | Accueil, scène « Petit-déjeuner » : en famille le matin — ordinateur et tablette en paysage. Laisser de l’espace libre au centre-droit pour le produit 3D. |
+| `images/scenes/petit-dejeuner-portrait.jpg` | JPG | portrait | 1080 × 1920 (9:16), < 300 Ko | Accueil, scène « Petit-déjeuner » : en famille le matin — téléphone. Laisser de l’espace libre dans le tiers inférieur pour le produit 3D. |
+| `images/scenes/bibliotheque-paysage.jpg` | JPG | paysage | 2400 × 1350 (16:9), < 400 Ko | Accueil, scène « À la bibliothèque » : pause révisions entre étudiants — ordinateur et tablette en paysage. Laisser de l’espace libre au centre-droit pour le produit 3D. |
+| `images/scenes/bibliotheque-portrait.jpg` | JPG | portrait | 1080 × 1920 (9:16), < 300 Ko | Accueil, scène « À la bibliothèque » : pause révisions entre étudiants — téléphone. Laisser de l’espace libre dans le tiers inférieur pour le produit 3D. |
+| `images/scenes/equipe-sport-paysage.jpg` | JPG | paysage | 2400 × 1350 (16:9), < 400 Ko | Accueil, scène « Entre coéquipiers » : une équipe de foot après l’entraînement — ordinateur et tablette en paysage. Laisser de l’espace libre au centre-droit pour le produit 3D. |
+| `images/scenes/equipe-sport-portrait.jpg` | JPG | portrait | 1080 × 1920 (9:16), < 300 Ko | Accueil, scène « Entre coéquipiers » : une équipe de foot après l’entraînement — téléphone. Laisser de l’espace libre dans le tiers inférieur pour le produit 3D. |
+| `images/scenes/reunion-bureau-paysage.jpg` | JPG | paysage | 2400 × 1350 (16:9), < 400 Ko | Accueil, scène « En réunion » : une équipe autour de la table — ordinateur et tablette en paysage. Laisser de l’espace libre au centre-droit pour le produit 3D. |
+| `images/scenes/reunion-bureau-portrait.jpg` | JPG | portrait | 1080 × 1920 (9:16), < 300 Ko | Accueil, scène « En réunion » : une équipe autour de la table — téléphone. Laisser de l’espace libre dans le tiers inférieur pour le produit 3D. |
+| `images/scenes/marche-paysage.jpg` | JPG | paysage | 2400 × 1350 (16:9), < 400 Ko | Accueil, scène « Au marché » : une cliente avec son panier de Krumbz — ordinateur et tablette en paysage. Laisser de l’espace libre au centre-droit pour le produit 3D. |
+| `images/scenes/marche-portrait.jpg` | JPG | portrait | 1080 × 1920 (9:16), < 300 Ko | Accueil, scène « Au marché » : une cliente avec son panier de Krumbz — téléphone. Laisser de l’espace libre dans le tiers inférieur pour le produit 3D. |
+| `images/scenes/champs-agriculteurs-paysage.jpg` | JPG | paysage | 2400 × 1350 (16:9), < 400 Ko | Accueil, scène « Aux champs » : des agriculteurs en pause — ordinateur et tablette en paysage. Laisser de l’espace libre au centre-droit pour le produit 3D. |
+| `images/scenes/champs-agriculteurs-portrait.jpg` | JPG | portrait | 1080 × 1920 (9:16), < 300 Ko | Accueil, scène « Aux champs » : des agriculteurs en pause — téléphone. Laisser de l’espace libre dans le tiers inférieur pour le produit 3D. |
+| `images/scenes/panier-cadeau-paysage.jpg` | JPG | paysage | 2400 × 1350 (16:9), < 400 Ko | Accueil, scène « Un panier offert » : un cadeau de Krumbz entre proches — ordinateur et tablette en paysage. Laisser de l’espace libre au centre-droit pour le produit 3D. |
+| `images/scenes/panier-cadeau-portrait.jpg` | JPG | portrait | 1080 × 1920 (9:16), < 300 Ko | Accueil, scène « Un panier offert » : un cadeau de Krumbz entre proches — téléphone. Laisser de l’espace libre dans le tiers inférieur pour le produit 3D. |
+| `images/scenes/road-trip-paysage.jpg` | JPG | paysage | 2400 × 1350 (16:9), < 400 Ko | Accueil, scène « En voyage » : une famille en voiture — ordinateur et tablette en paysage. Laisser de l’espace libre au centre-droit pour le produit 3D. |
+| `images/scenes/road-trip-portrait.jpg` | JPG | portrait | 1080 × 1920 (9:16), < 300 Ko | Accueil, scène « En voyage » : une famille en voiture — téléphone. Laisser de l’espace libre dans le tiers inférieur pour le produit 3D. |
+| `images/scenes/echange-boutique-paysage.jpg` | JPG | paysage | 2400 × 1350 (16:9), < 400 Ko | Accueil, scène « Chez le commerçant » : vente de Krumbz en boutique — ordinateur et tablette en paysage. Laisser de l’espace libre au centre-droit pour le produit 3D. |
+| `images/scenes/echange-boutique-portrait.jpg` | JPG | portrait | 1080 × 1920 (9:16), < 300 Ko | Accueil, scène « Chez le commerçant » : vente de Krumbz en boutique — téléphone. Laisser de l’espace libre dans le tiers inférieur pour le produit 3D. |
+| `images/scenes/famille-noel-paysage.jpg` | JPG | paysage | 2400 × 1350 (16:9), < 400 Ko | Accueil, scène « Joyeux Noël » : une famille fête Noël avec Krumbz — ordinateur et tablette en paysage. Laisser de l’espace libre au centre-droit pour le produit 3D. |
+| `images/scenes/famille-noel-portrait.jpg` | JPG | portrait | 1080 × 1920 (9:16), < 300 Ko | Accueil, scène « Joyeux Noël » : une famille fête Noël avec Krumbz — téléphone. Laisser de l’espace libre dans le tiers inférieur pour le produit 3D. |
 
 ## Produit
 

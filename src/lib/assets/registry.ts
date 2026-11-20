@@ -24,6 +24,16 @@ export const SCENE_IDS = [
   "mariage",
   "pause-bureau",
   "amis-sortie",
+  "petit-dejeuner",
+  "bibliotheque",
+  "equipe-sport",
+  "reunion-bureau",
+  "marche",
+  "champs-agriculteurs",
+  "panier-cadeau",
+  "road-trip",
+  "echange-boutique",
+  "famille-noel",
 ] as const;
 export type SceneId = (typeof SCENE_IDS)[number];
 
@@ -35,6 +45,16 @@ const sceneUsage: Record<SceneId, string> = {
   mariage: "Accueil, scène « Mariage »",
   "pause-bureau": "Accueil, scène « Au bureau » : pause entre collègues",
   "amis-sortie": "Accueil, scène « Entre amis » : sortie entre amis",
+  "petit-dejeuner": "Accueil, scène « Petit-déjeuner » : en famille le matin",
+  bibliotheque: "Accueil, scène « À la bibliothèque » : pause révisions entre étudiants",
+  "equipe-sport": "Accueil, scène « Entre coéquipiers » : une équipe de foot après l’entraînement",
+  "reunion-bureau": "Accueil, scène « En réunion » : une équipe autour de la table",
+  marche: "Accueil, scène « Au marché » : une cliente avec son panier de Krumbz",
+  "champs-agriculteurs": "Accueil, scène « Aux champs » : des agriculteurs en pause",
+  "panier-cadeau": "Accueil, scène « Un panier offert » : un cadeau de Krumbz entre proches",
+  "road-trip": "Accueil, scène « En voyage » : une famille en voiture",
+  "echange-boutique": "Accueil, scène « Chez le commerçant » : vente de Krumbz en boutique",
+  "famille-noel": "Accueil, scène « Joyeux Noël » : une famille fête Noël avec Krumbz",
 };
 
 export function scenePath(id: SceneId, orientation: "paysage" | "portrait") {

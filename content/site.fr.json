@@ -182,6 +182,76 @@
           "title": "Une sortie entre amis",
           "text": "Dans le sac, prêt pour l’aventure.",
           "alt": "Un groupe d’amis en sortie partage des biscuits Krumbz"
+        },
+        {
+          "id": "petit-dejeuner",
+          "label": "Petit-déjeuner",
+          "title": "Au petit-déjeuner",
+          "text": "Un biscuit pour bien commencer.",
+          "alt": "Une mère et son fils partagent des biscuits Krumbz au petit-déjeuner"
+        },
+        {
+          "id": "bibliotheque",
+          "label": "Révisions",
+          "title": "Pause lecture",
+          "text": "Une pause croustillante.",
+          "alt": "Des étudiants partagent des biscuits Krumbz à la bibliothèque"
+        },
+        {
+          "id": "equipe-sport",
+          "label": "Coéquipiers",
+          "title": "Entre coéquipiers",
+          "text": "Un sachet pour toute l’équipe.",
+          "alt": "Une équipe de football partage des biscuits Krumbz"
+        },
+        {
+          "id": "reunion-bureau",
+          "label": "En réunion",
+          "title": "Pause réunion",
+          "text": "Une pause entre deux dossiers.",
+          "alt": "Une équipe partage des biscuits Krumbz en réunion"
+        },
+        {
+          "id": "marche",
+          "label": "Au marché",
+          "title": "Au marché",
+          "text": "Krumbz, près de chez vous.",
+          "alt": "Une cliente achète des biscuits Krumbz au marché"
+        },
+        {
+          "id": "champs-agriculteurs",
+          "label": "Aux champs",
+          "title": "Aux champs",
+          "text": "Un encas après l’effort.",
+          "alt": "Des agriculteurs partagent des biscuits Krumbz aux champs"
+        },
+        {
+          "id": "panier-cadeau",
+          "label": "Panier offert",
+          "title": "Un panier offert",
+          "text": "Le plaisir, offert.",
+          "alt": "Un panier de biscuits Krumbz offert en cadeau"
+        },
+        {
+          "id": "road-trip",
+          "label": "En voyage",
+          "title": "En voyage",
+          "text": "Le compagnon de route.",
+          "alt": "Une famille partage des biscuits Krumbz en voiture"
+        },
+        {
+          "id": "echange-boutique",
+          "label": "Chez le vendeur",
+          "title": "Chez nous",
+          "text": "Vendu avec le sourire.",
+          "alt": "Un commerçant vend des biscuits Krumbz à une cliente"
+        },
+        {
+          "id": "famille-noel",
+          "label": "Joyeux Noël",
+          "title": "Joyeux Noël",
+          "text": "Promo de fin d’année.",
+          "alt": "Une famille fête Noël avec des biscuits Krumbz"
         }
       ],
       "progressLabel": "Progression des moments",

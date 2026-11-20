@@ -195,6 +195,107 @@ function amisSortie({ time, progress }: PoseContext): Composition {
   return withTucked(sachet, cartonAway(0, 0), 1, orbit);
 }
 
+/**
+ * The 10 compositions below power the promotional scenes (small anchor,
+ * tucked in the top band created above the photo — see scene-framing.ts):
+ * simple, compact arrangements since the anchor itself is small on screen.
+ */
+function petitDejeuner({ time }: PoseContext): Composition {
+  const sachet = pose([-0.1, -0.05, 0], [0.02, 0.4, -0.05], 0.5);
+  return withTucked(sachet, cartonAway(), 1, [
+    pose([0.22, 0.02, 0.1], [HALF_PI - 0.1, -0.3, 0.1 + Math.sin(time * 0.8) * 0.05], 0.3),
+  ]);
+}
+
+function bibliotheque({ time }: PoseContext): Composition {
+  const sachet = pose([0, -0.18, -0.1], [0.04, 0.2, 0], 0.4, 0);
+  const stack: ObjectPose[] = [];
+  for (let i = 0; i < 4; i++) {
+    stack.push(pose([0, -0.3 + i * 0.09, 0.05], [0.55, i * 0.5 + time * 0.08, 0], 0.32));
+  }
+  return withTucked(sachet, cartonAway(), 0, stack);
+}
+
+function equipeSport({ time, progress }: PoseContext): Composition {
+  const sachet = pose([0, -0.02, 0], [0.05, Math.sin(time * 0.6) * 0.2, 0], 0.42);
+  const orbit: ObjectPose[] = [];
+  for (let i = 0; i < 4; i++) {
+    const a = time * 0.8 + progress * Math.PI + (i / 4) * Math.PI * 2;
+    orbit.push(pose([Math.cos(a) * 0.4, Math.sin(a * 2) * 0.05, Math.sin(a) * 0.22], [HALF_PI - 0.2, -a, 0], 0.2));
+  }
+  return withTucked(sachet, cartonAway(0, 0), 1, orbit);
+}
+
+function reunionBureau({ time }: PoseContext): Composition {
+  const sachet = pose([-0.2, -0.04, -0.02], [0.06, 0.3, -0.2], 0.4);
+  const fan: ObjectPose[] = [];
+  for (let i = 0; i < 3; i++) {
+    const a = -0.4 + i * 0.4;
+    fan.push(pose([0.16 + Math.sin(a) * 0.18, Math.cos(a) * 0.1, 0.08 + i * 0.01], [HALF_PI - 0.12, -a * 0.9 + Math.sin(time * 0.6 + i) * 0.03, 0], 0.24));
+  }
+  return withTucked(sachet, cartonAway(), 1, fan);
+}
+
+function marche({ time }: PoseContext): Composition {
+  const sachet = pose([-0.16, -0.02, 0.04], [0.03, 0.35, -0.08], 0.46);
+  return withTucked(sachet, cartonAway(), 1, [pose([0.2, 0.04 + Math.sin(time * 0.7) * 0.02, 0.1], [HALF_PI - 0.1, 0.2, 0], 0.3)]);
+}
+
+function champsAgriculteurs({ time }: PoseContext): Composition {
+  const carton = pose([0.18, -0.08, -0.1], [0.1, -0.4, 0], 0.4);
+  const sachet = pose([-0.2, -0.02, 0.05], [0.02, 0.4, -0.08], 0.42);
+  const row: ObjectPose[] = [];
+  for (let i = 0; i < 3; i++) {
+    row.push(pose([-0.02 + i * 0.1, -0.22, 0.14], [0.5, time * 0.12 + i * 0.4, 0], 0.26));
+  }
+  return withTucked(sachet, carton, 1, row);
+}
+
+function panierCadeau({ time, progress }: PoseContext): Composition {
+  const carton = pose([0, -0.26, -0.1], [0.1, -0.3, 0], 0.4);
+  const tower: ObjectPose[] = [];
+  for (let i = 0; i < 4; i++) {
+    tower.push(pose([0.06, -0.08 + i * 0.03, -0.02], [0.4, time * 0.3 + i * 0.6 + progress * 1.5, 0], 0.28 - i * 0.01));
+  }
+  return withTucked(cartonAway(-0.18, -0.05), carton, 1, tower);
+}
+
+function roadTrip({ time }: PoseContext): Composition {
+  const sachet = pose([-0.22, -0.04, 0], [0.03, 0.38, -0.05], 0.44);
+  const row: ObjectPose[] = [];
+  for (let i = 0; i < 3; i++) {
+    const bob = Math.sin(time * 1.2 + i * 1.1) * 0.015;
+    row.push(pose([0.06 + i * 0.13, 0.02 + bob, 0.08], [HALF_PI - 0.15, -0.2 + i * 0.15, 0], 0.24));
+  }
+  return withTucked(sachet, cartonAway(), 1, row);
+}
+
+function echangeBoutique({ time }: PoseContext): Composition {
+  const lean = Math.sin(time * 0.9) * 0.03;
+  return withTucked(
+    pose([-0.18, -0.03, -0.06], [0.02, 0.4, 0.08], 0.46, 0),
+    cartonAway(0.18, -0.04),
+    1,
+    [
+      pose([-0.08, -0.08, 0.14], [HALF_PI - 0.05, -0.3, -0.2 + lean], 0.3),
+      pose([0.1, -0.06, 0.1], [HALF_PI - 0.05, 0.35, 0.22 - lean], 0.3),
+    ],
+  );
+}
+
+function familleNoel({ time, progress }: PoseContext): Composition {
+  const carton = pose([0, -0.24, -0.1], [0.1, -0.35, 0], 0.4);
+  const rings: ObjectPose[] = [
+    pose([-0.07, 0.04, 0], [HALF_PI - 0.15, 0.5, -0.1], 0.26),
+    pose([0.07, 0.04, 0.02], [HALF_PI - 0.15, -0.5, 0.1], 0.26),
+  ];
+  for (let i = 0; i < 2; i++) {
+    const a = time * 0.5 + progress * Math.PI + (i / 2) * Math.PI * 2;
+    rings.push(pose([Math.cos(a) * 0.3, 0.1 + Math.sin(a * 2) * 0.04, Math.sin(a) * 0.18], [HALF_PI - 0.2, a * 1.3, 0], 0.16));
+  }
+  return withTucked(cartonAway(-0.16, 0), carton, 1, rings);
+}
+
 function benefits({ time }: PoseContext): Composition {
   // one large biscuit slowly turning: grazing light reveals the MARIE relief
   const sachet = pose([0, -0.1, -0.3], [0, 0, 0], 0.45, 0);
@@ -224,6 +325,16 @@ const STAGES: Record<StageId, (ctx: PoseContext) => Composition> = {
   mariage,
   "pause-bureau": pauseBureau,
   "amis-sortie": amisSortie,
+  "petit-dejeuner": petitDejeuner,
+  bibliotheque,
+  "equipe-sport": equipeSport,
+  "reunion-bureau": reunionBureau,
+  marche,
+  "champs-agriculteurs": champsAgriculteurs,
+  "panier-cadeau": panierCadeau,
+  "road-trip": roadTrip,
+  "echange-boutique": echangeBoutique,
+  "famille-noel": familleNoel,
   benefits,
   products,
   cta,

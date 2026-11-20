@@ -132,6 +132,76 @@
           "title": "A day out with friends",
           "text": "In the bag, ready for adventure.",
           "alt": "A group of friends on an outing sharing Krumbz biscuits"
+        },
+        {
+          "id": "petit-dejeuner",
+          "label": "Breakfast",
+          "title": "At breakfast",
+          "text": "A biscuit to start the day right.",
+          "alt": "A mother and son share Krumbz biscuits at breakfast"
+        },
+        {
+          "id": "bibliotheque",
+          "label": "Study break",
+          "title": "Study break",
+          "text": "A crunchy break.",
+          "alt": "Students share Krumbz biscuits at the library"
+        },
+        {
+          "id": "equipe-sport",
+          "label": "Teammates",
+          "title": "Teammates",
+          "text": "One pack for the whole team.",
+          "alt": "A football team shares Krumbz biscuits"
+        },
+        {
+          "id": "reunion-bureau",
+          "label": "In a meeting",
+          "title": "Meeting break",
+          "text": "A break between two files.",
+          "alt": "A team shares Krumbz biscuits in a meeting"
+        },
+        {
+          "id": "marche",
+          "label": "At the market",
+          "title": "At the market",
+          "text": "Krumbz, near you.",
+          "alt": "A customer buys Krumbz biscuits at the market"
+        },
+        {
+          "id": "champs-agriculteurs",
+          "label": "In the fields",
+          "title": "In the fields",
+          "text": "A snack after the work.",
+          "alt": "Farmers share Krumbz biscuits in the fields"
+        },
+        {
+          "id": "panier-cadeau",
+          "label": "A gift basket",
+          "title": "A gift basket",
+          "text": "Good things, gifted.",
+          "alt": "A basket of Krumbz biscuits given as a gift"
+        },
+        {
+          "id": "road-trip",
+          "label": "On the road",
+          "title": "On the road",
+          "text": "The road-trip companion.",
+          "alt": "A family shares Krumbz biscuits in the car"
+        },
+        {
+          "id": "echange-boutique",
+          "label": "At the shop",
+          "title": "At our shop",
+          "text": "Sold with a smile.",
+          "alt": "A shopkeeper sells Krumbz biscuits to a customer"
+        },
+        {
+          "id": "famille-noel",
+          "label": "Merry Christmas",
+          "title": "Merry Christmas",
+          "text": "Our year-end promo.",
+          "alt": "A family celebrates Christmas with Krumbz biscuits"
         }
       ],
       "progressLabel": "Moments progress",

@@ -127,6 +127,141 @@ export const SCENE_FRAMING: Record<SceneId, SceneFraming> = {
     copy: { width: 26 },
     anchor: { cx: 86, cy: 72, size: 26 },
   },
+  // The 10 scenes below are promotional photos with the Krumbz pack already
+  // visible in-frame, people filling almost the whole width: there is no
+  // half-free side like the 7 scenes above. Two (petit-dejeuner, bibliotheque)
+  // kept a real free side from the source photo. For the other 8, the top of
+  // the photo was extended with a blurred continuation of its own sky/wall/
+  // ceiling (see scripts/_scene-extend, run once to produce the files) to
+  // create a genuine free band — faces/sachet start around y 20%, so the
+  // anchor and the (narrow, short) copy both stay above that line.
+  "petit-dejeuner": {
+    freeSide: "right",
+    faces: [
+      [4, 4, 30, 42],
+      [36, 8, 64, 60],
+    ],
+    sachet: [8, 44, 33, 100],
+    wide: "0% 38%",
+    copy: { width: 24 },
+    anchor: { cx: 85, cy: 55, size: 24 },
+  },
+  bibliotheque: {
+    freeSide: "left",
+    faces: [
+      [30, 13, 53, 58],
+      [55, 18, 77, 63],
+      [80, 13, 100, 56],
+    ],
+    sachet: [58, 50, 83, 100],
+    wide: "100% 38%",
+    copy: { width: 12 },
+    anchor: { cx: 6, cy: 68, size: 12 },
+  },
+  "equipe-sport": {
+    freeSide: "right",
+    faces: [
+      [14.4, 41.8, 28.8, 62.3],
+      [31.3, 38.3, 45.8, 58.9],
+      [52.5, 37.0, 67.0, 58.9],
+      [77.1, 38.3, 89.0, 60.3],
+    ],
+    sachet: [20.3, 58.9, 89.8, 93.1],
+    wide: "50% 30%",
+    copy: { width: 14 },
+    anchor: { cx: 72, cy: 10, size: 15 },
+  },
+  "reunion-bureau": {
+    freeSide: "right",
+    faces: [
+      [7.6, 52.0, 21.2, 72.6],
+      [22.9, 50.7, 36.4, 74.0],
+      [44.9, 48.6, 60.2, 71.2],
+      [71.2, 52.0, 85.6, 74.0],
+      [85.6, 53.4, 92.4, 74.0],
+    ],
+    sachet: [31.3, 69.2, 92.4, 100],
+    wide: "50% 30%",
+    copy: { width: 14 },
+    anchor: { cx: 30, cy: 10, size: 15 },
+  },
+  marche: {
+    freeSide: "right",
+    faces: [
+      [28.8, 34.9, 46.6, 58.9],
+      [68.7, 38.3, 82.2, 58.9],
+      [7.6, 37.0, 17.8, 56.2],
+    ],
+    sachet: [14.4, 43.8, 63.6, 100],
+    wide: "50% 30%",
+    copy: { width: 14 },
+    anchor: { cx: 50, cy: 10, size: 15 },
+  },
+  "champs-agriculteurs": {
+    freeSide: "right",
+    faces: [
+      [10.2, 37.0, 28.0, 62.3],
+      [28.8, 34.9, 44.1, 60.3],
+      [52.5, 33.5, 67.0, 60.3],
+      [75.4, 37.0, 90.7, 63.0],
+    ],
+    sachet: [22.9, 62.3, 92.4, 93.1],
+    wide: "50% 30%",
+    copy: { width: 14 },
+    anchor: { cx: 50, cy: 10, size: 15 },
+  },
+  "panier-cadeau": {
+    freeSide: "right",
+    faces: [
+      [7.6, 37.0, 20.3, 64.4],
+      [20.3, 34.9, 34.7, 60.3],
+      [63.6, 34.9, 78.8, 58.9],
+      [78.8, 38.3, 92.4, 64.4],
+    ],
+    sachet: [39.8, 48.6, 67.0, 100],
+    wide: "50% 30%",
+    copy: { width: 14 },
+    anchor: { cx: 50, cy: 10, size: 15 },
+  },
+  "road-trip": {
+    freeSide: "right",
+    faces: [
+      [9.3, 38.3, 26.3, 67.1],
+      [29.7, 41.8, 43.2, 65.7],
+      [48.3, 43.8, 60.2, 67.1],
+      [67.0, 37.0, 85.6, 67.1],
+    ],
+    sachet: [14.4, 62.3, 63.6, 87.7],
+    wide: "50% 30%",
+    copy: { width: 14 },
+    anchor: { cx: 50, cy: 10, size: 15 },
+  },
+  "echange-boutique": {
+    freeSide: "left",
+    faces: [
+      [11.0, 41.8, 28.0, 76.1],
+      [56.8, 38.6, 77.1, 71.5],
+    ],
+    // The shelf behind the shopkeeper is Krumbz packs top to bottom on the right:
+    // the free band is narrower here (left side only, above the customer's head).
+    sachet: [39.8, 36.7, 92.4, 100],
+    wide: "50% 30%",
+    copy: { width: 12 },
+    anchor: { cx: 18, cy: 12, size: 16 },
+  },
+  "famille-noel": {
+    freeSide: "right",
+    faces: [
+      [11.8, 37.0, 29.7, 69.9],
+      [30.5, 38.3, 48.3, 71.2],
+      [50.0, 37.0, 67.0, 72.6],
+      [70.3, 34.9, 89.0, 71.2],
+    ],
+    sachet: [31.3, 71.2, 89.0, 98.6],
+    wide: "50% 30%",
+    copy: { width: 14 },
+    anchor: { cx: 50, cy: 10, size: 15 },
+  },
 };
 
 /** Horizontal margin kept around the faces/sachet on phones, in % of the image width. */
