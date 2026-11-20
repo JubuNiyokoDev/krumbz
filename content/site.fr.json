@@ -252,8 +252,8 @@
         "name": "Sachet Krumbz",
         "short": "Le sachet individuel",
         "description": "Le format pratique, à glisser dans un sac ou un cartable.",
-        "weight": "À COMPLÉTER",
-        "unitsPerPack": "4 biscuits",
+        "weight": "50 g",
+        "unitsPerPack": "6 biscuits",
         "price": 850,
         "priceDisplay": "850 FBu (prix normal 1 000 FBu) — Promo Noël",
         "compareAtPrice": 1000
@@ -264,7 +264,7 @@
         "name": "Carton Krumbz",
         "short": "Le carton de sachets",
         "description": "Pour la famille, l’école, le bureau ou les événements.",
-        "weight": "À COMPLÉTER",
+        "weight": "1,2 kg (24 sachets × 50 g)",
         "unitsPerPack": "24 sachets",
         "price": 16800,
         "priceDisplay": "16 800 FBu le carton de 24 sachets (prix normal 20 400 FBu) — Promo Noël",
@@ -281,14 +281,23 @@
     "ingredients": {
       "title": "Ingrédients",
       "list": [
-        "À COMPLÉTER"
+        "Champignons (ingrédient de base)",
+        "Farine de blé",
+        "Sucre",
+        "Huile",
+        "Œufs",
+        "Lait",
+        "Fraises"
       ],
       "allergensTitle": "Allergènes",
-      "allergens": "À COMPLÉTER",
+      "allergens": "Contient du blé (gluten), des œufs et du lait (d’après la liste des ingrédients de l’étiquette).",
       "storageTitle": "Conservation",
       "storage": "À COMPLÉTER",
       "shelfLifeTitle": "Durée de conservation",
-      "shelfLife": "À COMPLÉTER"
+      "shelfLife": "12 mois après la fabrication. Les dates de fabrication (MFG), d’expiration (EXP) et le numéro de lot sont imprimés sur chaque sachet.",
+      "labelNote": "Le champignon est l’ingrédient de base de Krumbz ; il est mélangé à la farine de blé, au sucre, à l’huile, aux œufs, au lait et aux fraises.",
+      "producerTitle": "Fabricant",
+      "producer": "Crispy Food Products, Quartier Industriel, Bujumbura — tél. +257 62 69 75 97 / +257 72 36 91 13."
     },
     "nutrition": {
       "title": "Valeurs nutritionnelles",
@@ -346,7 +355,7 @@
         "id": "burundi",
         "image": "burundi-collines",
         "title": "Fabriqué au Burundi",
-        "text": "Krumbz est fabriqué au Burundi par Crispy Food Products. Histoire de l’entreprise, date de création et lieu de fabrication : À COMPLÉTER.",
+        "text": "Krumbz est fabriqué à Bujumbura, dans le Quartier Industriel, par Crispy Food Products. Histoire de l’entreprise et date de création : À COMPLÉTER.",
         "alt": "Les collines verdoyantes du Burundi"
       },
       {

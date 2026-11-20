@@ -34,6 +34,7 @@ export default async function ProductsPage({ params }: PageProps<"/[locale]/prod
     { title: p.ingredients.allergensTitle, value: p.ingredients.allergens },
     { title: p.ingredients.storageTitle, value: p.ingredients.storage },
     { title: p.ingredients.shelfLifeTitle, value: p.ingredients.shelfLife },
+    { title: p.ingredients.producerTitle, value: p.ingredients.producer },
   ];
 
   return (
@@ -155,8 +156,9 @@ export default async function ProductsPage({ params }: PageProps<"/[locale]/prod
                     </li>
                   ))}
                 </ul>
+                <p className="mt-4 text-sm text-navy/70">{p.ingredients.labelNote}</p>
               </article>
-              <dl className="grid gap-5 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+              <dl className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                 {facts.map((fact, i) => (
                   <div key={fact.title} data-reveal style={{ "--reveal-delay": `${i * 90}ms` } as CSSProperties} className="rounded-[2rem] bg-cream p-6 shadow-biscuit ring-1 ring-navy/5">
                     <dt className="font-display text-lg font-bold">{fact.title}</dt>

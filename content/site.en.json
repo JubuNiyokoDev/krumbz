@@ -202,8 +202,8 @@
         "name": "Krumbz pack",
         "short": "The single pack",
         "description": "The handy format, to slip into a bag or a school bag.",
-        "weight": "TO BE COMPLETED (À COMPLÉTER)",
-        "unitsPerPack": "4 biscuits",
+        "weight": "50 g",
+        "unitsPerPack": "6 biscuits",
         "price": 850,
         "priceDisplay": "850 BIF (regular price 1,000 BIF) — Christmas promo",
         "compareAtPrice": 1000
@@ -214,7 +214,7 @@
         "name": "Krumbz carton",
         "short": "The carton of packs",
         "description": "For the family, school, the office or events.",
-        "weight": "TO BE COMPLETED (À COMPLÉTER)",
+        "weight": "1.2 kg (24 packs × 50 g)",
         "unitsPerPack": "24 packs",
         "price": 16800,
         "priceDisplay": "16,800 BIF per carton of 24 packs (regular price 20,400 BIF) — Christmas promo",
@@ -231,14 +231,23 @@
     "ingredients": {
       "title": "Ingredients",
       "list": [
-        "TO BE COMPLETED (À COMPLÉTER)"
+        "Mushrooms (base ingredient)",
+        "Wheat flour",
+        "Sugar",
+        "Oil",
+        "Eggs",
+        "Milk",
+        "Strawberries"
       ],
       "allergensTitle": "Allergens",
-      "allergens": "TO BE COMPLETED (À COMPLÉTER)",
+      "allergens": "Contains wheat (gluten), eggs and milk (based on the ingredient list on the label).",
       "storageTitle": "Storage",
       "storage": "TO BE COMPLETED (À COMPLÉTER)",
       "shelfLifeTitle": "Shelf life",
-      "shelfLife": "TO BE COMPLETED (À COMPLÉTER)"
+      "shelfLife": "12 months from production. The production date (MFG), expiry date (EXP) and batch number are printed on every pack.",
+      "labelNote": "Mushroom is the base ingredient of Krumbz; it is blended with wheat flour, sugar, oil, eggs, milk and strawberries.",
+      "producerTitle": "Manufacturer",
+      "producer": "Crispy Food Products, Quartier Industriel, Bujumbura — tel. +257 62 69 75 97 / +257 72 36 91 13."
     },
     "nutrition": {
       "title": "Nutrition facts",
@@ -296,7 +305,7 @@
         "id": "burundi",
         "image": "burundi-collines",
         "title": "Made in Burundi",
-        "text": "Krumbz is made in Burundi by Crispy Food Products. Company history, founding date and production site: TO BE COMPLETED (À COMPLÉTER).",
+        "text": "Krumbz is made in Bujumbura, in the Quartier Industriel, by Crispy Food Products. Company history and founding date: TO BE COMPLETED (À COMPLÉTER).",
         "alt": "The green hills of Burundi"
       },
       {
