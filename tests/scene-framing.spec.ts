@@ -115,6 +115,14 @@ test.describe("Cadrage des scènes", () => {
       await page.screenshot({ path: shotPath });
       await testInfo.attach(`${id}-${testInfo.project.name}`, { path: shotPath, contentType: "image/png" });
 
+      // The 3D layer needs a real box (an empty anchor without height is ignored)
+      // and the scenes must stay below the fixed canvas (isolated stacking context).
+      expect(m.anchor.bottom - m.anchor.top, "hauteur de l’ancre 3D").toBeGreaterThan(40);
+      expect(
+        await section.evaluate((el) => getComputedStyle(el.parentElement!).isolation),
+        "scènes isolées sous le canvas 3D",
+      ).toBe("isolate");
+
       const problems: string[] = [];
       m.boxes.forEach((box, i) => {
         const what = named[i].name;

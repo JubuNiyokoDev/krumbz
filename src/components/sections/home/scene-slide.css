@@ -44,6 +44,8 @@
 .ks-anchor {
   position: relative;
   flex: none;
+  /* The anchor is an empty box: without a height the 3D layer ignores it (no product drawn). */
+  aspect-ratio: 1;
 }
 
 .ks-title {

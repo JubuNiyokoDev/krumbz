@@ -127,7 +127,10 @@ export function MomentsMotion({
   };
 
   return (
-    <div ref={rootRef} className="relative">
+    // `isolate`: the scenes' rising z-index (stacked panels) stays inside this
+    // stacking context, below the fixed 3D canvas (z-5) — otherwise every scene
+    // from the 5th on would hide the travelling products.
+    <div ref={rootRef} className="relative isolate">
       <nav ref={railRef} aria-label={progressLabel} className="invisible fixed z-40 opacity-0 max-lg:inset-x-0 max-lg:top-0 lg:right-6 lg:top-1/2 lg:-translate-y-1/2">
         {/* mobile: segmented bar + current label */}
         <div className="flex items-center gap-3 bg-navy/55 px-4 py-2 text-cream backdrop-blur-md lg:hidden">
