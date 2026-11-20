@@ -37,6 +37,24 @@ test("changement de langue fr → en sur la même page", async ({ page }) => {
   errors.assertNone();
 });
 
+/** (f bis) Same switch, into the two other active locales (Kirundi, Swahili). */
+for (const locale of ["rn", "sw"] as const) {
+  test(`changement de langue fr → ${locale} sur la même page`, async ({ page }) => {
+    const errors = watchErrors(page);
+    await page.goto(pathFor("/produits", "fr"));
+    await openMenuIfCollapsed(page, "fr");
+
+    const target = LOCALE_LABELS[locale];
+    const switcher = page.getByRole("link", { name: new RegExp(`^(${target.long}|${target.short})$`, "i") }).first();
+    await switcher.click();
+
+    await expect(page).toHaveURL((url) => url.pathname === pathFor("/produits", locale));
+    await expect(page.locator("html")).toHaveAttribute("lang", locale);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(content(locale).products.title);
+    errors.assertNone();
+  });
+}
+
 /** (g) Keyboard: the first Tab reaches the skip link, which moves focus to <main id="contenu">. */
 test("clavier : lien d’évitement en premier", async ({ page }) => {
   const c = content("fr");

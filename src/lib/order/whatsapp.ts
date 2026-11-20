@@ -16,8 +16,20 @@ export function orderSubtotal(lines: OrderLine[]): number | null {
   return lines.reduce((sum, l) => sum + (l.unitPrice ?? 0) * l.quantity, 0);
 }
 
-export function formatPrice(amount: number, locale: string): string {
-  return new Intl.NumberFormat(locale, { style: "currency", currency: "BIF", maximumFractionDigits: 0 }).format(amount);
+/**
+ * Formats a BIF amount, e.g. 16800 → "16 800 FBu".
+ *
+ * Deliberately not `Intl.NumberFormat`: its grouping for some locales (observed
+ * with "rn") differs between Node (server render) and the browser (hydration),
+ * producing a different string on each side and crashing hydration (React
+ * error #418). A fixed, manual grouping renders the exact same text everywhere
+ * regardless of locale or JS engine/ICU data.
+ */
+export function formatPrice(amount: number): string {
+  const grouped = Math.round(amount)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, "\u202f");
+  return `${grouped} FBu`;
 }
 
 /** Localized message fragments (from content/site.*.json → order.whatsapp). */
@@ -33,7 +45,7 @@ export interface WhatsAppTemplate {
   thanks: string;
 }
 
-export function buildOrderMessage(order: OrderDraft, template: WhatsAppTemplate, paymentLabel: string, locale: string) {
+export function buildOrderMessage(order: OrderDraft, template: WhatsAppTemplate, paymentLabel: string) {
   const { customer } = order;
   const phone = normalizeBurundiPhone(customer.phone);
   const subtotal = orderSubtotal(order.lines);
@@ -41,7 +53,7 @@ export function buildOrderMessage(order: OrderDraft, template: WhatsAppTemplate,
     template.greeting,
     "",
     ...order.lines.filter((l) => l.quantity > 0).map((l) => template.line({ quantity: l.quantity, name: l.name })),
-    ...(subtotal !== null ? ["", template.subtotal({ amount: formatPrice(subtotal, locale) })] : []),
+    ...(subtotal !== null ? ["", template.subtotal({ amount: formatPrice(subtotal) })] : []),
     "",
     template.customer({ name: customer.name.trim() }),
     template.phone({ phone: phone ? formatBurundiPhone(phone) : customer.phone.trim() }),

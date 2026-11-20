@@ -1,8 +1,669 @@
 {
   "_meta": {
-    "about": "Ikirundi — À TRADUIRE. Toute clé absente reprend automatiquement le texte français. Pour activer la langue : déplacer \"rn\" de READY_LOCALES vers ACTIVE_LOCALES dans src/i18n/config.ts.",
-    "status": "Aucune traduction pour l’instant : le site affiche le français pour toutes les clés. La traduction en kirundi doit être faite (ou relue) par une personne de langue maternelle kirundi ; aucune traduction automatique n’a été ajoutée volontairement, faute de pouvoir en garantir la qualité.",
-    "howTo": "1) Copier depuis content/site.fr.json la ou les sections à traduire (même structure, mêmes clés). 2) Traduire uniquement les textes : ne jamais modifier les clés, les identifiants (id, model, image), les prix, ni les variables entre accolades comme {count}, {name} ou {number} ; garder les formes {count, plural, …} en traduisant seulement les mots. 3) Un tableau (liste) remplace entièrement la version française : le copier en entier, dans le même ordre. 4) Laisser « À COMPLÉTER » tel quel tant que l’information n’est pas connue. 5) Vérifier avec `npm run content:check`. 6) Ajouter les chemins localisés de \"rn\" dans src/i18n/routing.ts puis activer la langue dans src/i18n/config.ts.",
-    "toComplete": "À COMPLÉTER"
+    "about": "Ikirundi — igipimo ca mbere c'ubuhinduzi, cakozwe n'ubwenge bw'ikoranabuhanga (AI). Imiterere n'ibimenyetso (id) nk'ibiri muri content/site.fr.json (ururimi rw'intango). Urufunguzo rwose rutabonetse rusubira ku nyandiko y'igifaransa. Agaciro kanditswe « BIZUZUZWA (À COMPLÉTER) » ntikamenyekana, kandi kategekanywa gutangwa na Crispy Food Products. Urutonde (array) rusimbuza burundu urw'igifaransa : rugumane uburebure, urutonde n'amakuru (id, model, price, image, indent) nk'ayo mu gifaransa — `npm run content:check` irabigenzura. Inomero za terefone, imiyoboro ya media na inomero ya WhatsApp ntizisubiwemo hano ku bushake : zikomeza kuva mu dosiye y'igifaransa.",
+    "important": "Ibisobanuro vyose biri muri iyi dosiye bikwiye kwongera gusuzumwa n'umuntu afise Ikirundi nk'ururimi rw'amavuko, imbere yo kubikwirikizwa burundu.",
+    "toComplete": "BIZUZUZWA (À COMPLÉTER)",
+    "currency": "BIF"
+  },
+  "brand": {
+    "name": "Krumbz",
+    "company": "Crispy Food Products",
+    "tagline": "Byoroshe, Bikaze",
+    "promise": "Ibisukuti bifise intungamubiri ku gihe cose c'ubuzima.",
+    "origin": "Bikorewe mu Burundi",
+    "base": "Bikozwe mu bihumyo",
+    "audience": "Ku bana, abangavu, abo mu rukundo, ababyeyi, abarimu n'abakuru bakora akazi."
+  },
+  "contact": {
+    "whatsapp": {
+      "note": "Inomero zombi na zo zishobora kuboneka kuri WhatsApp."
+    },
+    "email": "niyondikojoffreasjubu@gmail.com",
+    "address": "Bwoga 2, n° 37",
+    "city": "Gitega",
+    "country": "Uburundi",
+    "hours": "Amasaha 24 ku 24, iminsi 7 ku ndwi"
+  },
+  "nav": {
+    "home": "Ahabanza",
+    "products": "Ibicuruzwa",
+    "story": "Inkuru yacu",
+    "order": "Gutumiza",
+    "contact": "Itumanaho",
+    "legal": "Amabwirizwa",
+    "menu": "Urutonde",
+    "openMenu": "Fungura urutonde",
+    "closeMenu": "Funga urutonde",
+    "cart": "Agatebo",
+    "openCart": "Fungura agatebo ({count, plural, =0 {gasa} one {igicuruzwa #} other {ibicuruzwa #}})",
+    "language": "Ururimi",
+    "skipToContent": "Gana ku bintu nyamukuru",
+    "mainNavigation": "Urutonde nyamukuru",
+    "footerNavigation": "Urutonde rwo hepfo",
+    "homeLabel": "Krumbz, garuka ahabanza"
+  },
+  "common": {
+    "toComplete": "BIZUZUZWA (À COMPLÉTER)",
+    "orderNow": "Tumiza",
+    "orderOnWhatsapp": "Tumiza kuri WhatsApp",
+    "discoverProducts": "Raba ibicuruzwa",
+    "readStory": "Soma inkuru yacu",
+    "call": "Hamagara",
+    "callNumber": "Hamagara {number}",
+    "whatsapp": "WhatsApp",
+    "learnMore": "Menya vyinshi",
+    "backHome": "Garuka ahabanza",
+    "close": "Funga",
+    "priceOnRequest": "Igiciro kizoshimangirwa",
+    "quantity": "Umubare",
+    "increase": "Zamura umubare",
+    "decrease": "Gabanya umubare",
+    "remove": "Kura",
+    "addToCart": "Shira mu gatebo",
+    "added": "Vyashizwemo!",
+    "scrollHint": "Kurura hasi",
+    "loading3d": "Turategura ibisukuti…",
+    "loadingPercent": "{percent}%",
+    "staticModeNotice": "Ikibonekezo coroheje kugira dukize igikoresho cawe n'amakuru yawe.",
+    "imagePlaceholder": "Ifoto iraje vuba",
+    "rights": "© {year} Niyondiko Joffre, umudandaza wemejwe wa Krumbz. Uburenganzira bwose burafatiwe. Krumbz ni ikirango ca {company}.",
+    "madeIn": "Vyakozwe neza mu Burundi",
+    "addedToCart": "{name} yashizwe mu gatebo",
+    "toCompleteHint": "Amakuru azotangwa na Crispy Food Products"
+  },
+  "home": {
+    "intro": {
+      "eyebrow": "Krumbz · Crispy Food Products",
+      "title": "Byoroshe, Bikaze",
+      "subtitle": "Ibisukuti bikozwe mu bihumyo, bikorewe mu Burundi, ku gihe cose c'ubuzima.",
+      "cta": "Tumiza nonaha",
+      "secondaryCta": "Raba ibicuruzwa",
+      "packAlt": "Impapuro y'ibisukuti vya Krumbz irafunguka hakaba hasohoka igisukuti"
+    },
+    "moments": {
+      "eyebrow": "Ku gihe cose",
+      "title": "Krumbz, ku gihe cose",
+      "subtitle": "Mubiri biri babiri, mu muryango, ku ishuri, mu birori canke ku kazi : hariho buri gihe ahantu h'igisukuti ca Krumbz.",
+      "scenes": [
+        {
+          "id": "couple-jardin",
+          "label": "Babiri babiri",
+          "title": "Igihe c'ababiri mu murima",
+          "text": "Isegonda ry'umutekano, impapuro yo gusangira.",
+          "alt": "Umwishingizi n'umukenyezi barasangira ibisukuti vya Krumbz mu murima"
+        },
+        {
+          "id": "famille-maison",
+          "label": "Mu muryango",
+          "title": "Mu muryango, i muhira",
+          "text": "Abato n'abakuru bicaye ku meza amwe.",
+          "alt": "Umuryango urasangira ibisukuti vya Krumbz i muhira"
+        },
+        {
+          "id": "classe-enseignant",
+          "label": "Ku ishuri",
+          "title": "Ku ishuri, mu kiruhuko",
+          "text": "Ku banyeshuri na kandi ku barimu.",
+          "alt": "Umwarimu n'abanyeshuri ku ishuri bafise ibisukuti vya Krumbz"
+        },
+        {
+          "id": "anniversaire",
+          "label": "Umusi w'amavuko",
+          "title": "Kwizihiza umusi w'amavuko",
+          "text": "Ibisukuti vyo gusangira n'abashitsi bose.",
+          "alt": "Umusi w'amavuko n'ibisukuti vya Krumbz"
+        },
+        {
+          "id": "mariage",
+          "label": "Ubukwe",
+          "title": "Ku bukwe",
+          "text": "Akanovera kato gakaze ku minsi mikuru.",
+          "alt": "Abashitsi b'ubukwe bafise ibisukuti vya Krumbz"
+        },
+        {
+          "id": "pause-bureau",
+          "label": "Ku biro",
+          "title": "Ikiruhuko ku biro",
+          "text": "Igisukuti hagati y'inama zibiri.",
+          "alt": "Abakozi bagenzi barikiruhuka ku biro bafise ibisukuti vya Krumbz"
+        },
+        {
+          "id": "amis-sortie",
+          "label": "N'abagenzi",
+          "title": "Urugendo n'abagenzi",
+          "text": "Mu mufuko, witeguriye urugendo.",
+          "alt": "Umugwi w'abagenzi mu rugendo barasangira ibisukuti vya Krumbz"
+        },
+        {
+          "id": "petit-dejeuner",
+          "label": "Ifunguro ryo mu gatondo",
+          "title": "Igihe c'ifunguro ryo mu gatondo",
+          "text": "Igisukuti co gutangura umusi neza.",
+          "alt": "Umubyeyi n'umwana wiwe barasangira ibisukuti vya Krumbz mu gatondo"
+        },
+        {
+          "id": "bibliotheque",
+          "label": "Ikiruhuko c'amasomo",
+          "title": "Ikiruhuko c'amasomo",
+          "text": "Ikiruhuko gikaze.",
+          "alt": "Abanyeshuri barasangira ibisukuti vya Krumbz mu isomero"
+        },
+        {
+          "id": "equipe-sport",
+          "label": "Bagenzi b'umugwi",
+          "title": "Bagenzi b'umugwi",
+          "text": "Impapuro imwe ku mugwi wose.",
+          "alt": "Umugwi w'umupira w'amaguru urasangira ibisukuti vya Krumbz"
+        },
+        {
+          "id": "reunion-bureau",
+          "label": "Mu nama",
+          "title": "Ikiruhuko c'inama",
+          "text": "Ikiruhuko hagati y'impapuro zibiri z'akazi.",
+          "alt": "Umugwi urasangira ibisukuti vya Krumbz mu nama"
+        },
+        {
+          "id": "marche",
+          "label": "Ku isoko",
+          "title": "Ku isoko",
+          "text": "Krumbz, hafi yawe.",
+          "alt": "Umukiriya aragura ibisukuti vya Krumbz ku isoko"
+        },
+        {
+          "id": "champs-agriculteurs",
+          "label": "Mu mirima",
+          "title": "Mu mirima",
+          "text": "Ikiryoshe mu nyuma y'akazi.",
+          "alt": "Abarimyi barasangira ibisukuti vya Krumbz mu mirima"
+        },
+        {
+          "id": "panier-cadeau",
+          "label": "Agatebo k'ingabirano",
+          "title": "Agatebo k'ingabirano",
+          "text": "Ibintu vyiza, bitangwa nk'ingabirano.",
+          "alt": "Agatebo k'ibisukuti vya Krumbz katanzwe nk'ingabirano"
+        },
+        {
+          "id": "road-trip",
+          "label": "Mu rugendo",
+          "title": "Mu rugendo",
+          "text": "Umugenzi wawe kuri buri rugendo.",
+          "alt": "Umuryango urasangira ibisukuti vya Krumbz mu modoka"
+        },
+        {
+          "id": "echange-boutique",
+          "label": "Ku iduka",
+          "title": "Ku iduka ryacu",
+          "text": "Biragurishwa n'umutsima.",
+          "alt": "Umudandaza aragurisha ibisukuti vya Krumbz ku mukiriya"
+        },
+        {
+          "id": "famille-noel",
+          "label": "Noeli nziza",
+          "title": "Noeli nziza",
+          "text": "Igiciro kigabanutse c'impera z'umwaka.",
+          "alt": "Umuryango urizihiza Noeli n'ibisukuti vya Krumbz"
+        }
+      ],
+      "progressLabel": "Aho tugeze mu bihe",
+      "goTo": "Ja ku gihe « {label} »"
+    },
+    "benefits": {
+      "eyebrow": "Kubera iki Krumbz",
+      "title": "Ivyatuma Krumbz idasanzwe",
+      "items": [
+        {
+          "id": "crispy",
+          "title": "Byoroshe kandi bikaze",
+          "text": "Igisukuti gito, c'ubutare, gikaze neza."
+        },
+        {
+          "id": "mushroom",
+          "title": "Bikozwe mu bihumyo",
+          "text": "Uburyo bwo gutegura budasanzwe butuma Krumbz itandukanye."
+        },
+        {
+          "id": "burundi",
+          "title": "Bikorewe mu Burundi",
+          "text": "Birakorerwa ng'aha na Crispy Food Products."
+        },
+        {
+          "id": "everyone",
+          "title": "Ku bantu bose",
+          "text": "Abana, abangavu, ababyeyi, abarimu, abakuru bakora akazi."
+        }
+      ],
+      "nutritionNote": ""
+    },
+    "products": {
+      "eyebrow": "Imiterere yacu",
+      "title": "Impapuro n'ikarito",
+      "subtitle": "Impapuro kuri wewe ubwawe, ikarito ku muryango, ishuri, ibiro canke umusi mukuru."
+    },
+    "cta": {
+      "title": "Urifuza kurya?",
+      "text": "Tumiza mu masegonda make : igitumizo cawe kijana ku buryo butaziguye kuri WhatsApp.",
+      "button": "Tumiza kuri WhatsApp",
+      "phoneLabel": "Canke uduhamagare"
+    },
+    "mushroom": {
+      "eyebrow": "Igihumyo, umutima wa Krumbz",
+      "title": "Ubutunzi bw'amashamba y'i Burundi",
+      "intro": "Ibisukuti birahari hose kw'isi. Ibisukuti bikozwe mu bihumyo ni bikeyi cane. Krumbz irashimika ikintu co ng'aha iwacu : amashamba n'imisozi y'i Burundi birimwo uduce dutandukanye tw'ibihumyo biribwa, bitoragurwa kuva kera bikaguzwa ku masoko, gushika i Bujumbura.",
+      "whyTitle": "Ivyo igihumyo gitanga",
+      "items": [
+        {
+          "symbol": "B2 · B3 · B5",
+          "title": "Vitamine zo mu mugwi B",
+          "text": "Riboflavine, niacine na acide pantothénique birafasha guhindura ibifungurwa kuba ingufu."
+        },
+        {
+          "symbol": "K",
+          "title": "Potasiyumu",
+          "text": "Isasu rifasha imikorere myiza y'imitsi no kugumya umuvuduko w'amaraso usanzwe."
+        },
+        {
+          "symbol": "Se",
+          "title": "Seleniyumu",
+          "text": "Birafasha kurinda uduce tw'umubiri ku ngaruka z'ubusasagaze."
+        },
+        {
+          "symbol": "EGT",
+          "title": "Ergothioneine",
+          "text": "Ikintu kiramutsa kamere gikingira, aho igihumyo kiri mu bibitanga vyiza kuruta mu bifungurwa."
+        },
+        {
+          "symbol": "P + F",
+          "title": "Proteine na fibre",
+          "text": "Igihumyo gitanga proteine na fibre, hamwe n'amavuta make cane."
+        },
+        {
+          "symbol": "D",
+          "title": "Vitamine D ivuye ku zuba",
+          "text": "Igihumyo kigeretswe ku zuba, gitegura vitamine D, nk'uko urukoba rwacu rubigenza."
+        }
+      ],
+      "disclaimer": "Aya makuru arasigura igihumyo nk'ikifungurwa. Ntavuga ivyo ibisukuti vya Krumbz birimwo, ivyo bikaba biboneka ku rupapuro rw'Ibicuruzwa.",
+      "cta": "Raba ivyo ibisukuti vyacu birimwo"
+    }
+  },
+  "products": {
+    "eyebrow": "Ibicuruzwa vyacu",
+    "title": "Ibisukuti vya Krumbz",
+    "intro": "Zungurutsa, hanura, raba hafi : buri gisukuti ca Krumbz ni gito, c'ubutare kandi gikaze.",
+    "viewer": {
+      "label": "Icerekana ca 3D",
+      "hint": "Kurura kugira uzungurutse, nyagasa canke ukoreshe uruziga rwa mausi guhanura.",
+      "keyboardHint": "Imyambi yo guzungurutsa, + na − guhanura.",
+      "reset": "Subiza hagati",
+      "rotateLeft": "Zungurutsa ibumoso",
+      "rotateRight": "Zungurutsa iburyo",
+      "zoomIn": "Hanura",
+      "zoomOut": "Gabanya",
+      "show": "Erekana : {name}",
+      "fallbackAlt": "Ifoto y'igicuruzwa {name}",
+      "biscuit": "Igisukuti ca Krumbz",
+      "loading": "Birimwo gutegura icicane ca 3D…",
+      "staticNotice": "Icerekana c'ifoto : 3D yarahagaritswe kuri iki gikoresho.",
+      "reasons": {
+        "reducedMotion": "Impamvu : « kugabanya imitwarire » birahagurutswe mu migenere y'iki gikoresho.",
+        "saveData": "Impamvu : uburyo bwo kugumiza amakuru burahagurutswe (canke ihuza riratindaguye cane).",
+        "noWebgl": "Impamvu : WebGL ntiboneka muri uyu mushakishi.",
+        "gpu": "Impamvu : umushakishi ntukoresha ikarita y'amashusho (ivyuma vyihuta vyarahagaritswe canke ikarita ntiyamenyekanye). Hagurutsa « Koresha ivyuma vyihuta vy'amashusho » mu migenere y'umushakishi.",
+        "error": "Impamvu : icerekana ca 3D cahuye n'ikibazo kuri iki gikoresho."
+      }
+    },
+    "items": [
+      {
+        "id": "sachet",
+        "model": "sachet",
+        "name": "Impapuro ya Krumbz",
+        "short": "Impapuro y'umwe umwe",
+        "description": "Imiterere yoroshe, yo gushira mu mufuko canke mu gikoresho c'ishuri.",
+        "weight": "g 50",
+        "unitsPerPack": "ibisukuti 6",
+        "price": 850,
+        "priceDisplay": "FBu 850 (igiciro gisanzwe FBu 1 000) — Igiciro cagabanutse ca Noeli",
+        "compareAtPrice": 1000
+      },
+      {
+        "id": "carton",
+        "model": "carton",
+        "name": "Ikarito ya Krumbz",
+        "short": "Ikarito y'impapuro",
+        "description": "Ku muryango, ishuri, ibiro canke ibirori.",
+        "weight": "kg 1,2 (impapuro 24 × g 50)",
+        "unitsPerPack": "impapuro 24",
+        "price": 16800,
+        "priceDisplay": "FBu 16 800 ku karito k'impapuro 24 (igiciro gisanzwe FBu 20 400) — Igiciro cagabanutse ca Noeli",
+        "compareAtPrice": 20400
+      }
+    ],
+    "formats": {
+      "title": "Imiterere",
+      "weight": "Uburemere nyakuri",
+      "units": "Ibirimwo",
+      "price": "Igiciro",
+      "product": "Igicuruzwa"
+    },
+    "ingredients": {
+      "title": "Ivyo birimwo",
+      "list": [
+        "Igihumyo (igikoresho ca mbere)",
+        "Ifu y'ingano",
+        "Isukari",
+        "Amavuta",
+        "Amagi",
+        "Amata",
+        "Imbuto za strawberry"
+      ],
+      "allergensTitle": "Ibishobora gutera ingaruka",
+      "allergens": "Girimwo ingano (gluten), amagi n'amata (nk'uko bivugwa ku rutonde rw'ivyo birimwo ku kalembo).",
+      "storageTitle": "Kubika",
+      "storage": "BIZUZUZWA (À COMPLÉTER)",
+      "shelfLifeTitle": "Igihe cokwihagarira",
+      "shelfLife": "Amezi 12 guhera ku gukorwa. Italiki yo gukorwa (MFG), iy'impera (EXP) n'inomero y'igice (lot) birasohokeye kuri buri mpapuro.",
+      "labelNote": "Igihumyo ni co kigize umusingi wa Krumbz ; kivanze n'ifu y'ingano, isukari, amavuta, amagi, amata n'imbuto za strawberry.",
+      "producerTitle": "Uwakoze",
+      "producer": "Crispy Food Products, Quartier Industriel, i Bujumbura — terefone +257 62 69 75 97 / +257 72 36 91 13."
+    },
+    "nutrition": {
+      "title": "Intungamubiri",
+      "per": "Kuri g 100",
+      "nutrientHeader": "Intungamubiri",
+      "valueHeader": "Agaciro",
+      "rows": [
+        {
+          "label": "Ingufu",
+          "value": "BIZUZUZWA (À COMPLÉTER)"
+        },
+        {
+          "label": "Amavuta",
+          "value": "15%"
+        },
+        {
+          "label": "harimwo amavuta akomeye",
+          "value": "BIZUZUZWA (À COMPLÉTER)",
+          "indent": true
+        },
+        {
+          "label": "Glucides (intungamubiri ikora ingufu)",
+          "value": "69,44%"
+        },
+        {
+          "label": "harimwo isukari",
+          "value": "BIZUZUZWA (À COMPLÉTER)",
+          "indent": true
+        },
+        {
+          "label": "Fibre",
+          "value": "BIZUZUZWA (À COMPLÉTER)"
+        },
+        {
+          "label": "Proteine",
+          "value": "10,65%"
+        },
+        {
+          "label": "Umunyu",
+          "value": "BIZUZUZWA (À COMPLÉTER)"
+        }
+      ],
+      "disclaimer": "Ibipimo bizotangwa na Crispy Food Products bivuye ku kalembo nyakuri."
+    },
+    "chooseTitle": "Hitamwo imiterere yawe",
+    "factsTitle": "Ivyo birimwo no kubika",
+    "promoLabel": "Igiciro cagabanutse ca Noeli"
+  },
+  "story": {
+    "eyebrow": "Inkuru yacu",
+    "title": "Yavutse mu Burundi, ihumekewe n'igihumyo",
+    "intro": "Krumbz ni ikirango ca Crispy Food Products. Ibisukuti vyacu birakorerwa mu Burundi, biva ku bihumyo.",
+    "chapters": [
+      {
+        "id": "burundi",
+        "image": "burundi-collines",
+        "title": "Bikorewe mu Burundi",
+        "text": "Krumbz irakorerwa i Bujumbura, mu Quartier Industriel, na Crispy Food Products. Amateka y'ikigo n'italiki yo gushingwa : BIZUZUZWA (À COMPLÉTER).",
+        "alt": "Imisozi myiza y'icatsi y'i Burundi"
+      },
+      {
+        "id": "champignon",
+        "image": "champignons",
+        "title": "Inkomoko y'igihumyo",
+        "text": "Igihumyo ni co kigize umusingi wa Krumbz. Ikifungurwa c'umuco cahora mu mashamba y'i Burundi, gitanga vitamine zo mu mugwi B, amasasu nka potasiyumu na seleniyumu, n'ibintu biramutsa bikingira. Twagikoze umutima w'igisukuti kidasanzwe.",
+        "alt": "Ibihumyo bishasha"
+      },
+      {
+        "id": "promesse",
+        "image": null,
+        "title": "Indagano yacu",
+        "text": "Igisukuti coroshe, gikaze kandi gifise intungamubiri, ku gihe cose c'ubuzima.",
+        "alt": ""
+      }
+    ],
+    "values": {
+      "title": "Ivyo biduyobora",
+      "items": [
+        {
+          "title": "Uburoroshe",
+          "text": "Igisukuti coroshe, abantu bose bakunda."
+        },
+        {
+          "title": "Ubukaze",
+          "text": "Ubukaze bugize ikimenyetso ca Krumbz."
+        },
+        {
+          "title": "Ubwegerano",
+          "text": "Ikirango c'i Burundi, kigufi ku bakiriya bako."
+        }
+      ]
+    }
+  },
+  "order": {
+    "eyebrow": "Tumiza",
+    "title": "Igitumizo cawe ca Krumbz",
+    "intro": "Hitamwo ibicuruzwa vyawe, wuzuza urupapuro : igitumizo cawe kirafungurwa kuri WhatsApp, giteguriwe kurungikwa.",
+    "catalogTitle": "Urutonde rw'ibicuruzwa",
+    "cartTitle": "Agatebo kawe",
+    "cartEmpty": "Agatebo kawe ntaco karimwo.",
+    "cartEmptyCta": "Ongeramwo impapuro canke ikarito kugira utangure.",
+    "itemsCount": "{count, plural, =0 {Nta kintu} one {igicuruzwa #} other {ibicuruzwa #}}",
+    "subtotal": "Igiteranyo gito",
+    "totalUnknown": "Igiteranyo kizoshimangirwa kuri WhatsApp.",
+    "clearCart": "Gukura ivyo mu gatebo",
+    "form": {
+      "title": "Amakuru yawe",
+      "name": "Amazina yose",
+      "namePlaceholder": "Nk'akarorero : Aline Niyonzima",
+      "phone": "Terefone",
+      "phonePlaceholder": "Nk'akarorero : 62 697 087",
+      "phoneHelp": "Inomero y'Uburundi (+257), imibare 8.",
+      "city": "Igisagara",
+      "cityPlaceholder": "Nk'akarorero : Bujumbura",
+      "district": "Umutaa",
+      "districtPlaceholder": "Nk'akarorero : Rohero",
+      "notes": "Ibindi bisobanuro (bitari ngombwa)",
+      "notesPlaceholder": "Isaha yo gutanga ibicuruzwa wifuza, ikimenyetso c'ahantu…",
+      "submit": "Rungika igitumizo kuri WhatsApp",
+      "submitting": "Birimwo gufungura WhatsApp…",
+      "required": "birakenewe",
+      "errors": {
+        "name": "Shira izina ryawe (inyuguti 2 ntarengwa).",
+        "phone": "Shira inomero y'Uburundi ifise imibare 8 nyakuri.",
+        "city": "Shira igisagara cawe.",
+        "district": "Shira umutaa wawe.",
+        "cart": "Shiramwo nibura igicuruzwa kimwe mu gatebo.",
+        "summary": "Urupapuro rurimwo {count, plural, one {ikosa #} other {amakosa #}}.",
+        "payment": "Ubu buryo bwo kwishura ntibwaraboneka : hitamwo kwishura igihe ibicuruzwa bizotangwa."
+      },
+      "errorsTitle": "Raba izi ngingo zikurikira :"
+    },
+    "payment": {
+      "title": "Kwishura",
+      "methodLabel": "Uburyo bwo kwishura",
+      "cash": "Kwishura igihe ibicuruzwa bitanzwe",
+      "cashHelp": "Uburyo buzoshimangirwa na Krumbz kuri WhatsApp.",
+      "lumicash": "Lumicash",
+      "ecocash": "EcoCash",
+      "soon": "Biraje vuba"
+    },
+    "delivery": {
+      "title": "Gutanga ibicuruzwa",
+      "text": "Uturere, igihe n'amafaranga yo gutanga ibicuruzwa bizoshimangirwa kuri WhatsApp hamwe n'igitumizo cawe."
+    },
+    "whatsapp": {
+      "greeting": "Bwakeye Krumbz! Ndashaka gutumiza :",
+      "line": "• {quantity} × {name}",
+      "subtotal": "Igiteranyo gito : {amount}",
+      "customer": "Izina : {name}",
+      "phone": "Terefone : {phone}",
+      "address": "Aho aba : {district}, {city}",
+      "notes": "Ibisobanuro : {notes}",
+      "payment": "Kwishura : {method}",
+      "thanks": "Murakoze!"
+    },
+    "success": {
+      "title": "Igitumizo cawe kiriteguye muri WhatsApp",
+      "text": "Niba WhatsApp itarafunguka, koresha akabuto kari hepfo.",
+      "retry": "Fungura WhatsApp",
+      "newOrder": "Igitumizo gishasha"
+    },
+    "checkout": "Rangiza igitumizo",
+    "continue": "Komeza kugura",
+    "lineTotal": "{quantity} × {price}",
+    "summaryLoading": "Birimwo gutegura agatebo…",
+    "steps": {
+      "label": "Intambwe z'igitumizo cawe",
+      "products": "Hitamwo ibisukuti vyawe",
+      "details": "Amakuru yawe",
+      "send": "Rungika",
+      "done": "yarangiye",
+      "current": "intambwe y'ubu",
+      "stepOf": "Intambwe {n} kuri 3"
+    },
+    "next": {
+      "toProducts": "Hitamwo ibisukuti vyanje",
+      "toDetails": "Komeza : amakuru yanje",
+      "send": "Rungika kuri WhatsApp",
+      "toProductsShort": "Hitamwo",
+      "toDetailsShort": "Komeza",
+      "sendShort": "Rungika"
+    },
+    "barLabel": "Incamake y'igitumizo"
+  },
+  "contactPage": {
+    "eyebrow": "Itumanaho",
+    "title": "Tuganire ku bisukuti",
+    "intro": "Ikibazo, igitumizo c'umusi mukuru, canke ushaka kongera kugurisha Krumbz ? Twandikire canke uduhamagare.",
+    "whatsappTitle": "WhatsApp",
+    "whatsappText": "Uburyo bwihuta kuruta ubundi bwo kuduhanga.",
+    "whatsappCta": "Twandikire kuri WhatsApp",
+    "whatsappPrefill": "Bwakeye Krumbz, mfise ikibazo :",
+    "phoneTitle": "Terefone",
+    "emailTitle": "Email",
+    "locationTitle": "Aho turi",
+    "hoursTitle": "Amasaha y'akazi",
+    "mapCta": "Fungura kuri Google Maps",
+    "socialTitle": "Imiyoboro ya media",
+    "socialEmpty": "Imiyoboro yacu ya media iraje vuba.",
+    "addressTitle": "Aho tuba"
+  },
+  "legal": {
+    "title": "Amabwirizwa",
+    "updated": "Vyasubiwemo ubwa nyuma : 20 Ugushyingo 2026",
+    "sections": [
+      {
+        "title": "Uwasohoye urubuga",
+        "body": [
+          "Niyondiko Joffre (« Jubu Niyoko »), umudandaza wemejwe w'ikirango ca Krumbz (Crispy Food Products) i Gitega, mu Burundi. Uru rubuga rwasohowe n'umudandaza, si n'uwakoze ibicuruzwa.",
+          "Uburenganzira bw'amategeko : umuntu ku giti ciwe (ntacisi c'ikigo canditse).",
+          "Aho aba : Gitega, Bwoga 2, n° 37, Uburundi.",
+          "Inomero y'ikimenyetso c'ikori (NIF) : ntikoreshwa (umuntu ku giti ciwe).",
+          "Icyandikiro c'ubudandaji : ntikoreshwa (umuntu ku giti ciwe).",
+          "Terefone : +257 68 49 73 72 / +257 61 89 59 40.",
+          "Umuyobozi w'ivyasohotse : Niyondiko Joffre."
+        ]
+      },
+      {
+        "title": "Aho urubuga rubikwa (hosting)",
+        "body": [
+          "Hostinger International Ltd., 61 Lordou Vironos Street, 6023 Larnaca, Kiripo — hostinger.com."
+        ]
+      },
+      {
+        "title": "Uburenganzira bw'ubuhanga",
+        "body": [
+          "Urubuga (inyandiko, imitunganirizo, amashusho n'itegeko) ni ibintu vya Niyondiko Joffre, umudandaza wemejwe wa Krumbz.",
+          "Ikirango ca Krumbz, ibimenyetso vyaco n'imifungasho ni ibintu vya Crispy Food Products, gitanga uburenganzira umudandaza wako kubikoresha.",
+          "Gusubiramwo ibintu ata ruhusa ni ivyabujijwe."
+        ]
+      },
+      {
+        "title": "Amakuru bwite",
+        "body": [
+          "Agatebo kabikwa gusa mu mushakishi wawe (ubwo bubiko ni ubwiwe) kandi ntikarungikwa kuri seriveri iyariyo yose.",
+          "Amakuru yashizwe mu rupapuro rw'igitumizo (izina, terefone, igisagara, umutaa) akoreshwa gusa mu gutegura ubutumwa bwa WhatsApp uhitamwo kurungika. Ntabikwa n'urubuga.",
+          "Uru rubuga ntirukoresha udukoresho twa reklame canke abakurikirana abandi.",
+          "Ku kindi kibazo ku vyerekeye amakuru yawe : niyondikojoffreasjubu@gmail.com."
+        ]
+      },
+      {
+        "title": "Inkomezi",
+        "body": [
+          "Amafoto ni ay'akarorero gusa. Ibiciro, imiterere n'ukuboneka biremezwa igihe utumije kuri WhatsApp."
+        ]
+      }
+    ],
+    "tocTitle": "Kuri uru rupapuro"
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Yooo, iki gisukuti caravunitse!",
+    "text": "Urupapuro urondera ntirubaho canke rwarimuwe.",
+    "cta": "Garuka ahabanza",
+    "secondary": "Raba ibicuruzwa"
+  },
+  "error": {
+    "title": "Hari ikintu citagenze neza",
+    "text": "Ongera utegure urupapuro canke usubire ahabanza.",
+    "retry": "Ongera ugerageze"
+  },
+  "seo": {
+    "siteName": "Krumbz",
+    "titleTemplate": "%s · Krumbz",
+    "defaultTitle": "Krumbz — Byoroshe, Bikaze",
+    "defaultDescription": "Krumbz, ibisukuti bikozwe mu bihumyo bikorewe mu Burundi na Crispy Food Products. Byoroshe, bikaze, ku gihe cose c'ubuzima. Tumiza kuri WhatsApp.",
+    "ogAlt": "Ibisukuti n'impapuro ya Krumbz — Byoroshe, Bikaze",
+    "pages": {
+      "home": {
+        "title": "Krumbz — Byoroshe, Bikaze",
+        "description": "Igisukuti c'igihumyo cakorewe mu Burundi, ku gihe cose c'ubuzima. Menya Krumbz kandi utumize kuri WhatsApp."
+      },
+      "products": {
+        "title": "Ibicuruzwa",
+        "description": "Impapuro n'ikarito ya Krumbz : imiterere, ivyo birimwo n'intungamubiri. Icerekana ca 3D gishobora gukorwaho."
+      },
+      "story": {
+        "title": "Inkuru yacu",
+        "description": "Krumbz, yakorewe mu Burundi na Crispy Food Products, biva ku bihumyo."
+      },
+      "order": {
+        "title": "Tumiza",
+        "description": "Tumiza ibisukuti vyawe vya Krumbz mu masegonda make : igitumizo cawe kijana ku buryo butaziguye kuri WhatsApp."
+      },
+      "contact": {
+        "title": "Itumanaho",
+        "description": "Vugana na Krumbz kuri WhatsApp canke uhamagare +257 68 49 73 72 canke +257 61 89 59 40."
+      },
+      "legal": {
+        "title": "Amabwirizwa",
+        "description": "Amabwirizwa n'amakuru bwite y'urubuga rwa Krumbz."
+      }
+    }
+  },
+  "footer": {
+    "navTitle": "Shakisha",
+    "contactTitle": "Twandikire",
+    "backToTop": "Garuka hejuru"
   }
 }

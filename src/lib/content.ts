@@ -1,6 +1,7 @@
 import fr from "../../content/site.fr.json";
 import en from "../../content/site.en.json";
 import rn from "../../content/site.rn.json";
+import sw from "../../content/site.sw.json";
 
 /**
  * Single source of truth for every text on the site.
@@ -14,7 +15,7 @@ export type ProductContent = SiteContent["products"]["items"][number] & {
   compareAtPrice: number | null;
 };
 
-const sources: Record<string, unknown> = { fr, en, rn };
+const sources: Record<string, unknown> = { fr, en, rn, sw };
 
 export const TO_COMPLETE = "À COMPLÉTER";
 

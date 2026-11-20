@@ -1,0 +1,668 @@
+{
+  "_meta": {
+    "about": "Maudhui kwa Kiswahili. Muundo na vitambulisho (id) sawa na content/site.fr.json (lugha ya rejeleo). Ufunguo wowote uliokosekana unarudi kwenye maandishi ya Kifaransa. Thamani zilizoandikwa « YATAKAMILISHWA (À COMPLÉTER) » hazijulikani na lazima zitolewe na Crispy Food Products. Orodha (array) zinabadilisha kabisa zile za Kifaransa: zihifadhi urefu, mpangilio na data (id, model, price, image, indent) sawa na Kifaransa — `npm run content:check` inathibitisha hilo. Namba za simu, mitandao ya kijamii na namba ya WhatsApp hazijarudiwa hapa kwa makusudi: zinatoka kwenye faili la Kifaransa kila wakati.",
+    "toComplete": "YATAKAMILISHWA (À COMPLÉTER)",
+    "currency": "BIF"
+  },
+  "brand": {
+    "name": "Krumbz",
+    "company": "Crispy Food Products",
+    "tagline": "Rahisi, Krispi",
+    "promise": "Biskuti yenye lishe kwa kila wakati wa maisha.",
+    "origin": "Imetengenezwa Burundi",
+    "base": "Imetengenezwa kwa uyoga",
+    "audience": "Kwa watoto, vijana, wapenzi, wazazi, walimu na watu wazima kazini."
+  },
+  "contact": {
+    "whatsapp": {
+      "note": "Namba zote mbili pia zinapatikana kwenye WhatsApp."
+    },
+    "email": "niyondikojoffreasjubu@gmail.com",
+    "address": "Bwoga 2, n° 37",
+    "city": "Gitega",
+    "country": "Burundi",
+    "hours": "Masaa 24, siku 7 kwa wiki"
+  },
+  "nav": {
+    "home": "Nyumbani",
+    "products": "Bidhaa",
+    "story": "Hadithi yetu",
+    "order": "Agiza",
+    "contact": "Mawasiliano",
+    "legal": "Taarifa za kisheria",
+    "menu": "Menyu",
+    "openMenu": "Fungua menyu",
+    "closeMenu": "Funga menyu",
+    "cart": "Kikapu",
+    "openCart": "Fungua kikapu ({count, plural, =0 {kitupu} one {bidhaa #} other {bidhaa #}})",
+    "language": "Lugha",
+    "skipToContent": "Nenda moja kwa moja kwenye maudhui",
+    "mainNavigation": "Urambazaji mkuu",
+    "footerNavigation": "Urambazaji wa chini",
+    "homeLabel": "Krumbz, rudi kwenye ukurasa wa mwanzo"
+  },
+  "common": {
+    "toComplete": "YATAKAMILISHWA (À COMPLÉTER)",
+    "orderNow": "Agiza",
+    "orderOnWhatsapp": "Agiza kupitia WhatsApp",
+    "discoverProducts": "Angalia bidhaa",
+    "readStory": "Soma hadithi yetu",
+    "call": "Piga simu",
+    "callNumber": "Piga simu {number}",
+    "whatsapp": "WhatsApp",
+    "learnMore": "Jua zaidi",
+    "backHome": "Rudi mwanzo",
+    "close": "Funga",
+    "priceOnRequest": "Bei itathibitishwa",
+    "quantity": "Idadi",
+    "increase": "Ongeza idadi",
+    "decrease": "Punguza idadi",
+    "remove": "Ondoa",
+    "addToCart": "Ongeza kwenye kikapu",
+    "added": "Imeongezwa!",
+    "scrollHint": "Teleza chini",
+    "loading3d": "Tunaandaa biskuti…",
+    "loadingPercent": "{percent}%",
+    "staticModeNotice": "Muonekano rahisi ili kutunza kifaa chako na data yako.",
+    "imagePlaceholder": "Picha inakuja hivi karibuni",
+    "rights": "© {year} Niyondiko Joffre, muuzaji aliyeidhinishwa wa Krumbz. Haki zote zimehifadhiwa. Krumbz ni chapa ya {company}.",
+    "madeIn": "Imetengenezwa kwa makini nchini Burundi",
+    "addedToCart": "{name} imeongezwa kwenye kikapu",
+    "toCompleteHint": "Taarifa itatolewa na Crispy Food Products"
+  },
+  "home": {
+    "intro": {
+      "eyebrow": "Krumbz · Crispy Food Products",
+      "title": "Rahisi, Krispi",
+      "subtitle": "Biskuti ya uyoga, imetengenezwa Burundi, kwa kila wakati wa maisha.",
+      "cta": "Agiza sasa",
+      "secondaryCta": "Angalia bidhaa",
+      "packAlt": "Kifurushi cha biskuti za Krumbz kinafunguka na biskuti inatoka"
+    },
+    "moments": {
+      "eyebrow": "Kwa kila wakati",
+      "title": "Krumbz, kwa kila wakati",
+      "subtitle": "Wawili wawili, kifamilia, shuleni, sherehani au kazini: daima kuna nafasi ya biskuti ya Krumbz.",
+      "scenes": [
+        {
+          "id": "couple-jardin",
+          "label": "Wawili wawili",
+          "title": "Wakati wa wawili bustanini",
+          "text": "Mapumziko ya utulivu, kifurushi cha kugawana.",
+          "alt": "Wapenzi wanagawana biskuti za Krumbz bustanini"
+        },
+        {
+          "id": "famille-maison",
+          "label": "Kifamilia",
+          "title": "Kifamilia, nyumbani",
+          "text": "Wadogo na wakubwa kwenye meza moja.",
+          "alt": "Familia inagawana biskuti za Krumbz nyumbani"
+        },
+        {
+          "id": "classe-enseignant",
+          "label": "Darasani",
+          "title": "Darasani, wakati wa mapumziko",
+          "text": "Kwa wanafunzi na walimu pia.",
+          "alt": "Mwalimu na wanafunzi darasani na biskuti za Krumbz"
+        },
+        {
+          "id": "anniversaire",
+          "label": "Siku ya kuzaliwa",
+          "title": "Kusherehekea siku ya kuzaliwa",
+          "text": "Biskuti za kugawana na wageni wote.",
+          "alt": "Sherehe ya siku ya kuzaliwa na biskuti za Krumbz"
+        },
+        {
+          "id": "mariage",
+          "label": "Harusi",
+          "title": "Kwenye harusi",
+          "text": "Ladha ndogo ya krispi kwa siku kubwa.",
+          "alt": "Wageni wa harusi na biskuti za Krumbz"
+        },
+        {
+          "id": "pause-bureau",
+          "label": "Ofisini",
+          "title": "Mapumziko ofisini",
+          "text": "Biskuti kati ya mikutano miwili.",
+          "alt": "Wafanyakazi wenza wanapumzika ofisini na biskuti za Krumbz"
+        },
+        {
+          "id": "amis-sortie",
+          "label": "Pamoja na marafiki",
+          "title": "Matembezi na marafiki",
+          "text": "Mfukoni, tayari kwa safari.",
+          "alt": "Kundi la marafiki matembezini wanagawana biskuti za Krumbz"
+        },
+        {
+          "id": "petit-dejeuner",
+          "label": "Kifungua kinywa",
+          "title": "Wakati wa kifungua kinywa",
+          "text": "Biskuti ya kuanza siku vizuri.",
+          "alt": "Mama na mtoto wake wanagawana biskuti za Krumbz kifungua kinywa"
+        },
+        {
+          "id": "bibliotheque",
+          "label": "Mapumziko ya masomo",
+          "title": "Mapumziko ya masomo",
+          "text": "Mapumziko ya krispi.",
+          "alt": "Wanafunzi wanagawana biskuti za Krumbz maktabani"
+        },
+        {
+          "id": "equipe-sport",
+          "label": "Wenzake wa timu",
+          "title": "Wenzake wa timu",
+          "text": "Kifurushi kimoja kwa timu nzima.",
+          "alt": "Timu ya mpira wa miguu inagawana biskuti za Krumbz"
+        },
+        {
+          "id": "reunion-bureau",
+          "label": "Mkutanoni",
+          "title": "Mapumziko ya mkutano",
+          "text": "Mapumziko kati ya majalada mawili.",
+          "alt": "Timu inagawana biskuti za Krumbz kwenye mkutano"
+        },
+        {
+          "id": "marche",
+          "label": "Sokoni",
+          "title": "Sokoni",
+          "text": "Krumbz, karibu na wewe.",
+          "alt": "Mteja ananunua biskuti za Krumbz sokoni"
+        },
+        {
+          "id": "champs-agriculteurs",
+          "label": "Shambani",
+          "title": "Shambani",
+          "text": "Kitafunwa baada ya kazi.",
+          "alt": "Wakulima wanagawana biskuti za Krumbz shambani"
+        },
+        {
+          "id": "panier-cadeau",
+          "label": "Kikapu cha zawadi",
+          "title": "Kikapu cha zawadi",
+          "text": "Vitu vizuri, vikitolewa zawadi.",
+          "alt": "Kikapu cha biskuti za Krumbz kikitolewa zawadi"
+        },
+        {
+          "id": "road-trip",
+          "label": "Safarini",
+          "title": "Safarini",
+          "text": "Mwenzako wa kila safari.",
+          "alt": "Familia inagawana biskuti za Krumbz garini"
+        },
+        {
+          "id": "echange-boutique",
+          "label": "Dukani",
+          "title": "Katika duka letu",
+          "text": "Inauzwa kwa tabasamu.",
+          "alt": "Muuzaji anauza biskuti za Krumbz kwa mteja"
+        },
+        {
+          "id": "famille-noel",
+          "label": "Krismasi njema",
+          "title": "Krismasi njema",
+          "text": "Ofa yetu ya mwisho wa mwaka.",
+          "alt": "Familia inasherehekea Krismasi na biskuti za Krumbz"
+        }
+      ],
+      "progressLabel": "Maendeleo ya nyakati",
+      "goTo": "Nenda kwenye wakati « {label} »"
+    },
+    "benefits": {
+      "eyebrow": "Kwa nini Krumbz",
+      "title": "Kinachofanya Krumbz iwe ya pekee",
+      "items": [
+        {
+          "id": "crispy",
+          "title": "Rahisi na krispi",
+          "text": "Biskuti nyembamba, ya dhahabu, yenye mkwaruzo safi."
+        },
+        {
+          "id": "mushroom",
+          "title": "Imetengenezwa kwa uyoga",
+          "text": "Mapishi ya pekee yanayofanya Krumbz ijitokeze."
+        },
+        {
+          "id": "burundi",
+          "title": "Imetengenezwa Burundi",
+          "text": "Inazalishwa humu nchini na Crispy Food Products."
+        },
+        {
+          "id": "everyone",
+          "title": "Kwa kila mtu",
+          "text": "Watoto, vijana, wazazi, walimu, watu wazima kazini."
+        }
+      ],
+      "nutritionNote": ""
+    },
+    "products": {
+      "eyebrow": "Mifumo yetu",
+      "title": "Kifurushi na katoni",
+      "subtitle": "Kifurushi kwa ajili yako, katoni kwa familia, shule, ofisi au sherehe."
+    },
+    "cta": {
+      "title": "Unatamani kula?",
+      "text": "Agiza kwa sekunde chache: oda yako inakwenda moja kwa moja WhatsApp.",
+      "button": "Agiza kupitia WhatsApp",
+      "phoneLabel": "Au tupigie simu"
+    },
+    "mushroom": {
+      "eyebrow": "Uyoga, moyo wa Krumbz",
+      "title": "Hazina ya misitu ya Burundi",
+      "intro": "Biskuti zipo kote duniani. Biskuti za uyoga ni nadra zaidi. Krumbz inaenzi chakula cha nyumbani: misitu na nyika za Burundi zina aina nyingi za uyoga unaoliwa, uliokusanywa tangu zamani na kuuzwa masokoni, hadi Bujumbura.",
+      "whyTitle": "Uyoga unaleta nini",
+      "items": [
+        {
+          "symbol": "B2 · B3 · B5",
+          "title": "Vitamini za kundi B",
+          "text": "Riboflavin, niasini na asidi ya pantotheniki husaidia kubadilisha chakula kuwa nishati."
+        },
+        {
+          "symbol": "K",
+          "title": "Potasiamu",
+          "text": "Madini yanayosaidia utendaji mzuri wa misuli na kudumisha shinikizo la damu la kawaida."
+        },
+        {
+          "symbol": "Se",
+          "title": "Selenium",
+          "text": "Husaidia kulinda seli dhidi ya mkazo wa oksidishaji."
+        },
+        {
+          "symbol": "EGT",
+          "title": "Ergothioneine",
+          "text": "Kizuia-oksidishaji cha asili ambacho uyoga ni miongoni mwa vyanzo bora vya chakula."
+        },
+        {
+          "symbol": "P + F",
+          "title": "Protini na nyuzinyuzi",
+          "text": "Uyoga hutoa protini na nyuzinyuzi, kwa mafuta kidogo sana."
+        },
+        {
+          "symbol": "D",
+          "title": "Vitamini D kutoka jua",
+          "text": "Ukiwekwa kwenye jua, uyoga hutengeneza vitamini D, kama ngozi yetu inavyofanya."
+        }
+      ],
+      "disclaimer": "Taarifa hizi zinaelezea uyoga kama chakula. Si muundo wa biskuti za Krumbz, ambazo taarifa zake za lishe zipo kwenye ukurasa wa Bidhaa.",
+      "cta": "Angalia muundo wa biskuti zetu"
+    }
+  },
+  "products": {
+    "eyebrow": "Bidhaa zetu",
+    "title": "Biskuti za Krumbz",
+    "intro": "Zungusha, kuza, angalia kwa karibu: kila biskuti ya Krumbz ni nyembamba, ya dhahabu na krispi.",
+    "viewer": {
+      "label": "Kionyesho cha 3D",
+      "hint": "Buruta ili kuzungusha, bana au tumia gurudumu la mausi kukuza.",
+      "keyboardHint": "Vitufe vya mishale kuzungusha, + na − kukuza.",
+      "reset": "Rudisha katikati",
+      "rotateLeft": "Zungusha kushoto",
+      "rotateRight": "Zungusha kulia",
+      "zoomIn": "Kuza",
+      "zoomOut": "Punguza",
+      "show": "Onyesha: {name}",
+      "fallbackAlt": "Picha ya bidhaa {name}",
+      "biscuit": "Biskuti ya Krumbz",
+      "loading": "Inapakia mfano wa 3D…",
+      "staticNotice": "Mwonekano wa picha: 3D imezimwa kwenye kifaa hiki.",
+      "reasons": {
+        "reducedMotion": "Sababu: « punguza mienendo » imewashwa kwenye mipangilio ya kifaa hiki.",
+        "saveData": "Sababu: hali ya kuokoa data imewashwa (au muunganisho ni wa polepole sana).",
+        "noWebgl": "Sababu: WebGL haipatikani kwenye kivinjari hiki.",
+        "gpu": "Sababu: kivinjari hakitumii kadi ya michoro (uharakishaji wa vifaa umezimwa au kadi haijatambuliwa). Washa « Tumia uharakishaji wa michoro » kwenye mipangilio ya kivinjari.",
+        "error": "Sababu: muonekano wa 3D umekumbana na hitilafu kwenye kifaa hiki."
+      }
+    },
+    "items": [
+      {
+        "id": "sachet",
+        "model": "sachet",
+        "name": "Kifurushi cha Krumbz",
+        "short": "Kifurushi cha mmoja mmoja",
+        "description": "Mfumo rahisi, wa kuweka kwenye mkoba au begi la shule.",
+        "weight": "50 g",
+        "unitsPerPack": "biskuti 6",
+        "price": 850,
+        "priceDisplay": "FBu 850 (bei ya kawaida FBu 1,000) — Ofa ya Krismasi",
+        "compareAtPrice": 1000
+      },
+      {
+        "id": "carton",
+        "model": "carton",
+        "name": "Katoni ya Krumbz",
+        "short": "Katoni ya vifurushi",
+        "description": "Kwa familia, shule, ofisi au matukio.",
+        "weight": "kilo 1.2 (vifurushi 24 × 50 g)",
+        "unitsPerPack": "vifurushi 24",
+        "price": 16800,
+        "priceDisplay": "FBu 16,800 kwa katoni ya vifurushi 24 (bei ya kawaida FBu 20,400) — Ofa ya Krismasi",
+        "compareAtPrice": 20400
+      }
+    ],
+    "formats": {
+      "title": "Mifumo",
+      "weight": "Uzito halisi",
+      "units": "Kinachomo",
+      "price": "Bei",
+      "product": "Bidhaa"
+    },
+    "ingredients": {
+      "title": "Viungo",
+      "list": [
+        "Uyoga (kiungo msingi)",
+        "Unga wa ngano",
+        "Sukari",
+        "Mafuta",
+        "Mayai",
+        "Maziwa",
+        "Jordgubbar (matunda ya strawberry)"
+      ],
+      "allergensTitle": "Vizio vya mzio",
+      "allergens": "Ina ngano (gluteni), mayai na maziwa (kulingana na orodha ya viungo kwenye lebo).",
+      "storageTitle": "Uhifadhi",
+      "storage": "YATAKAMILISHWA (À COMPLÉTER)",
+      "shelfLifeTitle": "Muda wa kuhifadhika",
+      "shelfLife": "Miezi 12 tangu utengenezaji. Tarehe ya utengenezaji (MFG), tarehe ya mwisho (EXP) na namba ya kundi (lot) zimechapishwa kwenye kila kifurushi.",
+      "labelNote": "Uyoga ndicho kiungo msingi cha Krumbz; kinachanganywa na unga wa ngano, sukari, mafuta, mayai, maziwa na matunda ya strawberry.",
+      "producerTitle": "Mzalishaji",
+      "producer": "Crispy Food Products, Quartier Industriel, Bujumbura — simu +257 62 69 75 97 / +257 72 36 91 13."
+    },
+    "nutrition": {
+      "title": "Taarifa za lishe",
+      "per": "Kwa gramu 100",
+      "nutrientHeader": "Kirutubisho",
+      "valueHeader": "Thamani",
+      "rows": [
+        {
+          "label": "Nishati",
+          "value": "YATAKAMILISHWA (À COMPLÉTER)"
+        },
+        {
+          "label": "Mafuta",
+          "value": "15%"
+        },
+        {
+          "label": "ikiwemo mafuta yaliyoganda",
+          "value": "YATAKAMILISHWA (À COMPLÉTER)",
+          "indent": true
+        },
+        {
+          "label": "Wanga",
+          "value": "69.44%"
+        },
+        {
+          "label": "ikiwemo sukari",
+          "value": "YATAKAMILISHWA (À COMPLÉTER)",
+          "indent": true
+        },
+        {
+          "label": "Nyuzinyuzi",
+          "value": "YATAKAMILISHWA (À COMPLÉTER)"
+        },
+        {
+          "label": "Protini",
+          "value": "10.65%"
+        },
+        {
+          "label": "Chumvi",
+          "value": "YATAKAMILISHWA (À COMPLÉTER)"
+        }
+      ],
+      "disclaimer": "Thamani zitatolewa na Crispy Food Products kulingana na lebo rasmi."
+    },
+    "chooseTitle": "Chagua mfumo wako",
+    "factsTitle": "Viungo na uhifadhi",
+    "promoLabel": "Ofa ya Krismasi"
+  },
+  "story": {
+    "eyebrow": "Hadithi yetu",
+    "title": "Imezaliwa Burundi, imechochewa na uyoga",
+    "intro": "Krumbz ni chapa ya Crispy Food Products. Biskuti zetu zinatengenezwa Burundi, kwa uyoga.",
+    "chapters": [
+      {
+        "id": "burundi",
+        "image": "burundi-collines",
+        "title": "Imetengenezwa Burundi",
+        "text": "Krumbz inatengenezwa Bujumbura, katika Quartier Industriel, na Crispy Food Products. Historia ya kampuni na tarehe ya kuanzishwa: YATAKAMILISHWA (À COMPLÉTER).",
+        "alt": "Milima ya kijani ya Burundi"
+      },
+      {
+        "id": "champignon",
+        "image": "champignons",
+        "title": "Asili ya uyoga",
+        "text": "Uyoga ndicho kiungo msingi cha Krumbz. Chakula cha jadi cha misitu ya Burundi, kinatoa vitamini za kundi B, madini kama potasiamu na selenium, na vizuia-oksidishaji vya asili. Tumekifanya kuwa moyo wa biskuti ya kipekee.",
+        "alt": "Uyoga safi"
+      },
+      {
+        "id": "promesse",
+        "image": null,
+        "title": "Ahadi yetu",
+        "text": "Biskuti rahisi, krispi na yenye lishe, kwa kila wakati wa maisha.",
+        "alt": ""
+      }
+    ],
+    "values": {
+      "title": "Kinachotuongoza",
+      "items": [
+        {
+          "title": "Urahisi",
+          "text": "Biskuti rahisi, ambayo kila mtu anapenda."
+        },
+        {
+          "title": "Krispi",
+          "text": "Mkwaruzo unaofanya alama ya Krumbz."
+        },
+        {
+          "title": "Ukaribu",
+          "text": "Chapa ya Burundi, karibu na wateja wake."
+        }
+      ]
+    }
+  },
+  "order": {
+    "eyebrow": "Agiza",
+    "title": "Oda yako ya Krumbz",
+    "intro": "Chagua bidhaa zako na jaza fomu: oda yako inafunguka kwenye WhatsApp, tayari kutumwa.",
+    "catalogTitle": "Orodha ya bidhaa",
+    "cartTitle": "Kikapu chako",
+    "cartEmpty": "Kikapu chako ni tupu.",
+    "cartEmptyCta": "Ongeza kifurushi au katoni ili kuanza.",
+    "itemsCount": "{count, plural, =0 {Hakuna bidhaa} one {bidhaa #} other {bidhaa #}}",
+    "subtotal": "Jumla ndogo",
+    "totalUnknown": "Jumla itathibitishwa kwenye WhatsApp.",
+    "clearCart": "Futa kikapu",
+    "form": {
+      "title": "Taarifa zako",
+      "name": "Jina kamili",
+      "namePlaceholder": "Mfano: Aline Niyonzima",
+      "phone": "Simu",
+      "phonePlaceholder": "Mfano: 62 697 087",
+      "phoneHelp": "Namba ya Burundi (+257), tarakimu 8.",
+      "city": "Mji",
+      "cityPlaceholder": "Mfano: Bujumbura",
+      "district": "Mtaa",
+      "districtPlaceholder": "Mfano: Rohero",
+      "notes": "Maelezo ya ziada (si lazima)",
+      "notesPlaceholder": "Muda wa usafirishaji unaopendelewa, alama ya mahali…",
+      "submit": "Tuma oda kwenye WhatsApp",
+      "submitting": "Inafungua WhatsApp…",
+      "required": "lazima",
+      "errors": {
+        "name": "Weka jina lako (angalau herufi 2).",
+        "phone": "Weka namba sahihi ya Burundi yenye tarakimu 8.",
+        "city": "Weka mji wako.",
+        "district": "Weka mtaa wako.",
+        "cart": "Ongeza angalau bidhaa moja kwenye kikapu.",
+        "summary": "Fomu ina {count, plural, one {hitilafu #} other {hitilafu #}}.",
+        "payment": "Njia hii ya malipo bado haipatikani: chagua malipo wakati wa kufikisha."
+      },
+      "errorsTitle": "Angalia sehemu zifuatazo:"
+    },
+    "payment": {
+      "title": "Malipo",
+      "methodLabel": "Njia ya malipo",
+      "cash": "Malipo wakati wa kufikisha",
+      "cashHelp": "Masharti yatathibitishwa na Krumbz kwenye WhatsApp.",
+      "lumicash": "Lumicash",
+      "ecocash": "EcoCash",
+      "soon": "Inakuja hivi karibuni"
+    },
+    "delivery": {
+      "title": "Usafirishaji",
+      "text": "Maeneo, muda na gharama za usafirishaji vitathibitishwa kwenye WhatsApp pamoja na oda yako."
+    },
+    "whatsapp": {
+      "greeting": "Habari Krumbz! Ningependa kuagiza:",
+      "line": "• {quantity} × {name}",
+      "subtotal": "Jumla ndogo: {amount}",
+      "customer": "Jina: {name}",
+      "phone": "Simu: {phone}",
+      "address": "Anwani: {district}, {city}",
+      "notes": "Maelezo: {notes}",
+      "payment": "Malipo: {method}",
+      "thanks": "Asante!"
+    },
+    "success": {
+      "title": "Oda yako iko tayari kwenye WhatsApp",
+      "text": "Kama WhatsApp haijafunguka, tumia kitufe kilicho chini.",
+      "retry": "Fungua WhatsApp",
+      "newOrder": "Oda mpya"
+    },
+    "checkout": "Kamilisha oda",
+    "continue": "Endelea kununua",
+    "lineTotal": "{quantity} × {price}",
+    "summaryLoading": "Inapakia kikapu…",
+    "steps": {
+      "label": "Hatua za oda yako",
+      "products": "Chagua biskuti zako",
+      "details": "Taarifa zako",
+      "send": "Tuma",
+      "done": "imekamilika",
+      "current": "hatua ya sasa",
+      "stepOf": "Hatua {n} kati ya 3"
+    },
+    "next": {
+      "toProducts": "Chagua biskuti zangu",
+      "toDetails": "Endelea: taarifa zangu",
+      "send": "Tuma kwenye WhatsApp",
+      "toProductsShort": "Chagua",
+      "toDetailsShort": "Endelea",
+      "sendShort": "Tuma"
+    },
+    "barLabel": "Muhtasari wa oda"
+  },
+  "contactPage": {
+    "eyebrow": "Mawasiliano",
+    "title": "Tuzungumze biskuti",
+    "intro": "Swali, oda ya tukio, au unataka kuuza tena Krumbz? Tuandikie au tupigie simu.",
+    "whatsappTitle": "WhatsApp",
+    "whatsappText": "Njia ya haraka zaidi ya kutufikia.",
+    "whatsappCta": "Tuandikie kwenye WhatsApp",
+    "whatsappPrefill": "Habari Krumbz, nina swali:",
+    "phoneTitle": "Simu",
+    "emailTitle": "Barua pepe",
+    "locationTitle": "Tulipo",
+    "hoursTitle": "Masaa ya kazi",
+    "mapCta": "Fungua kwenye Google Maps",
+    "socialTitle": "Mitandao ya kijamii",
+    "socialEmpty": "Mitandao yetu ya kijamii inakuja hivi karibuni.",
+    "addressTitle": "Anwani"
+  },
+  "legal": {
+    "title": "Taarifa za kisheria",
+    "updated": "Ilisasishwa mara ya mwisho: 20 Novemba 2026",
+    "sections": [
+      {
+        "title": "Mchapishaji wa tovuti",
+        "body": [
+          "Niyondiko Joffre (« Jubu Niyoko »), muuzaji aliyeidhinishwa wa chapa ya Krumbz (Crispy Food Products) huko Gitega, Burundi. Tovuti hii inachapishwa na muuzaji, si na mzalishaji.",
+          "Hali ya kisheria: mtu binafsi (hakuna kampuni iliyosajiliwa).",
+          "Anwani: Gitega, Bwoga 2, n° 37, Burundi.",
+          "Namba ya utambulisho wa kodi (NIF): haitumiki (mtu binafsi).",
+          "Usajili wa biashara: haitumiki (mtu binafsi).",
+          "Simu: +257 68 49 73 72 / +257 61 89 59 40.",
+          "Mkurugenzi wa uchapishaji: Niyondiko Joffre."
+        ]
+      },
+      {
+        "title": "Uwekaji wa tovuti (hosting)",
+        "body": [
+          "Hostinger International Ltd., 61 Lordou Vironos Street, 6023 Larnaca, Kupro — hostinger.com."
+        ]
+      },
+      {
+        "title": "Haki miliki",
+        "body": [
+          "Tovuti hii (maandishi, mpangilio, michoro na msimbo) ni mali ya Niyondiko Joffre, muuzaji aliyeidhinishwa wa Krumbz.",
+          "Chapa ya Krumbz, alama zake na vifungashio ni mali ya Crispy Food Products, ambayo inaruhusu muuzaji wake kuvitumia.",
+          "Unakili wowote bila ruhusa ni marufuku."
+        ]
+      },
+      {
+        "title": "Taarifa binafsi",
+        "body": [
+          "Kikapu kinahifadhiwa tu kwenye kivinjari chako (hifadhi ya ndani) na hakitumwi kwa seva yoyote.",
+          "Taarifa zilizowekwa kwenye fomu ya oda (jina, simu, mji, mtaa) zinatumika tu kuandaa ujumbe wa WhatsApp unaochagua kutuma. Hazihifadhiwi na tovuti.",
+          "Tovuti hii haitumii vidakuzi vya matangazo wala wafuatiliaji wa watu wengine.",
+          "Kwa ombi lolote kuhusu data yako: niyondikojoffreasjubu@gmail.com."
+        ]
+      },
+      {
+        "title": "Uwajibikaji",
+        "body": [
+          "Picha ni za kielelezo tu. Bei, mifumo na upatikanaji vinathibitishwa unapofanya oda kwenye WhatsApp."
+        ]
+      }
+    ],
+    "tocTitle": "Kwenye ukurasa huu"
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Lo, biskuti hii imevunjika!",
+    "text": "Ukurasa unaoutafuta haupo au umehamishwa.",
+    "cta": "Rudi mwanzo",
+    "secondary": "Angalia bidhaa"
+  },
+  "error": {
+    "title": "Kuna tatizo lililotokea",
+    "text": "Pakia tena ukurasa au rudi mwanzo.",
+    "retry": "Jaribu tena"
+  },
+  "seo": {
+    "siteName": "Krumbz",
+    "titleTemplate": "%s · Krumbz",
+    "defaultTitle": "Krumbz — Rahisi, Krispi",
+    "defaultDescription": "Krumbz, biskuti za uyoga zinazotengenezwa Burundi na Crispy Food Products. Rahisi, krispi, kwa kila wakati wa maisha. Agiza kwenye WhatsApp.",
+    "ogAlt": "Biskuti na kifurushi cha Krumbz — Rahisi, Krispi",
+    "pages": {
+      "home": {
+        "title": "Krumbz — Rahisi, Krispi",
+        "description": "Biskuti ya uyoga iliyotengenezwa Burundi, kwa kila wakati wa maisha. Gundua Krumbz na uagize kwenye WhatsApp."
+      },
+      "products": {
+        "title": "Bidhaa",
+        "description": "Kifurushi na katoni ya Krumbz: mifumo, viungo na taarifa za lishe. Kionyesho cha 3D kinachoshirikiana."
+      },
+      "story": {
+        "title": "Hadithi yetu",
+        "description": "Krumbz, imetengenezwa Burundi na Crispy Food Products, kwa uyoga."
+      },
+      "order": {
+        "title": "Agiza",
+        "description": "Agiza biskuti zako za Krumbz kwa sekunde chache: oda yako inakwenda moja kwa moja WhatsApp."
+      },
+      "contact": {
+        "title": "Mawasiliano",
+        "description": "Wasiliana na Krumbz kwenye WhatsApp au kwa simu +257 68 49 73 72 au +257 61 89 59 40."
+      },
+      "legal": {
+        "title": "Taarifa za kisheria",
+        "description": "Taarifa za kisheria na data binafsi za tovuti ya Krumbz."
+      }
+    }
+  },
+  "footer": {
+    "navTitle": "Gundua",
+    "contactTitle": "Wasiliana nasi",
+    "backToTop": "Rudi juu"
+  }
+}

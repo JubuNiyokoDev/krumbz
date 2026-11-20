@@ -5,7 +5,7 @@ Les produits (biscuit, sachet, carton) sont en vraie 3D WebGL et accompagnent le
 
 - **Stack** : Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · three.js + React Three Fiber + drei · GSAP + ScrollTrigger · Lenis · zustand · next-intl · detect-gpu · gltf-transform
 - **Pages** : Accueil, Produits (visionneuse 3D), Notre histoire, Commander (panier + WhatsApp), Contact, Mentions légales, 404 animée
-- **Langues** : français (défaut, sans préfixe), anglais (`/en`), kirundi prêt à traduire
+- **Langues** : français (défaut, sans préfixe), anglais (`/en`), kirundi (`/rn`), swahili (`/sw`) — les 4 actives et complètes
 
 ---
 
@@ -95,11 +95,19 @@ mentions légales, SEO) sont dans un seul fichier : **`content/site.fr.json`**.
 
 ### Langues
 
-- Anglais : `content/site.en.json` (même structure). Toute clé absente reprend le français.
-- Kirundi : `content/site.rn.json` est prêt à traduire. Une fois traduit, activez la langue en déplaçant `"rn"` de
-  `READY_LOCALES` vers `ACTIVE_LOCALES` dans `src/i18n/config.ts`, et ajoutez les chemins traduits dans
-  `src/i18n/routing.ts` si besoin.
-- Lancez `npm run content:check` après chaque modification.
+4 langues actives, chacune avec son propre fichier de contenu (`content/site.{en,rn,sw}.json`, même structure que
+`site.fr.json`, la référence) et ses propres chemins d'URL (`src/i18n/routing.ts`) : anglais (`/en`), kirundi
+(`/rn`), swahili (`/sw`). Toute clé absente dans une traduction reprend automatiquement le français.
+
+- **Kirundi** (`content/site.rn.json`) a été traduit avec l'aide d'une IA (voir `_meta.important` dans le fichier) :
+  une relecture par une personne de langue maternelle kirundi est recommandée avant une communication officielle.
+- **Swahili** (`content/site.sw.json`) : traduction complète.
+- Pour ajouter une 5ᵉ langue : créer `content/site.xx.json` (copier la structure, traduire chaque texte, jamais les
+  champs `id`/`model`/`price`/`image`/`indent`, ni les variables `{comme_ceci}`), ajouter `"xx"` dans
+  `ACTIVE_LOCALES` et une entrée dans `LOCALE_LABELS` (`src/i18n/config.ts`), puis les chemins localisés dans
+  `src/i18n/routing.ts`.
+- Lancez `npm run content:check` après chaque modification : il vérifie la structure, les variables ICU et le taux
+  de traduction de chaque langue.
 
 ---
 
@@ -144,7 +152,7 @@ docker compose logs -f
 ## 5. Architecture
 
 ```
-content/                    Textes (site.fr.json = référence, site.en.json, site.rn.json)
+content/                    Textes (site.fr.json = référence, site.en.json, site.rn.json, site.sw.json)
 public/images/              Photos (scènes, produits, histoire, og) — voir public/images/README.md
 public/textures/            Étiquettes appliquées sur les modèles 3D
 public/models/              Ressources 3D générées (cartes de relief du biscuit, modèles optimisés)
@@ -183,4 +191,5 @@ Liste à jour : `npm run todo`. État au 20 novembre 2026 — visibles par le pu
 | Livraison : zones, délais, frais | Commander | `order.delivery.text` |
 
 Facultatif (le site fonctionne sans) : versions `-portrait.jpg` des scènes, étiquettes à plat du sachet et du carton
-(`public/textures/`), traduction kirundi (`content/site.rn.json`).
+(`public/textures/`). La traduction kirundi (`content/site.rn.json`) existe et est active, mais gagnerait à être
+relue par une personne de langue maternelle kirundi.

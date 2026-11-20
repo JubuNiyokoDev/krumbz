@@ -6,6 +6,8 @@ import type { Locale } from "../src/i18n/config";
 const CASES: { locale: Locale; path: string }[] = [
   { locale: "fr", path: "/cette-page-n-existe-pas" },
   { locale: "en", path: "/en/this-page-does-not-exist" },
+  { locale: "rn", path: "/rn/uru-rupapuro-ntiruhari" },
+  { locale: "sw", path: "/sw/ukurasa-huu-haupo" },
 ];
 
 for (const { locale, path } of CASES) {

@@ -12,11 +12,11 @@ export const routing = defineRouting({
   localeDetection: false,
   pathnames: {
     "/": "/",
-    "/produits": { fr: "/produits", en: "/products" },
-    "/notre-histoire": { fr: "/notre-histoire", en: "/our-story" },
-    "/commander": { fr: "/commander", en: "/order" },
-    "/contact": { fr: "/contact", en: "/contact" },
-    "/mentions-legales": { fr: "/mentions-legales", en: "/legal-notice" },
+    "/produits": { fr: "/produits", en: "/products", rn: "/ibicuruzwa", sw: "/bidhaa" },
+    "/notre-histoire": { fr: "/notre-histoire", en: "/our-story", rn: "/inkuru-yacu", sw: "/historia-yetu" },
+    "/commander": { fr: "/commander", en: "/order", rn: "/gutumiza", sw: "/agiza" },
+    "/contact": { fr: "/contact", en: "/contact", rn: "/itumanaho", sw: "/mawasiliano" },
+    "/mentions-legales": { fr: "/mentions-legales", en: "/legal-notice", rn: "/amabwirizwa", sw: "/taarifa-za-kisheria" },
   },
 });
 

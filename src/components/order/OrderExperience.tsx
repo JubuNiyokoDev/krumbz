@@ -3,7 +3,7 @@
 import { useId, useRef, useState, type CSSProperties, type FormEvent, type ReactNode } from "react";
 import { scrollToTarget } from "@/hooks/useUi";
 import { formatPrice, orderSubtotal } from "@/lib/order/whatsapp";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useCart } from "@/store/cart";
 import { PAYMENT_METHOD_IDS, PAYMENT_PROVIDERS, type PaymentMethodId } from "@/lib/order/payment";
 import type { CustomerInfo, OrderDraft, OrderErrors } from "@/lib/order/types";
@@ -35,7 +35,6 @@ export function OrderExperience() {
   const tw = useTranslations("order.whatsapp");
   const common = useTranslations("common");
   const contact = useTranslations("contact");
-  const locale = useLocale();
   const uid = useId();
   const { lines, products, hydrated } = useCartLines();
   const cartLines = useCart((s) => s.lines);
@@ -113,7 +112,7 @@ export function OrderExperience() {
       payment: (v) => tw("payment", v),
       thanks: tw("thanks"),
     };
-    const url = whatsappUrl(contact("whatsapp.number"), buildOrderMessage(draft, template, paymentLabels[payment], locale));
+    const url = whatsappUrl(contact("whatsapp.number"), buildOrderMessage(draft, template, paymentLabels[payment]));
     setSuccess({ url, instructions: result.status === "pending" ? result.instructions : undefined });
     setSubmitting(false);
     requestAnimationFrame(() => successRef.current?.focus({ preventScroll: false }));
@@ -453,7 +452,7 @@ export function OrderExperience() {
                 {t("steps.stepOf", { n: step })} · {t("itemsCount", { count: hasItems ? itemCount : 0 })}
               </p>
               <p className="truncate font-display text-lg font-bold tabular-nums">
-                {hasItems && subtotal !== null ? formatPrice(subtotal, locale) : stepNames[step - 1]}
+                {hasItems && subtotal !== null ? formatPrice(subtotal) : stepNames[step - 1]}
               </p>
             </div>
             <button type="button" onClick={nextAction} disabled={submitting} className={`btn shrink-0 px-5 py-3 ${step === 3 ? "btn-whatsapp" : "btn-primary"}`}>
