@@ -145,7 +145,15 @@ export function SiteShell({ children }: { children: ReactNode }) {
         spin?.kill();
         await playOpen();
         window.dispatchEvent(new CustomEvent(PAGE_CHANGE_EVENT));
-        focusPage();
+        // Links with an anchor (e.g. /commander#etape-2) land on that section, not on the top of the page.
+        const hashTarget = url.hash ? document.getElementById(decodeURIComponent(url.hash.slice(1))) : null;
+        if (hashTarget) {
+          scrollToTarget(hashTarget, headerOffset());
+          if (!hashTarget.hasAttribute("tabindex")) hashTarget.setAttribute("tabindex", "-1");
+          hashTarget.focus({ preventScroll: true });
+        } else {
+          focusPage();
+        }
       } finally {
         pendingRef.current = null;
         busyRef.current = false;
@@ -174,14 +182,23 @@ export function SiteShell({ children }: { children: ReactNode }) {
       event.preventDefault();
       const id = decodeURIComponent(url.hash.slice(1));
       const target = id ? document.getElementById(id) : null;
-      if (target) {
-        scrollToTarget(target, target.id === "contenu" ? 0 : headerOffset());
-        if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
-        target.focus({ preventScroll: true });
-      } else {
-        scrollToTarget(0);
-      }
-      useUi.getState().setMenuOpen(false);
+      const ui = useUi.getState();
+      // A link inside the cart drawer or the mobile menu closes it first (e.g. « Finaliser la commande »
+      // while already on /commander); scrolling waits for the dialog's scroll lock to be released.
+      const hadDialog = ui.cartOpen || ui.menuOpen;
+      ui.setMenuOpen(false);
+      ui.setCartOpen(false);
+      const go = () => {
+        if (target) {
+          scrollToTarget(target, target.id === "contenu" ? 0 : headerOffset());
+          if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
+          target.focus({ preventScroll: true });
+        } else {
+          scrollToTarget(0);
+        }
+      };
+      if (hadDialog) window.setTimeout(go, 80);
+      else go();
       return;
     }
     event.preventDefault();

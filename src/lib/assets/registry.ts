@@ -75,7 +75,7 @@ export const IMAGE_SLOTS: ImageSlot[] = [
       format: "jpg" as const,
       orientation: "portrait" as const,
       size: "1080 × 1920 (9:16), < 300 Ko",
-      usage: `${sceneUsage[id]} — téléphone. Laisser de l’espace libre dans le tiers inférieur pour le produit 3D.`,
+      usage: `${sceneUsage[id]} — téléphone, FACULTATIF : sans ce fichier, la version paysage est recadrée automatiquement (visages et sachet visibles). S’il est fourni, il s’affiche en plein écran : laisser de l’espace libre dans le tiers inférieur pour le produit 3D.`,
     },
   ]),
   {

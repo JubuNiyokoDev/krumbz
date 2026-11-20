@@ -63,6 +63,21 @@ existent. Pour réduire leur poids, lancez ensuite `npm run optimize:3d` (crée 
 [KTX-Software](https://github.com/KhronosGroup/KTX-Software/releases) est installé) ; le site choisit automatiquement la
 version optimisée la plus récente.
 
+### Cadrage des scènes
+
+- Les zones des visages et du sachet de chaque photo de scène sont décrites dans `src/lib/assets/scene-framing.ts`.
+  **Si vous remplacez une photo de scène, mettez à jour ses zones**, puis vérifiez avec
+  `npm run build && npm run test:e2e -- tests/scene-framing.spec.ts` (captures dans `test-results/`).
+- **Ordinateur** : photo plein écran, texte et produit 3D sur le côté « libre » (mur, pelouse, lac). Les photos où les
+  personnes occupent toute la largeur (`desktop: "card"`) sont montrées entières dans une carte, sur un fond flou de
+  la même photo : rien n'est recadré.
+- **Téléphone** : tant qu'il n'y a pas de `-portrait.jpg`, la photo paysage s'affiche dans une bande dont la hauteur et
+  le point focal sont calculés pour garder tous les visages et le sachet visibles. Un `-portrait.jpg` déposé est
+  utilisé automatiquement en plein écran.
+
+Les photos du vrai produit (sachet, étiquette, biscuit) servent de référence dans `references/produit-reel/`
+(non publié, non versionné).
+
 ---
 
 ## 3. Modifier les textes
@@ -158,4 +173,14 @@ qui appelle l'API de l'opérateur avec des identifiants stockés en variables d'
 
 ## 6. Éléments « À COMPLÉTER »
 
-_(Liste générée par `npm run todo`, mise à jour à la livraison.)_
+Liste à jour : `npm run todo`. État au 20 novembre 2026 — visibles par le public :
+
+| Sujet | Où | Clé dans `content/site.fr.json` |
+| --- | --- | --- |
+| Conditions de conservation (ex. « à l'abri de la chaleur et de l'humidité ») | Produits | `products.ingredients.storage` |
+| Valeurs nutritionnelles : énergie (kcal), acides gras saturés, sucres, fibres, sel | Produits | `products.nutrition.rows[…].value` |
+| Histoire de Crispy Food Products, date de création | Notre histoire | `story.chapters[0].text` |
+| Livraison : zones, délais, frais | Commander | `order.delivery.text` |
+
+Facultatif (le site fonctionne sans) : versions `-portrait.jpg` des scènes, étiquettes à plat du sachet et du carton
+(`public/textures/`), traduction kirundi (`content/site.rn.json`).

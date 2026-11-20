@@ -154,4 +154,42 @@
   .ks-text {
     font-size: clamp(1rem, 1.3vw, 1.25rem);
   }
+
+  /* ----- "card" layout: crowded photo shown whole, next to the copy column ----- */
+  .ks-slide[data-desk="card"] {
+    --card-w: calc(100vw - 9vw - var(--copy-w));
+  }
+  .ks-slide[data-desk="card"] .ks-media {
+    inset: auto;
+    top: calc(50% + var(--header-h) / 2);
+    width: min(var(--card-w), calc((100svh - var(--header-h) - 4rem) * 16 / 9));
+    aspect-ratio: 16 / 9;
+    height: auto;
+    translate: 0 -50%;
+    border-radius: 2rem;
+    box-shadow: 0 30px 80px -30px rgb(0 0 0 / 0.6), 0 0 0 1px rgb(255 246 232 / 0.12);
+  }
+  .ks-slide[data-desk="card"][data-free="right"] .ks-media {
+    left: 3vw;
+  }
+  .ks-slide[data-desk="card"][data-free="left"] .ks-media {
+    right: 3vw;
+  }
+  /* the photo is not under the copy: no darkening gradient on it */
+  .ks-slide[data-desk="card"] .ks-overlay {
+    background: none;
+  }
+}
+
+/*
+ * Backdrop of "card" scenes (crowded photos): a soft, darkened, blurred copy of
+ * the photo behind everything. On phones it fills the space around the short
+ * photo band (crowded photos need a short band to keep every face).
+ */
+.ks-backdrop {
+  position: absolute;
+  inset: -8%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(32px) saturate(1.15) brightness(0.5);
 }

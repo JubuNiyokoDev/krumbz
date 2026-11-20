@@ -323,3 +323,10 @@ html.is-locked:not(.lenis) { overflow: hidden; }
 @keyframes marquee { to { transform: translate3d(-50%, 0, 0); } }
 
 }
+
+/* Order page, phones: the fixed summary bar must not hide the end of the footer. */
+@media (max-width: 1023.98px) {
+  body:has([data-order-bar]) footer {
+    padding-bottom: 6.5rem;
+  }
+}

@@ -26,7 +26,12 @@ export const useExperience = create<ExperienceState>()((set) => ({
   loadProgress: 0,
   ready: false,
   failed: false,
-  setCapabilities: (capabilities) => set({ capabilities }),
+  setCapabilities: (capabilities) => {
+    // Inspectable without console noise: <html data-render-mode="static" data-render-reason="gpu-tier-0">
+    document.documentElement.dataset.renderMode = capabilities.mode;
+    document.documentElement.dataset.renderReason = capabilities.reason;
+    set({ capabilities });
+  },
   setLoadProgress: (loadProgress) => set({ loadProgress }),
   setReady: (ready) => set({ ready }),
   setFailed: (failed) => set({ failed }),
@@ -35,4 +40,19 @@ export const useExperience = create<ExperienceState>()((set) => ({
 /** "pending" until detection, then "3d" or "static" (failures switch to static). */
 export function useRenderMode(): "pending" | "3d" | "static" {
   return useExperience((s) => (s.failed ? "static" : (s.capabilities?.mode ?? "pending")));
+}
+
+export type StaticReason = "reducedMotion" | "saveData" | "noWebgl" | "gpu" | "error";
+
+/** Why the site fell back to still images (null while 3D runs or detection is pending). */
+export function useStaticReason(): StaticReason | null {
+  return useExperience((s) => {
+    if (s.failed) return "error";
+    const caps = s.capabilities;
+    if (!caps || caps.mode !== "static") return null;
+    if (caps.reason === "prefers-reduced-motion") return "reducedMotion";
+    if (caps.reason === "save-data") return "saveData";
+    if (caps.reason === "no-webgl") return "noWebgl";
+    return "gpu";
+  });
 }

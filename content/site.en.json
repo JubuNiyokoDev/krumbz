@@ -65,7 +65,7 @@
     "loadingPercent": "{percent}%",
     "staticModeNotice": "Simplified display to spare your device and your data.",
     "imagePlaceholder": "Image coming soon",
-    "rights": "© {year} {company}. All rights reserved.",
+    "rights": "© {year} Niyondiko Joffre, authorised Krumbz distributor. All rights reserved. Krumbz is a brand of {company}.",
     "madeIn": "Made with care in Burundi",
     "addedToCart": "{name} added to the cart",
     "toCompleteHint": "Information to be provided by Crispy Food Products"
@@ -232,7 +232,7 @@
           "text": "Children, young people, parents, teachers, working adults."
         }
       ],
-      "nutritionNote": "Detailed nutritional benefits: TO BE COMPLETED (À COMPLÉTER) (to be provided and validated by Crispy Food Products)."
+      "nutritionNote": ""
     },
     "products": {
       "eyebrow": "Our formats",
@@ -244,6 +244,46 @@
       "text": "Order in seconds: your order goes straight to WhatsApp.",
       "button": "Order on WhatsApp",
       "phoneLabel": "Or give us a call"
+    },
+    "mushroom": {
+      "eyebrow": "Mushroom, the heart of Krumbz",
+      "title": "A treasure from Burundi’s forests",
+      "intro": "There are biscuits all over the world. Mushroom-based biscuits are much rarer. Krumbz celebrates a food from home: Burundi’s forests and woodlands are home to dozens of edible mushroom species, gathered for generations and sold in markets all the way to Bujumbura.",
+      "whyTitle": "What mushrooms bring",
+      "items": [
+        {
+          "symbol": "B2 · B3 · B5",
+          "title": "B vitamins",
+          "text": "Riboflavin, niacin and pantothenic acid help turn food into energy."
+        },
+        {
+          "symbol": "K",
+          "title": "Potassium",
+          "text": "A mineral that contributes to normal muscle function and the maintenance of normal blood pressure."
+        },
+        {
+          "symbol": "Se",
+          "title": "Selenium",
+          "text": "It contributes to the protection of cells from oxidative stress."
+        },
+        {
+          "symbol": "EGT",
+          "title": "Ergothioneine",
+          "text": "A natural antioxidant for which mushrooms are one of the best food sources."
+        },
+        {
+          "symbol": "P + F",
+          "title": "Protein and fibre",
+          "text": "Mushrooms provide protein and fibre with very little fat."
+        },
+        {
+          "symbol": "D",
+          "title": "Vitamin D from sunlight",
+          "text": "Exposed to sunlight, mushrooms make vitamin D, a bit like our skin does."
+        }
+      ],
+      "disclaimer": "This information describes mushrooms as a food. It is not the composition of Krumbz biscuits, whose nutrition facts are on the Products page.",
+      "cta": "See what our biscuits contain"
     }
   },
   "products": {
@@ -263,7 +303,14 @@
       "fallbackAlt": "Photo of the {name} product",
       "biscuit": "Krumbz biscuit",
       "loading": "Loading the 3D model…",
-      "staticNotice": "Photo view: 3D is turned off on this device."
+      "staticNotice": "Photo view: 3D is turned off on this device.",
+      "reasons": {
+        "reducedMotion": "Reason: “reduce motion” is turned on in this device’s settings.",
+        "saveData": "Reason: data saver is on (or the connection is very slow).",
+        "noWebgl": "Reason: WebGL is not available in this browser.",
+        "gpu": "Reason: the browser is not using the graphics card (hardware acceleration off or card not recognised). Turn on “Use graphics acceleration” in the browser settings.",
+        "error": "Reason: the 3D view ran into an error on this device."
+      }
     },
     "items": [
       {
@@ -382,7 +429,7 @@
         "id": "champignon",
         "image": "champignons",
         "title": "The mushroom origin",
-        "text": "Mushrooms are at the heart of the Krumbz recipe. Variety used and origin: TO BE COMPLETED (À COMPLÉTER).",
+        "text": "Mushroom is the base ingredient of Krumbz. A traditional food from Burundi’s forests, it provides B vitamins, minerals such as potassium and selenium, and natural antioxidants. We made it the heart of a one-of-a-kind biscuit.",
         "alt": "Fresh mushrooms"
       },
       {
@@ -461,7 +508,7 @@
     },
     "delivery": {
       "title": "Delivery",
-      "text": "Delivery areas, times and fees: TO BE COMPLETED (À COMPLÉTER)."
+      "text": "Delivery areas, times and fees are confirmed on WhatsApp together with your order."
     },
     "whatsapp": {
       "greeting": "Hello Krumbz! I would like to place an order:",
@@ -483,7 +530,25 @@
     "checkout": "Checkout",
     "continue": "Continue shopping",
     "lineTotal": "{quantity} × {price}",
-    "summaryLoading": "Loading the cart…"
+    "summaryLoading": "Loading the cart…",
+    "steps": {
+      "label": "Your order steps",
+      "products": "Choose your biscuits",
+      "details": "Your details",
+      "send": "Send",
+      "done": "done",
+      "current": "current step",
+      "stepOf": "Step {n} of 3"
+    },
+    "next": {
+      "toProducts": "Choose my biscuits",
+      "toDetails": "Continue: my details",
+      "send": "Send on WhatsApp",
+      "toProductsShort": "Choose",
+      "toDetailsShort": "Continue",
+      "sendShort": "Send"
+    },
+    "barLabel": "Order summary"
   },
   "contactPage": {
     "eyebrow": "Contact",
@@ -499,12 +564,12 @@
     "hoursTitle": "Opening hours",
     "mapCta": "Open in Google Maps",
     "socialTitle": "Social media",
-    "socialEmpty": "Social media links: TO BE COMPLETED (À COMPLÉTER).",
+    "socialEmpty": "Our social media pages are coming soon.",
     "addressTitle": "Address"
   },
   "legal": {
     "title": "Legal notice",
-    "updated": "Last updated: TO BE COMPLETED (À COMPLÉTER)",
+    "updated": "Last updated: 20 November 2026",
     "sections": [
       {
         "title": "Website publisher",
@@ -527,7 +592,9 @@
       {
         "title": "Intellectual property",
         "body": [
-          "The Krumbz brand, logos, packaging, texts and images on this website are the property of Crispy Food Products or of their authors. Any reproduction without permission is prohibited."
+          "The website (texts, layout, graphics and code) is the property of Niyondiko Joffre, authorised Krumbz distributor.",
+          "The Krumbz brand, its logos and its packaging are the property of Crispy Food Products, which authorises its distributor to use them.",
+          "Any reproduction without permission is prohibited."
         ]
       },
       {

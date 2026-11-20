@@ -67,9 +67,11 @@ export function Benefits({
           </ul>
         </div>
 
+        {nutritionNote ? (
         <p data-reveal className="mx-auto mt-14 max-w-2xl rounded-3xl border-2 border-dashed border-rust/40 bg-cream-deep/60 px-6 py-4 text-center text-sm leading-relaxed text-navy/85 sm:text-base">
           <TextWithToComplete value={nutritionNote} label={toCompleteLabel} hint={toCompleteHint} />
         </p>
+        ) : null}
       </div>
     </section>
   );

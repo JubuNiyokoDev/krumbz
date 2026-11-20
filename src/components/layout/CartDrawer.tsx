@@ -76,7 +76,7 @@ export function CartDrawer() {
             </div>
             <div className="space-y-4 border-t border-navy/10 bg-cream-deep/60 px-5 py-5 sm:px-7">
               <CartTotals lines={lines} />
-              <Link href="/commander" className="btn btn-primary w-full">
+              <Link href={{ pathname: "/commander", hash: "etape-2" }} className="btn btn-primary w-full">
                 {t("checkout")}
                 <ArrowRightIcon size={20} className="btn-icon btn-icon-arrow" />
               </Link>

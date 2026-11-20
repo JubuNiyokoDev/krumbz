@@ -115,7 +115,7 @@
     "loadingPercent": "{percent} %",
     "staticModeNotice": "Affichage simplifié pour préserver votre appareil et vos données.",
     "imagePlaceholder": "Image à venir",
-    "rights": "© {year} {company}. Tous droits réservés.",
+    "rights": "© {year} Niyondiko Joffre, distributeur agréé Krumbz. Tous droits réservés. Krumbz est une marque de {company}.",
     "madeIn": "Fabriqué avec soin au Burundi",
     "addedToCart": "{name} ajouté au panier",
     "toCompleteHint": "Information à fournir par Crispy Food Products"
@@ -282,7 +282,7 @@
           "text": "Enfants, jeunes, parents, enseignants, adultes au travail."
         }
       ],
-      "nutritionNote": "Bienfaits nutritionnels détaillés : À COMPLÉTER (à fournir et valider par Crispy Food Products)."
+      "nutritionNote": ""
     },
     "products": {
       "eyebrow": "Nos formats",
@@ -294,6 +294,46 @@
       "text": "Commandez en quelques secondes : votre commande part directement sur WhatsApp.",
       "button": "Commander sur WhatsApp",
       "phoneLabel": "Ou appelez-nous"
+    },
+    "mushroom": {
+      "eyebrow": "Le champignon, cœur de Krumbz",
+      "title": "Un trésor des forêts du Burundi",
+      "intro": "Des biscuits, il en existe partout dans le monde. Des biscuits à base de champignon, beaucoup moins. Krumbz met en valeur un aliment de chez nous : les forêts et les savanes boisées du Burundi abritent des dizaines d’espèces de champignons comestibles, récoltés depuis toujours et vendus sur les marchés, jusqu’à Bujumbura.",
+      "whyTitle": "Ce que le champignon apporte",
+      "items": [
+        {
+          "symbol": "B2 · B3 · B5",
+          "title": "Vitamines du groupe B",
+          "text": "Riboflavine, niacine et acide pantothénique participent à la transformation des aliments en énergie."
+        },
+        {
+          "symbol": "K",
+          "title": "Potassium",
+          "text": "Un minéral qui contribue au bon fonctionnement des muscles et au maintien d’une tension artérielle normale."
+        },
+        {
+          "symbol": "Se",
+          "title": "Sélénium",
+          "text": "Il contribue à protéger les cellules contre le stress oxydatif."
+        },
+        {
+          "symbol": "EGT",
+          "title": "Ergothionéine",
+          "text": "Un antioxydant naturel dont le champignon est l’une des meilleures sources alimentaires."
+        },
+        {
+          "symbol": "P + F",
+          "title": "Protéines et fibres",
+          "text": "Le champignon apporte des protéines et des fibres, pour très peu de matières grasses."
+        },
+        {
+          "symbol": "D",
+          "title": "Vitamine D au soleil",
+          "text": "Exposé à la lumière du soleil, le champignon fabrique de la vitamine D, un peu comme notre peau."
+        }
+      ],
+      "disclaimer": "Ces informations décrivent le champignon en tant qu’aliment. Elles ne correspondent pas à la composition des biscuits Krumbz, dont les valeurs nutritionnelles figurent sur la page Produits.",
+      "cta": "Voir la composition de nos biscuits"
     }
   },
   "products": {
@@ -313,7 +353,14 @@
       "fallbackAlt": "Photo du produit {name}",
       "biscuit": "Biscuit Krumbz",
       "loading": "Chargement du modèle 3D…",
-      "staticNotice": "Vue en photo : la 3D est désactivée sur cet appareil."
+      "staticNotice": "Vue en photo : la 3D est désactivée sur cet appareil.",
+      "reasons": {
+        "reducedMotion": "Raison : « réduire les animations » est activé dans les réglages de l’appareil.",
+        "saveData": "Raison : le mode économie de données est activé (ou la connexion est très lente).",
+        "noWebgl": "Raison : WebGL n’est pas disponible dans ce navigateur.",
+        "gpu": "Raison : le navigateur n’utilise pas la carte graphique (accélération matérielle désactivée ou carte non reconnue). Activez « Utiliser l’accélération graphique » dans les paramètres du navigateur.",
+        "error": "Raison : l’affichage 3D a rencontré une erreur sur cet appareil."
+      }
     },
     "items": [
       {
@@ -432,7 +479,7 @@
         "id": "champignon",
         "image": "champignons",
         "title": "L’origine champignon",
-        "text": "Le champignon est au cœur de la recette Krumbz. Variété utilisée et provenance : À COMPLÉTER.",
+        "text": "Le champignon est l’ingrédient de base de Krumbz. Aliment traditionnel des forêts du Burundi, il apporte des vitamines du groupe B, des minéraux comme le potassium et le sélénium, et des antioxydants naturels. Nous en avons fait le cœur d’un biscuit unique.",
         "alt": "Des champignons frais"
       },
       {
@@ -511,7 +558,7 @@
     },
     "delivery": {
       "title": "Livraison",
-      "text": "Zones, délais et frais de livraison : À COMPLÉTER."
+      "text": "Les zones, délais et frais de livraison vous sont confirmés sur WhatsApp, avec votre commande."
     },
     "whatsapp": {
       "greeting": "Bonjour Krumbz ! Je souhaite passer une commande :",
@@ -533,7 +580,25 @@
     "checkout": "Finaliser la commande",
     "continue": "Continuer mes achats",
     "lineTotal": "{quantity} × {price}",
-    "summaryLoading": "Chargement du panier…"
+    "summaryLoading": "Chargement du panier…",
+    "steps": {
+      "label": "Étapes de votre commande",
+      "products": "Choisir vos biscuits",
+      "details": "Vos informations",
+      "send": "Envoyer",
+      "done": "terminée",
+      "current": "étape en cours",
+      "stepOf": "Étape {n} sur 3"
+    },
+    "next": {
+      "toProducts": "Choisir mes biscuits",
+      "toDetails": "Continuer : mes informations",
+      "send": "Envoyer sur WhatsApp",
+      "toProductsShort": "Choisir",
+      "toDetailsShort": "Continuer",
+      "sendShort": "Envoyer"
+    },
+    "barLabel": "Récapitulatif de la commande"
   },
   "contactPage": {
     "eyebrow": "Contact",
@@ -549,12 +614,12 @@
     "hoursTitle": "Horaires",
     "mapCta": "Ouvrir dans Google Maps",
     "socialTitle": "Réseaux sociaux",
-    "socialEmpty": "Liens des réseaux sociaux : À COMPLÉTER.",
+    "socialEmpty": "Nos réseaux sociaux arrivent bientôt.",
     "addressTitle": "Adresse"
   },
   "legal": {
     "title": "Mentions légales",
-    "updated": "Dernière mise à jour : À COMPLÉTER",
+    "updated": "Dernière mise à jour : 20 novembre 2026",
     "sections": [
       {
         "title": "Éditeur du site",
@@ -577,7 +642,9 @@
       {
         "title": "Propriété intellectuelle",
         "body": [
-          "La marque Krumbz, les logos, les emballages, les textes et les images de ce site sont la propriété de Crispy Food Products ou de leurs auteurs. Toute reproduction sans autorisation est interdite."
+          "Le site (textes, mise en page, graphismes et code) est la propriété de Niyondiko Joffre, distributeur agréé Krumbz.",
+          "La marque Krumbz, ses logos et ses emballages sont la propriété de Crispy Food Products, qui en autorise l’usage à son distributeur.",
+          "Toute reproduction sans autorisation est interdite."
         ]
       },
       {

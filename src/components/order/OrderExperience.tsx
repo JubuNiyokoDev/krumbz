@@ -1,6 +1,8 @@
 "use client";
 
 import { useId, useRef, useState, type CSSProperties, type FormEvent, type ReactNode } from "react";
+import { scrollToTarget } from "@/hooks/useUi";
+import { formatPrice, orderSubtotal } from "@/lib/order/whatsapp";
 import { useLocale, useTranslations } from "next-intl";
 import { useCart } from "@/store/cart";
 import { PAYMENT_METHOD_IDS, PAYMENT_PROVIDERS, type PaymentMethodId } from "@/lib/order/payment";
@@ -47,6 +49,7 @@ export function OrderExperience() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState<{ url: string; instructions?: string } | null>(null);
   const summaryRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const successRef = useRef<HTMLHeadingElement>(null);
 
   const id = (name: string) => `${uid}-${name}`;
@@ -125,15 +128,85 @@ export function OrderExperience() {
     setSuccess(null);
   };
 
+  // Guided flow: 1 choose biscuits → 2 fill details → 3 send on WhatsApp.
+  const hasItems = hydrated && lines.length > 0;
+  const firstEmpty = FIELD_ORDER.find((name) => !customer[name].trim());
+  const step: 1 | 2 | 3 = !hasItems ? 1 : firstEmpty ? 2 : 3;
+  const itemCount = lines.reduce((sum, l) => sum + l.quantity, 0);
+  const subtotal = orderSubtotal(lines);
+
+  const headerOffset = () => -(document.querySelector("header")?.getBoundingClientRect().height ?? 80) - 16;
+  const goToStep = (target: 1 | 2 | 3) => {
+    const element = document.getElementById(`etape-${target}`);
+    if (!element) return;
+    scrollToTarget(element, headerOffset());
+    if (target === 2 && firstEmpty) {
+      // Put the cursor in the first empty field once the scroll has settled.
+      window.setTimeout(() => document.getElementById(id(firstEmpty))?.focus({ preventScroll: true }), 650);
+    } else {
+      element.focus({ preventScroll: true });
+    }
+  };
+  const nextAction = () => {
+    if (step === 1) goToStep(1);
+    else if (step === 2) goToStep(2);
+    else formRef.current?.requestSubmit();
+  };
+  const nextLabel = step === 1 ? t("next.toProducts") : step === 2 ? t("next.toDetails") : t("next.send");
+  const nextShort = step === 1 ? t("next.toProductsShort") : step === 2 ? t("next.toDetailsShort") : t("next.sendShort");
+  const stepNames = [t("steps.products"), t("steps.details"), t("steps.send")];
+
   const errorKeys = (Object.keys(errors) as (keyof Errors)[]).filter((k) => errors[k]);
   const fieldError = (name: FieldName) => (errors[name] ? errorMessages[name] : undefined);
 
   return (
-    <div className="mx-auto grid max-w-[88rem] gap-10 px-4 sm:px-6 lg:grid-cols-[1.3fr_0.7fr] lg:gap-14 lg:px-10">
-      {/* Catalogue */}
-      <section id="catalogue" aria-labelledby={id("catalog")} tabIndex={-1} className="outline-none lg:col-start-1">
-        <h2 id={id("catalog")} className="font-display text-3xl font-bold sm:text-4xl">
-          {t("catalogTitle")}
+    <div className="mx-auto grid max-w-[88rem] gap-10 px-4 pb-28 sm:px-6 lg:grid-cols-[1.3fr_0.7fr] lg:gap-14 lg:px-10 lg:pb-0">
+      {/* Steps */}
+      {!success ? (
+        <nav aria-label={t("steps.label")} className="lg:col-span-2">
+          <ol className="grid grid-cols-3 gap-2 sm:gap-4">
+            {stepNames.map((name, i) => {
+              const n = (i + 1) as 1 | 2 | 3;
+              const state = n < step ? "done" : n === step ? "current" : "todo";
+              return (
+                <li key={name}>
+                  <button
+                    type="button"
+                    onClick={() => goToStep(n)}
+                    aria-current={state === "current" ? "step" : undefined}
+                    className={`group flex w-full flex-col items-start gap-2 rounded-2xl border-2 p-3 text-left transition-colors duration-300 sm:flex-row sm:items-center sm:gap-3 sm:p-4 ${
+                      state === "current" ? "border-navy bg-navy text-cream shadow-lift" : state === "done" ? "border-gold bg-gold/20 text-navy" : "border-navy/15 bg-cream text-navy/70 hover:border-navy/40"
+                    }`}
+                  >
+                    <span
+                      aria-hidden
+                      className={`grid h-9 w-9 shrink-0 place-items-center rounded-full font-display text-lg font-bold ${
+                        state === "current" ? "bg-gold text-navy" : state === "done" ? "bg-gold text-navy" : "bg-navy/10 text-navy"
+                      }`}
+                    >
+                      {state === "done" ? <CheckIcon size={18} /> : n}
+                    </span>
+                    <span className="min-w-0">
+                      <span className={`hidden text-xs font-semibold uppercase tracking-wider sm:block ${state === "current" ? "text-gold-light" : "text-navy/60"}`}>
+                        {t("steps.stepOf", { n })}
+                      </span>
+                      <span className="block font-display text-sm font-bold leading-tight sm:text-lg">{name}</span>
+                      <span className="sr-only">{state === "done" ? ` — ${t("steps.done")}` : state === "current" ? ` — ${t("steps.current")}` : ""}</span>
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
+        </nav>
+      ) : null}
+
+      {/* Step 1 — Catalogue */}
+      <section id="etape-1" aria-labelledby={id("catalog")} tabIndex={-1} className="scroll-mt-28 outline-none lg:col-start-1">
+        <span id="catalogue" aria-hidden />
+        <h2 id={id("catalog")} className="flex items-center gap-3 font-display text-3xl font-bold sm:text-4xl">
+          <StepBadge n={1} />
+          {stepNames[0]}
         </h2>
         <ul className="mt-6 grid gap-5 sm:grid-cols-2">
           {products.map((product) => {
@@ -166,7 +239,7 @@ export function OrderExperience() {
       </section>
 
       {/* Cart summary (sticky on desktop) */}
-      <aside aria-labelledby={id("cart")} className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
+      <aside aria-labelledby={id("cart")} className="lg:col-start-2 lg:row-span-2 lg:row-start-2">
         <div className="rounded-[2rem] bg-navy p-6 text-cream shadow-lift lg:sticky lg:top-[calc(var(--header-h)+1.5rem)] sm:p-7">
           <div className="flex items-center justify-between gap-3">
             <h2 id={id("cart")} className="font-display text-2xl font-bold">
@@ -204,6 +277,13 @@ export function OrderExperience() {
               <div className="mt-2 border-t border-cream/15 pt-4">
                 <CartTotals lines={lines} tone="dark" />
               </div>
+              {!success ? (
+                <button type="button" onClick={nextAction} className={`btn mt-5 hidden w-full lg:inline-flex ${step === 3 ? "btn-whatsapp" : "btn-gold"}`}>
+                  {step === 3 ? <WhatsAppIcon size={20} /> : null}
+                  {nextLabel}
+                  <ArrowRightIcon size={20} className="btn-icon btn-icon-arrow" />
+                </button>
+              ) : null}
             </>
           )}
           <div className="mt-5 rounded-2xl bg-cream/10 p-4 text-sm text-cream/85">
@@ -216,7 +296,7 @@ export function OrderExperience() {
       </aside>
 
       {/* Form or success */}
-      <section aria-labelledby={id("form")} className="lg:col-start-1">
+      <section id="etape-2" aria-labelledby={id("form")} tabIndex={-1} className="scroll-mt-28 outline-none lg:col-start-1">
         {success ? (
           <div className="flex flex-col items-start gap-5 rounded-[2rem] bg-cream-deep/70 p-6 ring-1 ring-navy/10 sm:p-10" role="status">
             <span className="grid h-16 w-16 place-items-center rounded-full bg-[#0e7a40] text-white">
@@ -238,9 +318,10 @@ export function OrderExperience() {
             </div>
           </div>
         ) : (
-          <form noValidate onSubmit={onSubmit} className="rounded-[2rem] bg-cream-deep/50 p-6 ring-1 ring-navy/10 sm:p-8 lg:p-10">
-            <h2 id={id("form")} className="font-display text-3xl font-bold sm:text-4xl">
-              {t("form.title")}
+          <form ref={formRef} noValidate onSubmit={onSubmit} className="rounded-[2rem] bg-cream-deep/50 p-6 ring-1 ring-navy/10 sm:p-8 lg:p-10">
+            <h2 id={id("form")} className="flex items-center gap-3 font-display text-3xl font-bold sm:text-4xl">
+              <StepBadge n={2} />
+              {stepNames[1]}
             </h2>
 
             {submitted && errorKeys.length > 0 ? (
@@ -303,8 +384,11 @@ export function OrderExperience() {
               </div>
             </div>
 
-            <fieldset className="mt-8" aria-describedby={errors.payment ? id("payment-error") : undefined}>
-              <legend className="font-display text-xl font-bold">{t("payment.title")}</legend>
+            <fieldset id="etape-3" tabIndex={-1} className="mt-10 scroll-mt-28 outline-none" aria-describedby={errors.payment ? id("payment-error") : undefined}>
+              <legend className="flex items-center gap-3 font-display text-2xl font-bold">
+                <StepBadge n={3} small />
+                {stepNames[2]} · {t("payment.title")}
+              </legend>
               <p className="sr-only">{t("payment.methodLabel")}</p>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {PAYMENT_METHOD_IDS.map((method) => {
@@ -359,7 +443,37 @@ export function OrderExperience() {
           </form>
         )}
       </section>
+
+      {/* Mobile: always-visible summary + next action */}
+      {!success ? (
+        <div data-order-bar role="region" aria-label={t("barLabel")} className="fixed inset-x-0 bottom-0 z-40 border-t border-navy/10 bg-cream/95 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 shadow-[0_-12px_30px_-18px_rgb(18_38_74/0.45)] backdrop-blur-md lg:hidden">
+          <div className="mx-auto flex max-w-xl items-center gap-3">
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-xs font-semibold text-navy/65">
+                {t("steps.stepOf", { n: step })} · {t("itemsCount", { count: hasItems ? itemCount : 0 })}
+              </p>
+              <p className="truncate font-display text-lg font-bold tabular-nums">
+                {hasItems && subtotal !== null ? formatPrice(subtotal, locale) : stepNames[step - 1]}
+              </p>
+            </div>
+            <button type="button" onClick={nextAction} disabled={submitting} className={`btn shrink-0 px-5 py-3 ${step === 3 ? "btn-whatsapp" : "btn-primary"}`}>
+              {step === 3 ? <WhatsAppIcon size={20} /> : null}
+              <span aria-hidden>{nextShort}</span>
+              <span className="sr-only">{nextLabel}</span>
+              <ArrowRightIcon size={18} className="btn-icon btn-icon-arrow" />
+            </button>
+          </div>
+        </div>
+      ) : null}
     </div>
+  );
+}
+
+function StepBadge({ n, small = false }: { n: number; small?: boolean }) {
+  return (
+    <span aria-hidden className={`grid shrink-0 place-items-center rounded-full bg-gold font-display font-bold text-navy shadow-biscuit ${small ? "h-9 w-9 text-lg" : "h-11 w-11 text-xl sm:h-12 sm:w-12"}`}>
+      {n}
+    </span>
   );
 }
 

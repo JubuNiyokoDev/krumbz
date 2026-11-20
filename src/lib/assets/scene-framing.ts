@@ -15,6 +15,7 @@ import type { SceneId } from "./registry";
  *
  * Wide screens: `wide` is the object-position, `copy` the copy column width (vw)
  * and `anchor` the 3D product box (centre in vw/svh, size in svh), on the free side.
+ * Photos with people across the whole width use `desktop: "card"` instead (see below).
  *
  * tests/scene-framing.spec.ts checks, at 390×844 and 1440×900, that every box is
  * visible and that neither the copy nor the 3D anchor covers a face or the sachet.
@@ -22,6 +23,11 @@ import type { SceneId } from "./registry";
 export type Box = readonly [x0: number, y0: number, x1: number, y1: number];
 
 export interface SceneFraming {
+  /**
+   * Wide-screen layout: "full" (default) = full-bleed photo with a free side;
+   * "card" = whole photo in a card next to the copy column (crowded photos).
+   */
+  desktop?: "full" | "card";
   freeSide: "left" | "right";
   faces: readonly Box[];
   sachet: Box;
@@ -127,14 +133,12 @@ export const SCENE_FRAMING: Record<SceneId, SceneFraming> = {
     copy: { width: 26 },
     anchor: { cx: 86, cy: 72, size: 26 },
   },
-  // The 10 scenes below are promotional photos with the Krumbz pack already
-  // visible in-frame, people filling almost the whole width: there is no
-  // half-free side like the 7 scenes above. Two (petit-dejeuner, bibliotheque)
-  // kept a real free side from the source photo. For the other 8, the top of
-  // the photo was extended with a blurred continuation of its own sky/wall/
-  // ceiling (see scripts/_scene-extend, run once to produce the files) to
-  // create a genuine free band — faces/sachet start around y 20%, so the
-  // anchor and the (narrow, short) copy both stay above that line.
+  // The 10 scenes below are promotional photos with the Krumbz pack in frame.
+  // petit-dejeuner and bibliotheque have a real free side (same layout as above).
+  // The other 8 have people across the whole width: on wide screens they use the
+  // "card" layout — the whole photo, uncropped, in a rounded card, over a blurred
+  // and darkened copy of itself, with the copy and the 3D product in the free
+  // column (`freeSide` = side of that column). Phones use the computed band as usual.
   "petit-dejeuner": {
     freeSide: "right",
     faces: [
@@ -158,109 +162,121 @@ export const SCENE_FRAMING: Record<SceneId, SceneFraming> = {
     copy: { width: 12 },
     anchor: { cx: 6, cy: 68, size: 12 },
   },
+  // Four players across the whole width; main sachet = n°10's.
   "equipe-sport": {
+    desktop: "card",
     freeSide: "right",
     faces: [
-      [14.4, 41.8, 28.8, 62.3],
-      [31.3, 38.3, 45.8, 58.9],
-      [52.5, 37.0, 67.0, 58.9],
-      [77.1, 38.3, 89.0, 60.3],
+      [10, 10, 27, 38],
+      [29, 4, 42, 25],
+      [55, 8, 68, 30],
+      [80, 7, 96, 34],
     ],
-    sachet: [20.3, 58.9, 89.8, 93.1],
-    wide: "50% 30%",
-    copy: { width: 14 },
-    anchor: { cx: 72, cy: 10, size: 15 },
+    sachet: [22, 55, 34, 86],
+    wide: "50% 50%",
+    copy: { width: 30 },
+    anchor: { cx: 82, cy: 70, size: 30 },
   },
+  // Five colleagues across the whole width; main sachets = the basket.
   "reunion-bureau": {
-    freeSide: "right",
-    faces: [
-      [7.6, 52.0, 21.2, 72.6],
-      [22.9, 50.7, 36.4, 74.0],
-      [44.9, 48.6, 60.2, 71.2],
-      [71.2, 52.0, 85.6, 74.0],
-      [85.6, 53.4, 92.4, 74.0],
-    ],
-    sachet: [31.3, 69.2, 92.4, 100],
-    wide: "50% 30%",
-    copy: { width: 14 },
-    anchor: { cx: 30, cy: 10, size: 15 },
-  },
-  marche: {
-    freeSide: "right",
-    faces: [
-      [28.8, 34.9, 46.6, 58.9],
-      [68.7, 38.3, 82.2, 58.9],
-      [7.6, 37.0, 17.8, 56.2],
-    ],
-    sachet: [14.4, 43.8, 63.6, 100],
-    wide: "50% 30%",
-    copy: { width: 14 },
-    anchor: { cx: 50, cy: 10, size: 15 },
-  },
-  "champs-agriculteurs": {
-    freeSide: "right",
-    faces: [
-      [10.2, 37.0, 28.0, 62.3],
-      [28.8, 34.9, 44.1, 60.3],
-      [52.5, 33.5, 67.0, 60.3],
-      [75.4, 37.0, 90.7, 63.0],
-    ],
-    sachet: [22.9, 62.3, 92.4, 93.1],
-    wide: "50% 30%",
-    copy: { width: 14 },
-    anchor: { cx: 50, cy: 10, size: 15 },
-  },
-  "panier-cadeau": {
-    freeSide: "right",
-    faces: [
-      [7.6, 37.0, 20.3, 64.4],
-      [20.3, 34.9, 34.7, 60.3],
-      [63.6, 34.9, 78.8, 58.9],
-      [78.8, 38.3, 92.4, 64.4],
-    ],
-    sachet: [39.8, 48.6, 67.0, 100],
-    wide: "50% 30%",
-    copy: { width: 14 },
-    anchor: { cx: 50, cy: 10, size: 15 },
-  },
-  "road-trip": {
-    freeSide: "right",
-    faces: [
-      [9.3, 38.3, 26.3, 67.1],
-      [29.7, 41.8, 43.2, 65.7],
-      [48.3, 43.8, 60.2, 67.1],
-      [67.0, 37.0, 85.6, 67.1],
-    ],
-    sachet: [14.4, 62.3, 63.6, 87.7],
-    wide: "50% 30%",
-    copy: { width: 14 },
-    anchor: { cx: 50, cy: 10, size: 15 },
-  },
-  "echange-boutique": {
+    desktop: "card",
     freeSide: "left",
     faces: [
-      [11.0, 41.8, 28.0, 76.1],
-      [56.8, 38.6, 77.1, 71.5],
+      [0, 17, 18, 40],
+      [16, 7, 35, 33],
+      [45, 10, 57, 27],
+      [68, 15, 85, 35],
+      [87, 12, 100, 40],
     ],
-    // The shelf behind the shopkeeper is Krumbz packs top to bottom on the right:
-    // the free band is narrower here (left side only, above the customer's head).
-    sachet: [39.8, 36.7, 92.4, 100],
-    wide: "50% 30%",
-    copy: { width: 12 },
-    anchor: { cx: 18, cy: 12, size: 16 },
+    sachet: [40, 56, 66, 79],
+    wide: "50% 50%",
+    copy: { width: 30 },
+    anchor: { cx: 18, cy: 70, size: 30 },
   },
-  "famille-noel": {
+  // Main shopper; the background passers-by are not framing constraints.
+  "marche": {
+    desktop: "card",
     freeSide: "right",
     faces: [
-      [11.8, 37.0, 29.7, 69.9],
-      [30.5, 38.3, 48.3, 71.2],
-      [50.0, 37.0, 67.0, 72.6],
-      [70.3, 34.9, 89.0, 71.2],
+      [24, 4, 43, 33],
     ],
-    sachet: [31.3, 71.2, 89.0, 98.6],
-    wide: "50% 30%",
-    copy: { width: 14 },
-    anchor: { cx: 50, cy: 10, size: 15 },
+    sachet: [52, 19, 65, 50],
+    wide: "50% 50%",
+    copy: { width: 30 },
+    anchor: { cx: 82, cy: 70, size: 30 },
+  },
+  // Four farmers across the whole width.
+  "champs-agriculteurs": {
+    desktop: "card",
+    freeSide: "left",
+    faces: [
+      [2, 13, 28, 42],
+      [27, 10, 42, 32],
+      [47, 6, 63, 27],
+      [78, 9, 96, 36],
+    ],
+    sachet: [59, 35, 68, 58],
+    wide: "50% 50%",
+    copy: { width: 30 },
+    anchor: { cx: 18, cy: 70, size: 30 },
+  },
+  // Gift basket in the centre, four people around it.
+  "panier-cadeau": {
+    desktop: "card",
+    freeSide: "right",
+    faces: [
+      [6, 6, 20, 36],
+      [19, 10, 33, 35],
+      [66, 22, 80, 42],
+      [83, 5, 98, 40],
+    ],
+    sachet: [40, 46, 50, 72],
+    wide: "50% 50%",
+    copy: { width: 30 },
+    anchor: { cx: 82, cy: 70, size: 30 },
+  },
+  // Family in the car, driver on the right.
+  "road-trip": {
+    desktop: "card",
+    freeSide: "left",
+    faces: [
+      [12, 12, 30, 45],
+      [30, 28, 43, 48],
+      [49, 30, 61, 50],
+      [74, 10, 90, 40],
+    ],
+    sachet: [19, 61, 33, 93],
+    wide: "50% 50%",
+    copy: { width: 30 },
+    anchor: { cx: 18, cy: 70, size: 30 },
+  },
+  // Customer and shopkeeper exchanging a sachet.
+  "echange-boutique": {
+    desktop: "card",
+    freeSide: "right",
+    faces: [
+      [6, 8, 30, 40],
+      [64, 3, 81, 33],
+    ],
+    sachet: [40, 47, 54, 73],
+    wide: "50% 50%",
+    copy: { width: 30 },
+    anchor: { cx: 82, cy: 70, size: 30 },
+  },
+  // Christmas family, four people across the whole width.
+  "famille-noel": {
+    desktop: "card",
+    freeSide: "left",
+    faces: [
+      [7, 3, 24, 32],
+      [28, 18, 44, 42],
+      [53, 17, 68, 40],
+      [79, 5, 96, 36],
+    ],
+    sachet: [37, 47, 50, 70],
+    wide: "50% 50%",
+    copy: { width: 30 },
+    anchor: { cx: 18, cy: 70, size: 30 },
   },
 };
 

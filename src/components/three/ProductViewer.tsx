@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { lazy, Suspense, useCallback, useEffect, useId, useRef, useState, type JSX, type KeyboardEvent, type ReactNode } from "react";
 import type { TextureMap } from "@/lib/assets/registry";
 import { useGlArbiter } from "@/lib/three/glArbiter";
-import { useRenderMode } from "@/store/experience";
+import { useRenderMode, useStaticReason } from "@/store/experience";
 import type { ViewerController } from "./ProductViewerCanvas";
 import { VIEWER_MODELS, type ViewerModel } from "./poses";
 
@@ -50,6 +50,7 @@ const ICONS = {
 export function ProductViewer({ textures, initialModel = "sachet", fallback, className = "" }: ProductViewerProps): JSX.Element {
   const t = useTranslations("products");
   const mode = useRenderMode();
+  const staticReason = useStaticReason();
   const [model, setModel] = useState<ViewerModel>(initialModel);
   const [nearViewport, setNearViewport] = useState(false);
   const [inView, setInView] = useState(false);
@@ -127,7 +128,12 @@ export function ProductViewer({ textures, initialModel = "sachet", fallback, cla
     return (
       <figure className={`relative ${className}`}>
         {fallback}
-        {mode === "static" ? <figcaption className="mt-3 text-center text-sm text-navy/70">{t("viewer.staticNotice")}</figcaption> : null}
+        {mode === "static" ? (
+          <figcaption className="mt-3 text-center text-sm text-navy/70">
+            {t("viewer.staticNotice")}
+            {staticReason ? <span className="mt-1 block text-xs text-navy/60">{t(`viewer.reasons.${staticReason}`)}</span> : null}
+          </figcaption>
+        ) : null}
       </figure>
     );
   }

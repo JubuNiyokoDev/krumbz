@@ -59,6 +59,7 @@ export function SceneSlide({
       data-scene
       data-layout={layout}
       data-free={framing.freeSide}
+      data-desk={framing.desktop ?? "full"}
       data-keep={mobile.keep.join(",")}
       id={`moment-${id}`}
       aria-labelledby={`moment-${id}-title`}
@@ -66,6 +67,10 @@ export function SceneSlide({
       style={vars}
     >
       <div data-scene-inner className="absolute inset-0 origin-top will-change-transform">
+        {framing.desktop === "card" && landscape.blurDataURL ? (
+          // Wide screens, crowded photo: soft, darkened backdrop made from the tiny blur placeholder (no extra download).
+          <div aria-hidden className="ks-backdrop" style={{ backgroundImage: `url(${landscape.blurDataURL})` }} />
+        ) : null}
         <div data-scene-media className={`ks-media scene-media overflow-hidden bg-navy`}>
           <div data-scene-image className="absolute inset-0 will-change-transform">
             <ScenePicture

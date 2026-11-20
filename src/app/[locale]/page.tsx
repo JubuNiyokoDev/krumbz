@@ -14,6 +14,7 @@ import { MomentsMarquee } from "@/components/sections/home/MomentsMarquee";
 import { SceneSlide } from "@/components/sections/home/SceneSlide";
 import { Benefits } from "@/components/sections/home/Benefits";
 import { ProductsShowcase } from "@/components/sections/home/ProductsShowcase";
+import { MushroomSection } from "@/components/sections/home/MushroomSection";
 import { FinalCta } from "@/components/sections/home/FinalCta";
 import { SectionHeading } from "@/components/sections/SectionHeading";
 
@@ -112,6 +113,16 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         fallback={
           <BrandImage image={top} alt="" sizes="(min-width: 1024px) 30rem, 76vw" placeholderLabel={c.common.imagePlaceholder} imgClassName="object-contain" />
         }
+      />
+
+      <MushroomSection
+        eyebrow={home.mushroom.eyebrow}
+        title={home.mushroom.title}
+        intro={home.mushroom.intro}
+        whyTitle={home.mushroom.whyTitle}
+        items={home.mushroom.items}
+        disclaimer={home.mushroom.disclaimer}
+        cta={home.mushroom.cta}
       />
 
       <ProductsShowcase
