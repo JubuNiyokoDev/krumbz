@@ -8,7 +8,8 @@ import { resolveImage, resolveTextures } from "@/lib/assets/server";
 import { ProductViewer } from "@/components/three/ProductViewer";
 import { ProductJsonLd } from "@/components/seo/ProductJsonLd";
 import { BrandImage } from "@/components/ui/BrandImage";
-import { TextWithToComplete } from "@/components/ui/ToComplete";
+import { isPublicValue, TextWithToComplete } from "@/components/ui/ToComplete";
+import { MushroomIcon } from "@/components/ui/Icons";
 import { PageHero } from "@/components/sections/common/PageHero";
 import { SectionHeading } from "@/components/sections/SectionHeading";
 import { NutritionTable } from "@/components/sections/products/NutritionTable";
@@ -25,7 +26,10 @@ export default async function ProductsPage({ params }: PageProps<"/[locale]/prod
   const c = loadContent(locale);
   const p = c.products;
   const t = await getTranslations("products");
-  const studio = await resolveImage("/images/product/biscuit-studio.png", { width: 1600, height: 1600 });
+  const [studio, mushroomCloseup] = await Promise.all([
+    resolveImage("/images/product/biscuit-studio.png", { width: 1600, height: 1600 }),
+    resolveImage("/images/champignons/champignons-gros-plan.jpg", { width: 1448, height: 1086 }),
+  ]);
   const textures = resolveTextures();
   const products = p.items as ProductContent[];
   const tc = { label: c.common.toComplete, hint: c.common.toCompleteHint };
@@ -35,7 +39,7 @@ export default async function ProductsPage({ params }: PageProps<"/[locale]/prod
     { title: p.ingredients.storageTitle, value: p.ingredients.storage },
     { title: p.ingredients.shelfLifeTitle, value: p.ingredients.shelfLife },
     { title: p.ingredients.producerTitle, value: p.ingredients.producer },
-  ];
+  ].filter((fact) => isPublicValue(fact.value));
 
   return (
     <>
@@ -147,16 +151,40 @@ export default async function ProductsPage({ params }: PageProps<"/[locale]/prod
           <div>
             <SectionHeading id="facts-title" title={p.factsTitle} />
             <div className="mt-10 space-y-5">
-              <article data-reveal className="rounded-[2rem] bg-cream p-6 shadow-biscuit ring-1 ring-navy/5 sm:p-8">
-                <h3 className="font-display text-2xl font-bold">{p.ingredients.title}</h3>
-                <ul className="mt-4 flex flex-wrap gap-2">
-                  {p.ingredients.list.map((item, i) => (
-                    <li key={i} className="rounded-full bg-cream-deep px-4 py-2 font-semibold">
-                      <TextWithToComplete value={item} {...tc} />
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-4 text-sm text-navy/70">{p.ingredients.labelNote}</p>
+              <article data-reveal className="overflow-hidden rounded-[2rem] bg-cream shadow-biscuit ring-1 ring-navy/5">
+                <div className="grid sm:grid-cols-[1.15fr_0.85fr]">
+                  <div className="p-6 sm:p-8">
+                    <h3 className="font-display text-2xl font-bold">{p.ingredients.title}</h3>
+                    {/* Base ingredient first: the mushroom (ikizinu) is the heart of Krumbz. */}
+                    <p className="mt-5 flex items-center gap-3 rounded-2xl bg-gold/20 px-4 py-3 ring-1 ring-gold/60">
+                      <span aria-hidden className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-navy text-gold-light">
+                        <MushroomIcon size={24} />
+                      </span>
+                      <span>
+                        <span className="block text-xs font-bold uppercase tracking-[0.12em] text-rust">
+                          {p.ingredients.baseTitle}
+                          <span className="sr-only"> : </span>
+                        </span>
+                        <span className="block font-display text-xl font-bold">{p.ingredients.base}</span>
+                      </span>
+                    </p>
+                    <p className="mt-6 text-sm font-bold uppercase tracking-[0.12em] text-navy/70">
+                      {p.ingredients.othersTitle}
+                      <span className="sr-only"> : </span>
+                    </p>
+                    <ul className="mt-3 flex flex-wrap gap-2">
+                      {p.ingredients.list.map((item, i) => (
+                        <li key={i} className="rounded-full bg-cream-deep px-4 py-2 font-semibold">
+                          <TextWithToComplete value={item} {...tc} />
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="mt-4 text-sm text-navy/70">{p.ingredients.labelNote}</p>
+                  </div>
+                  <div className="relative min-h-56 bg-cream-deep sm:min-h-full">
+                    <BrandImage image={mushroomCloseup} alt={p.ingredients.imageAlt} sizes="(min-width: 1024px) 18vw, (min-width: 640px) 36vw, 92vw" placeholderLabel={c.common.imagePlaceholder} />
+                  </div>
+                </div>
               </article>
               <dl className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                 {facts.map((fact, i) => (

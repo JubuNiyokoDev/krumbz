@@ -10,7 +10,7 @@
     "tagline": "Rahisi, Krispi",
     "promise": "Biskuti yenye lishe kwa kila wakati wa maisha.",
     "origin": "Imetengenezwa Burundi",
-    "base": "Imetengenezwa kwa uyoga",
+    "base": "Imetengenezwa kwa uyoga (ikizinu)",
     "audience": "Kwa watoto, vijana, wapenzi, wazazi, walimu na watu wazima kazini."
   },
   "contact": {
@@ -74,7 +74,7 @@
     "intro": {
       "eyebrow": "Krumbz · Crispy Food Products",
       "title": "Rahisi, Krispi",
-      "subtitle": "Biskuti ya uyoga, imetengenezwa Burundi, kwa kila wakati wa maisha.",
+      "subtitle": "Biskuti ya uyoga (ikizinu), imetengenezwa Burundi, kwa kila wakati wa maisha.",
       "cta": "Agiza sasa",
       "secondaryCta": "Angalia bidhaa",
       "packAlt": "Kifurushi cha biskuti za Krumbz kinafunguka na biskuti inatoka"
@@ -205,7 +205,19 @@
         }
       ],
       "progressLabel": "Maendeleo ya nyakati",
-      "goTo": "Nenda kwenye wakati « {label} »"
+      "goTo": "Nenda kwenye wakati « {label} »",
+      "breaks": [
+        {
+          "eyebrow": "Kiini cha kila biskuti",
+          "text": "Uyoga (ikizinu), kiungo msingi cha Krumbz.",
+          "alt": "Uyoga mzima na uliokatwa karibu na biskuti za MARIE"
+        },
+        {
+          "eyebrow": "Hazina ya Burundi",
+          "text": "Chakula cha nyumbani, kiini cha biskuti krispi.",
+          "alt": "Kikapu cha uyoga mbichi msituni"
+        }
+      ]
     },
     "benefits": {
       "eyebrow": "Kwa nini Krumbz",
@@ -246,7 +258,7 @@
       "phoneLabel": "Au tupigie simu"
     },
     "mushroom": {
-      "eyebrow": "Uyoga, moyo wa Krumbz",
+      "eyebrow": "Uyoga (ikizinu), moyo wa Krumbz",
       "title": "Hazina ya misitu ya Burundi",
       "intro": "Biskuti zipo kote duniani. Biskuti za uyoga ni nadra zaidi. Krumbz inaenzi chakula cha nyumbani: misitu na nyika za Burundi zina aina nyingi za uyoga unaoliwa, uliokusanywa tangu zamani na kuuzwa masokoni, hadi Bujumbura.",
       "whyTitle": "Uyoga unaleta nini",
@@ -283,7 +295,31 @@
         }
       ],
       "disclaimer": "Taarifa hizi zinaelezea uyoga kama chakula. Si muundo wa biskuti za Krumbz, ambazo taarifa zake za lishe zipo kwenye ukurasa wa Bidhaa.",
-      "cta": "Angalia muundo wa biskuti zetu"
+      "cta": "Angalia muundo wa biskuti zetu",
+      "images": {
+        "harvestAlt": "Mwanamke akichuma uyoga (ikizinu) katika msitu wa Burundi",
+        "closeupAlt": "Picha ya karibu ya fungu la uyoga mbichi"
+      }
+    },
+    "fromMushroom": {
+      "eyebrow": "Kutoka uyoga hadi biskuti",
+      "title": "Yote huanza na uyoga",
+      "text": "Uyoga (ikizinu) ndio kiungo msingi cha Krumbz. Ukichanganywa na unga wa ngano, maziwa na mayai, unakuwa biskuti ya MARIE nyembamba, ya dhahabu na krispi.",
+      "steps": [
+        {
+          "title": "Uyoga (ikizinu)",
+          "text": "Kiungo msingi, chakula cha Burundi."
+        },
+        {
+          "title": "Mapishi",
+          "text": "Huchanganywa na unga wa ngano, sukari, mafuta, mayai, maziwa na stroberi."
+        },
+        {
+          "title": "Biskuti ya Krumbz",
+          "text": "Huokwa kuwa biskuti ya MARIE rahisi na krispi."
+        }
+      ],
+      "alt": "Uyoga mbichi, biskuti za MARIE na pakiti ya Krumbz juu ya meza ya mbao"
     }
   },
   "products": {
@@ -348,23 +384,26 @@
     "ingredients": {
       "title": "Viungo",
       "list": [
-        "Uyoga (kiungo msingi)",
         "Unga wa ngano",
         "Sukari",
         "Mafuta",
         "Mayai",
         "Maziwa",
-        "Jordgubbar (matunda ya strawberry)"
+        "Stroberi"
       ],
       "allergensTitle": "Vizio vya mzio",
       "allergens": "Ina ngano (gluteni), mayai na maziwa (kulingana na orodha ya viungo kwenye lebo).",
       "storageTitle": "Uhifadhi",
-      "storage": "YATAKAMILISHWA (À COMPLÉTER)",
+      "storage": "",
       "shelfLifeTitle": "Muda wa kuhifadhika",
       "shelfLife": "Miezi 12 tangu utengenezaji. Tarehe ya utengenezaji (MFG), tarehe ya mwisho (EXP) na namba ya kundi (lot) zimechapishwa kwenye kila kifurushi.",
-      "labelNote": "Uyoga ndicho kiungo msingi cha Krumbz; kinachanganywa na unga wa ngano, sukari, mafuta, mayai, maziwa na matunda ya strawberry.",
+      "labelNote": "Viungo vingine ni vile vilivyochapishwa kwenye lebo ya pakiti.",
       "producerTitle": "Mzalishaji",
-      "producer": "Crispy Food Products, Quartier Industriel, Bujumbura — simu +257 62 69 75 97 / +257 72 36 91 13."
+      "producer": "Crispy Food Products, Quartier Industriel, Bujumbura — simu +257 62 69 75 97 / +257 72 36 91 13.",
+      "baseTitle": "Kiungo msingi",
+      "base": "Uyoga (ikizinu)",
+      "othersTitle": "Viungo vingine (lebo)",
+      "imageAlt": "Picha ya karibu ya fungu la uyoga mbichi"
     },
     "nutrition": {
       "title": "Taarifa za lishe",
@@ -374,40 +413,40 @@
       "rows": [
         {
           "label": "Nishati",
-          "value": "YATAKAMILISHWA (À COMPLÉTER)"
+          "value": ""
         },
         {
           "label": "Mafuta",
-          "value": "15%"
+          "value": "15 g"
         },
         {
           "label": "ikiwemo mafuta yaliyoganda",
-          "value": "YATAKAMILISHWA (À COMPLÉTER)",
+          "value": "",
           "indent": true
         },
         {
           "label": "Wanga",
-          "value": "69.44%"
+          "value": "69.44 g"
         },
         {
           "label": "ikiwemo sukari",
-          "value": "YATAKAMILISHWA (À COMPLÉTER)",
+          "value": "",
           "indent": true
         },
         {
           "label": "Nyuzinyuzi",
-          "value": "YATAKAMILISHWA (À COMPLÉTER)"
+          "value": ""
         },
         {
           "label": "Protini",
-          "value": "10.65%"
+          "value": "10.65 g"
         },
         {
           "label": "Chumvi",
-          "value": "YATAKAMILISHWA (À COMPLÉTER)"
+          "value": ""
         }
       ],
-      "disclaimer": "Thamani zitatolewa na Crispy Food Products kulingana na lebo rasmi."
+      "disclaimer": ""
     },
     "chooseTitle": "Chagua mfumo wako",
     "factsTitle": "Viungo na uhifadhi",
@@ -422,7 +461,7 @@
         "id": "burundi",
         "image": "burundi-collines",
         "title": "Imetengenezwa Burundi",
-        "text": "Krumbz inatengenezwa Bujumbura, katika Quartier Industriel, na Crispy Food Products. Historia ya kampuni na tarehe ya kuanzishwa: YATAKAMILISHWA (À COMPLÉTER).",
+        "text": "Krumbz inatengenezwa Bujumbura, katika Quartier Industriel, na Crispy Food Products.",
         "alt": "Milima ya kijani ya Burundi"
       },
       {
@@ -454,6 +493,28 @@
         {
           "title": "Ukaribu",
           "text": "Chapa ya Burundi, karibu na wateja wake."
+        }
+      ]
+    },
+    "journey": {
+      "eyebrow": "Kutoka msituni hadi kwenye pakiti yako",
+      "title": "Kutoka misitu ya Burundi hadi kwenye pakiti yako",
+      "intro": "Uyoga (ikizinu) umekuwa sehemu ya mapishi ya Burundi tangu zamani. Hii ndiyo safari yake hadi kwenye biskuti yako ya Krumbz.",
+      "steps": [
+        {
+          "title": "Msitu",
+          "text": "Aina nyingi za uyoga unaoliwa hukua katika misitu na mapori ya Burundi.",
+          "alt": "Mwanamke akichuma uyoga katika msitu wa Burundi"
+        },
+        {
+          "title": "Soko",
+          "text": "Uyoga mbichi huuzwa masokoni kote nchini, hadi Bujumbura.",
+          "alt": "Muuzaji akionyesha uyoga mbichi sokoni"
+        },
+        {
+          "title": "Biskuti",
+          "text": "Katika Crispy Food Products, Bujumbura, uyoga unakuwa kiungo msingi cha biskuti za Krumbz.",
+          "alt": "Kikapu cha uyoga mbichi msituni"
         }
       ]
     }

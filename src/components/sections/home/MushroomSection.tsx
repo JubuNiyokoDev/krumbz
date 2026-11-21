@@ -1,5 +1,7 @@
 import type { CSSProperties } from "react";
 import { Link } from "@/i18n/navigation";
+import type { ResolvedImage } from "@/lib/assets/server";
+import { BrandImage } from "@/components/ui/BrandImage";
 import { SectionHeading } from "../SectionHeading";
 
 interface Nutrient {
@@ -21,6 +23,7 @@ export function MushroomSection({
   items,
   disclaimer,
   cta,
+  images,
 }: {
   eyebrow: string;
   title: string;
@@ -29,6 +32,7 @@ export function MushroomSection({
   items: Nutrient[];
   disclaimer: string;
   cta: string;
+  images?: { harvest: ResolvedImage; closeup: ResolvedImage; harvestAlt: string; closeupAlt: string; placeholderLabel: string };
 }) {
   return (
     <section aria-labelledby="mushroom-title" className="relative overflow-hidden bg-navy py-24 text-cream sm:py-28 lg:py-36">
@@ -50,6 +54,16 @@ export function MushroomSection({
               {cta}
               <span aria-hidden>→</span>
             </Link>
+            {images ? (
+              <div className="mt-10 grid grid-cols-[0.85fr_1.15fr] items-end gap-4">
+                <div data-reveal="scale" className="relative aspect-[2/3] overflow-hidden rounded-[1.75rem] shadow-lift ring-1 ring-cream/15">
+                  <BrandImage image={images.harvest} alt={images.harvestAlt} sizes="(min-width: 1024px) 18vw, 40vw" placeholderLabel={images.placeholderLabel} />
+                </div>
+                <div data-reveal="scale" style={{ "--reveal-delay": "120ms" } as CSSProperties} className="relative mb-8 aspect-[4/3] overflow-hidden rounded-[1.75rem] shadow-lift ring-1 ring-cream/15">
+                  <BrandImage image={images.closeup} alt={images.closeupAlt} sizes="(min-width: 1024px) 24vw, 52vw" placeholderLabel={images.placeholderLabel} />
+                </div>
+              </div>
+            ) : null}
           </div>
 
           <div>

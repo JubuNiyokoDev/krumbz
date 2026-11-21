@@ -17,7 +17,7 @@ export function CartLineItem({ product, quantity, tone = "light" }: { product: P
   return (
     <li className="flex gap-4 py-4">
       <div className={`grid h-20 w-20 shrink-0 place-items-center rounded-2xl ${tone === "dark" ? "bg-navy-soft" : "bg-cream-deep"}`}>
-        <PackIllustration model={product.model} brand={brand("name")} tagline={brand("tagline")} className="h-16 w-16" />
+        <PackIllustration model={product.model} brand={brand("name")} tagline={product.model === "carton" ? brand("tagline") : ""} className="h-16 w-16" />
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-2">
         <div className="flex items-start justify-between gap-2">

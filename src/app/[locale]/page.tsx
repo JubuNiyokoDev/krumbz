@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/config";
@@ -15,6 +16,8 @@ import { SceneSlide } from "@/components/sections/home/SceneSlide";
 import { Benefits } from "@/components/sections/home/Benefits";
 import { ProductsShowcase } from "@/components/sections/home/ProductsShowcase";
 import { MushroomSection } from "@/components/sections/home/MushroomSection";
+import { FromMushroom } from "@/components/sections/home/FromMushroom";
+import { MushroomBreak } from "@/components/sections/home/MushroomBreak";
 import { FinalCta } from "@/components/sections/home/FinalCta";
 import { SectionHeading } from "@/components/sections/SectionHeading";
 
@@ -31,6 +34,17 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const home = c.home;
   const scenes = home.moments.scenes;
 
+  // Mushroom (ikizinu) photos: lazy-loaded next/image, only the files that exist are requested.
+  const mushroom = (name: string, width: number, height: number) => resolveImage(`/images/champignons/${name}.jpg`, { width, height });
+  const [fromMushroomImage, breakImages, harvestImage, closeupImage] = await Promise.all([
+    mushroom("champignons-et-krumbz", 1536, 1024),
+    Promise.all([mushroom("champignon-biscuit-transition", 1600, 900), mushroom("panier-champignons", 1199, 1312)]),
+    mushroom("recolte-foret", 1024, 1536),
+    mushroom("champignons-gros-plan", 1448, 1086),
+  ]);
+  /** Mushroom reminders inserted after these moments (0-based index → home.moments.breaks[n]). */
+  const BREAK_AFTER: Record<number, number> = { 5: 0, 11: 1 };
+
   const [studio, top, sceneImages] = await Promise.all([
     resolveImage("/images/product/biscuit-studio.png", { width: 1600, height: 1600 }),
     resolveImage("/images/product/biscuit-top.png", { width: 1024, height: 1024 }),
@@ -42,8 +56,8 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
     ),
   ]);
 
-  const productFallback = (sizes: string) => (
-    <BrandImage image={studio} alt={home.intro.packAlt} sizes={sizes} placeholderLabel={c.common.imagePlaceholder} imgClassName="object-contain" />
+  const productFallback = (sizes: string, priority = false) => (
+    <BrandImage image={studio} alt={home.intro.packAlt} sizes={sizes} priority={priority} placeholderLabel={c.common.imagePlaceholder} imgClassName="object-contain" />
   );
   const products = c.products.items as ProductContent[];
   const labels = scenes.map((s) => s.label);
@@ -57,7 +71,17 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         cta={home.intro.cta}
         secondaryCta={home.intro.secondaryCta}
         scrollHint={c.common.scrollHint}
-        fallback={productFallback("(min-width: 1024px) 42vw, 84vw")}
+        fallback={productFallback("(min-width: 1024px) 42vw, 84vw", true)}
+      />
+
+      <FromMushroom
+        eyebrow={home.fromMushroom.eyebrow}
+        title={home.fromMushroom.title}
+        text={home.fromMushroom.text}
+        steps={home.fromMushroom.steps}
+        image={fromMushroomImage}
+        alt={home.fromMushroom.alt}
+        placeholderLabel={c.common.imagePlaceholder}
       />
 
       <section id="moments" aria-labelledby="moments-title" className="relative bg-cream">
@@ -75,8 +99,8 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
           goToLabels={labels.map((label) => tm("goTo", { label }))}
         >
           {scenes.map((scene, i) => (
+            <Fragment key={scene.id}>
             <SceneSlide
-              key={scene.id}
               id={scene.id as SceneId}
               index={i}
               total={scenes.length}
@@ -99,6 +123,17 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                 />
               }
             />
+            {i in BREAK_AFTER ? (
+              <MushroomBreak
+                eyebrow={home.moments.breaks[BREAK_AFTER[i]].eyebrow}
+                text={home.moments.breaks[BREAK_AFTER[i]].text}
+                alt={home.moments.breaks[BREAK_AFTER[i]].alt}
+                image={breakImages[BREAK_AFTER[i]]}
+                placeholderLabel={c.common.imagePlaceholder}
+                reversed={BREAK_AFTER[i] % 2 === 1}
+              />
+            ) : null}
+            </Fragment>
           ))}
         </MomentsMotion>
       </section>
@@ -123,6 +158,13 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         items={home.mushroom.items}
         disclaimer={home.mushroom.disclaimer}
         cta={home.mushroom.cta}
+        images={{
+          harvest: harvestImage,
+          closeup: closeupImage,
+          harvestAlt: home.mushroom.images.harvestAlt,
+          closeupAlt: home.mushroom.images.closeupAlt,
+          placeholderLabel: c.common.imagePlaceholder,
+        }}
       />
 
       <ProductsShowcase

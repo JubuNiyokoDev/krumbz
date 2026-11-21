@@ -2,7 +2,7 @@
 
 > Fichier généré automatiquement par `npm run images:readme` à partir de `src/lib/assets/registry.ts`. Ne pas le modifier à la main.
 
-42 fichiers attendus. Pour voir ceux qui manquent encore : `npm run todo`.
+48 fichiers attendus. Pour voir ceux qui manquent encore : `npm run todo`.
 
 ## Comment remplacer une image
 
@@ -104,6 +104,17 @@ Image affichée quand un lien du site est partagé (WhatsApp, Facebook, X…). T
 | `textures/sachet-front.png` | PNG | portrait | 1024 × 1536 (2:3), étiquette à plat, sans transparence | Étiquette avant du sachet 3D (pillow pack). La zone utile doit couvrir toute l’image. |
 | `textures/sachet-back.png` | PNG | portrait | 1024 × 1536 (2:3), étiquette à plat, sans transparence | Étiquette arrière du sachet 3D. |
 | `textures/carton-label.png` | PNG | paysage | 2048 × 1024 (2:1), patron déplié | Étiquette du carton 3D. Patron horizontal : moitié gauche = face avant, moitié droite = face arrière ; le dessus et les côtés reprennent la couleur dominante. |
+
+## Autres images
+
+| Fichier (dans `public/`) | Format | Orientation | Taille recommandée | Utilisation |
+| --- | --- | --- | --- | --- |
+| `images/champignons/champignons-et-krumbz.jpg` | JPG | paysage | 1536 × 1024 (3:2), < 400 Ko | Champignon (ikizinu) — Accueil, section « Du champignon au biscuit » (juste après l’intro 3D). |
+| `images/champignons/champignon-biscuit-transition.jpg` | JPG | paysage | 1600 × 900 (16:9), < 400 Ko | Champignon (ikizinu) — Accueil, rappel « Au cœur de chaque biscuit » entre les moments de vie. |
+| `images/champignons/panier-champignons.jpg` | JPG | portrait | 1200 × 1300, < 400 Ko | Champignon (ikizinu) — Accueil, rappel « Un trésor du Burundi » entre les moments ; Notre histoire, étape « Le biscuit ». |
+| `images/champignons/recolte-foret.jpg` | JPG | portrait | 1024 × 1536 (2:3), < 400 Ko | Champignon (ikizinu) — Accueil, section « Le champignon, cœur de Krumbz » ; Notre histoire, étape « La forêt ». |
+| `images/champignons/champignons-gros-plan.jpg` | JPG | paysage | 1448 × 1086 (4:3), < 400 Ko | Champignon (ikizinu) — Accueil, section « Le champignon, cœur de Krumbz » ; Produits, à côté de la composition. |
+| `images/champignons/marche-champignons.jpg` | JPG | portrait | 1086 × 1448 (3:4), < 400 Ko | Champignon (ikizinu) — Notre histoire, étape « Le marché ». |
 
 ## Icônes du site
 

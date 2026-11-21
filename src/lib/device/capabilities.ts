@@ -41,6 +41,23 @@ function hasWebGL(): boolean {
   }
 }
 
+/**
+ * True when WebGL is emulated on the CPU (SwiftShader, llvmpipe…): no graphics
+ * card is used, so the 3D would freeze the page. These devices get still images.
+ */
+function isSoftwareRenderer(): boolean {
+  try {
+    const gl = document.createElement("canvas").getContext("webgl");
+    if (!gl) return false;
+    const info = gl.getExtension("WEBGL_debug_renderer_info");
+    const renderer = String(gl.getParameter(info ? info.UNMASKED_RENDERER_WEBGL : gl.RENDERER));
+    gl.getExtension("WEBGL_lose_context")?.loseContext();
+    return /swiftshader|llvmpipe|softpipe|software|basic render/i.test(renderer);
+  } catch {
+    return false;
+  }
+}
+
 /** URL override for QA: ?mode=static or ?mode=3d forces the render mode. */
 function forcedMode(): RenderMode | null {
   if (typeof window === "undefined") return null;
@@ -65,6 +82,7 @@ export function detectCapabilities(): Promise<Capabilities> {
     if (!forced && reducedMotion) return { ...base, mode: "static", reason: "prefers-reduced-motion" };
     if (!forced && saveData) return { ...base, mode: "static", reason: "save-data" };
     if (!hasWebGL()) return { ...base, mode: "static", reason: "no-webgl" };
+    if (!forced && isSoftwareRenderer()) return { ...base, mode: "static", reason: "software-renderer" };
 
     try {
       const gpu = await getGPUTier({ benchmarksURL: "/vendor/detect-gpu" });

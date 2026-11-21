@@ -1,3 +1,4 @@
+import { MushroomIcon } from "@/components/ui/Icons";
 import type { CSSProperties, ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 import { StageAnchor } from "@/components/experience/StageAnchor";
@@ -44,6 +45,7 @@ export function HomeIntro({
           </p>
           <HeroTitle id="hero-title" text={title} className="text-[clamp(3.1rem,15.4vw,7.4rem)]" />
           <p className="hero-fade max-w-[34rem] text-lg leading-relaxed text-navy/85 sm:text-xl" style={{ "--d": "0.55s" } as CSSProperties}>
+            <MushroomIcon size={22} className="mr-1.5 inline-block align-[-0.2em] text-rust" />
             {subtitle}
           </p>
           <div className="hero-fade flex flex-wrap items-center gap-3" style={{ "--d": "0.7s" } as CSSProperties}>
@@ -63,7 +65,7 @@ export function HomeIntro({
 
         <div className="relative flex min-h-[40svh] items-center justify-center pb-16 pt-4 lg:h-full lg:pb-0 lg:pt-0">
           <div aria-hidden className="absolute left-1/2 top-1/2 h-[min(70vw,40svh)] w-[min(70vw,40svh)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/30 blur-2xl lg:h-[min(34vw,60svh)] lg:w-[min(34vw,60svh)]" />
-          <StageAnchor id="intro" fallback={fallback} className="aspect-square w-[min(84vw,42svh)] lg:w-[min(42vw,74svh)]" />
+          <StageAnchor id="intro" eager fallback={fallback} className="aspect-square w-[min(84vw,42svh)] lg:w-[min(42vw,74svh)]" />
         </div>
       </div>
 

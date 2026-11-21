@@ -26,10 +26,10 @@ export function PriceTag({
     if (!onSale) return <span className={className}>{formatPrice(product.price)}</span>;
     return (
       <span className={`inline-flex flex-wrap items-center gap-x-2 gap-y-1 ${className}`}>
-        <span className="text-[0.75em] font-normal text-navy/50 line-through">
+        <span className={`text-[0.75em] font-normal line-through ${tone === "dark" ? "text-cream/75" : "text-navy/75"}`}>
           {formatPrice(product.compareAtPrice as number)}
         </span>
-        <span className="text-rust">{formatPrice(product.price)}</span>
+        <span className={tone === "dark" ? "text-gold-light" : "text-rust"}>{formatPrice(product.price)}</span>
         <span className="rounded-full bg-rust px-2.5 py-0.5 text-[0.65em] font-semibold uppercase tracking-wide text-cream">
           {tp("promoLabel")}
         </span>

@@ -3,14 +3,14 @@ import type { CSSProperties } from "react";
 /**
  * Hero h1 with a pure-CSS character reveal (starts at first paint, no JS, so
  * the title — the LCP element — is never blocked by hydration).
- * Screen readers get the plain text; the split characters are aria-hidden.
+ * The text exists once in the DOM: the h1 is named by aria-label (read by
+ * screen readers), the split characters are aria-hidden.
  */
 export function HeroTitle({ id, text, className = "" }: { id?: string; text: string; className?: string }) {
   const words = text.split(" ");
   let index = 0;
   return (
-    <h1 id={id} className={`font-display font-bold leading-[0.9] tracking-[-0.025em] ${className}`}>
-      <span className="sr-only">{text}</span>
+    <h1 id={id} aria-label={text} className={`font-display font-bold leading-[0.9] tracking-[-0.025em] ${className}`}>
       <span aria-hidden className="block">
         {words.map((word, w) => {
           const last = w === words.length - 1;

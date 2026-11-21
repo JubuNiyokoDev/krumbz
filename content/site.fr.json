@@ -10,7 +10,7 @@
     "tagline": "Simple, Croustillant",
     "promise": "Un biscuit nourrissant pour chaque moment de la vie.",
     "origin": "Fabriqué au Burundi",
-    "base": "À base de champignons",
+    "base": "À base de champignons (ikizinu)",
     "audience": "Pour les enfants, les jeunes, les couples, les parents, les enseignants et les adultes au travail."
   },
   "contact": {
@@ -124,7 +124,7 @@
     "intro": {
       "eyebrow": "Krumbz · Crispy Food Products",
       "title": "Simple, Croustillant",
-      "subtitle": "Le biscuit à base de champignons, fabriqué au Burundi, pour chaque moment de la vie.",
+      "subtitle": "Le biscuit à base de champignons (ikizinu), fabriqué au Burundi, pour chaque moment de la vie.",
       "cta": "Commander maintenant",
       "secondaryCta": "Voir les produits",
       "packAlt": "Sachet de biscuits Krumbz qui s’ouvre et laisse sortir un biscuit"
@@ -255,7 +255,19 @@
         }
       ],
       "progressLabel": "Progression des moments",
-      "goTo": "Aller au moment « {label} »"
+      "goTo": "Aller au moment « {label} »",
+      "breaks": [
+        {
+          "eyebrow": "Au cœur de chaque biscuit",
+          "text": "Le champignon (ikizinu), ingrédient de base de Krumbz.",
+          "alt": "Des champignons entiers et tranchés à côté de biscuits MARIE"
+        },
+        {
+          "eyebrow": "Un trésor du Burundi",
+          "text": "Un aliment de chez nous, au cœur d’un biscuit croustillant.",
+          "alt": "Un panier en osier rempli de champignons frais dans la forêt"
+        }
+      ]
     },
     "benefits": {
       "eyebrow": "Pourquoi Krumbz",
@@ -296,7 +308,7 @@
       "phoneLabel": "Ou appelez-nous"
     },
     "mushroom": {
-      "eyebrow": "Le champignon, cœur de Krumbz",
+      "eyebrow": "Le champignon (ikizinu), cœur de Krumbz",
       "title": "Un trésor des forêts du Burundi",
       "intro": "Des biscuits, il en existe partout dans le monde. Des biscuits à base de champignon, beaucoup moins. Krumbz met en valeur un aliment de chez nous : les forêts et les savanes boisées du Burundi abritent des dizaines d’espèces de champignons comestibles, récoltés depuis toujours et vendus sur les marchés, jusqu’à Bujumbura.",
       "whyTitle": "Ce que le champignon apporte",
@@ -333,7 +345,31 @@
         }
       ],
       "disclaimer": "Ces informations décrivent le champignon en tant qu’aliment. Elles ne correspondent pas à la composition des biscuits Krumbz, dont les valeurs nutritionnelles figurent sur la page Produits.",
-      "cta": "Voir la composition de nos biscuits"
+      "cta": "Voir la composition de nos biscuits",
+      "images": {
+        "harvestAlt": "Une femme récolte des champignons (ikizinu) dans une forêt du Burundi",
+        "closeupAlt": "Gros plan sur une grappe de champignons frais"
+      }
+    },
+    "fromMushroom": {
+      "eyebrow": "Du champignon au biscuit",
+      "title": "Tout commence par un champignon",
+      "text": "Le champignon (ikizinu) est l’ingrédient de base de Krumbz. Mélangé à la farine de blé, au lait et aux œufs, il devient un biscuit MARIE fin, doré et croustillant.",
+      "steps": [
+        {
+          "title": "Le champignon (ikizinu)",
+          "text": "L’ingrédient de base, un aliment du Burundi."
+        },
+        {
+          "title": "La recette",
+          "text": "Mélangé à la farine de blé, au sucre, à l’huile, aux œufs, au lait et aux fraises."
+        },
+        {
+          "title": "Le biscuit Krumbz",
+          "text": "Cuit en un biscuit MARIE simple et croustillant."
+        }
+      ],
+      "alt": "Des champignons frais, des biscuits MARIE et un sachet Krumbz sur une table en bois"
     }
   },
   "products": {
@@ -398,7 +434,6 @@
     "ingredients": {
       "title": "Ingrédients",
       "list": [
-        "Champignons (ingrédient de base)",
         "Farine de blé",
         "Sucre",
         "Huile",
@@ -409,12 +444,16 @@
       "allergensTitle": "Allergènes",
       "allergens": "Contient du blé (gluten), des œufs et du lait (d’après la liste des ingrédients de l’étiquette).",
       "storageTitle": "Conservation",
-      "storage": "À COMPLÉTER",
+      "storage": "",
       "shelfLifeTitle": "Durée de conservation",
       "shelfLife": "12 mois après la fabrication. Les dates de fabrication (MFG), d’expiration (EXP) et le numéro de lot sont imprimés sur chaque sachet.",
-      "labelNote": "Le champignon est l’ingrédient de base de Krumbz ; il est mélangé à la farine de blé, au sucre, à l’huile, aux œufs, au lait et aux fraises.",
+      "labelNote": "Les autres ingrédients sont ceux imprimés sur l’étiquette du sachet.",
       "producerTitle": "Fabricant",
-      "producer": "Crispy Food Products, Quartier Industriel, Bujumbura — tél. +257 62 69 75 97 / +257 72 36 91 13."
+      "producer": "Crispy Food Products, Quartier Industriel, Bujumbura — tél. +257 62 69 75 97 / +257 72 36 91 13.",
+      "baseTitle": "Ingrédient de base",
+      "base": "Champignons (ikizinu)",
+      "othersTitle": "Autres ingrédients (étiquette)",
+      "imageAlt": "Gros plan sur une grappe de champignons frais"
     },
     "nutrition": {
       "title": "Valeurs nutritionnelles",
@@ -424,40 +463,40 @@
       "rows": [
         {
           "label": "Énergie",
-          "value": "À COMPLÉTER"
+          "value": ""
         },
         {
           "label": "Matières grasses",
-          "value": "15 %"
+          "value": "15 g"
         },
         {
           "label": "dont acides gras saturés",
-          "value": "À COMPLÉTER",
+          "value": "",
           "indent": true
         },
         {
           "label": "Glucides",
-          "value": "69,44 %"
+          "value": "69,44 g"
         },
         {
           "label": "dont sucres",
-          "value": "À COMPLÉTER",
+          "value": "",
           "indent": true
         },
         {
           "label": "Fibres alimentaires",
-          "value": "À COMPLÉTER"
+          "value": ""
         },
         {
           "label": "Protéines",
-          "value": "10,65 %"
+          "value": "10,65 g"
         },
         {
           "label": "Sel",
-          "value": "À COMPLÉTER"
+          "value": ""
         }
       ],
-      "disclaimer": "Valeurs à fournir par Crispy Food Products d’après l’étiquette officielle."
+      "disclaimer": ""
     },
     "chooseTitle": "Choisissez votre format",
     "factsTitle": "Composition et conservation",
@@ -472,7 +511,7 @@
         "id": "burundi",
         "image": "burundi-collines",
         "title": "Fabriqué au Burundi",
-        "text": "Krumbz est fabriqué à Bujumbura, dans le Quartier Industriel, par Crispy Food Products. Histoire de l’entreprise et date de création : À COMPLÉTER.",
+        "text": "Krumbz est fabriqué à Bujumbura, dans le Quartier Industriel, par Crispy Food Products.",
         "alt": "Les collines verdoyantes du Burundi"
       },
       {
@@ -504,6 +543,28 @@
         {
           "title": "Proximité",
           "text": "Une marque burundaise, proche de ses clients."
+        }
+      ]
+    },
+    "journey": {
+      "eyebrow": "De la forêt à votre sachet",
+      "title": "De la forêt du Burundi à votre sachet",
+      "intro": "Le champignon (ikizinu) fait partie de la cuisine burundaise depuis toujours. Voici son chemin jusqu’à votre biscuit Krumbz.",
+      "steps": [
+        {
+          "title": "La forêt",
+          "text": "Des dizaines d’espèces de champignons comestibles poussent dans les forêts et les savanes boisées du Burundi.",
+          "alt": "Une femme récolte des champignons dans une forêt du Burundi"
+        },
+        {
+          "title": "Le marché",
+          "text": "Frais, ils se vendent sur les marchés de tout le pays, jusqu’à Bujumbura.",
+          "alt": "Une vendeuse présente des champignons frais sur un marché coloré"
+        },
+        {
+          "title": "Le biscuit",
+          "text": "Chez Crispy Food Products, à Bujumbura, le champignon devient l’ingrédient de base des biscuits Krumbz.",
+          "alt": "Un panier de champignons frais posé dans la forêt"
         }
       ]
     }

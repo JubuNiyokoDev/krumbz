@@ -93,9 +93,11 @@ function Sachet({ brand, tagline, className }: { brand: string; tagline: string;
       >
         {brand}
       </text>
-      <text x="110" y="176" textAnchor="middle" fontFamily="var(--font-nunito), sans-serif" fontWeight="800" fontSize="11" fill="#12264a" letterSpacing="1.5">
-        {tagline.toUpperCase()}
-      </text>
+      {tagline ? (
+        <text x="110" y="176" textAnchor="middle" fontFamily="var(--font-nunito), sans-serif" fontWeight="800" fontSize="11" fill="#12264a" letterSpacing="1.5">
+          {tagline.toUpperCase()}
+        </text>
+      ) : null}
       <MiniBiscuit x={84} y={208} scale={0.95} rotate={-12} />
       <MiniBiscuit x={128} y={212} scale={0.8} rotate={18} />
     </svg>

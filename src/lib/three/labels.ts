@@ -361,8 +361,8 @@ export function drawSachetFront(brand: BrandTexts, fonts: Fonts, biscuitImage: C
   ctx.lineWidth = 6;
   ctx.stroke();
 
-  wordmark(ctx, fonts, brand.name, W / 2, sealH + 270, W * 0.84, 250);
-  pill(ctx, fonts, brand.tagline, W / 2, sealH + 470, W * 0.8, 50, C.navy, C.cream);
+  // The slogan « Simple, Croustillant » is printed on the carton only, not on the sachet.
+  wordmark(ctx, fonts, brand.name, W / 2, sealH + 320, W * 0.84, 260);
 
   // biscuits + crumbs
   const random = rng(5);
@@ -434,7 +434,7 @@ export function drawSachetBack(brand: BrandTexts, fonts: Fonts): HTMLCanvasEleme
   // facts with gold bullets
   y += 50;
   ctx.font = `800 44px ${fonts.sans}`;
-  for (const fact of [brand.base, brand.origin, brand.tagline]) {
+  for (const fact of [brand.base, brand.origin]) {
     ctx.fillStyle = C.gold;
     ctx.beginPath();
     ctx.arc(W * 0.13, y - 14, 13, 0, Math.PI * 2);

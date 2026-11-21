@@ -18,6 +18,14 @@ for (const { href, locale, path } of ALL_PAGES) {
     await expect(page.locator("html")).toHaveAttribute("lang", LOCALE_LABELS[locale].htmlLang);
     await expect(page.locator("h1")).toHaveCount(1);
     await expect(page.locator("h1")).toBeVisible();
+    // The h1 text exists once in the DOM (no visually-hidden duplicate) and has an accessible name.
+    const h1 = await page.locator("h1").evaluate((el) => ({ text: (el.textContent ?? "").replace(/\s+/g, " ").trim(), label: el.getAttribute("aria-label") }));
+    const name = h1.label ?? h1.text;
+    expect(name.length, "nom accessible du h1").toBeGreaterThan(0);
+    expect(h1.text.split(name).length - 1, "texte du h1 en un seul exemplaire").toBeLessThanOrEqual(1);
+
+    // Missing information is never shown to the public.
+    expect(await page.locator("body").innerText(), "« À COMPLÉTER » visible").not.toContain("COMPLÉTER");
 
     const expectedTitle = href === "/" ? seo.title : c.seo.titleTemplate.replace("%s", seo.title);
     await expect(page).toHaveTitle(expectedTitle);

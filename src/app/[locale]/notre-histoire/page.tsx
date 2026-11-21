@@ -11,6 +11,7 @@ import { TextWithToComplete } from "@/components/ui/ToComplete";
 import { PageHero } from "@/components/sections/common/PageHero";
 import { Parallax } from "@/components/sections/common/Parallax";
 import { SectionHeading } from "@/components/sections/SectionHeading";
+import { MushroomIcon } from "@/components/ui/Icons";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/notre-histoire">): Promise<Metadata> {
   const { locale } = await params;
@@ -24,6 +25,12 @@ export default async function StoryPage({ params }: PageProps<"/[locale]/notre-h
   const c = loadContent(locale);
   const s = c.story;
   const tc = { label: c.common.toComplete, hint: c.common.toCompleteHint };
+  // « De la forêt du Burundi à votre sachet »: one photo per step, lazy-loaded.
+  const journeyImages = await Promise.all(
+    (["recolte-foret", "marche-champignons", "panier-champignons"] as const).map((name) =>
+      resolveImage(`/images/champignons/${name}.jpg`, { width: 1100, height: 1400 }),
+    ),
+  );
   const images = await Promise.all(
     s.chapters.map((chapter) => (chapter.image ? resolveImage(`/images/story/${chapter.image}.jpg`, { width: 2400, height: 1600 }) : null)),
   );
@@ -90,6 +97,26 @@ export default async function StoryPage({ params }: PageProps<"/[locale]/notre-h
           );
         })}
       </div>
+
+      <section aria-labelledby="journey-title" className="relative overflow-hidden bg-navy py-20 text-cream sm:py-24 lg:py-32">
+        <div className="mx-auto max-w-[88rem] px-4 sm:px-6 lg:px-10">
+          <SectionHeading id="journey-title" eyebrow={s.journey.eyebrow} title={s.journey.title} lead={s.journey.intro} tone="light" align="center" />
+          <ol className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
+            {s.journey.steps.map((step, i) => (
+              <li key={step.title} data-reveal style={{ "--reveal-delay": `${i * 120}ms` } as CSSProperties} className="relative flex flex-col">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-navy-soft shadow-lift ring-1 ring-cream/10">
+                  <BrandImage image={journeyImages[i]} alt={step.alt} sizes="(min-width: 768px) 30vw, 92vw" placeholderLabel={c.common.imagePlaceholder} />
+                  <span aria-hidden className="absolute left-4 top-4 grid h-12 w-12 place-items-center rounded-full bg-gold font-display text-xl font-bold text-navy shadow-biscuit">
+                    {i === 0 ? <MushroomIcon size={24} /> : i + 1}
+                  </span>
+                </div>
+                <h3 className="mt-5 font-display text-2xl font-bold text-gold-light">{step.title}</h3>
+                <p className="mt-2 text-lg leading-relaxed text-cream/85">{step.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
 
       <section aria-labelledby="values-title" className="grain relative overflow-hidden bg-cream-deep py-20 sm:py-24 lg:py-32">
         <div className="mx-auto max-w-[88rem] px-4 sm:px-6 lg:px-10">

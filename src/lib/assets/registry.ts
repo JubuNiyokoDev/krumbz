@@ -106,6 +106,22 @@ export const IMAGE_SLOTS: ImageSlot[] = [
     size: "2400 × 1600 (3:2), < 450 Ko",
     usage: "Page « Notre histoire » : chapitre « L’origine champignon ».",
   },
+  ...(
+    [
+      ["champignons-et-krumbz", "paysage", "1536 × 1024 (3:2)", "Accueil, section « Du champignon au biscuit » (juste après l’intro 3D)."],
+      ["champignon-biscuit-transition", "paysage", "1600 × 900 (16:9)", "Accueil, rappel « Au cœur de chaque biscuit » entre les moments de vie."],
+      ["panier-champignons", "portrait", "1200 × 1300", "Accueil, rappel « Un trésor du Burundi » entre les moments ; Notre histoire, étape « Le biscuit »."],
+      ["recolte-foret", "portrait", "1024 × 1536 (2:3)", "Accueil, section « Le champignon, cœur de Krumbz » ; Notre histoire, étape « La forêt »."],
+      ["champignons-gros-plan", "paysage", "1448 × 1086 (4:3)", "Accueil, section « Le champignon, cœur de Krumbz » ; Produits, à côté de la composition."],
+      ["marche-champignons", "portrait", "1086 × 1448 (3:4)", "Notre histoire, étape « Le marché »."],
+    ] as const
+  ).map(([name, orientation, size, usage]) => ({
+    path: `/images/champignons/${name}.jpg`,
+    format: "jpg" as const,
+    orientation,
+    size: `${size}, < 400 Ko`,
+    usage: `Champignon (ikizinu) — ${usage}`,
+  })),
   {
     path: "/images/og/og-image.jpg",
     format: "jpg",

@@ -10,7 +10,7 @@
     "tagline": "Simple, Croustillant",
     "promise": "A nourishing biscuit for every moment of life.",
     "origin": "Made in Burundi",
-    "base": "Made with mushrooms",
+    "base": "Made with mushrooms (ikizinu)",
     "audience": "For children, young people, couples, parents, teachers and working adults."
   },
   "contact": {
@@ -74,7 +74,7 @@
     "intro": {
       "eyebrow": "Krumbz · Crispy Food Products",
       "title": "Simple, Crispy",
-      "subtitle": "The mushroom-based biscuit, made in Burundi, for every moment of life.",
+      "subtitle": "The biscuit made with mushrooms (ikizinu), baked in Burundi, for every moment of life.",
       "cta": "Order now",
       "secondaryCta": "See the products",
       "packAlt": "A pack of Krumbz biscuits opening as a biscuit comes out"
@@ -205,7 +205,19 @@
         }
       ],
       "progressLabel": "Moments progress",
-      "goTo": "Go to the moment “{label}”"
+      "goTo": "Go to the moment “{label}”",
+      "breaks": [
+        {
+          "eyebrow": "At the heart of every biscuit",
+          "text": "Mushroom (ikizinu), the base ingredient of Krumbz.",
+          "alt": "Whole and sliced mushrooms next to MARIE biscuits"
+        },
+        {
+          "eyebrow": "A treasure from Burundi",
+          "text": "A food from home, at the heart of a crispy biscuit.",
+          "alt": "A wicker basket full of fresh mushrooms in the forest"
+        }
+      ]
     },
     "benefits": {
       "eyebrow": "Why Krumbz",
@@ -246,7 +258,7 @@
       "phoneLabel": "Or give us a call"
     },
     "mushroom": {
-      "eyebrow": "Mushroom, the heart of Krumbz",
+      "eyebrow": "Mushroom (ikizinu), the heart of Krumbz",
       "title": "A treasure from Burundi’s forests",
       "intro": "There are biscuits all over the world. Mushroom-based biscuits are much rarer. Krumbz celebrates a food from home: Burundi’s forests and woodlands are home to dozens of edible mushroom species, gathered for generations and sold in markets all the way to Bujumbura.",
       "whyTitle": "What mushrooms bring",
@@ -283,7 +295,31 @@
         }
       ],
       "disclaimer": "This information describes mushrooms as a food. It is not the composition of Krumbz biscuits, whose nutrition facts are on the Products page.",
-      "cta": "See what our biscuits contain"
+      "cta": "See what our biscuits contain",
+      "images": {
+        "harvestAlt": "A woman gathering mushrooms (ikizinu) in a Burundian forest",
+        "closeupAlt": "Close-up of a cluster of fresh mushrooms"
+      }
+    },
+    "fromMushroom": {
+      "eyebrow": "From mushroom to biscuit",
+      "title": "It all starts with a mushroom",
+      "text": "Mushroom (ikizinu) is the base ingredient of Krumbz. Blended with wheat flour, milk and eggs, it becomes a thin, golden, crispy MARIE biscuit.",
+      "steps": [
+        {
+          "title": "The mushroom (ikizinu)",
+          "text": "The base ingredient, a food from Burundi."
+        },
+        {
+          "title": "The recipe",
+          "text": "Blended with wheat flour, sugar, oil, eggs, milk and strawberries."
+        },
+        {
+          "title": "The Krumbz biscuit",
+          "text": "Baked into a simple, crispy MARIE biscuit."
+        }
+      ],
+      "alt": "Fresh mushrooms, MARIE biscuits and a Krumbz pack on a wooden table"
     }
   },
   "products": {
@@ -348,7 +384,6 @@
     "ingredients": {
       "title": "Ingredients",
       "list": [
-        "Mushrooms (base ingredient)",
         "Wheat flour",
         "Sugar",
         "Oil",
@@ -359,12 +394,16 @@
       "allergensTitle": "Allergens",
       "allergens": "Contains wheat (gluten), eggs and milk (based on the ingredient list on the label).",
       "storageTitle": "Storage",
-      "storage": "TO BE COMPLETED (À COMPLÉTER)",
+      "storage": "",
       "shelfLifeTitle": "Shelf life",
       "shelfLife": "12 months from production. The production date (MFG), expiry date (EXP) and batch number are printed on every pack.",
-      "labelNote": "Mushroom is the base ingredient of Krumbz; it is blended with wheat flour, sugar, oil, eggs, milk and strawberries.",
+      "labelNote": "The other ingredients are those printed on the pack label.",
       "producerTitle": "Manufacturer",
-      "producer": "Crispy Food Products, Quartier Industriel, Bujumbura — tel. +257 62 69 75 97 / +257 72 36 91 13."
+      "producer": "Crispy Food Products, Quartier Industriel, Bujumbura — tel. +257 62 69 75 97 / +257 72 36 91 13.",
+      "baseTitle": "Base ingredient",
+      "base": "Mushrooms (ikizinu)",
+      "othersTitle": "Other ingredients (label)",
+      "imageAlt": "Close-up of a cluster of fresh mushrooms"
     },
     "nutrition": {
       "title": "Nutrition facts",
@@ -374,40 +413,40 @@
       "rows": [
         {
           "label": "Energy",
-          "value": "TO BE COMPLETED (À COMPLÉTER)"
+          "value": ""
         },
         {
           "label": "Fat",
-          "value": "15%"
+          "value": "15 g"
         },
         {
           "label": "of which saturates",
-          "value": "TO BE COMPLETED (À COMPLÉTER)",
+          "value": "",
           "indent": true
         },
         {
           "label": "Carbohydrate",
-          "value": "69.44%"
+          "value": "69.44 g"
         },
         {
           "label": "of which sugars",
-          "value": "TO BE COMPLETED (À COMPLÉTER)",
+          "value": "",
           "indent": true
         },
         {
           "label": "Fibre",
-          "value": "TO BE COMPLETED (À COMPLÉTER)"
+          "value": ""
         },
         {
           "label": "Protein",
-          "value": "10.65%"
+          "value": "10.65 g"
         },
         {
           "label": "Salt",
-          "value": "TO BE COMPLETED (À COMPLÉTER)"
+          "value": ""
         }
       ],
-      "disclaimer": "Values to be provided by Crispy Food Products from the official label."
+      "disclaimer": ""
     },
     "chooseTitle": "Choose your format",
     "factsTitle": "Ingredients and storage",
@@ -422,7 +461,7 @@
         "id": "burundi",
         "image": "burundi-collines",
         "title": "Made in Burundi",
-        "text": "Krumbz is made in Bujumbura, in the Quartier Industriel, by Crispy Food Products. Company history and founding date: TO BE COMPLETED (À COMPLÉTER).",
+        "text": "Krumbz is made in Bujumbura, in the Quartier Industriel, by Crispy Food Products.",
         "alt": "The green hills of Burundi"
       },
       {
@@ -454,6 +493,28 @@
         {
           "title": "Closeness",
           "text": "A Burundian brand, close to its customers."
+        }
+      ]
+    },
+    "journey": {
+      "eyebrow": "From the forest to your pack",
+      "title": "From Burundi’s forests to your pack",
+      "intro": "Mushroom (ikizinu) has always been part of Burundian cooking. Here is its journey to your Krumbz biscuit.",
+      "steps": [
+        {
+          "title": "The forest",
+          "text": "Dozens of edible mushroom species grow in Burundi’s forests and woodlands.",
+          "alt": "A woman gathering mushrooms in a Burundian forest"
+        },
+        {
+          "title": "The market",
+          "text": "Fresh mushrooms are sold in markets across the country, all the way to Bujumbura.",
+          "alt": "A vendor showing fresh mushrooms at a colourful market"
+        },
+        {
+          "title": "The biscuit",
+          "text": "At Crispy Food Products in Bujumbura, mushroom becomes the base ingredient of Krumbz biscuits.",
+          "alt": "A basket of fresh mushrooms in the forest"
         }
       ]
     }

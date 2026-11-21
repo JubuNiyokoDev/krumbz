@@ -11,7 +11,7 @@
     "tagline": "Byoroshe, Bikaze",
     "promise": "Ibisukuti bifise intungamubiri ku gihe cose c'ubuzima.",
     "origin": "Bikorewe mu Burundi",
-    "base": "Bikozwe mu bihumyo",
+    "base": "Bikozwe mu bizinu",
     "audience": "Ku bana, abangavu, abo mu rukundo, ababyeyi, abarimu n'abakuru bakora akazi."
   },
   "contact": {
@@ -75,7 +75,7 @@
     "intro": {
       "eyebrow": "Krumbz · Crispy Food Products",
       "title": "Byoroshe, Bikaze",
-      "subtitle": "Ibisukuti bikozwe mu bihumyo, bikorewe mu Burundi, ku gihe cose c'ubuzima.",
+      "subtitle": "Ibisukuti bikozwe mu bizinu, bikorewe mu Burundi, ku gihe cose c'ubuzima.",
       "cta": "Tumiza nonaha",
       "secondaryCta": "Raba ibicuruzwa",
       "packAlt": "Impapuro y'ibisukuti vya Krumbz irafunguka hakaba hasohoka igisukuti"
@@ -206,7 +206,19 @@
         }
       ],
       "progressLabel": "Aho tugeze mu bihe",
-      "goTo": "Ja ku gihe « {label} »"
+      "goTo": "Ja ku gihe « {label} »",
+      "breaks": [
+        {
+          "eyebrow": "Umutima wa buri gisukuti",
+          "text": "Ikizinu, ikintu shingiro ca Krumbz.",
+          "alt": "Ibizinu vyuzuye n'ibikase iruhande y'ibisukuti vya MARIE"
+        },
+        {
+          "eyebrow": "Ubutunzi bw'i Burundi",
+          "text": "Ikifungurwa co ng'aha iwacu, mu mutima w'igisukuti gikaze.",
+          "alt": "Igiseke cuzuye ibizinu bibisi mu ishamba"
+        }
+      ]
     },
     "benefits": {
       "eyebrow": "Kubera iki Krumbz",
@@ -219,7 +231,7 @@
         },
         {
           "id": "mushroom",
-          "title": "Bikozwe mu bihumyo",
+          "title": "Bikozwe mu bizinu",
           "text": "Uburyo bwo gutegura budasanzwe butuma Krumbz itandukanye."
         },
         {
@@ -247,10 +259,10 @@
       "phoneLabel": "Canke uduhamagare"
     },
     "mushroom": {
-      "eyebrow": "Igihumyo, umutima wa Krumbz",
+      "eyebrow": "Ikizinu, umutima wa Krumbz",
       "title": "Ubutunzi bw'amashamba y'i Burundi",
-      "intro": "Ibisukuti birahari hose kw'isi. Ibisukuti bikozwe mu bihumyo ni bikeyi cane. Krumbz irashimika ikintu co ng'aha iwacu : amashamba n'imisozi y'i Burundi birimwo uduce dutandukanye tw'ibihumyo biribwa, bitoragurwa kuva kera bikaguzwa ku masoko, gushika i Bujumbura.",
-      "whyTitle": "Ivyo igihumyo gitanga",
+      "intro": "Ibisukuti birahari hose kw'isi. Ibisukuti bikozwe mu bizinu ni bikeyi cane. Krumbz irashimika ikintu co ng'aha iwacu : amashamba n'imisozi y'i Burundi birimwo uduce dutandukanye tw'ibizinu biribwa, bitoragurwa kuva kera bikaguzwa ku masoko, gushika i Bujumbura.",
+      "whyTitle": "Ivyo ikizinu gitanga",
       "items": [
         {
           "symbol": "B2 · B3 · B5",
@@ -270,21 +282,45 @@
         {
           "symbol": "EGT",
           "title": "Ergothioneine",
-          "text": "Ikintu kiramutsa kamere gikingira, aho igihumyo kiri mu bibitanga vyiza kuruta mu bifungurwa."
+          "text": "Ikintu kiramutsa kamere gikingira, aho ikizinu kiri mu bibitanga vyiza kuruta mu bifungurwa."
         },
         {
           "symbol": "P + F",
           "title": "Proteine na fibre",
-          "text": "Igihumyo gitanga proteine na fibre, hamwe n'amavuta make cane."
+          "text": "Ikizinu gitanga proteine na fibre, hamwe n'amavuta make cane."
         },
         {
           "symbol": "D",
           "title": "Vitamine D ivuye ku zuba",
-          "text": "Igihumyo kigeretswe ku zuba, gitegura vitamine D, nk'uko urukoba rwacu rubigenza."
+          "text": "Ikizinu kigeretswe ku zuba, gitegura vitamine D, nk'uko urukoba rwacu rubigenza."
         }
       ],
-      "disclaimer": "Aya makuru arasigura igihumyo nk'ikifungurwa. Ntavuga ivyo ibisukuti vya Krumbz birimwo, ivyo bikaba biboneka ku rupapuro rw'Ibicuruzwa.",
-      "cta": "Raba ivyo ibisukuti vyacu birimwo"
+      "disclaimer": "Aya makuru arasigura ikizinu nk'ikifungurwa. Ntavuga ivyo ibisukuti vya Krumbz birimwo, ivyo bikaba biboneka ku rupapuro rw'Ibicuruzwa.",
+      "cta": "Raba ivyo ibisukuti vyacu birimwo",
+      "images": {
+        "harvestAlt": "Umukenyezi atoragura ibizinu mu ishamba ry'i Burundi",
+        "closeupAlt": "Ibizinu bibisi biri hamwe, bibonekera hafi"
+      }
+    },
+    "fromMushroom": {
+      "eyebrow": "Kuva ku kizinu gushika ku gisukuti",
+      "title": "Vyose bitangurira ku kizinu",
+      "text": "Ikizinu ni co kigize umusingi wa Krumbz. Kivanzwe n'ifu y'ingano, amata n'amagi, kivamwo igisukuti ca MARIE, gito, c'ubutare kandi gikaze.",
+      "steps": [
+        {
+          "title": "Ikizinu",
+          "text": "Ikintu shingiro, ikifungurwa c'i Burundi."
+        },
+        {
+          "title": "Uburyo bwo gutegura",
+          "text": "Kivanzwe n'ifu y'ingano, isukari, amavuta, amagi, amata n'imbuto za strawberry."
+        },
+        {
+          "title": "Igisukuti ca Krumbz",
+          "text": "Gitekwa kikavamwo igisukuti ca MARIE coroshe kandi gikaze."
+        }
+      ],
+      "alt": "Ibizinu bibisi, ibisukuti vya MARIE n'impapuro ya Krumbz ku meza y'igiti"
     }
   },
   "products": {
@@ -349,7 +385,6 @@
     "ingredients": {
       "title": "Ivyo birimwo",
       "list": [
-        "Igihumyo (igikoresho ca mbere)",
         "Ifu y'ingano",
         "Isukari",
         "Amavuta",
@@ -360,12 +395,16 @@
       "allergensTitle": "Ibishobora gutera ingaruka",
       "allergens": "Girimwo ingano (gluten), amagi n'amata (nk'uko bivugwa ku rutonde rw'ivyo birimwo ku kalembo).",
       "storageTitle": "Kubika",
-      "storage": "BIZUZUZWA (À COMPLÉTER)",
+      "storage": "",
       "shelfLifeTitle": "Igihe cokwihagarira",
       "shelfLife": "Amezi 12 guhera ku gukorwa. Italiki yo gukorwa (MFG), iy'impera (EXP) n'inomero y'igice (lot) birasohokeye kuri buri mpapuro.",
-      "labelNote": "Igihumyo ni co kigize umusingi wa Krumbz ; kivanze n'ifu y'ingano, isukari, amavuta, amagi, amata n'imbuto za strawberry.",
+      "labelNote": "Ibindi birimwo ni ivyanditswe ku kalembo k'impapuro.",
       "producerTitle": "Uwakoze",
-      "producer": "Crispy Food Products, Quartier Industriel, i Bujumbura — terefone +257 62 69 75 97 / +257 72 36 91 13."
+      "producer": "Crispy Food Products, Quartier Industriel, i Bujumbura — terefone +257 62 69 75 97 / +257 72 36 91 13.",
+      "baseTitle": "Ikintu shingiro",
+      "base": "Ikizinu",
+      "othersTitle": "Ibindi birimwo (ku kalembo)",
+      "imageAlt": "Ibizinu bibisi biri hamwe, bibonekera hafi"
     },
     "nutrition": {
       "title": "Intungamubiri",
@@ -375,40 +414,40 @@
       "rows": [
         {
           "label": "Ingufu",
-          "value": "BIZUZUZWA (À COMPLÉTER)"
+          "value": ""
         },
         {
           "label": "Amavuta",
-          "value": "15%"
+          "value": "g 15"
         },
         {
           "label": "harimwo amavuta akomeye",
-          "value": "BIZUZUZWA (À COMPLÉTER)",
+          "value": "",
           "indent": true
         },
         {
           "label": "Glucides (intungamubiri ikora ingufu)",
-          "value": "69,44%"
+          "value": "g 69,44"
         },
         {
           "label": "harimwo isukari",
-          "value": "BIZUZUZWA (À COMPLÉTER)",
+          "value": "",
           "indent": true
         },
         {
           "label": "Fibre",
-          "value": "BIZUZUZWA (À COMPLÉTER)"
+          "value": ""
         },
         {
           "label": "Proteine",
-          "value": "10,65%"
+          "value": "g 10,65"
         },
         {
           "label": "Umunyu",
-          "value": "BIZUZUZWA (À COMPLÉTER)"
+          "value": ""
         }
       ],
-      "disclaimer": "Ibipimo bizotangwa na Crispy Food Products bivuye ku kalembo nyakuri."
+      "disclaimer": ""
     },
     "chooseTitle": "Hitamwo imiterere yawe",
     "factsTitle": "Ivyo birimwo no kubika",
@@ -416,22 +455,22 @@
   },
   "story": {
     "eyebrow": "Inkuru yacu",
-    "title": "Yavutse mu Burundi, ihumekewe n'igihumyo",
-    "intro": "Krumbz ni ikirango ca Crispy Food Products. Ibisukuti vyacu birakorerwa mu Burundi, biva ku bihumyo.",
+    "title": "Yavutse mu Burundi, ihumekewe n'ikizinu",
+    "intro": "Krumbz ni ikirango ca Crispy Food Products. Ibisukuti vyacu birakorerwa mu Burundi, biva ku bizinu.",
     "chapters": [
       {
         "id": "burundi",
         "image": "burundi-collines",
         "title": "Bikorewe mu Burundi",
-        "text": "Krumbz irakorerwa i Bujumbura, mu Quartier Industriel, na Crispy Food Products. Amateka y'ikigo n'italiki yo gushingwa : BIZUZUZWA (À COMPLÉTER).",
+        "text": "Krumbz irakorerwa i Bujumbura, mu Quartier Industriel, na Crispy Food Products.",
         "alt": "Imisozi myiza y'icatsi y'i Burundi"
       },
       {
         "id": "champignon",
         "image": "champignons",
-        "title": "Inkomoko y'igihumyo",
-        "text": "Igihumyo ni co kigize umusingi wa Krumbz. Ikifungurwa c'umuco cahora mu mashamba y'i Burundi, gitanga vitamine zo mu mugwi B, amasasu nka potasiyumu na seleniyumu, n'ibintu biramutsa bikingira. Twagikoze umutima w'igisukuti kidasanzwe.",
-        "alt": "Ibihumyo bishasha"
+        "title": "Inkomoko y'ikizinu",
+        "text": "Ikizinu ni co kigize umusingi wa Krumbz. Ikifungurwa c'umuco cahora mu mashamba y'i Burundi, gitanga vitamine zo mu mugwi B, amasasu nka potasiyumu na seleniyumu, n'ibintu biramutsa bikingira. Twagikoze umutima w'igisukuti kidasanzwe.",
+        "alt": "Ibizinu bishasha"
       },
       {
         "id": "promesse",
@@ -455,6 +494,28 @@
         {
           "title": "Ubwegerano",
           "text": "Ikirango c'i Burundi, kigufi ku bakiriya bako."
+        }
+      ]
+    },
+    "journey": {
+      "eyebrow": "Kuva mu ishamba gushika ku mpapuro yawe",
+      "title": "Kuva mu mashamba y'i Burundi gushika ku mpapuro yawe",
+      "intro": "Ikizinu kimaze igihe kinini kiri mu mafungurwa y'Abarundi. Uru ni rwo rugendo rwaco gushika ku gisukuti cawe ca Krumbz.",
+      "steps": [
+        {
+          "title": "Ishamba",
+          "text": "Mu mashamba n'imisozi y'i Burundi hamera uduce twinshi tw'ibizinu biribwa.",
+          "alt": "Umukenyezi atoragura ibizinu mu ishamba ry'i Burundi"
+        },
+        {
+          "title": "Isoko",
+          "text": "Ibizinu bibisi bigurishwa ku masoko yo mu gihugu cose, gushika i Bujumbura.",
+          "alt": "Umudandaza yerekana ibizinu bibisi ku isoko"
+        },
+        {
+          "title": "Igisukuti",
+          "text": "Muri Crispy Food Products, i Bujumbura, ikizinu kiba ikintu shingiro c'ibisukuti vya Krumbz.",
+          "alt": "Igiseke c'ibizinu bibisi mu ishamba"
         }
       ]
     }
@@ -632,12 +693,12 @@
     "siteName": "Krumbz",
     "titleTemplate": "%s · Krumbz",
     "defaultTitle": "Krumbz — Byoroshe, Bikaze",
-    "defaultDescription": "Krumbz, ibisukuti bikozwe mu bihumyo bikorewe mu Burundi na Crispy Food Products. Byoroshe, bikaze, ku gihe cose c'ubuzima. Tumiza kuri WhatsApp.",
+    "defaultDescription": "Krumbz, ibisukuti bikozwe mu bizinu bikorewe mu Burundi na Crispy Food Products. Byoroshe, bikaze, ku gihe cose c'ubuzima. Tumiza kuri WhatsApp.",
     "ogAlt": "Ibisukuti n'impapuro ya Krumbz — Byoroshe, Bikaze",
     "pages": {
       "home": {
         "title": "Krumbz — Byoroshe, Bikaze",
-        "description": "Igisukuti c'igihumyo cakorewe mu Burundi, ku gihe cose c'ubuzima. Menya Krumbz kandi utumize kuri WhatsApp."
+        "description": "Igisukuti c'ikizinu cakorewe mu Burundi, ku gihe cose c'ubuzima. Menya Krumbz kandi utumize kuri WhatsApp."
       },
       "products": {
         "title": "Ibicuruzwa",
@@ -645,7 +706,7 @@
       },
       "story": {
         "title": "Inkuru yacu",
-        "description": "Krumbz, yakorewe mu Burundi na Crispy Food Products, biva ku bihumyo."
+        "description": "Krumbz, yakorewe mu Burundi na Crispy Food Products, biva ku bizinu."
       },
       "order": {
         "title": "Tumiza",

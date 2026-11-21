@@ -132,3 +132,13 @@ export function SocialIcon({ network, size = 22 }: { network: string; size?: num
     </svg>
   );
 }
+
+/** Mushroom (ikizinu), the base ingredient of Krumbz. */
+export const MushroomIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M3 12c0-4.4 4-8 9-8s9 3.6 9 8z" />
+    <path d="M9.5 12v5.5a2.5 2.5 0 0 0 5 0V12" />
+    <circle cx="8.5" cy="8.5" r="1" fill="currentColor" stroke="none" />
+    <circle cx="14.5" cy="7.5" r="1.2" fill="currentColor" stroke="none" />
+  </svg>
+);

@@ -27,7 +27,7 @@ export function ProductCard({ product, labels, showLearnMore = true }: { product
         <PackIllustration
           model={product.model}
           brand={labels.brand}
-          tagline={labels.tagline}
+          tagline={product.model === "carton" ? labels.tagline : ""}
           className="relative h-44 w-44 drop-shadow-[0_18px_22px_rgb(164_80_26/0.3)] transition-transform duration-700 ease-out-back group-hover:-translate-y-2 group-hover:-rotate-3"
         />
       </div>

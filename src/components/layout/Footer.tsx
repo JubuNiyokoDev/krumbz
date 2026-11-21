@@ -1,6 +1,7 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { loadContent, isToComplete } from "@/lib/content";
+import { MushroomIcon } from "@/components/ui/Icons";
 import { whatsappUrl } from "@/lib/order/whatsapp";
 import { ArrowUpIcon, MailIcon, PhoneIcon, SocialIcon, WhatsAppIcon } from "@/components/ui/Icons";
 import { Crumbs } from "@/components/ui/Crumbs";
@@ -29,7 +30,9 @@ export async function Footer() {
             <p className="mt-2 text-cream/80">{c.brand.promise}</p>
             <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-cream/10 px-4 py-2 text-sm font-semibold">
               <span aria-hidden className="inline-block h-2 w-2 rounded-full bg-gold" />
-              {c.brand.origin} · {c.brand.base}
+              {c.brand.origin} ·
+              <MushroomIcon size={18} className="text-gold-light" />
+              {c.brand.base}
             </p>
           </div>
 

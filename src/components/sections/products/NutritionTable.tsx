@@ -1,4 +1,4 @@
-import { TextWithToComplete } from "@/components/ui/ToComplete";
+import { isPublicValue, TextWithToComplete } from "@/components/ui/ToComplete";
 
 interface Row {
   label: string;
@@ -44,7 +44,7 @@ export function NutritionTable({
           </tr>
         </thead>
         <tbody>
-          {rows.map((row) => (
+          {rows.filter((row) => isPublicValue(row.value)).map((row) => (
             <tr key={row.label} className="border-b border-navy/10 last:border-b-0">
               <th scope="row" className={`py-3.5 pr-4 align-middle ${row.indent ? "pl-11 font-normal italic text-navy/80" : "pl-6 font-semibold"}`}>
                 {row.indent ? (
@@ -59,7 +59,7 @@ export function NutritionTable({
           ))}
         </tbody>
       </table>
-      <p className="border-t border-navy/10 bg-cream-deep/40 px-6 py-4 text-sm text-navy/80">{disclaimer}</p>
+      {disclaimer ? <p className="border-t border-navy/10 bg-cream-deep/40 px-6 py-4 text-sm text-navy/80">{disclaimer}</p> : null}
     </div>
   );
 }
