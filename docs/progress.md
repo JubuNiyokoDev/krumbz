@@ -10,11 +10,13 @@
 - 2026-11-22 — Étape 0 : référence visuelle Krumbz (28 captures, stable sur 2 passes), `playwright.parity.config.ts`.
 - 2026-11-22 — Contrat partagé `src/lib/tenant/types.ts`.
 
+## Fait (suite)
+
+- 2026-11-22 — Super-admin commité (`f454797`, `studio-admin`) : boutiques, comptes, paiements, réglages, stats, santé, journal, QR, cron/billing:expire ; isolation 26/26, e2e 10/10.
+- 2026-11-22 — Intégration `rundinova-studio` : fusion `studio-espace` (`4064e19`) + `studio-admin` (`407a89a`), conflits `package.json` résolus, `npm install`. Contrôles verts : typegen/tsc/eslint/build, isolation 32/32, admin e2e 10/10, espace e2e 2/2. Reste : Playwright complet, parité 28/28, smoke Isoko/Ikirenge/Krumbz.
+
 ## En cours (sous-agents, branches de worktree)
-- Fondation + migration Krumbz (base, résolution par sous-domaine, Krumbz vendeur n°1, parité visuelle).
-- Template générique « vitrine » + boutique de démonstration chaussures.
-- Site Rundinova Studio (isoko.rundinova.com).
-- Infrastructure (compose, staging arrêtable, nginx préparé avec certificats dynamiques Let's Encrypt, cache nginx, sauvegardes R2, surveillance, CI rapide) — fichiers seulement, rien sur le serveur.
+- Relancer Playwright complet + parité visuelle 28/28 + smoke Isoko/Ikirenge/Krumbz sur intégration, puis finaliser handoff avant tout push/déploiement.
 
 ## Reste à faire
 Étapes 1 à 11 du plan.
