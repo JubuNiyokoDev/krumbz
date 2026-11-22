@@ -71,3 +71,12 @@
 1. Recette du propriétaire sur https://staging-*.rundinova.com, puis `./staging.sh down` (préproduction arrêtée quand elle ne sert pas).
 2. Production : stack `rundinova-studio` (19300), vhosts isoko/admin/espace + joker (accord), bascule Krumbz 19200 → 19300 (accord), sauvegardes R2 (bucket + jeton à créer par le propriétaire), surveillance.
 3. README + `docs/rapport-final.md`.
+
+## Décision du 2026-11-22 (recette du propriétaire) — MODÈLE UNIQUE = KRUMBZ
+- Le modèle générique « vitrine » (Ikirenge) est **refusé** : design différent.
+- **Toutes les boutiques sont identiques à 100 % à krumbz.rundinova.com** (pages, animations, transitions « porte »,
+  parcours au défilement, UI, panier, commande WhatsApp). Seuls changent : **couleurs, images, nom, textes, produits**.
+- Produits dans le parcours : modèle 3D de la boutique s'il existe (même parcours que le sachet Krumbz), sinon photos
+  détourées des produits sur le même parcours. Les modèles 3D sur mesure de Krumbz restent propres à Krumbz.
+- En cours : refonte « Krumbz → modèle paramétrable » ; Krumbz doit rester pixel-identique (référence de parité 28/28).
+
