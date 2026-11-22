@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import type { Locale } from "@/i18n/config";
-import { loadContent } from "@/lib/content";
+import { loadKrumbzContent } from "@/templates/krumbz/content";
 import { pageMetadata } from "@/lib/seo/site";
 import { resolveImage } from "@/lib/assets/server";
 import { BrandImage } from "@/components/ui/BrandImage";
@@ -13,16 +13,16 @@ import { Parallax } from "@/components/sections/common/Parallax";
 import { SectionHeading } from "@/components/sections/SectionHeading";
 import { MushroomIcon } from "@/components/ui/Icons";
 
-export async function generateMetadata({ params }: PageProps<"/[locale]/notre-histoire">): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/tpl/krumbz/[tenant]/[locale]/notre-histoire">): Promise<Metadata> {
   const { locale } = await params;
   return pageMetadata(locale as Locale, "story", "/notre-histoire");
 }
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
-export default async function StoryPage({ params }: PageProps<"/[locale]/notre-histoire">) {
+export default async function StoryPage({ params }: PageProps<"/tpl/krumbz/[tenant]/[locale]/notre-histoire">) {
   const { locale } = await params;
-  const c = loadContent(locale);
+  const c = await loadKrumbzContent(locale);
   const s = c.story;
   const tc = { label: c.common.toComplete, hint: c.common.toCompleteHint };
   // « De la forêt du Burundi à votre sachet »: one photo per step, lazy-loaded.

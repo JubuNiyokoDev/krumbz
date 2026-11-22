@@ -13,7 +13,17 @@ import { chromium, defineConfig, devices } from "@playwright/test";
  * Reference images live outside git (large): PARITY_DIR (default reports/parity).
  * A worktree can point PARITY_DIR at the main checkout's reports/parity.
  */
-const baseURL = process.env.PW_BASE_URL ?? "http://localhost:3310";
+/**
+ * Multi-tenant: Krumbz is served on its own host. A localhost base URL is turned
+ * into <PW_TENANT>.localhost (default krumbz; Chromium resolves *.localhost to
+ * the loopback), so the pages are reached exactly as krumbz.rundinova.com/<path>.
+ */
+function tenantURL(url: string): string {
+  const u = new URL(url);
+  if (["localhost", "127.0.0.1"].includes(u.hostname)) u.hostname = `${process.env.PW_TENANT ?? "krumbz"}.localhost`;
+  return u.origin;
+}
+const baseURL = tenantURL(process.env.PW_BASE_URL ?? "http://localhost:3310");
 const parityDir = path.resolve(process.env.PARITY_DIR ?? "reports/parity");
 const channel = fs.existsSync(chromium.executablePath()) ? undefined : "chrome";
 

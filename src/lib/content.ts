@@ -13,6 +13,8 @@ export type SceneContent = SiteContent["home"]["moments"]["scenes"][number];
 export type ProductContent = SiteContent["products"]["items"][number] & {
   price: number | null;
   compareAtPrice: number | null;
+  /** Promo badge of this product (from the database); falls back to products.promoLabel. */
+  promoLabel?: string;
 };
 
 const sources: Record<string, unknown> = { fr, en, rn, sw };

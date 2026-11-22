@@ -15,13 +15,24 @@ import { chromium, defineConfig, devices } from "@playwright/test";
 const PORT = 3200;
 // PW_BASE_URL=http://localhost:3000 runs the suite against an already running server (e.g. `npm run dev`).
 const externalURL = process.env.PW_BASE_URL;
-const baseURL = externalURL ?? `http://localhost:${PORT}`;
+/**
+ * Multi-tenant: Krumbz is served on its own host. A localhost base URL is turned
+ * into <PW_TENANT>.localhost (default krumbz; Chromium resolves *.localhost to
+ * the loopback), so the pages are reached exactly as krumbz.rundinova.com/<path>.
+ */
+function tenantURL(url: string): string {
+  const u = new URL(url);
+  if (["localhost", "127.0.0.1"].includes(u.hostname)) u.hostname = `${process.env.PW_TENANT ?? "krumbz"}.localhost`;
+  return u.origin;
+}
+const serverURL = externalURL ?? `http://localhost:${PORT}`;
+const baseURL = tenantURL(serverURL);
 const channel = fs.existsSync(chromium.executablePath()) ? undefined : "chrome";
 
 export default defineConfig({
   testDir: "./tests",
   // Visual parity has its own config (playwright.parity.config.ts) and reference images.
-  testIgnore: ["**/parity/**"],
+  testIgnore: ["**/parity/**", "**/isolation/**"],
   outputDir: "./test-results",
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
@@ -61,7 +72,7 @@ export default defineConfig({
     ? undefined
     : {
     command: `npm run start -- -p ${PORT}`,
-    url: `${baseURL}/robots.txt`,
+    url: `${serverURL}/robots.txt`,
     reuseExistingServer: !process.env.CI,
     timeout: 60_000,
     stdout: "ignore",

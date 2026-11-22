@@ -2,7 +2,8 @@ import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/config";
-import { loadContent, type ProductContent } from "@/lib/content";
+import type { ProductContent } from "@/lib/content";
+import { loadKrumbzContent } from "@/templates/krumbz/content";
 import { pageMetadata } from "@/lib/seo/site";
 import { resolveImage, resolveTextures } from "@/lib/assets/server";
 import { ProductViewer } from "@/components/three/ProductViewer";
@@ -16,14 +17,14 @@ import { NutritionTable } from "@/components/sections/products/NutritionTable";
 import { ProductCard } from "@/components/sections/home/ProductCard";
 import { PriceTag } from "@/components/order/PriceTag";
 
-export async function generateMetadata({ params }: PageProps<"/[locale]/produits">): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/tpl/krumbz/[tenant]/[locale]/produits">): Promise<Metadata> {
   const { locale } = await params;
   return pageMetadata(locale as Locale, "products", "/produits");
 }
 
-export default async function ProductsPage({ params }: PageProps<"/[locale]/produits">) {
+export default async function ProductsPage({ params }: PageProps<"/tpl/krumbz/[tenant]/[locale]/produits">) {
   const { locale } = await params;
-  const c = loadContent(locale);
+  const c = await loadKrumbzContent(locale);
   const p = c.products;
   const t = await getTranslations("products");
   const [studio, mushroomCloseup] = await Promise.all([

@@ -55,3 +55,6 @@ public/basis/
 /images-en-attente/
 /images-a-integrer/
 /references/
+
+# env example (documented, no secrets)
+!.env.example

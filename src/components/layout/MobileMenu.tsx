@@ -2,7 +2,8 @@
 
 import { useRef, type CSSProperties } from "react";
 import { useTranslations } from "next-intl";
-import { Link, usePathname } from "@/i18n/navigation";
+import { Link } from "@/i18n/navigation";
+import { usePathname } from "@/i18n/use-pathname";
 import { useUi } from "@/hooks/useUi";
 import { useModal } from "@/hooks/useModal";
 import { CloseIcon, PhoneIcon, WhatsAppIcon } from "@/components/ui/Icons";
