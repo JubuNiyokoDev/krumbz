@@ -168,6 +168,25 @@ export function forTenant(tenantId: string, db: Db = getDb()) {
           .where(and(eq(productImages.productId, productId), isOwn(productImages)))
           .orderBy(asc(productImages.sortOrder));
       },
+      async get(id: string) {
+        if (!UUID.test(id)) return null;
+        const [row] = await db.select().from(productImages).where(and(eq(productImages.id, id), isOwn(productImages))).limit(1);
+        return row ?? null;
+      },
+      /** Alt text / position of an image. Returns null when the image does not exist in this tenant. */
+      async update(id: string, patch: { alt?: Localized; sortOrder?: number }) {
+        if (!UUID.test(id)) return null;
+        const values: { alt?: Localized; sortOrder?: number } = {};
+        if (patch.alt !== undefined) values.alt = patch.alt;
+        if (patch.sortOrder !== undefined) values.sortOrder = patch.sortOrder;
+        if (!Object.keys(values).length) return this.get(id);
+        const [row] = await db
+          .update(productImages)
+          .set(values)
+          .where(and(eq(productImages.id, id), isOwn(productImages)))
+          .returning();
+        return row ?? null;
+      },
       async remove(id: string): Promise<boolean> {
         if (!UUID.test(id)) return false;
         const rows = await db
