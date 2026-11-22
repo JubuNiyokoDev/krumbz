@@ -5,7 +5,7 @@
  *   isoko.ROOT                      → Rundinova Studio marketing site
  *   admin.ROOT                      → super-admin
  *   espace.ROOT                     → vendor space
- *   staging-<any of the above>.ROOT → same, pre-production (staging: true)
+ *   staging-<any of the above>.ROOT → same, pre-production (staging: true); staging.ROOT = staging marketing
  *   ROOT, www.ROOT                  → NOT ours (company site): "none"
  *   reserved / malformed sub-domain, foreign host → "none"
  *
@@ -47,6 +47,8 @@ export function isValidTenantSlug(slug: string): boolean {
 }
 
 function resolveLabel(label: string): HostTarget {
+  // staging.ROOT = pre-production of the marketing site (same as staging-isoko.ROOT, see deploy/nginx).
+  if (label === "staging") return { kind: "marketing", staging: true };
   let sub = label;
   let staging = false;
   if (sub.startsWith("staging-")) {

@@ -158,11 +158,12 @@ describe("host resolution", () => {
     assert.deepEqual(resolveHost("staging-krumbz.rundinova.com:443", { root }), { kind: "tenant", slug: "krumbz", staging: true });
     assert.deepEqual(resolveHost("isoko.rundinova.com", { root }), { kind: "marketing", staging: false });
     assert.deepEqual(resolveHost("staging-isoko.rundinova.com", { root }), { kind: "marketing", staging: true });
+    assert.deepEqual(resolveHost("staging.rundinova.com", { root }), { kind: "marketing", staging: true });
     assert.deepEqual(resolveHost("admin.rundinova.com", { root }), { kind: "admin", staging: false });
     assert.deepEqual(resolveHost("staging-espace.rundinova.com", { root }), { kind: "espace", staging: true });
   });
   test("company site, reserved and foreign hosts are not ours", () => {
-    for (const host of ["rundinova.com", "www.rundinova.com", "tech.rundinova.com", "koraneza.rundinova.com", "staging.rundinova.com", "a.b.rundinova.com", "evil.com", "krumbz.rundinova.com.evil.com", ""]) {
+    for (const host of ["rundinova.com", "www.rundinova.com", "tech.rundinova.com", "koraneza.rundinova.com", "a.b.rundinova.com", "evil.com", "krumbz.rundinova.com.evil.com", ""]) {
       assert.deepEqual(resolveHost(host, { root }), { kind: "none" }, host);
     }
   });
