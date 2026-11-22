@@ -79,4 +79,8 @@
 - Produits dans le parcours : modèle 3D de la boutique s'il existe (même parcours que le sachet Krumbz), sinon photos
   détourées des produits sur le même parcours. Les modèles 3D sur mesure de Krumbz restent propres à Krumbz.
 - En cours : refonte « Krumbz → modèle paramétrable » ; Krumbz doit rester pixel-identique (référence de parité 28/28).
+- Compléments du propriétaire : nombre de scènes variable (minimum 5 pour une nouvelle boutique, Krumbz garde 17),
+  sections de contenu facultatives sans page vide ou cassée, liste des photos Ikirenge (`docs/demo-ikirenge-photos.md`).
+- Ordre de mise en production confirmé : 1) modèle unique en préproduction → recette ; 2) production (19300 + vhosts) ;
+  3) bascule de krumbz.rundinova.com en dernier, sur accord explicite.
 
