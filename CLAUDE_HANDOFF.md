@@ -573,5 +573,5 @@ aucune migration et n'a arrêté aucun processus. Seul ce fichier `CLAUDE_HANDOF
   - `npx next build` OK (104 pages statiques ; avertissements Turbopack connus `certs.ts`/`uploads/images.ts`/`health.ts`)
   - `tests/admin.spec.ts` desktop+mobile (`PW_TENANT=admin`, `PW_BASE_URL=http://localhost:3362`) : **10/10**
   - Smoke HTTP Isoko `/fr /en` (Host header) : 200, contient `amtips`, `25767309309`, `/images/payment/amtips-qr.png`.
-- **Validation complète précédente (toujours valide, code non régressé hors D4/UI)** : Playwright général Krumbz 163 pass + 1 flake `scene-framing/famille-maison` repassée seule + screenshots mobile 24/24 après correctif ; espace e2e 2/2 ; parité 28/28 ; smoke Krumbz/Isoko/Ikirenge/admin/espace OK.
+- **Revalidation finale (HEAD 1a79f17, `next start -p 3363`)** : espace e2e **2/2** ; parité **28/28** ; suite générale Krumbz **172 tests** : 168 pass + 4 timeouts screenshots mobile home (`/`,`/en`,`/rn`,`/sw`) sous charge, **4/4 repassés seuls OK** => 172/172 verts. Admin e2e post-Amtips **10/10** ; isolation **32/32** ; build/lint/tsc/typegen OK.
 - **Aucune action interdite** : pas de push, pas de merge dans `main`, pas de déploiement/DNS/VPS.

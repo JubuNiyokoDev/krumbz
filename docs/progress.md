@@ -16,6 +16,7 @@
 - 2026-11-22 — Intégration `rundinova-studio` : fusion `studio-espace` (`4064e19`) + `studio-admin` (`407a89a`), conflits `package.json` résolus, `npm install`. Contrôles verts : typegen/tsc/eslint/build, isolation 32/32.
 - 2026-11-22 — Validation complète intégration : Playwright général 163 pass + 1 flake `scene-framing/famille-maison` repassée seule + 8 timeouts `screenshots.spec` mobile corrigés (`0f1bc68`) puis 24/24 ; admin e2e 10/10 ; espace e2e 2/2 ; parité 28/28 (`PARITY_DIR` racine reports/parity) ; smoke HTTP Krumbz/Isoko/Ikirenge/admin/espace OK (wa.me présents).
 - 2026-11-22 — Intégration Amtips/D4 partielle (`59782db`) : WhatsApp Rundinova `25767309309` confirmé, Lumicash `Niyondiko Joffre` confirmé (numéro `25767309309` supposé, à confirmer), lien Amtips + QR `public/images/payment/amtips-qr.png` intégrés dans réglages admin et contact Isoko ; EcoCash/photos démo restent placeholders. Contrôles post-modif : typegen/tsc/lint OK, build OK, isolation 32/32, admin e2e 10/10, smoke Isoko /fr /en Amtips+WhatsApp+QR OK.
+- 2026-11-22 — Revalidation finale HEAD `1a79f17` : espace e2e 2/2, parité 28/28, suite générale Krumbz 172/172 (4 screenshots mobile home flaky sous charge, repassés seuls OK), admin 10/10, isolation 32/32, build/lint/tsc/typegen OK. Aucun push/merge/déploiement.
 
 ## En cours
 - Intégration terminée et validée sur `rundinova-studio` (HEAD `59782db`). En attente de validation propriétaire puis accord explicite pour fusion/push `main` et/ou déploiement.
