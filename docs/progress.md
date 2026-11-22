@@ -62,9 +62,12 @@
 - nginx : `conf.d/rundinova-studio.conf` + 2 vhosts **staging seulement** (5 noms explicites, sans joker) via `nginx-safe-apply.sh` :
   115 sondes OK, aucun site dégradé ; 20 avertissements « protocol options redefined » identiques avant/après (préexistants) ;
   sauvegarde `/root/nginx-backups/nginx-20261122-163604.tar.gz`.
-- **En cours** : émission des 5 certificats staging (interrompue par une coupure réseau du poste vers le VPS/GitHub).
+- Certificats Let's Encrypt émis pour les 5 hôtes staging (expiration 2027-02-20) ; minuterie `rundinova-studio-certs.timer` active
+  (corrigé c5c1ebe : chemins de production facultatifs, sinon 226/NAMESPACE). Compte Let's Encrypt sans e-mail (pas d'accord pour l'envoyer).
+- Super-admin : **rundinovatech@gmail.com** (compte rundinova@kit-hub.com désactivé).
+- Vérification HTTPS (avec l'accès recette) : krumbz `/`, `/produits`, `/en/products`, `/commander`, ikirenge, isoko, admin, espace → 200.
 
 ## Reste à faire
-1. Certificats staging + recette complète (bureau/mobile) sur https://staging-*.rundinova.com.
+1. Recette du propriétaire sur https://staging-*.rundinova.com, puis `./staging.sh down` (préproduction arrêtée quand elle ne sert pas).
 2. Production : stack `rundinova-studio` (19300), vhosts isoko/admin/espace + joker (accord), bascule Krumbz 19200 → 19300 (accord), sauvegardes R2 (bucket + jeton à créer par le propriétaire), surveillance.
 3. README + `docs/rapport-final.md`.
