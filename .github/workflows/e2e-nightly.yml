@@ -1,0 +1,81 @@
+# Suite Playwright COMPLÈTE (bureau + mobile), chaque nuit et à la demande. Non bloquante :
+# elle ne conditionne aucun déploiement (le job rapide de ci.yml s'en charge). En cas d'échec,
+# le rapport est joint au run (artefact) et GitHub notifie l'auteur du workflow.
+name: E2E nightly
+
+on:
+  schedule:
+    - cron: "30 1 * * *" # 01:30 UTC = 03:30 à Bujumbura
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Branche ou commit à tester (vide = branche par défaut)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: e2e-nightly
+  cancel-in-progress: true
+
+jobs:
+  e2e:
+    name: e2e (${{ matrix.project }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [desktop, mobile]
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: ci
+          POSTGRES_DB: rundinova_studio
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d rundinova_studio"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      CI: "true"
+      NEXT_TELEMETRY_DISABLED: "1"
+      DATABASE_URL: postgres://postgres:ci@localhost:5432/rundinova_studio
+      PLATFORM_ROOT_DOMAIN: rundinova.com
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+
+      - name: Database (migrations + Krumbz seed), if the app has one
+        run: |
+          if [ -f scripts/db-migrate.mts ]; then
+            npm run db:migrate
+            npm run db:seed:krumbz
+          fi
+
+      - run: npm run build
+      - run: npx playwright test --project=${{ matrix.project }}
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report-${{ matrix.project }}
+          path: playwright-report/
+          retention-days: 14

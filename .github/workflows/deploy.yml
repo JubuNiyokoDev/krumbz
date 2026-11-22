@@ -1,54 +1,53 @@
+# Déploiement de production sur push main (~6-8 min au lieu de ~19).
+#
+# 1. verify (ci.yml, bloquant) et build (image) en PARALLÈLE ; l'image n'est poussée qu'avec
+#    son tag immuable sha-<7> ;
+# 2. deploy (Krumbz, comme avant) : une fois verify ET build verts, « latest » est déplacé sur
+#    sha-<7>, puis /opt/krumbz : docker compose pull && up -d (conteneur krumbz, 19200) ;
+# 3. studio-deploy (Rundinova Studio, 19300) : seulement si la variable de dépôt
+#    STUDIO_DEPLOY_ENABLED vaut 'true' (serveur préparé, voir docs/ops.md).
+#
+# Retour arrière : Actions → Deploy → Run workflow → tag = sha-<7> d'un déploiement précédent
+# (aucune compilation : l'image existe déjà dans ghcr.io).
+# La suite Playwright complète tourne la nuit (e2e-nightly.yml), sans bloquer.
 name: Deploy
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      tag:
+        description: "Retour arrière : tag existant à redéployer (ex. sha-1a2b3c4). Vide = construire le commit courant."
+        required: false
+        default: ""
 
 permissions:
   contents: read
   packages: write
 
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
 env:
   IMAGE: ghcr.io/jubuniyokodev/krumbz
+  STUDIO_IMAGE: ghcr.io/jubuniyokodev/rundinova-studio
   SITE_URL: https://krumbz.rundinova.com
 
 jobs:
-  e2e:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - run: npm ci
-      - run: npx playwright install --with-deps chromium
-      - run: npm run build
-      - run: npx playwright test
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 14
+  verify:
+    if: inputs.tag == ''
+    uses: ./.github/workflows/ci.yml
 
   build:
+    if: inputs.tag == ''
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      tag: ${{ steps.meta.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - run: npm ci
-      - run: npm run typecheck
-      - run: npm run lint
-      - run: npm run content:check
 
       - name: Set image tag
         id: meta
@@ -62,6 +61,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Même image pour les deux noms (même code, même NEXT_PUBLIC_SITE_URL).
       - uses: docker/build-push-action@v6
         with:
           context: .
@@ -69,16 +69,37 @@ jobs:
           build-args: |
             NEXT_PUBLIC_SITE_URL=${{ env.SITE_URL }}
           tags: |
-            ${{ env.IMAGE }}:latest
             ${{ env.IMAGE }}:${{ steps.meta.outputs.tag }}
+            ${{ vars.STUDIO_DEPLOY_ENABLED == 'true' && format('{0}:{1}', env.STUDIO_IMAGE, steps.meta.outputs.tag) || '' }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
   deploy:
-    needs: [e2e, build]
+    needs: [verify, build]
+    if: >-
+      always() && !cancelled() &&
+      (inputs.tag != '' || (needs.verify.result == 'success' && needs.build.result == 'success'))
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TAG: ${{ inputs.tag != '' && inputs.tag || needs.build.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Check tag
+        run: |
+          [[ "$TAG" =~ ^sha-[0-9a-f]{7,40}$ ]] || { echo "tag invalide : $TAG"; exit 1; }
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Promote ${{ env.TAG }} to latest
+        run: docker buildx imagetools create -t "$IMAGE:latest" "$IMAGE:$TAG"
 
       - name: Upload docker-compose.yml to the VPS
         uses: appleboy/scp-action@v0.1.7
@@ -101,3 +122,61 @@ jobs:
             docker compose pull
             docker compose up -d --remove-orphans
             docker image prune -f
+
+  studio-deploy:
+    needs: [verify, build]
+    if: >-
+      always() && !cancelled() && vars.STUDIO_DEPLOY_ENABLED == 'true' &&
+      (inputs.tag != '' || (needs.verify.result == 'success' && needs.build.result == 'success'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      TAG: ${{ inputs.tag != '' && inputs.tag || needs.build.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check tag
+        run: |
+          [[ "$TAG" =~ ^sha-[0-9a-f]{7,40}$ ]] || { echo "tag invalide : $TAG"; exit 1; }
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Promote ${{ env.TAG }} to latest (rundinova-studio)
+        run: docker buildx imagetools create -t "$STUDIO_IMAGE:latest" "$STUDIO_IMAGE:$TAG"
+
+      - name: Upload compose file and ops scripts
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "deploy/compose.production.yml,scripts/ops/*.sh"
+          target: "/opt/rundinova-studio/.incoming"
+          rm: true
+
+      - name: Deploy (backup, migrations, health check, automatic rollback)
+        uses: appleboy/ssh-action@v1.2.0
+        env:
+          TAG: ${{ env.TAG }}
+          GITHUB_SHA: ${{ github.sha }}
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          envs: TAG,GITHUB_SHA
+          command_timeout: 12m
+          script: |
+            set -euo pipefail
+            cd /opt/rundinova-studio
+            install -d -m 755 scripts
+            install -m 755 .incoming/scripts/ops/*.sh scripts/
+            rm -f scripts/selftest-*.sh
+            install -m 644 .incoming/deploy/compose.production.yml compose.yml
+            rm -rf .incoming
+            scripts/deploy.sh production "$TAG"

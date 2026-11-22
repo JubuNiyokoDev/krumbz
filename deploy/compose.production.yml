@@ -1,0 +1,156 @@
+# Rundinova Studio — production (projet compose « rundinova-studio »).
+# Installé sur le VPS : /opt/rundinova-studio/compose.yml (voir docs/ops.md).
+#
+#   cd /opt/rundinova-studio && docker compose -p rundinova-studio -f compose.yml up -d
+#   (déploiements : scripts/deploy.sh production sha-xxxxxxx)
+#
+# Budget mémoire (VPS sous pression, 66 conteneurs d'autres projets) : app 640 Mo / 1 CPU,
+# db 256 Mo / 0,5 CPU, migrate (ponctuel) 256 Mo. Swap interdit (memswap = mem).
+# Aucun port public : app sur 127.0.0.1:19300 (nginx de l'hôte), db sans port publié.
+# Données : dossiers de l'hôte sous STUDIO_DIR (/opt/rundinova-studio) :
+#   db/            données PostgreSQL 16           (sauvegardé par scripts/backup.sh)
+#   uploads/       photos des vendeurs             → /data/uploads (1001:1001)
+#   cert-requests/ demandes de certificats (app)   → /data/cert-requests (1001:1001)
+#   cert-status/   états des certificats (hôte)    → /data/cert-status (lecture seule)
+#   status/        health.json (health.sh, cron)   → /data/status (lecture seule)
+# Secrets : STUDIO_DIR/.env (root:root 600, modèle deploy/env.production.example).
+
+name: rundinova-studio
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+x-image: &image ghcr.io/jubuniyokodev/rundinova-studio:${TAG:-latest}
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: rundinova-studio-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: studio
+      POSTGRES_DB: studio
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD manquant dans .env}
+      POSTGRES_INITDB_ARGS: "--data-checksums"
+    # Réglages pour 256 Mo (peu de connexions : un seul processus Node, pool de 5).
+    command:
+      - postgres
+      - -c
+      - shared_buffers=64MB
+      - -c
+      - effective_cache_size=160MB
+      - -c
+      - work_mem=2MB
+      - -c
+      - maintenance_work_mem=32MB
+      - -c
+      - max_connections=30
+      - -c
+      - wal_buffers=2MB
+      - -c
+      - min_wal_size=64MB
+      - -c
+      - max_wal_size=256MB
+      - -c
+      - checkpoint_completion_target=0.9
+      - -c
+      - max_worker_processes=4
+      - -c
+      - max_parallel_workers_per_gather=0
+      - -c
+      - max_parallel_maintenance_workers=1
+      - -c
+      - random_page_cost=1.1
+      - -c
+      - jit=off
+      - -c
+      - log_min_duration_statement=500ms
+    volumes:
+      - ${STUDIO_DIR:-/opt/rundinova-studio}/db:/var/lib/postgresql/data
+    shm_size: 64m
+    mem_limit: 256m
+    memswap_limit: 256m
+    cpus: 0.5
+    pids_limit: 200
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U studio -d studio -q"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 30s
+    stop_grace_period: 30s
+    logging: *logging
+
+  # Ponctuel : applique drizzle/ (même script que `npm run db:migrate`), puis s'arrête.
+  migrate:
+    image: *image
+    restart: "no"
+    command: ["node", "--disable-warning=ExperimentalWarning", "/app/migrator/scripts/db-migrate.mts"]
+    environment:
+      DATABASE_URL: postgres://studio:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD manquant dans .env}@db:5432/studio
+      NODE_OPTIONS: --max-old-space-size=128
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      disable: true
+    mem_limit: 256m
+    memswap_limit: 256m
+    cpus: 0.5
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    logging: *logging
+
+  app:
+    image: *image
+    container_name: rundinova-studio
+    restart: unless-stopped
+    init: true
+    env_file:
+      - path: ${STUDIO_DIR:-/opt/rundinova-studio}/.env
+        required: true
+    # Valeurs imposées par l'infrastructure (prioritaires sur .env).
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      HOSTNAME: 0.0.0.0
+      NODE_OPTIONS: --max-old-space-size=384
+      DATABASE_URL: postgres://studio:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD manquant dans .env}@db:5432/studio
+      TRUST_FORWARDED_HOST: "1"
+      UPLOADS_DIR: /data/uploads
+      CERT_REQUESTS_DIR: /data/cert-requests
+      CERT_STATUS_DIR: /data/cert-status
+      HEALTH_STATUS_FILE: /data/status/health.json
+    ports:
+      - "127.0.0.1:19300:3000"
+    volumes:
+      - ${STUDIO_DIR:-/opt/rundinova-studio}/uploads:/data/uploads
+      - ${STUDIO_DIR:-/opt/rundinova-studio}/cert-requests:/data/cert-requests
+      - ${STUDIO_DIR:-/opt/rundinova-studio}/cert-status:/data/cert-status:ro
+      - ${STUDIO_DIR:-/opt/rundinova-studio}/status:/data/status:ro
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    mem_limit: 640m
+    memswap_limit: 640m
+    cpus: 1.0
+    pids_limit: 256
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "node", "/app/healthcheck.mjs"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    stop_grace_period: 20s
+    logging: *logging

@@ -1,0 +1,29 @@
+# Rundinova Studio — émission des certificats HTTPS demandés par l'app (Let's Encrypt HTTP-01).
+# Installé : /etc/systemd/system/rundinova-studio-certs.service (+ .timer, chaque minute).
+# Script versionné : scripts/ops/cert-provision.sh, copié dans /opt/rundinova-studio/scripts/.
+# Journal : journalctl -u rundinova-studio-certs
+# Réglages facultatifs (LE_EMAIL, WEEKLY_CAP, CERTBOT_EXTRA=--test-cert…) :
+#   /etc/rundinova-studio/certs.env (root:root 600).
+[Unit]
+Description=Rundinova Studio - certificats HTTPS a la demande (certbot webroot)
+Documentation=file:///opt/rundinova-studio/docs/ops.md
+After=network-online.target nginx.service
+Wants=network-online.target
+ConditionPathExists=/opt/rundinova-studio/scripts/cert-provision.sh
+
+[Service]
+Type=oneshot
+EnvironmentFile=-/etc/rundinova-studio/certs.env
+ExecStart=/opt/rundinova-studio/scripts/cert-provision.sh
+TimeoutStartSec=15min
+Nice=10
+IOSchedulingClass=idle
+# Durcissement : écrit seulement là où c'est nécessaire.
+ProtectSystem=strict
+# « - » : chemin ignoré s'il n'existe pas (ex. préproduction jamais installée).
+ReadWritePaths=/etc/letsencrypt -/var/lib/letsencrypt -/var/log/letsencrypt /etc/rundinova-studio /var/www/rundinova-studio-acme /opt/rundinova-studio/cert-requests /opt/rundinova-studio/cert-status -/opt/rundinova-studio-staging/cert-requests -/opt/rundinova-studio-staging/cert-status
+StateDirectory=rundinova-studio-certs
+StateDirectoryMode=0700
+PrivateTmp=true
+NoNewPrivileges=true
+ProtectHome=true
