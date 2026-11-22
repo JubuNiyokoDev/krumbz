@@ -9,8 +9,9 @@ import { ALL_PAGES, settle } from "./support/site";
 test.describe("captures d’écran", () => {
   for (const { path, locale, href } of ALL_PAGES) {
     test(`capture ${path}`, async ({ page }, testInfo) => {
-      // The home page is very long (17 full-screen moments): a full-page capture needs more time.
-      if (href === "/") test.setTimeout(150_000);
+      // Full-page mobile captures of long, animation-heavy pages are slow in headless CI.
+      const timeout = href === "/" ? 240_000 : testInfo.project.name === "mobile" ? 120_000 : 45_000;
+      test.setTimeout(timeout);
       await page.goto(path);
       await settle(page, 10_000);
       await page.evaluate(() => document.fonts.ready);
