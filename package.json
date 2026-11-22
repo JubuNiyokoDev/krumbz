@@ -24,7 +24,8 @@
     "test:isolation": "node --env-file-if-exists=.env.local --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test \"tests/isolation/*.test.mts\"",
     "admin:create": "node --env-file-if-exists=.env.local --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/create-superadmin.mts",
     "db:seed:demo": "node --env-file-if-exists=.env.local --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/seed-demo.mts",
-    "vendor:create": "node --env-file-if-exists=.env.local --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/create-vendor.mts"
+    "vendor:create": "node --env-file-if-exists=.env.local --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/create-vendor.mts",
+    "billing:expire": "node --env-file-if-exists=.env.local --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/billing-expire.mts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -37,6 +38,7 @@
     "next": "16.4.6",
     "next-intl": "^4.15.1",
     "pg": "^8.23.1",
+    "qrcode": "^1.5.4",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "server-only": "^0.0.1",
@@ -53,6 +55,7 @@
     "@tailwindcss/turbopack": "4.3.3",
     "@types/node": "^20",
     "@types/pg": "^8.23.1",
+    "@types/qrcode": "^1.5.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/three": "^0.187.0",
