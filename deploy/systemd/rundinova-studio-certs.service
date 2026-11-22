@@ -21,7 +21,7 @@ IOSchedulingClass=idle
 # Durcissement : écrit seulement là où c'est nécessaire.
 ProtectSystem=strict
 # « - » : chemin ignoré s'il n'existe pas (ex. préproduction jamais installée).
-ReadWritePaths=/etc/letsencrypt -/var/lib/letsencrypt -/var/log/letsencrypt /etc/rundinova-studio /var/www/rundinova-studio-acme /opt/rundinova-studio/cert-requests /opt/rundinova-studio/cert-status -/opt/rundinova-studio-staging/cert-requests -/opt/rundinova-studio-staging/cert-status
+ReadWritePaths=/etc/letsencrypt -/var/lib/letsencrypt -/var/log/letsencrypt /etc/rundinova-studio /var/www/rundinova-studio-acme -/opt/rundinova-studio/cert-requests -/opt/rundinova-studio/cert-status -/opt/rundinova-studio-staging/cert-requests -/opt/rundinova-studio-staging/cert-status
 StateDirectory=rundinova-studio-certs
 StateDirectoryMode=0700
 PrivateTmp=true
