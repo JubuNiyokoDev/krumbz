@@ -553,21 +553,25 @@ for w in .claude/worktrees/*; do echo "== $w"; git -C "$w" status --short | head
 aucune migration et n'a arrêté aucun processus. Seul ce fichier `CLAUDE_HANDOFF.md` a été créé.*
 
 
-## État d'intégration (2026-11-22, validation complète)
+## État d'intégration (2026-11-22, validation complète + Amtips)
 
-- **Branche** : `rundinova-studio` (worktree `.claude/worktrees/integration`), propre après commits de validation.
-- **Commits clés** : `4064e19` fusion espace, `407a89a` fusion admin, `28a96a1` docs, `0f1bc68` durcissement délais `tests/screenshots.spec.ts` mobile, `969abd0`+docs progression.
-- **Contrôles verts** :
+- **Branche** : `rundinova-studio` (worktree `.claude/worktrees/integration`), propre.
+- **HEAD** : `59782db` (sur `8699182` validation précédente).
+- **Commits clés récents** : `4064e19` fusion espace, `407a89a` fusion admin, `28a96a1` docs, `0f1bc68` délais screenshots mobile, `969abd0`/`8699182` docs validation, `59782db` Amtips/WhatsApp/Lumicash.
+- **D4/Amtips intégré** :
+  - WhatsApp Rundinova : `25767309309` (confirmé propriétaire).
+  - Lumicash : nom `Niyondiko Joffre` (confirmé) ; numéro renseigné `25767309309` **(à confirmer si différent)**.
+  - EcoCash : placeholder conservé (en attente).
+  - Paiement Amtips : lien `https://amtips.app/t/1645db99-16f5-4d53-b20f-074a0ab0c207?campaign=2e1f738f-61a2-48bb-a19b-ec12cac67b99`, QR `public/images/payment/amtips-qr.png` (copie de `~/Downloads/qrcode.png`, 24623 octets) affiché dans réglages admin et section contact marketing Isoko.
+  - Photos démo : placeholders conservés (propriétaire fournira plus tard).
+- **Décision cache validée** : **Option A** — uploads versionnés/uniques + `Cache-Control: public, max-age=31536000, immutable` ; assets démo statiques remplacés par nom versionné + immutable, sinon `max-age` court/stale-while-revalidate.
+- **Contrôles verts (post-Amtips)** :
   - `npx next typegen` OK
   - `npx tsc --noEmit` OK
-  - `npm run -s lint` OK
+  - `npm run -s lint` OK (2 warnings `@next/next/no-img-element` sur QR statique, non bloquants)
   - `npm run -s test:isolation` : **32/32**
   - `npx next build` OK (104 pages statiques ; avertissements Turbopack connus `certs.ts`/`uploads/images.ts`/`health.ts`)
-- **Playwright (desktop+mobile, `PW_BASE_URL=http://localhost:3361`)** :
-  - Suite générale Krumbz (`cart,experience,mushroom,not-found,order,pages,scene-framing,screenshots`) : **163 pass / 9 échecs initiaux**. `scene-framing/famille-maison` flake — repassée seule OK. `screenshots.spec` mobile 8 timeouts pleine page — corrigé (`0f1bc68`), puis **24/24 mobile**.
-  - `tests/admin.spec.ts` (`PW_TENANT=admin`) : **10/10**
-  - `tests/espace.spec.ts` (`PW_TENANT=espace`) : **2/2**
-- **Parité visuelle** (`playwright.parity.config.ts`, `PARITY_DIR=/home/jubuniyoko/development/js/ViteJs/krumbz-website/reports/parity`, `PW_TENANT=krumbz`) : **28/28**.
-- **Smoke HTTP (Host header, redirect-follow)** : Krumbz `/ /produits /contact /commander` 200, `wa.me/25768497372` ; Isoko `/fr /en` 200 ; Ikirenge `/fr /fr/produits /fr/contact` 200 (wa.me placeholder `25700000000`) ; admin `/connexion` 200 ; espace `/fr/connexion` 200.
-- **Parcours couverts** : super-admin (connexion, dashboard, création boutique, identifiants WhatsApp, reset mot de passe, réglages, journal, santé/stats) ; vendeur (connexion, mot de passe forcé, produits/photos, contacts, déconnexion) ; formulaires/liens WhatsApp ; isolation multi-tenant 32/32.
+  - `tests/admin.spec.ts` desktop+mobile (`PW_TENANT=admin`, `PW_BASE_URL=http://localhost:3362`) : **10/10**
+  - Smoke HTTP Isoko `/fr /en` (Host header) : 200, contient `amtips`, `25767309309`, `/images/payment/amtips-qr.png`.
+- **Validation complète précédente (toujours valide, code non régressé hors D4/UI)** : Playwright général Krumbz 163 pass + 1 flake `scene-framing/famille-maison` repassée seule + screenshots mobile 24/24 après correctif ; espace e2e 2/2 ; parité 28/28 ; smoke Krumbz/Isoko/Ikirenge/admin/espace OK.
 - **Aucune action interdite** : pas de push, pas de merge dans `main`, pas de déploiement/DNS/VPS.
