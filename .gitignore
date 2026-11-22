@@ -58,3 +58,4 @@ public/basis/
 
 # env example (documented, no secrets)
 !.env.example
+/.data/

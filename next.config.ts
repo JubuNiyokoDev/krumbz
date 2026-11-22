@@ -25,6 +25,8 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     globalNotFound: true,
+    // Photo uploads from the vendor space / super-admin (src/lib/uploads/images.ts caps files at 8 MB).
+    serverActions: { bodySizeLimit: "10mb" },
     optimizePackageImports: ["three", "@react-three/drei", "gsap"],
   },
   turbopack: {
