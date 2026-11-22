@@ -44,3 +44,16 @@
 - Confirmer numéro Lumicash exact (hypothèse `25767309309` appliquée) ; fournir numéro+nom EcoCash ; fournir photos démo réelles.
 - Confirmer que le QR Amtips retenu est `~/Downloads/qrcode.png` (le plus grand des 5 fichiers qrcode téléchargés).
 - Accord explicite propriétaire pour fusionner `rundinova-studio` dans `main` (puis push/déploiement/DNS/VPS seulement après accord séparé).
+
+## Vérification de reprise (Claude, 2026-11-22)
+- Branche `rundinova-studio` (intégration OpenCode, 24 commits) relue : TypeScript 0 erreur, lint 0 erreur ;
+  sécurité contrôlée (scrypt, cookie HttpOnly/SameSite, limitation des tentatives, téléversements bornés,
+  toutes les actions admin via `requireSuperadmin`, toutes les actions vendeur via `vendorContext` → tenant pris dans la session).
+- **Corrigé (c9d70b6)** : `deploy.yml` redéployait l'ancien conteneur `krumbz` (sans base de données) à chaque push sur main
+  → krumbz.rundinova.com serait tombé. Ce job est désormais manuel (retour arrière uniquement).
+- Règle : **ne pas pousser `main` avant la bascule** ; la préproduction passe par la branche `staging`.
+
+## Prochaines étapes (accord propriétaire requis)
+1. VPS : créer `/opt/rundinova-studio-staging` (+ `.env` secrets générés sur le serveur), démarrer DB + app de préproduction (≈ 0,8 Go, arrêtable).
+2. nginx (configuration partagée) : première installation du bloc Rundinova Studio pour les hôtes `staging-*` uniquement, avec sauvegarde, `nginx -t`, vérification de tous les sites, retour arrière.
+3. Recette en préproduction, puis bascule Krumbz (19200 → 19300) avec accord.
