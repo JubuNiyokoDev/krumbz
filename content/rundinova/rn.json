@@ -1,0 +1,248 @@
+{
+  "_meta": {
+    "about": "Ikirundi — igipimo ca mbere c'ubuhinduzi (AI). Ibimenyetso nk'ivyo muri fr.json. Kirakeneye gusubirwamwo n'umuntu avuga Ikirundi kavukire. / Kirundi: first AI draft, MUST be reviewed by a native speaker before going live (key term to validate: « icerekaniro » for « vitrine »).",
+    "status": "needs-native-review"
+  },
+  "meta": {
+    "siteName": "Rundinova Studio",
+    "title": "Rundinova Studio — Isura yawe y'umwuga, ibitumizo vyawe kuri WhatsApp",
+    "description": "Rundinova Studio ikorera abadandaza bato b'i Burundi icerekaniro kidasanzwe kuri interineti. Abakiriya baraba ibicuruzwa vyawe bagatumiza ako kanya kuri WhatsApp."
+  },
+  "nav": {
+    "home": "Rundinova Studio, intango",
+    "main": "Ubuyobozi nyamukuru",
+    "how": "Uko bikora",
+    "shops": "Amaduka",
+    "offer": "Ibiciro",
+    "faq": "Ibibazo",
+    "cta": "Ndashaka icerekaniro canje",
+    "ctaShort": "Icerekaniro",
+    "language": "Ururimi",
+    "skip": "Ja ku vyanditswe"
+  },
+  "hero": {
+    "kicker": "Sitidiyo y'isura y'abadandaza b'i Burundi",
+    "title": "Isura yawe y'umwuga,",
+    "titleAccent": "ibitumizo vyawe kuri WhatsApp",
+    "lead": "Ibirato, impuzu, ibifungurwa… Turagukorera icerekaniro c'iduka ryawe kuri interineti, kidasanzwe, gifise 3D n'ibigenda. Abakiriya bawe bakiraba kuri telefone, bakakwandikira ako kanya kuri WhatsApp.",
+    "ctaPrimary": "Ndashaka icerekaniro canje",
+    "ctaSecondary": "Raba icerekaniro ca {name}",
+    "scroll": "Manuka",
+    "device": {
+      "imageAlt": "Icerekaniro ca {name} kuri telefone",
+      "live": "Kiri ku murongo",
+      "order": "Tumiza kuri WhatsApp",
+      "chatTitle": "Ubutumwa bushasha",
+      "chatMessage": "Bwakeye! Nabonye icerekaniro canyu, ndashaka gutumiza.",
+      "qr": "QR code y'iduka ryawe, ku ishati yawe"
+    }
+  },
+  "marquee": {
+    "label": "Ku badandaza bato bose",
+    "items": [
+      "Ibirato",
+      "Impuzu",
+      "Ibifungurwa",
+      "Uburanga",
+      "Ibikorwa vy'amaboko",
+      "Ivyo kwirimbisha",
+      "Ivyokunywa",
+      "Imigati"
+    ]
+  },
+  "how": {
+    "kicker": "Uko bikora",
+    "title": "Intambwe zitatu, iduka ryawe rikagira isura nshasha",
+    "steps": [
+      {
+        "title": "Tumenyana kuri WhatsApp",
+        "text": "Utubwira ivyerekeye iduka ryawe, ibicuruzwa n'ibiciro vyawe. Uturungikira amafoto, ibindi tukabikora."
+      },
+      {
+        "title": "Dukora icerekaniro cawe",
+        "text": "Icerekaniro kidasanzwe mw'izina ryawe, gifise 3D n'ibigenda, kuri aderese yawe bwite : iduka-ryawe.rundinova.com."
+      },
+      {
+        "title": "Abakiriya batumiza kuri WhatsApp",
+        "text": "Baraba ibicuruzwa vyawe, bakakwandikira mu kanya gato. QR code iri ku ishati yawe ibajana ako kanya ku cerekaniro cawe."
+      }
+    ]
+  },
+  "shops": {
+    "kicker": "Amaduka",
+    "title": "Ibicerekaniro biryoshe kuraba",
+    "lead": "Icerekaniro cose gikorwa ku bw'iduka ryaco. Ehe ivya mbere.",
+    "visit": "Fungura icerekaniro",
+    "first": "Umukiriya wa mbere",
+    "imageAlt": "Icerekaniro ca {name}",
+    "yours": {
+      "title": "Iduka ryawe hano",
+      "text": "Izina ryawe, ibicuruzwa vyawe, aderese yawe .rundinova.com.",
+      "cta": "Ndashaka icerekaniro canje"
+    }
+  },
+  "why": {
+    "kicker": "Igituma isura ihambaye",
+    "statement": "Abakiriya babanza kugura n'amaso. Isura nziza itera icizere imbere y'ubutumwa bwa mbere.",
+    "points": [
+      {
+        "title": "Aderese imwe yo gusangira",
+        "text": "Umurongo umwe worohereye wo gushira kuri status no mu migwi, aho kurungika amafoto menshi aheramwo."
+      },
+      {
+        "title": "Ibicuruzwa vyawe biguma biboneka",
+        "text": "Ibicuruzwa, ibiciro n'aho bagusanga biguma hamwe, ijoro n'umurango."
+      },
+      {
+        "title": "Gutumiza biroroshe",
+        "text": "Akabuto kamwe, umukiriya akakwandikira ako kanya kuri WhatsApp."
+      },
+      {
+        "title": "Ugurisha nk'uko bisanzwe",
+        "text": "Nta rubuga rugoye rwo gucunga : ugurisha kuri WhatsApp, hagati yawe n'abakiriya bawe."
+      }
+    ]
+  },
+  "offer": {
+    "kicker": "Ibiciro",
+    "title": "Vyoroshe kandi bitomoye",
+    "lead": "Ipaki yo gutangura, hanyuma ifatabuguzi rimwe ririmwo vyose. Nta masezerano.",
+    "currency": "FBu",
+    "pack": {
+      "label": "Ipaki yo gutangura",
+      "note": "uriha rimwe gusa",
+      "includes": [
+        "Ishati yawe iriko QR code y'iduka ryawe",
+        "Icerekaniro cawe gikozwe ku bwawe",
+        "Ukwezi kwa mbere kw'ifatabuguzi kurimwo"
+      ]
+    },
+    "monthly": {
+      "label": "Ifatabuguzi",
+      "per": "/ ukwezi",
+      "note": "ririmwo vyose",
+      "badge": "Nta masezerano",
+      "includes": [
+        "Icerekaniro cawe kuri interineti, kuri aderese .rundinova.com",
+        "Ibitumizo biza ako kanya kuri WhatsApp yawe",
+        "Guhindura ibicuruzwa n'ibiciro vyawe",
+        "Uhagarika igihe ushakiye"
+      ]
+    },
+    "pause": {
+      "title": "Bigenda gute ukwezi kutarishwe ?",
+      "text": "Ntuhagarike umutima. Icerekaniro cawe kiraruhuka gato, abakiriya bakabona urupapuro rwiza. Ukimara kuriha, kigaruka ku murongo.",
+      "previewName": "Iduka ryawe",
+      "previewTitle": "Turaruhutse gato",
+      "previewText": "Iduka rizogaruka vuba."
+    },
+    "cta": "Ndashaka icerekaniro canje"
+  },
+  "faq": {
+    "kicker": "Ibibazo",
+    "title": "Hari ivyo woshaka kumenya…",
+    "items": [
+      {
+        "q": "Bisaba orudinateri canke ubuhanga bwa tekinike ?",
+        "a": "Oya. Vyose bica kuri WhatsApp : uturungikira amakuru n'amafoto, natwe tugakora icerekaniro."
+      },
+      {
+        "q": "Abakiriya banje batumiza gute ?",
+        "a": "Ku cerekaniro cawe, bafyonda akabuto ka WhatsApp, ikiganiro nawe kigafunguka. Ugurisha nk'uko bisanzwe."
+      },
+      {
+        "q": "Ni iduka ryo kuri interineti ririhirwa n'ikarata ?",
+        "a": "Oya. Ni icerekaniro : cerekana iduka ryawe n'ibicuruzwa vyawe. Gutumiza no kuriha mubyumvikanako wewe n'abakiriya bawe, kuri WhatsApp."
+      },
+      {
+        "q": "Ipaki yo gutangura irimwo iki ?",
+        "a": "Ishati iriko QR code y'iduka ryawe, icerekaniro cawe n'ukwezi kwa mbere kw'ifatabuguzi. Hanyuma ni {monthly} FBu ku kwezi, vyose birimwo."
+      },
+      {
+        "q": "Noshobora guhagarika igihe nshakiye ?",
+        "a": "Ego. Ifatabuguzi ntirigira amasezerano : urashobora guhagarika igihe cose."
+      },
+      {
+        "q": "Bigenda gute ntarishe ukwezi kumwe ?",
+        "a": "Icerekaniro cawe kiraruhuka gato, abakiriya bakabona urupapuro rwiza. Ukimara kuriha, kigaruka ku murongo."
+      },
+      {
+        "q": "Ndiha gute ?",
+        "a": "Biciye kuri mobile money. Tuzoguha ibisobanuro vyose kuri WhatsApp."
+      },
+      {
+        "q": "Iduka ryanje rirashobora kugira icerekaniro ?",
+        "a": "Ibirato, impuzu, ibifungurwa, uburanga, ibikorwa vy'amaboko… Nimba ugurisha ibicuruzwa, tuvugane."
+      }
+    ]
+  },
+  "form": {
+    "kicker": "Ndashaka icerekaniro canje",
+    "title": "Tuvugane ku vyerekeye iduka ryawe",
+    "lead": "Uzuza aya majambo make : ubutumwa bwawe bufunguka muri WhatsApp, buteguriwe kuturungikira.",
+    "privacy": "Nta kintu kibikwa kuri uru rubuga : ubutumwa bufunguka muri WhatsApp gusa.",
+    "optional": "si itegeko",
+    "name": {
+      "label": "Izina ryawe",
+      "placeholder": "Izina ryawe ryose"
+    },
+    "business": {
+      "label": "Ubwoko bw'iduka",
+      "placeholder": "Hitamwo…",
+      "options": [
+        "Ibirato",
+        "Impuzu",
+        "Ibifungurwa",
+        "Uburanga n'imishatsi",
+        "Ibikorwa vy'amaboko",
+        "Amatelefone n'ibikoresho vy'ikoranabuhanga",
+        "Ibindi"
+      ]
+    },
+    "city": {
+      "label": "Igisagara",
+      "placeholder": "Akarorero : Bujumbura, Gitega…"
+    },
+    "phone": {
+      "label": "Telefone",
+      "placeholder": "+257 79 12 34 56",
+      "hint": "Imibare 8, hamwe canke hatariho +257. Akarorero : +257 79 12 34 56"
+    },
+    "message": {
+      "label": "Ubutumwa",
+      "placeholder": "Tubwire ivyerekeye ibicuruzwa vyawe…"
+    },
+    "submit": "Rungika kuri WhatsApp",
+    "errors": {
+      "required": "Iki kibanza kirakenewe.",
+      "phone": "Andika inomero y'Uburundi : imibare 8, hamwe canke hatariho +257."
+    },
+    "sent": {
+      "title": "Ubutumwa bwawe buriteguye muri WhatsApp",
+      "text": "Niba WhatsApp itarafunguka, koresha akabuto kari hepfo.",
+      "retry": "Fungura WhatsApp",
+      "edit": "Hindura ubutumwa"
+    },
+    "whatsapp": {
+      "greeting": "Bwakeye Rundinova Studio! Ndashaka icerekaniro canje.",
+      "name": "Izina",
+      "business": "Iduka",
+      "city": "Igisagara",
+      "phone": "Telefone",
+      "message": "Ubutumwa"
+    }
+  },
+  "final": {
+    "title": "Iduka ryawe rikwiye icerekaniro ciza",
+    "text": "Twandikire kuri WhatsApp, ibindi tukabikora.",
+    "cta": "Ndashaka icerekaniro canje",
+    "whatsapp": "Twandikire kuri WhatsApp",
+    "greeting": "Bwakeye Rundinova Studio!"
+  },
+  "footer": {
+    "tagline": "Sitidiyo y'isura y'abadandaza bato b'i Burundi.",
+    "domain": "isoko.rundinova.com",
+    "rights": "© {year} Rundinova Studio. Uburenganzira bwose burafatiwe.",
+    "top": "Subira hejuru"
+  }
+}

@@ -1,0 +1,248 @@
+{
+  "_meta": {
+    "about": "Rundinova Studio marketing site texts — English. Same keys as fr.json (reference); any missing key falls back to French.",
+    "status": "translated"
+  },
+  "meta": {
+    "siteName": "Rundinova Studio",
+    "title": "Rundinova Studio — Your professional image, your orders on WhatsApp",
+    "description": "Rundinova Studio builds an immersive online storefront for small businesses in Burundi. Your customers discover your products and order directly on WhatsApp."
+  },
+  "nav": {
+    "home": "Rundinova Studio, home",
+    "main": "Main navigation",
+    "how": "How it works",
+    "shops": "Shops",
+    "offer": "Pricing",
+    "faq": "Questions",
+    "cta": "I want my storefront",
+    "ctaShort": "My shop",
+    "language": "Language",
+    "skip": "Skip to content"
+  },
+  "hero": {
+    "kicker": "Image studio for Burundi's small businesses",
+    "title": "Your professional image,",
+    "titleAccent": "your orders on WhatsApp",
+    "lead": "Shoes, clothes, food… We create a unique online storefront for your business, in 3D and in motion. Customers discover it on their phone and message you directly on WhatsApp.",
+    "ctaPrimary": "I want my storefront",
+    "ctaSecondary": "See the {name} storefront",
+    "scroll": "Scroll",
+    "device": {
+      "imageAlt": "Preview of the {name} storefront on a phone",
+      "live": "Online",
+      "order": "Order on WhatsApp",
+      "chatTitle": "New message",
+      "chatMessage": "Hello! I saw your storefront, I'd like to order.",
+      "qr": "Your shop's QR code, printed on your shirt"
+    }
+  },
+  "marquee": {
+    "label": "For every small business",
+    "items": [
+      "Shoes",
+      "Clothes",
+      "Food",
+      "Beauty",
+      "Crafts",
+      "Accessories",
+      "Drinks",
+      "Pastry"
+    ]
+  },
+  "how": {
+    "kicker": "How it works",
+    "title": "Three steps, and your business looks the part",
+    "steps": [
+      {
+        "title": "We get to know you on WhatsApp",
+        "text": "Tell us about your business, your products and your prices. Send us your photos, we take care of the rest."
+      },
+      {
+        "title": "We build your storefront",
+        "text": "A unique storefront in your name, animated and in 3D, at your own address: your-shop.rundinova.com."
+      },
+      {
+        "title": "Customers order on WhatsApp",
+        "text": "They browse your products and message you in one tap. The QR code printed on your shirt leads straight to your storefront."
+      }
+    ]
+  },
+  "shops": {
+    "kicker": "The shops",
+    "title": "Storefronts that make people want to buy",
+    "lead": "Each storefront is tailor-made for its business. Here are the first ones.",
+    "visit": "Visit the storefront",
+    "first": "First client",
+    "imageAlt": "{name} storefront",
+    "yours": {
+      "title": "Your shop here",
+      "text": "Your name, your products, your own .rundinova.com address.",
+      "cta": "I want my storefront"
+    }
+  },
+  "why": {
+    "kicker": "Why image matters",
+    "statement": "Customers buy with their eyes first. A beautiful image builds trust before the very first message.",
+    "points": [
+      {
+        "title": "One address to share",
+        "text": "A simple link for your statuses and groups, instead of dozens of photos that get lost."
+      },
+      {
+        "title": "Your products, always on show",
+        "text": "Your products, prices and contacts stay in one place, day and night."
+      },
+      {
+        "title": "Ordering made easy",
+        "text": "One button, and your customer messages you directly on WhatsApp."
+      },
+      {
+        "title": "You sell the way you always do",
+        "text": "No complicated website to manage: sales carry on over WhatsApp, between you and your customers."
+      }
+    ]
+  },
+  "offer": {
+    "kicker": "Pricing",
+    "title": "Simple and transparent",
+    "lead": "One pack to get started, then a single all-inclusive subscription. No commitment.",
+    "currency": "FBu",
+    "pack": {
+      "label": "Launch pack",
+      "note": "paid once",
+      "includes": [
+        "Your shirt with your shop's QR code",
+        "Your tailor-made storefront",
+        "First month of subscription included"
+      ]
+    },
+    "monthly": {
+      "label": "Subscription",
+      "per": "/ month",
+      "note": "all inclusive",
+      "badge": "No commitment",
+      "includes": [
+        "Your storefront online, at your .rundinova.com address",
+        "Orders straight to your WhatsApp",
+        "Updates to your products and prices",
+        "Stop whenever you want"
+      ]
+    },
+    "pause": {
+      "title": "What if a month isn't paid?",
+      "text": "No worries. Your storefront simply goes on pause and shows your customers an elegant page. As soon as the subscription is paid, it's back online.",
+      "previewName": "Your shop",
+      "previewTitle": "Short break",
+      "previewText": "The shop will be back very soon."
+    },
+    "cta": "I want my storefront"
+  },
+  "faq": {
+    "kicker": "Questions",
+    "title": "You may be wondering…",
+    "items": [
+      {
+        "q": "Do I need a computer or technical skills?",
+        "a": "No. Everything happens on WhatsApp: you send us your details and photos, we build the storefront."
+      },
+      {
+        "q": "How do my customers order?",
+        "a": "On your storefront, they tap the WhatsApp button and a chat with you opens. You handle the sale as usual."
+      },
+      {
+        "q": "Is it an online shop with card payment?",
+        "a": "No. It's a storefront: it presents your business and products. Orders and payment are settled between you and your customers, on WhatsApp."
+      },
+      {
+        "q": "What does the launch pack include?",
+        "a": "A shirt with your shop's QR code, your storefront and the first month of subscription. After that, it's {monthly} FBu per month, all inclusive."
+      },
+      {
+        "q": "Can I stop whenever I want?",
+        "a": "Yes. The subscription has no commitment: you can stop at any time."
+      },
+      {
+        "q": "What happens if I miss a month?",
+        "a": "Your storefront goes on pause with an elegant page for your customers. As soon as you pay, it's back online."
+      },
+      {
+        "q": "How do I pay?",
+        "a": "By mobile money. We give you all the details on WhatsApp."
+      },
+      {
+        "q": "Can my business have a storefront?",
+        "a": "Shoes, clothes, food, beauty, crafts… If you sell products, let's talk."
+      }
+    ]
+  },
+  "form": {
+    "kicker": "I want my storefront",
+    "title": "Tell us about your business",
+    "lead": "Fill in these few lines: your message opens in WhatsApp, ready to send to us.",
+    "privacy": "Nothing is stored on this site: the message simply opens in WhatsApp.",
+    "optional": "optional",
+    "name": {
+      "label": "Your name",
+      "placeholder": "First and last name"
+    },
+    "business": {
+      "label": "Type of business",
+      "placeholder": "Choose…",
+      "options": [
+        "Shoes",
+        "Clothes",
+        "Food",
+        "Beauty and hair",
+        "Crafts",
+        "Phones and electronics",
+        "Other"
+      ]
+    },
+    "city": {
+      "label": "City",
+      "placeholder": "E.g. Bujumbura, Gitega…"
+    },
+    "phone": {
+      "label": "Phone",
+      "placeholder": "+257 79 12 34 56",
+      "hint": "8 digits, with or without +257. E.g. +257 79 12 34 56"
+    },
+    "message": {
+      "label": "Message",
+      "placeholder": "Tell us about your products…"
+    },
+    "submit": "Send on WhatsApp",
+    "errors": {
+      "required": "This field is required.",
+      "phone": "Enter a Burundi number: 8 digits, with or without +257."
+    },
+    "sent": {
+      "title": "Your message is ready in WhatsApp",
+      "text": "If WhatsApp didn't open, use the button below.",
+      "retry": "Open WhatsApp",
+      "edit": "Edit the message"
+    },
+    "whatsapp": {
+      "greeting": "Hello Rundinova Studio! I want my storefront.",
+      "name": "Name",
+      "business": "Business",
+      "city": "City",
+      "phone": "Phone",
+      "message": "Message"
+    }
+  },
+  "final": {
+    "title": "Your business deserves a beautiful storefront",
+    "text": "Message us on WhatsApp, we take care of the rest.",
+    "cta": "I want my storefront",
+    "whatsapp": "Message on WhatsApp",
+    "greeting": "Hello Rundinova Studio!"
+  },
+  "footer": {
+    "tagline": "Image studio for Burundi's small businesses.",
+    "domain": "isoko.rundinova.com",
+    "rights": "© {year} Rundinova Studio. All rights reserved.",
+    "top": "Back to top"
+  }
+}
