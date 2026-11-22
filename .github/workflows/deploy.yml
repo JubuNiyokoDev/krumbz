@@ -2,8 +2,8 @@
 #
 # 1. verify (ci.yml, bloquant) et build (image) en PARALLÈLE ; l'image n'est poussée qu'avec
 #    son tag immuable sha-<7> ;
-# 2. deploy (Krumbz, comme avant) : une fois verify ET build verts, « latest » est déplacé sur
-#    sha-<7>, puis /opt/krumbz : docker compose pull && up -d (conteneur krumbz, 19200) ;
+# 2. deploy (ancien conteneur Krumbz, 19200) : MANUEL uniquement (retour arrière vers une
+#    image d'avant la migration) — le nouveau code a besoin de PostgreSQL ;
 # 3. studio-deploy (Rundinova Studio, 19300) : seulement si la variable de dépôt
 #    STUDIO_DEPLOY_ENABLED vaut 'true' (serveur préparé, voir docs/ops.md).
 #
@@ -76,13 +76,16 @@ jobs:
 
   deploy:
     needs: [verify, build]
+    # SÉCURITÉ : le code multi-vendeurs exige une base de données (DATABASE_URL) que
+    # l'ancien conteneur « krumbz » (19200) n'a pas. Ce job ne tourne donc PLUS sur push :
+    # seulement à la main, avec le tag d'une image d'AVANT la migration (retour arrière).
+    # Après la bascule, Krumbz est servi par studio-deploy (19300).
     if: >-
-      always() && !cancelled() &&
-      (inputs.tag != '' || (needs.verify.result == 'success' && needs.build.result == 'success'))
+      always() && !cancelled() && inputs.tag != ''
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
-      TAG: ${{ inputs.tag != '' && inputs.tag || needs.build.outputs.tag }}
+      TAG: ${{ inputs.tag }}
     steps:
       - uses: actions/checkout@v4
 
