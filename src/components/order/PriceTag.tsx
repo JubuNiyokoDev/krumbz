@@ -8,14 +8,14 @@ import { hasToComplete, ToCompleteBadge } from "@/components/ui/ToComplete";
 /**
  * Price of a product: formatted BIF, a « À COMPLÉTER » badge, or « Prix à confirmer ».
  * When `compareAtPrice` is higher than the current price, shows it struck through next
- * to a small promo badge (`products.promoLabel`), e.g. the end-of-year/Christmas promo.
+ * to a small promo badge (the product's promoLabel, else `products.promoLabel`), e.g. the end-of-year/Christmas promo.
  */
 export function PriceTag({
   product,
   className = "",
   tone,
 }: {
-  product: Pick<ProductContent, "price" | "priceDisplay" | "compareAtPrice">;
+  product: Pick<ProductContent, "price" | "priceDisplay" | "compareAtPrice" | "promoLabel">;
   className?: string;
   tone?: "light" | "dark";
 }) {
@@ -31,7 +31,7 @@ export function PriceTag({
         </span>
         <span className={tone === "dark" ? "text-gold-light" : "text-rust"}>{formatPrice(product.price)}</span>
         <span className="rounded-full bg-rust px-2.5 py-0.5 text-[0.65em] font-semibold uppercase tracking-wide text-cream">
-          {tp("promoLabel")}
+          {product.promoLabel || tp("promoLabel")}
         </span>
       </span>
     );

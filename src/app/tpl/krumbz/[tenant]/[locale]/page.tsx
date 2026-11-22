@@ -2,7 +2,8 @@ import { Fragment } from "react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/config";
-import { loadContent, type ProductContent } from "@/lib/content";
+import type { ProductContent } from "@/lib/content";
+import { loadKrumbzContent } from "@/templates/krumbz/content";
 import { pageMetadata } from "@/lib/seo/site";
 import { resolveImage } from "@/lib/assets/server";
 import { scenePath, type SceneId } from "@/lib/assets/registry";
@@ -21,14 +22,14 @@ import { MushroomBreak } from "@/components/sections/home/MushroomBreak";
 import { FinalCta } from "@/components/sections/home/FinalCta";
 import { SectionHeading } from "@/components/sections/SectionHeading";
 
-export async function generateMetadata({ params }: PageProps<"/[locale]">): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/tpl/krumbz/[tenant]/[locale]">): Promise<Metadata> {
   const { locale } = await params;
   return pageMetadata(locale as Locale, "home", "/");
 }
 
-export default async function HomePage({ params }: PageProps<"/[locale]">) {
+export default async function HomePage({ params }: PageProps<"/tpl/krumbz/[tenant]/[locale]">) {
   const { locale } = await params;
-  const c = loadContent(locale);
+  const c = await loadKrumbzContent(locale);
   const t = await getTranslations("common");
   const tm = await getTranslations("home.moments");
   const home = c.home;

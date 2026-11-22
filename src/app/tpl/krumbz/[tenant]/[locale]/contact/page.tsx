@@ -2,7 +2,8 @@ import type { CSSProperties, ReactNode } from "react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/config";
-import { loadContent, isToComplete } from "@/lib/content";
+import { isToComplete } from "@/lib/content";
+import { loadKrumbzContent } from "@/templates/krumbz/content";
 import { pageMetadata } from "@/lib/seo/site";
 import { whatsappUrl } from "@/lib/order/whatsapp";
 import { ClockIcon, MailIcon, PhoneIcon, PinIcon, ShareIcon, SocialIcon, WhatsAppIcon } from "@/components/ui/Icons";
@@ -11,7 +12,7 @@ import { TextWithToComplete } from "@/components/ui/ToComplete";
 import { Crumbs } from "@/components/ui/Crumbs";
 import { PageHero } from "@/components/sections/common/PageHero";
 
-export async function generateMetadata({ params }: PageProps<"/[locale]/contact">): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/tpl/krumbz/[tenant]/[locale]/contact">): Promise<Metadata> {
   const { locale } = await params;
   return pageMetadata(locale as Locale, "contact", "/contact");
 }
@@ -32,9 +33,9 @@ function Card({ icon, title, children, index, className = "" }: { icon: ReactNod
   );
 }
 
-export default async function ContactPage({ params }: PageProps<"/[locale]/contact">) {
+export default async function ContactPage({ params }: PageProps<"/tpl/krumbz/[tenant]/[locale]/contact">) {
   const { locale } = await params;
-  const c = loadContent(locale);
+  const c = await loadKrumbzContent(locale);
   const cp = c.contactPage;
   const t = await getTranslations("common");
   const tc = { label: c.common.toComplete, hint: c.common.toCompleteHint };

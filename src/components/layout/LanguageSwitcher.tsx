@@ -1,7 +1,8 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { Link, usePathname } from "@/i18n/navigation";
+import { Link } from "@/i18n/navigation";
+import { usePathname } from "@/i18n/use-pathname";
 import { routing } from "@/i18n/routing";
 import { LOCALE_LABELS } from "@/i18n/config";
 

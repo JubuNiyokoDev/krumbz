@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import gsap from "gsap";
-import { Link, usePathname } from "@/i18n/navigation";
+import { Link } from "@/i18n/navigation";
+import { usePathname } from "@/i18n/use-pathname";
 import { useCart, useCartCount } from "@/store/cart";
 import { useUi } from "@/hooks/useUi";
 import { prefersReducedMotion } from "@/hooks/useReducedMotion";

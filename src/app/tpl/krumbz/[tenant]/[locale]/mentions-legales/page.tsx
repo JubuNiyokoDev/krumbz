@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import type { Locale } from "@/i18n/config";
-import { loadContent } from "@/lib/content";
+import { loadKrumbzContent } from "@/templates/krumbz/content";
 import { pageMetadata } from "@/lib/seo/site";
 import { TextWithToComplete } from "@/components/ui/ToComplete";
 import { PageHero } from "@/components/sections/common/PageHero";
 
-export async function generateMetadata({ params }: PageProps<"/[locale]/mentions-legales">): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/tpl/krumbz/[tenant]/[locale]/mentions-legales">): Promise<Metadata> {
   const { locale } = await params;
   return pageMetadata(locale as Locale, "legal", "/mentions-legales");
 }
 
-export default async function LegalPage({ params }: PageProps<"/[locale]/mentions-legales">) {
+export default async function LegalPage({ params }: PageProps<"/tpl/krumbz/[tenant]/[locale]/mentions-legales">) {
   const { locale } = await params;
-  const c = loadContent(locale);
+  const c = await loadKrumbzContent(locale);
   const l = c.legal;
   const tc = { label: c.common.toComplete, hint: c.common.toCompleteHint };
 

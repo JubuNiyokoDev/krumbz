@@ -1,4 +1,5 @@
-import { loadContent, isToComplete } from "@/lib/content";
+import { isToComplete } from "@/lib/content";
+import { loadKrumbzContent } from "@/templates/krumbz/content";
 import { absoluteUrl } from "@/lib/seo/site";
 import { JsonLd, SCHEMA_IDS } from "./JsonLd";
 
@@ -8,8 +9,8 @@ const known = (value: string | null | undefined): value is string => Boolean(val
  * schema.org Organization (Crispy Food Products) + Brand (Krumbz), rendered on every page.
  * Values still marked « À COMPLÉTER » are never output.
  */
-export function OrganizationJsonLd({ locale }: { locale: string }) {
-  const c = loadContent(locale);
+export async function OrganizationJsonLd({ locale }: { locale: string }) {
+  const c = await loadKrumbzContent(locale);
   const home = absoluteUrl("/");
   const sameAs = c.contact.socials.map((s) => s.url).filter(known);
   const address = {
