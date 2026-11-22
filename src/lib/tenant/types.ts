@@ -9,11 +9,15 @@ export type PlatformLocale = (typeof PLATFORM_LOCALES)[number];
 /** Text translated per locale; `fr` is always present and is the fallback. */
 export type Localized = { fr: string } & Partial<Record<Exclude<PlatformLocale, "fr">, string>>;
 
-/** Sub-domains that can never be a vendor slug (taken by other projects on the VPS or by the platform). */
+/**
+ * Sub-domains that can never be a vendor slug (taken by other projects on the VPS or by the platform).
+ * Hosts: isoko.rundinova.com = Rundinova Studio marketing site; rundinova.com = official company site (NOT the platform).
+ */
 export const RESERVED_SLUGS = [
   "www", "admin", "espace", "api", "app", "staging", "mail", "static", "assets",
   "cdn", "storage", "s3", "chat", "livekit", "livekit-admin", "workspace", "koraneza",
   "tableyawe", "tableyawe-api", "shopsync", "games", "realtime", "central", "rundinova",
+  "isoko", "tech",
 ] as const;
 export const SLUG_PATTERN = /^[a-z0-9](?:[a-z0-9-]{1,30}[a-z0-9])$/;
 

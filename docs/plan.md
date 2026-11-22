@@ -48,7 +48,7 @@
 | Hôte | Rôle |
 | --- | --- |
 | `<vendeur>.rundinova.com` | Boutique du vendeur (ex. `krumbz.rundinova.com`) |
-| `rundinova.com` | Vitrine Rundinova (**décision D1**) |
+| `isoko.rundinova.com` | Vitrine Rundinova Studio (D1) — **`rundinova.com` reste le site officiel, intact** |
 | `admin.rundinova.com` | Super-administration |
 | `espace.rundinova.com` | Espace vendeur (connexion unique pour tous les vendeurs) |
 | `staging.rundinova.com`, `staging-<vendeur>.rundinova.com`, `staging-admin…`, `staging-espace…` | Préproduction (un seul niveau de sous-domaine → couvert par un certificat joker) |
@@ -87,7 +87,7 @@
 
 ## 7. Décisions à prendre (propriétaire)
 
-- **D1 — rundinova.com** : remplacer le site actuel « RundiNova Tech » par la vitrine, ou placer la vitrine ailleurs.
-- **D2 — Cloudflare** : migrer les DNS de rundinova.com chez Cloudflare (gratuit) pour le HTTPS joker et le cache.
-- **D3 — Sauvegarde hors serveur** : destination (coût).
-- **D4 — Informations métier** : numéro WhatsApp Rundinova, numéros mobile money, photos de la boutique de démonstration.
+- **D1 — tranché** : vitrine sur **isoko.rundinova.com** ; rundinova.com intact.
+- **D2 — tranché** : DNS migré chez **Cloudflare** (gratuit), action du propriétaire guidée par `docs/ops.md`.
+- **D3 — tranché** : copie hors serveur sur **Cloudflare R2** (gratuit jusqu'à 10 Go).
+- **D4 — reporté** : WhatsApp Rundinova, numéros mobile money, photos de démonstration → valeurs provisoires marquées.
