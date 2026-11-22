@@ -20,6 +20,8 @@ const channel = fs.existsSync(chromium.executablePath()) ? undefined : "chrome";
 
 export default defineConfig({
   testDir: "./tests",
+  // Visual parity has its own config (playwright.parity.config.ts) and reference images.
+  testIgnore: ["**/parity/**"],
   outputDir: "./test-results",
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
