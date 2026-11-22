@@ -16,6 +16,8 @@ export default async function MarketingHome({ params }: PageProps<"/marketing/[l
       offer={{ launchPrice: offer.launchPriceBif, monthlyPrice: offer.monthlyPriceBif, currency: offer.currency }}
       shops={shops}
       whatsappNumber={studio.whatsapp}
+      paymentLink={studio.paymentLink}
+      paymentQrPath={studio.paymentQrPath}
     />
   );
 }

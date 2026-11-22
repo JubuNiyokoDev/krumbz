@@ -135,6 +135,24 @@ export default async function SettingsPage() {
                 <input id="ecocash-name" name="ecocashName" className="input" maxLength={80} defaultValue={studio.ecocash.name} />
               </div>
             </div>
+            <div className="sm:col-span-2 border-t border-slate-200 pt-3 mt-2">
+              <label className="label" htmlFor="payment-link">
+                Lien de paiement Amtips (QR / clic)
+              </label>
+              <input id="payment-link" name="paymentLink" className="input" type="url" defaultValue={studio.paymentLink} placeholder="https://amtips.app/..." />
+              {studio.paymentQrPath ? (
+                <div className="mt-3 flex items-start gap-4">
+                  <img src={studio.paymentQrPath} alt="QR code de paiement Amtips" className="h-28 w-28 rounded-md border border-slate-200 bg-white p-1" />
+                  <p className="text-sm text-slate-600">
+                    Les clients peuvent scanner ce QR code ou ouvrir le lien pour voir les moyens de paiement disponibles et envoyer la preuve.
+                    {studio.paymentLink ? (
+                      <> <a className="link" href={studio.paymentLink} target="_blank" rel="noopener noreferrer">Ouvrir le lien Amtips</a>.</>
+                    ) : null}
+                  </p>
+                </div>
+              ) : null}
+            </div>
+
             <div className="mt-5">
               <SubmitButton>Enregistrer les coordonnées</SubmitButton>
             </div>

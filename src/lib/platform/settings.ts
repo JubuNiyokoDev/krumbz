@@ -51,6 +51,10 @@ export interface StudioSettings {
   whatsappPlaceholder: boolean;
   lumicash: MobileMoneyAccount;
   ecocash: MobileMoneyAccount;
+  /** Public Amtips payment link (QR scan or click). */
+  paymentLink: string;
+  /** Path to the Amtips QR image served by the app (public/...). */
+  paymentQrPath: string;
 }
 
 export const DEFAULT_OFFER: OfferSettings = {
@@ -72,19 +76,21 @@ export const DEFAULT_OFFER: OfferSettings = {
     },
     monthly: { fr: "Puis abonnement mensuel", en: "Then a monthly subscription", sw: "Kisha usajili wa kila mwezi" },
     note: {
-      fr: "Paiement par Lumicash ou EcoCash, validé sous 24 h.",
-      en: "Payment by Lumicash or EcoCash, confirmed within 24 h.",
-      sw: "Malipo kwa Lumicash au EcoCash.",
+      fr: "Paiement via le lien ou QR Amtips (Lumicash, EcoCash, etc.), validé sous 24 h.",
+      en: "Payment via the Amtips link or QR (Lumicash, EcoCash, etc.), confirmed within 24 h.",
+      sw: "Malipo kupitia kiungo au QR ya Amtips (Lumicash, EcoCash, n.k.), yanathibitishwa ndani ya saa 24.",
     },
   },
 };
 
-/** Placeholders until the owner decides (docs/plan.md §7, D4). */
+/** Rundinova Studio contact/payment defaults. WhatsApp/Lumicash confirmed by owner (2026-11-22); EcoCash still pending. */
 export const DEFAULT_STUDIO: StudioSettings = {
-  whatsapp: "25700000000",
-  whatsappPlaceholder: true,
-  lumicash: { number: "25700000000", name: "Rundinova Studio", placeholder: true },
+  whatsapp: "25767309309",
+  whatsappPlaceholder: false,
+  lumicash: { number: "25767309309", name: "Niyondiko Joffre", placeholder: false },
   ecocash: { number: "25700000000", name: "Rundinova Studio", placeholder: true },
+  paymentLink: "https://amtips.app/t/1645db99-16f5-4d53-b20f-074a0ab0c207?campaign=2e1f738f-61a2-48bb-a19b-ec12cac67b99",
+  paymentQrPath: "/images/payment/amtips-qr.png",
 };
 
 const isObject = (value: unknown): value is Record<string, unknown> => typeof value === "object" && value !== null && !Array.isArray(value);
@@ -132,6 +138,8 @@ export function mergeStudio(raw: unknown): StudioSettings {
     whatsappPlaceholder: typeof v.whatsappPlaceholder === "boolean" ? v.whatsappPlaceholder : DEFAULT_STUDIO.whatsappPlaceholder,
     lumicash: account(v.lumicash, DEFAULT_STUDIO.lumicash),
     ecocash: account(v.ecocash, DEFAULT_STUDIO.ecocash),
+    paymentLink: str(v.paymentLink, DEFAULT_STUDIO.paymentLink),
+    paymentQrPath: str(v.paymentQrPath, DEFAULT_STUDIO.paymentQrPath),
   };
 }
 

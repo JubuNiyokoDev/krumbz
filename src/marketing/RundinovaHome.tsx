@@ -25,6 +25,8 @@ export function RundinovaHome({
   offer,
   shops,
   whatsappNumber,
+  paymentLink,
+  paymentQrPath,
   localeHrefs = marketingLocaleHrefs(),
 }: RundinovaHomeProps) {
   const c = getMarketingContent(locale);
@@ -46,7 +48,7 @@ export function RundinovaHome({
         <WhyImage c={c} />
         <Offer c={c} offer={offer} locale={locale} />
         <Faq c={c} offer={offer} locale={locale} />
-        <Contact c={c} whatsappNumber={whatsappNumber} />
+        <Contact c={c} locale={locale} whatsappNumber={whatsappNumber} paymentLink={paymentLink} paymentQrPath={paymentQrPath} />
       </main>
       <Footer c={c} whatsappNumber={whatsappNumber} locale={locale} localeHrefs={localeHrefs} />
     </MotionRoot>

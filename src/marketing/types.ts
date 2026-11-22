@@ -29,6 +29,10 @@ export interface RundinovaHomeProps {
   shops: MarketingShop[];
   /** Digits only, with country code (e.g. 257XXXXXXXX). */
   whatsappNumber: string;
+  /** Amtips payment link (QR scan or click). */
+  paymentLink?: string;
+  /** Amtips QR image path served by the app. */
+  paymentQrPath?: string;
   /**
    * Optional: URL of this page in each locale, for the language switcher.
    * Defaults to the public scheme: "/", "/rn", "/en", "/sw".

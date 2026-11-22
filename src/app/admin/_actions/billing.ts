@@ -128,11 +128,16 @@ export async function saveStudioAction(_state: ActionState | null, form: FormDat
     if (lumicash && !/^[1-9]\d{7,14}$/.test(lumicash)) fields.lumicash = "Numéro Lumicash invalide.";
     if (ecocash && !/^[1-9]\d{7,14}$/.test(ecocash)) fields.ecocash = "Numéro EcoCash invalide.";
     if (Object.keys(fields).length) return { error: "Corrigez les champs signalés.", fields };
+    const paymentLink = String(form.get("paymentLink") ?? "").trim().slice(0, 500);
+    if (paymentLink && !/^https?:\/\/.+/i.test(paymentLink)) fields.paymentLink = "Lien de paiement invalide (https://...).";
+    if (Object.keys(fields).length) return { error: "Corrigez les champs signalés.", fields };
     const studio = mergeStudio({
       whatsapp,
       whatsappPlaceholder: false,
       lumicash: { number: lumicash || raw.lumicash.number, name: String(form.get("lumicashName") ?? "").trim().slice(0, 80) || raw.lumicash.name, placeholder: !lumicash },
       ecocash: { number: ecocash || raw.ecocash.number, name: String(form.get("ecocashName") ?? "").trim().slice(0, 80) || raw.ecocash.name, placeholder: !ecocash },
+      paymentLink: paymentLink || raw.paymentLink,
+      paymentQrPath: raw.paymentQrPath,
     });
     await writeSetting(db, STUDIO_KEY, studio);
     await audit(db, { actorUserId: admin.userId, action: "settings.studio", entity: "settings", entityId: STUDIO_KEY });
