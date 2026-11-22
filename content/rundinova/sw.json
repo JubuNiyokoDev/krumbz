@@ -1,0 +1,248 @@
+{
+  "_meta": {
+    "about": "Maandishi ya tovuti ya Rundinova Studio kwa Kiswahili. Vitambulisho sawa na fr.json (lugha ya rejeleo); ufunguo uliokosekana unarudi kwenye Kifaransa. / Swahili: first draft, MUST be reviewed by a native speaker before going live (see README.md).",
+    "status": "needs-native-review"
+  },
+  "meta": {
+    "siteName": "Rundinova Studio",
+    "title": "Rundinova Studio — Taswira yako ya kitaalamu, oda zako kwenye WhatsApp",
+    "description": "Rundinova Studio inaunda tovuti ya kuvutia kwa wafanyabiashara wadogo wa Burundi. Wateja wako wanaona bidhaa zako na kuagiza moja kwa moja kwenye WhatsApp."
+  },
+  "nav": {
+    "home": "Rundinova Studio, mwanzo",
+    "main": "Urambazaji mkuu",
+    "how": "Jinsi inavyofanya kazi",
+    "shops": "Maduka",
+    "offer": "Bei",
+    "faq": "Maswali",
+    "cta": "Nataka tovuti yangu",
+    "ctaShort": "Anza sasa",
+    "language": "Lugha",
+    "skip": "Ruka hadi maudhui"
+  },
+  "hero": {
+    "kicker": "Studio ya taswira kwa wafanyabiashara wa Burundi",
+    "title": "Taswira yako ya kitaalamu,",
+    "titleAccent": "oda zako kwenye WhatsApp",
+    "lead": "Viatu, nguo, chakula… Tunaunda tovuti ya kipekee ya duka lako, yenye 3D na michoro inayosonga. Wateja wanaiona kwenye simu zao na kukuandikia moja kwa moja kwenye WhatsApp.",
+    "ctaPrimary": "Nataka tovuti yangu",
+    "ctaSecondary": "Tazama tovuti ya {name}",
+    "scroll": "Shuka",
+    "device": {
+      "imageAlt": "Tovuti ya {name} kwenye simu",
+      "live": "Mtandaoni",
+      "order": "Agiza kupitia WhatsApp",
+      "chatTitle": "Ujumbe mpya",
+      "chatMessage": "Habari! Nimeona tovuti yako, ningependa kuagiza.",
+      "qr": "QR code ya duka lako, kwenye shati lako"
+    }
+  },
+  "marquee": {
+    "label": "Kwa wafanyabiashara wadogo wote",
+    "items": [
+      "Viatu",
+      "Nguo",
+      "Chakula",
+      "Urembo",
+      "Kazi za mikono",
+      "Mapambo",
+      "Vinywaji",
+      "Mikate na keki"
+    ]
+  },
+  "how": {
+    "kicker": "Jinsi inavyofanya kazi",
+    "title": "Hatua tatu, na biashara yako inapendeza",
+    "steps": [
+      {
+        "title": "Tunafahamiana kwenye WhatsApp",
+        "text": "Unatueleza kuhusu biashara yako, bidhaa na bei zako. Unatutumia picha zako, sisi tunashughulikia mengine."
+      },
+      {
+        "title": "Tunaunda tovuti yako",
+        "text": "Tovuti ya kipekee kwa jina lako, yenye michoro inayosonga na 3D, kwenye anwani yako: duka-lako.rundinova.com."
+      },
+      {
+        "title": "Wateja wanaagiza kwenye WhatsApp",
+        "text": "Wanaangalia bidhaa zako na kukuandikia kwa kubofya mara moja. QR code kwenye shati lako inawapeleka moja kwa moja kwenye tovuti yako."
+      }
+    ]
+  },
+  "shops": {
+    "kicker": "Maduka",
+    "title": "Tovuti zinazovutia wateja",
+    "lead": "Kila tovuti inaundwa maalum kwa biashara yake. Hizi ndizo za kwanza.",
+    "visit": "Tembelea tovuti",
+    "first": "Mteja wa kwanza",
+    "imageAlt": "Tovuti ya {name}",
+    "yours": {
+      "title": "Duka lako hapa",
+      "text": "Jina lako, bidhaa zako, anwani yako ya .rundinova.com.",
+      "cta": "Nataka tovuti yangu"
+    }
+  },
+  "why": {
+    "kicker": "Kwa nini taswira ni muhimu",
+    "statement": "Wateja hununua kwanza kwa macho. Taswira nzuri hujenga imani hata kabla ya ujumbe wa kwanza.",
+    "points": [
+      {
+        "title": "Anwani moja ya kushiriki",
+        "text": "Kiungo rahisi cha kuweka kwenye status na vikundi vyako, badala ya picha nyingi zinazopotea."
+      },
+      {
+        "title": "Bidhaa zako zinaonekana kila wakati",
+        "text": "Bidhaa, bei na mawasiliano yako yanabaki mahali pamoja, mchana na usiku."
+      },
+      {
+        "title": "Kuagiza kunakuwa rahisi",
+        "text": "Kitufe kimoja, na mteja anakuandikia moja kwa moja kwenye WhatsApp."
+      },
+      {
+        "title": "Unauza kama kawaida",
+        "text": "Hakuna tovuti ngumu ya kusimamia: mauzo yanaendelea kwenye WhatsApp, kati yako na wateja wako."
+      }
+    ]
+  },
+  "offer": {
+    "kicker": "Bei",
+    "title": "Rahisi na wazi",
+    "lead": "Kifurushi cha kuanzia, kisha usajili mmoja unaojumuisha kila kitu. Bila mkataba.",
+    "currency": "FBu",
+    "pack": {
+      "label": "Kifurushi cha kuanzia",
+      "note": "unalipa mara moja tu",
+      "includes": [
+        "Shati lako lenye QR code ya duka lako",
+        "Tovuti yako iliyoundwa maalum",
+        "Mwezi wa kwanza wa usajili umejumuishwa"
+      ]
+    },
+    "monthly": {
+      "label": "Usajili",
+      "per": "/ mwezi",
+      "note": "kila kitu kimejumuishwa",
+      "badge": "Bila mkataba",
+      "includes": [
+        "Tovuti yako mtandaoni, kwenye anwani yako ya .rundinova.com",
+        "Oda zinakuja moja kwa moja kwenye WhatsApp yako",
+        "Kusasisha bidhaa na bei zako",
+        "Unasimamisha wakati wowote unapotaka"
+      ]
+    },
+    "pause": {
+      "title": "Na mwezi usipolipwa?",
+      "text": "Usijali. Tovuti yako inapumzika tu na kuonyesha wateja wako ukurasa mzuri. Mara tu usajili unapolipwa, inarudi mtandaoni.",
+      "previewName": "Duka lako",
+      "previewTitle": "Mapumziko mafupi",
+      "previewText": "Duka litarudi hivi karibuni."
+    },
+    "cta": "Nataka tovuti yangu"
+  },
+  "faq": {
+    "kicker": "Maswali",
+    "title": "Huenda unajiuliza…",
+    "items": [
+      {
+        "q": "Je, ninahitaji kompyuta au ujuzi wa kiufundi?",
+        "a": "Hapana. Kila kitu kinafanyika kwenye WhatsApp: unatutumia taarifa na picha zako, sisi tunaunda tovuti."
+      },
+      {
+        "q": "Wateja wangu wanaagizaje?",
+        "a": "Kwenye tovuti yako, wanabofya kitufe cha WhatsApp na mazungumzo nawe yanafunguka. Unashughulikia mauzo kama kawaida."
+      },
+      {
+        "q": "Je, ni duka la mtandaoni lenye malipo kwa kadi?",
+        "a": "Hapana. Ni tovuti ya kuonyesha biashara na bidhaa zako. Oda na malipo yanakubaliwa kati yako na wateja wako, kwenye WhatsApp."
+      },
+      {
+        "q": "Kifurushi cha kuanzia kina nini?",
+        "a": "Shati lenye QR code ya duka lako, tovuti yako na mwezi wa kwanza wa usajili. Baada ya hapo ni {monthly} FBu kwa mwezi, kila kitu kimejumuishwa."
+      },
+      {
+        "q": "Naweza kusimamisha wakati wowote?",
+        "a": "Ndiyo. Usajili hauna mkataba: unaweza kusimamisha wakati wowote."
+      },
+      {
+        "q": "Nini kinatokea nisipolipa mwezi mmoja?",
+        "a": "Tovuti yako inapumzika na kuonyesha wateja wako ukurasa mzuri. Mara tu unapolipa, inarudi mtandaoni."
+      },
+      {
+        "q": "Nalipaje?",
+        "a": "Kwa mobile money. Tunakupa maelezo yote kwenye WhatsApp."
+      },
+      {
+        "q": "Je, biashara yangu inaweza kupata tovuti?",
+        "a": "Viatu, nguo, chakula, urembo, kazi za mikono… Ukiuza bidhaa, tuzungumze."
+      }
+    ]
+  },
+  "form": {
+    "kicker": "Nataka tovuti yangu",
+    "title": "Tuzungumze kuhusu biashara yako",
+    "lead": "Jaza mistari hii michache: ujumbe wako unafunguka kwenye WhatsApp, tayari kututumia.",
+    "privacy": "Hakuna kinachohifadhiwa kwenye tovuti hii: ujumbe unafunguka tu kwenye WhatsApp.",
+    "optional": "si lazima",
+    "name": {
+      "label": "Jina lako",
+      "placeholder": "Jina kamili"
+    },
+    "business": {
+      "label": "Aina ya biashara",
+      "placeholder": "Chagua…",
+      "options": [
+        "Viatu",
+        "Nguo",
+        "Chakula",
+        "Urembo na nywele",
+        "Kazi za mikono",
+        "Simu na vifaa vya kielektroniki",
+        "Nyingine"
+      ]
+    },
+    "city": {
+      "label": "Mji",
+      "placeholder": "Mfano: Bujumbura, Gitega…"
+    },
+    "phone": {
+      "label": "Simu",
+      "placeholder": "+257 79 12 34 56",
+      "hint": "Tarakimu 8, pamoja na au bila +257. Mfano: +257 79 12 34 56"
+    },
+    "message": {
+      "label": "Ujumbe",
+      "placeholder": "Tueleze kuhusu bidhaa zako…"
+    },
+    "submit": "Tuma kwenye WhatsApp",
+    "errors": {
+      "required": "Sehemu hii inahitajika.",
+      "phone": "Weka namba ya Burundi: tarakimu 8, pamoja na au bila +257."
+    },
+    "sent": {
+      "title": "Ujumbe wako uko tayari kwenye WhatsApp",
+      "text": "Kama WhatsApp haijafunguka, tumia kitufe kilicho chini.",
+      "retry": "Fungua WhatsApp",
+      "edit": "Hariri ujumbe"
+    },
+    "whatsapp": {
+      "greeting": "Habari Rundinova Studio! Nataka tovuti yangu ya duka.",
+      "name": "Jina",
+      "business": "Biashara",
+      "city": "Mji",
+      "phone": "Simu",
+      "message": "Ujumbe"
+    }
+  },
+  "final": {
+    "title": "Biashara yako inastahili tovuti nzuri",
+    "text": "Tuandikie kwenye WhatsApp, sisi tunashughulikia mengine.",
+    "cta": "Nataka tovuti yangu",
+    "whatsapp": "Tuandikie kwenye WhatsApp",
+    "greeting": "Habari Rundinova Studio!"
+  },
+  "footer": {
+    "tagline": "Studio ya taswira kwa wafanyabiashara wadogo wa Burundi.",
+    "domain": "isoko.rundinova.com",
+    "rights": "© {year} Rundinova Studio. Haki zote zimehifadhiwa.",
+    "top": "Rudi juu"
+  }
+}

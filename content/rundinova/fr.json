@@ -1,0 +1,248 @@
+{
+  "_meta": {
+    "about": "Textes du site vitrine Rundinova Studio (isoko.rundinova.com). Français = langue de référence : toute clé absente d'une autre langue retombe sur le français. Les prix ne sont pas ici : ils viennent des réglages de l'offre ({launch}, {monthly} sont remplacés à l'affichage).",
+    "status": "reference"
+  },
+  "meta": {
+    "siteName": "Rundinova Studio",
+    "title": "Rundinova Studio — Votre image professionnelle, vos commandes sur WhatsApp",
+    "description": "Rundinova Studio crée une vitrine en ligne immersive pour les petits commerces du Burundi. Vos clients découvrent vos produits et commandent directement sur WhatsApp."
+  },
+  "nav": {
+    "home": "Rundinova Studio, accueil",
+    "main": "Navigation principale",
+    "how": "Comment ça marche",
+    "shops": "Boutiques",
+    "offer": "L'offre",
+    "faq": "Questions",
+    "cta": "Je veux ma vitrine",
+    "ctaShort": "Ma vitrine",
+    "language": "Langue",
+    "skip": "Aller au contenu"
+  },
+  "hero": {
+    "kicker": "Studio d'image pour les commerçants du Burundi",
+    "title": "Votre image professionnelle,",
+    "titleAccent": "vos commandes sur WhatsApp",
+    "lead": "Chaussures, vêtements, alimentation… Nous créons pour votre commerce une vitrine en ligne unique, en 3D et en mouvement. Vos clients la découvrent sur leur téléphone et vous écrivent directement sur WhatsApp.",
+    "ctaPrimary": "Je veux ma vitrine",
+    "ctaSecondary": "Voir la vitrine {name}",
+    "scroll": "Défiler",
+    "device": {
+      "imageAlt": "Aperçu de la vitrine {name} sur un téléphone",
+      "live": "En ligne",
+      "order": "Commander sur WhatsApp",
+      "chatTitle": "Nouveau message",
+      "chatMessage": "Bonjour ! J'ai vu votre vitrine, je voudrais commander.",
+      "qr": "Le QR code de votre boutique, imprimé sur votre chemise"
+    }
+  },
+  "marquee": {
+    "label": "Pour tous les petits commerces",
+    "items": [
+      "Chaussures",
+      "Vêtements",
+      "Alimentation",
+      "Beauté",
+      "Artisanat",
+      "Accessoires",
+      "Boissons",
+      "Pâtisserie"
+    ]
+  },
+  "how": {
+    "kicker": "Comment ça marche",
+    "title": "Trois étapes, et votre commerce change d'allure",
+    "steps": [
+      {
+        "title": "On fait connaissance sur WhatsApp",
+        "text": "Vous nous parlez de votre commerce, de vos produits et de vos prix. Vous envoyez vos photos, on s'occupe du reste."
+      },
+      {
+        "title": "On crée votre vitrine",
+        "text": "Une vitrine unique à votre nom, animée et en 3D, à votre propre adresse : votre-boutique.rundinova.com."
+      },
+      {
+        "title": "Vos clients commandent sur WhatsApp",
+        "text": "Ils parcourent vos produits et vous écrivent en un geste. Le QR code imprimé sur votre chemise mène directement à votre vitrine."
+      }
+    ]
+  },
+  "shops": {
+    "kicker": "Les boutiques",
+    "title": "Des vitrines qui donnent envie",
+    "lead": "Chaque vitrine est créée sur mesure pour son commerce. Voici les premières.",
+    "visit": "Visiter la vitrine",
+    "first": "Premier client",
+    "imageAlt": "Vitrine de {name}",
+    "yours": {
+      "title": "Votre boutique ici",
+      "text": "Votre nom, vos produits, votre adresse en .rundinova.com.",
+      "cta": "Je veux ma vitrine"
+    }
+  },
+  "why": {
+    "kicker": "Pourquoi l'image compte",
+    "statement": "Vos clients achètent d'abord avec les yeux. Une belle image inspire confiance avant même le premier message.",
+    "points": [
+      {
+        "title": "Une adresse à partager",
+        "text": "Un lien simple à envoyer dans vos statuts et vos groupes, au lieu de dizaines de photos qui se perdent."
+      },
+      {
+        "title": "Vos produits toujours visibles",
+        "text": "Vos produits, vos prix et vos contacts restent au même endroit, jour et nuit."
+      },
+      {
+        "title": "Commander devient facile",
+        "text": "Un bouton, et votre client vous écrit directement sur WhatsApp."
+      },
+      {
+        "title": "Vous vendez comme d'habitude",
+        "text": "Pas de site compliqué à gérer : la vente continue sur WhatsApp, entre vous et vos clients."
+      }
+    ]
+  },
+  "offer": {
+    "kicker": "L'offre",
+    "title": "Simple et transparent",
+    "lead": "Un pack pour démarrer, puis un seul abonnement tout compris. Sans engagement.",
+    "currency": "FBu",
+    "pack": {
+      "label": "Pack de lancement",
+      "note": "à payer une seule fois",
+      "includes": [
+        "Votre chemise avec le QR code de votre boutique",
+        "La création de votre vitrine sur mesure",
+        "Le premier mois d'abonnement inclus"
+      ]
+    },
+    "monthly": {
+      "label": "Abonnement",
+      "per": "/ mois",
+      "note": "tout compris",
+      "badge": "Sans engagement",
+      "includes": [
+        "Votre vitrine en ligne, à votre adresse .rundinova.com",
+        "Les commandes directement sur votre WhatsApp",
+        "La mise à jour de vos produits et de vos prix",
+        "Vous arrêtez quand vous voulez"
+      ]
+    },
+    "pause": {
+      "title": "Et si un mois n'est pas réglé ?",
+      "text": "Pas d'inquiétude. Votre vitrine se met simplement en pause et montre à vos clients une page élégante. Dès que l'abonnement est réglé, elle revient en ligne.",
+      "previewName": "Votre boutique",
+      "previewTitle": "Petite pause",
+      "previewText": "La boutique revient très bientôt."
+    },
+    "cta": "Je veux ma vitrine"
+  },
+  "faq": {
+    "kicker": "Questions",
+    "title": "Vous vous demandez peut-être…",
+    "items": [
+      {
+        "q": "Faut-il un ordinateur ou des connaissances techniques ?",
+        "a": "Non. Tout se passe sur WhatsApp : vous nous envoyez vos informations et vos photos, nous créons la vitrine."
+      },
+      {
+        "q": "Comment mes clients passent-ils commande ?",
+        "a": "Sur votre vitrine, ils appuient sur le bouton WhatsApp : la conversation s'ouvre avec vous. Vous gérez la vente comme d'habitude."
+      },
+      {
+        "q": "Est-ce une boutique en ligne avec paiement par carte ?",
+        "a": "Non. C'est une vitrine : elle présente votre commerce et vos produits. La commande et le paiement se règlent entre vous et vos clients, sur WhatsApp."
+      },
+      {
+        "q": "Que comprend le pack de lancement ?",
+        "a": "Une chemise avec le QR code de votre boutique, la création de votre vitrine et le premier mois d'abonnement. Ensuite, c'est {monthly} FBu par mois, tout compris."
+      },
+      {
+        "q": "Puis-je arrêter quand je veux ?",
+        "a": "Oui. L'abonnement est sans engagement : vous pouvez arrêter à tout moment."
+      },
+      {
+        "q": "Que se passe-t-il si je ne paie pas un mois ?",
+        "a": "Votre vitrine se met en pause avec une page élégante pour vos clients. Dès que vous réglez, elle revient en ligne."
+      },
+      {
+        "q": "Comment payer ?",
+        "a": "Par mobile money. Nous vous donnons tous les détails sur WhatsApp."
+      },
+      {
+        "q": "Mon commerce peut-il avoir sa vitrine ?",
+        "a": "Chaussures, vêtements, alimentation, beauté, artisanat… Si vous vendez des produits, parlons-en."
+      }
+    ]
+  },
+  "form": {
+    "kicker": "Je veux ma vitrine",
+    "title": "Parlons de votre commerce",
+    "lead": "Remplissez ces quelques lignes : votre message s'ouvre dans WhatsApp, prêt à nous être envoyé.",
+    "privacy": "Rien n'est enregistré sur ce site : le message s'ouvre simplement dans WhatsApp.",
+    "optional": "facultatif",
+    "name": {
+      "label": "Votre nom",
+      "placeholder": "Prénom et nom"
+    },
+    "business": {
+      "label": "Type de commerce",
+      "placeholder": "Choisissez…",
+      "options": [
+        "Chaussures",
+        "Vêtements",
+        "Alimentation",
+        "Beauté et coiffure",
+        "Artisanat",
+        "Téléphones et électronique",
+        "Autre"
+      ]
+    },
+    "city": {
+      "label": "Ville",
+      "placeholder": "Ex. : Bujumbura, Gitega…"
+    },
+    "phone": {
+      "label": "Téléphone",
+      "placeholder": "+257 79 12 34 56",
+      "hint": "8 chiffres, avec ou sans +257. Ex. : +257 79 12 34 56"
+    },
+    "message": {
+      "label": "Message",
+      "placeholder": "Parlez-nous de vos produits…"
+    },
+    "submit": "Envoyer sur WhatsApp",
+    "errors": {
+      "required": "Ce champ est requis.",
+      "phone": "Entrez un numéro du Burundi : 8 chiffres, avec ou sans +257."
+    },
+    "sent": {
+      "title": "Votre message est prêt dans WhatsApp",
+      "text": "Si WhatsApp ne s'est pas ouvert, utilisez le bouton ci-dessous.",
+      "retry": "Ouvrir WhatsApp",
+      "edit": "Modifier le message"
+    },
+    "whatsapp": {
+      "greeting": "Bonjour Rundinova Studio ! Je veux ma vitrine.",
+      "name": "Nom",
+      "business": "Commerce",
+      "city": "Ville",
+      "phone": "Téléphone",
+      "message": "Message"
+    }
+  },
+  "final": {
+    "title": "Votre commerce mérite une belle vitrine",
+    "text": "Écrivez-nous sur WhatsApp, on s'occupe du reste.",
+    "cta": "Je veux ma vitrine",
+    "whatsapp": "Écrire sur WhatsApp",
+    "greeting": "Bonjour Rundinova Studio !"
+  },
+  "footer": {
+    "tagline": "Studio d'image pour les petits commerces du Burundi.",
+    "domain": "isoko.rundinova.com",
+    "rights": "© {year} Rundinova Studio. Tous droits réservés.",
+    "top": "Haut de page"
+  }
+}
