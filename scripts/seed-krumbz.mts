@@ -83,7 +83,18 @@ try {
       locales: LOCALES,
       theme,
       contact,
-      content: {},
+      // Card of the shop in the Rundinova Studio gallery (src/lib/platform/gallery.ts).
+      content: {
+        gallery: {
+          imageUrl: "/images/og/og-image.jpg",
+          tagline: {
+            fr: "Biscuits MARIE au champignon, simples et croustillants.",
+            rn: "Ibisukuti MARIE vy'ikizinu, vyoroshe kandi biryoshe.",
+            en: "MARIE biscuits with mushroom, simple and crunchy.",
+            sw: "Biskuti za MARIE zenye uyoga, rahisi na tamu.",
+          },
+        },
+      },
       scenes: [],
     };
     const [tenant] = await tx

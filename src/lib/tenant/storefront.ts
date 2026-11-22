@@ -20,6 +20,8 @@ import type { StorefrontData, TemplateId, Tenant } from "./types.ts";
 
 export const TENANTS_TAG = "tenants";
 export const tenantTag = (slug: string) => `tenant:${slug}`;
+/** Cross-tenant listings (Rundinova Studio gallery): refreshed whenever any tenant changes. */
+export const GALLERY_TAG = "platform-gallery";
 
 export const getTenantBySlug = cache(
   (slug: string): Promise<Tenant | null> =>
@@ -54,6 +56,7 @@ export async function listStorefrontParams(template: TemplateId): Promise<{ tena
  */
 export function revalidateTenant(slug: string): void {
   revalidateTag(tenantTag(slug), { expire: 0 });
+  revalidateTag(GALLERY_TAG, { expire: 0 });
   invalidateTenantRoute(slug);
 }
 

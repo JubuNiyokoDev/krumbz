@@ -1,15 +1,6 @@
-import { getStorefrontData } from "@/lib/tenant/storefront";
+import { VitrineStorefront } from "@/templates/vitrine";
+import { vitrineData } from "../../data";
 
-/** Placeholder: storefront home of the generic template. */
-export default async function VitrineHome({ params }: PageProps<"/tpl/vitrine/[tenant]/[locale]">) {
-  const { tenant, locale } = await params;
-  const data = await getStorefrontData(tenant, locale);
-  return (
-    <main>
-      <h1>{data?.tenant.name}</h1>
-      <ul>
-        {data?.products.map((product) => <li key={product.id}>{product.name[locale as "fr"] ?? product.name.fr}</li>)}
-      </ul>
-    </main>
-  );
+export default async function VitrineHomePage({ params }: PageProps<"/tpl/vitrine/[tenant]/[locale]">) {
+  return <VitrineStorefront data={await vitrineData(params)} page="home" />;
 }

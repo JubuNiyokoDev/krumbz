@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 import { espaceRouting, marketingRouting } from "./i18n/platform";
+import { vitrineRouting } from "./i18n/vitrine-routing";
 import { DEV_TENANT_COOKIE, DEV_TENANT_PARAM, isValidTenantSlug, normalizeHost, resolveHost } from "./lib/tenant/hosts";
 import { requestHostHeader } from "./lib/tenant/request-host";
 import { lookupTenantRoute } from "./lib/tenant/route-cache";
@@ -23,6 +24,7 @@ import { lookupTenantRoute } from "./lib/tenant/route-cache";
  * The slug → template/status lookup is cached in memory (src/lib/tenant/route-cache.ts).
  */
 const storefrontI18n = createMiddleware(routing);
+const vitrineI18n = createMiddleware(vitrineRouting);
 const marketingI18n = createMiddleware(marketingRouting);
 const espaceI18n = createMiddleware(espaceRouting);
 
@@ -96,7 +98,8 @@ export default async function proxy(request: NextRequest): Promise<NextResponse>
       } else if (pathname === "/sitemap.xml") {
         response = rewrite(request, `/tpl/${route.template}/${route.slug}/sitemap.xml`);
       } else {
-        response = withPrefix(storefrontI18n(request), request, `/tpl/${route.template}/${route.slug}`);
+        const i18n = route.template === "vitrine" ? vitrineI18n : storefrontI18n;
+        response = withPrefix(i18n(request), request, `/tpl/${route.template}/${route.slug}`);
       }
       break;
     }
