@@ -553,21 +553,21 @@ for w in .claude/worktrees/*; do echo "== $w"; git -C "$w" status --short | head
 aucune migration et n'a arrêté aucun processus. Seul ce fichier `CLAUDE_HANDOFF.md` a été créé.*
 
 
-## État d'intégration (2026-11-22, cette session)
+## État d'intégration (2026-11-22, validation complète)
 
-- **Branches fusionnées dans `.claude/worktrees/integration` (`rundinova-studio`)** :
-  - `studio-espace` (`2f3f0bf`) → merge `4064e19`
-  - `studio-admin` (`f454797`) → merge `407a89a`
-  - Conflits résolus : `package.json` (scripts `db:seed:demo`, `vendor:create`, `billing:expire` conservés). `npm install` exécuté pour `qrcode/@types/qrcode`.
-- **Contrôles verts (intégration)** :
+- **Branche** : `rundinova-studio` (worktree `.claude/worktrees/integration`), propre après commits de validation.
+- **Commits clés** : `4064e19` fusion espace, `407a89a` fusion admin, `28a96a1` docs, `0f1bc68` durcissement délais `tests/screenshots.spec.ts` mobile, `969abd0`+docs progression.
+- **Contrôles verts** :
   - `npx next typegen` OK
   - `npx tsc --noEmit` OK
   - `npm run -s lint` OK
-  - `npm run -s test:isolation` : **32/32** (inclut tenant-isolation, admin, espace-actions)
-  - `npx next build` OK (104 pages statiques générées ; avertissements Turbopack connus `certs.ts`/`uploads/images.ts`/`health.ts`)
-  - `PW_BASE_URL=http://localhost:3360 PW_TENANT=admin npx playwright test tests/admin.spec.ts --project=desktop --project=mobile` : **10/10**
-  - `PW_BASE_URL=http://localhost:3360 PW_TENANT=espace npx playwright test tests/espace.spec.ts --project=desktop --project=mobile` : **2/2**
-- **Non relancé cette session** : suite Playwright complète, parité visuelle 28/28, smoke manuel Isoko/Ikirenge/Krumbz sur serveur d'intégration. À relancer avant toute mise en prod/push.
-- **Serveur de test 3360** : arrêté.
-- **Worktrees** : `admin` propre/commité `f454797`; `espace` propre/commité `2f3f0bf`; `integration` propre après merges.
-- **Reste avant push main** : relancer Playwright complet + parité 28/28 + smoke Isoko/Ikirenge/Krumbz, puis mettre à jour docs/progress.md/CLAUDE_HANDOFF.md si nécessaire, et obtenir accord explicite pour pousser `main`.
+  - `npm run -s test:isolation` : **32/32**
+  - `npx next build` OK (104 pages statiques ; avertissements Turbopack connus `certs.ts`/`uploads/images.ts`/`health.ts`)
+- **Playwright (desktop+mobile, `PW_BASE_URL=http://localhost:3361`)** :
+  - Suite générale Krumbz (`cart,experience,mushroom,not-found,order,pages,scene-framing,screenshots`) : **163 pass / 9 échecs initiaux**. `scene-framing/famille-maison` flake — repassée seule OK. `screenshots.spec` mobile 8 timeouts pleine page — corrigé (`0f1bc68`), puis **24/24 mobile**.
+  - `tests/admin.spec.ts` (`PW_TENANT=admin`) : **10/10**
+  - `tests/espace.spec.ts` (`PW_TENANT=espace`) : **2/2**
+- **Parité visuelle** (`playwright.parity.config.ts`, `PARITY_DIR=/home/jubuniyoko/development/js/ViteJs/krumbz-website/reports/parity`, `PW_TENANT=krumbz`) : **28/28**.
+- **Smoke HTTP (Host header, redirect-follow)** : Krumbz `/ /produits /contact /commander` 200, `wa.me/25768497372` ; Isoko `/fr /en` 200 ; Ikirenge `/fr /fr/produits /fr/contact` 200 (wa.me placeholder `25700000000`) ; admin `/connexion` 200 ; espace `/fr/connexion` 200.
+- **Parcours couverts** : super-admin (connexion, dashboard, création boutique, identifiants WhatsApp, reset mot de passe, réglages, journal, santé/stats) ; vendeur (connexion, mot de passe forcé, produits/photos, contacts, déconnexion) ; formulaires/liens WhatsApp ; isolation multi-tenant 32/32.
+- **Aucune action interdite** : pas de push, pas de merge dans `main`, pas de déploiement/DNS/VPS.
