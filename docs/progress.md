@@ -14,7 +14,7 @@
 - Fondation + migration Krumbz (base, résolution par sous-domaine, Krumbz vendeur n°1, parité visuelle).
 - Template générique « vitrine » + boutique de démonstration chaussures.
 - Site Rundinova Studio (isoko.rundinova.com).
-- Infrastructure (compose, nginx préparé, sauvegardes R2, surveillance, CI rapide) — fichiers seulement, rien sur le serveur.
+- Infrastructure (compose, staging arrêtable, nginx préparé avec certificats dynamiques Let's Encrypt, cache nginx, sauvegardes R2, surveillance, CI rapide) — fichiers seulement, rien sur le serveur.
 
 ## Reste à faire
 Étapes 1 à 11 du plan.
@@ -27,8 +27,11 @@
 | 2026-11-22 | Une seule application Next.js multi-locataire, vendeur résolu par sous-domaine | Claude |
 
 | 2026-11-22 | Vitrine Studio sur isoko.rundinova.com, rundinova.com intact | Propriétaire |
-| 2026-11-22 | DNS chez Cloudflare | Propriétaire |
-| 2026-11-22 | Sauvegarde hors serveur : Cloudflare R2 | Propriétaire |
+| 2026-11-22 | ~~DNS chez Cloudflare~~ **annulé** : DNS InterServer inchangé, HTTPS Let's Encrypt HTTP-01 par hôte avec certificat chargé dynamiquement (sans rechargement nginx), pas de CDN (cache nginx dédié + `immutable`) | Propriétaire |
+| 2026-11-22 | Sauvegarde hors serveur : Cloudflare R2 (maintenu, sans lien avec le DNS) | Propriétaire |
+| 2026-11-22 | Préproduction arrêtée par défaut, relancée en une commande | Propriétaire |
+| 2026-11-22 | Super-admin : réinitialisation mot de passe vendeur + identifiants envoyés par lien WhatsApp | Propriétaire |
+| 2026-11-22 | Rapport final : 5 conteneurs les plus gourmands + recommandation de sauvegarde des autres projets (observation seulement) | Propriétaire |
 
 ## Décisions en attente
 - D4 informations métier (WhatsApp Rundinova, numéros Lumicash/EcoCash, photos démo) : valeurs provisoires en attendant.

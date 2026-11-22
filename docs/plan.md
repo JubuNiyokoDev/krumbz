@@ -42,8 +42,22 @@
 | Conteneurs | `rundinova-studio` (app, 640 Mo / 1 CPU), `rundinova-studio-db` (256 Mo / 0,5 CPU), préproduction `rundinova-studio-staging` (512 Mo / 0,5 CPU) | Limites mémoire/CPU obligatoires |
 | Sauvegardes | Quotidiennes : `pg_dump` + archive des uploads, rotation 14 jours locale ; copie hors serveur selon décision | Restauration testée et documentée |
 | Surveillance | Script cron (mémoire, disque, disponibilité de chaque boutique) + page « Santé » en super-admin | Simple, sans service supplémentaire |
+| HTTPS | **Let's Encrypt HTTP-01 par hôte**, sur l'enregistrement joker DNS existant (aucun changement DNS). Voir §2 bis | Décision D2 révisée |
+| Cache | **Pas de CDN** : en-têtes `immutable` sur images, modèles 3D et `/_next/static` + cache nginx dédié `rundinova_studio` (disque ≤ 2 Go, index 20 Mo en mémoire) | Décision D2 révisée |
+| Préproduction | Arrêtée par défaut ; `deploy/staging.sh up` / `down` en une commande | Budget mémoire |
 
-## 3. Hôtes (proposition, à valider)
+## 2 bis. HTTPS sans changement DNS (décision D2 révisée)
+
+- Le DNS reste chez InterServer, **strictement inchangé** ; l'enregistrement joker `*.rundinova.com → VPS` existant suffit.
+- **Un seul bloc serveur nginx** pour toute la plateforme (`server_name` des hôtes Rundinova Studio + joker) ; les noms exacts des autres projets gardent la priorité.
+- **Certificat chargé à la volée** : `ssl_certificate /etc/rundinova-studio/certs/$ssl_server_name/fullchain.pem` (variables supportées depuis nginx 1.15.9 ; le VPS a 1.24). Un nouveau certificat est pris en compte **sans recharger nginx**.
+- **Émission automatique** : quand la super-admin crée une boutique, l'app (conteneur, sans privilège) dépose une demande dans un dossier partagé ; un service hôte (`rundinova-studio-certs`, timer systemd chaque minute, script root versionné `scripts/ops/cert-provision.sh`) lance `certbot certonly --webroot` pour cet hôte, puis un *deploy hook* copie le certificat dans `/etc/rundinova-studio/certs/<hôte>/` (lisible par nginx). La super-admin affiche l'état (en attente, émis, erreur).
+- **Renouvellement** : le `certbot.timer` existant renouvelle ; le même *deploy hook* recopie. Aucun rechargement nginx nécessaire.
+- **Limites Let's Encrypt** : 50 certificats par semaine pour tout `rundinova.com` (partagé avec les autres projets), 300 nouvelles commandes / 3 h. File d'attente avec plafond 20 émissions/semaine pour la plateforme, alerte en super-admin au-delà.
+- **Première installation nginx** (bloc serveur, cache, webroot ACME) = modification partagée : **accord du propriétaire**, sauvegarde, `nginx -t`, rechargement unique, vérification de **tous** les sites, retour arrière documenté.
+- Passer à Cloudflare plus tard : décrit dans le rapport final (non implémenté).
+
+## 3. Hôtes
 
 | Hôte | Rôle |
 | --- | --- |
@@ -76,11 +90,11 @@
 | 1 | Fondation | Base (Drizzle, migrations), résolution du vendeur par `Host`, configuration vendeur, liste réservée, isolation | — |
 | 2 | Migration Krumbz | Krumbz devient le vendeur n°1 (template `krumbz`) ; produits/prix/contacts depuis la base ; captures « après » = « avant » | 0, 1 |
 | 3 | Espace vendeur | Connexion, produits (ajout/modif/masquer), prix, promos, photos, WhatsApp/contacts ; FR + RN ; mobile d'abord | 1 |
-| 4 | Super-admin | Vendeurs (création guidée), thèmes, textes, scènes, produits phares 3D, QR code HD, fonctionnalités, abonnements, paiements, réglages de l'offre, santé | 1 |
+| 4 | Super-admin | Vendeurs (création guidée + certificat HTTPS automatique), thèmes, textes, scènes, produits phares 3D, QR code HD, fonctionnalités, abonnements, paiements, réglages de l'offre, **réinitialisation du mot de passe vendeur + envoi des identifiants par lien WhatsApp pré-rempli**, santé | 1 |
 | 5 | Template générique | Vitrine immersive à partir de photos + glTF optionnel ; boutique de démonstration chaussures | 1 |
 | 6 | Vitrine Rundinova | Accueil immersif, galerie des boutiques, offre, formulaire WhatsApp ; FR/RN/EN/SW | 1, 5 |
 | 7 | Statistiques | Compteurs anonymes + tableaux (vendeur, admin) | 1, 3, 4 |
-| 8 | Infra | Compose `rundinova-studio` (+ staging), sauvegardes + restauration testée, surveillance, CI/CD | décisions D2–D4 |
+| 8 | Infra | Compose `rundinova-studio` (+ staging arrêtable), certificats automatiques, cache nginx, sauvegardes (R2) + restauration testée, surveillance, CI/CD | — |
 | 9 | Préproduction | Déploiement staging, recette complète bureau/mobile, Lighthouse par boutique | 8 |
 | 10 | Bascule | Sauvegarde, bascule Krumbz sans coupure, vérification de tous les sites du VPS | 9, accord |
 | 11 | Livraison | README (créer un vendeur, restaurer, déployer), `docs/rapport-final.md` | 10 |
@@ -88,6 +102,13 @@
 ## 7. Décisions à prendre (propriétaire)
 
 - **D1 — tranché** : vitrine sur **isoko.rundinova.com** ; rundinova.com intact.
-- **D2 — tranché** : DNS migré chez **Cloudflare** (gratuit), action du propriétaire guidée par `docs/ops.md`.
+- **D2 — révisé** : **aucune migration DNS**, aucun site via Cloudflare. HTTPS Let's Encrypt HTTP-01 par hôte, certificat chargé dynamiquement (§2 bis).
 - **D3 — tranché** : copie hors serveur sur **Cloudflare R2** (gratuit jusqu'à 10 Go).
 - **D4 — reporté** : WhatsApp Rundinova, numéros mobile money, photos de démonstration → valeurs provisoires marquées.
+
+## 8. Contenu exigé du rapport final (`docs/rapport-final.md`)
+
+- Livré, choix techniques, coûts (démarrage, 50 vendeurs), actions du propriétaire.
+- Passage éventuel à Cloudflare plus tard (migration du domaine ou domaine dédié) — explication seulement.
+- Les 5 conteneurs du VPS les plus gourmands en mémoire (observation, sans intervention).
+- Recommandation séparée de sauvegarde des autres projets du VPS (rien d'implémenté sans accord).
