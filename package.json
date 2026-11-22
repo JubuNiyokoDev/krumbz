@@ -22,7 +22,8 @@
     "db:migrate": "node --env-file-if-exists=.env.local --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/db-migrate.mts",
     "db:seed:krumbz": "node --env-file-if-exists=.env.local --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/seed-krumbz.mts",
     "test:isolation": "node --env-file-if-exists=.env.local --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test \"tests/isolation/*.test.mts\"",
-    "admin:create": "node --env-file-if-exists=.env.local --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/create-superadmin.mts"
+    "admin:create": "node --env-file-if-exists=.env.local --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/create-superadmin.mts",
+    "vendor:create": "node --env-file-if-exists=.env.local --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/create-vendor.mts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

@@ -12,7 +12,8 @@ type Loader = (locale: string) => Promise<Messages> | Messages;
 
 const LOADERS: Record<"marketing" | "espace" | "admin", Loader> = {
   marketing: () => ({}),
-  espace: () => ({}),
+  // Vendor space: French + Kirundi only (other locales fall back to French).
+  espace: (locale) => import(`@/espace/messages/${locale === "rn" ? "rn" : "fr"}.json`).then((m) => m.default),
   admin: () => ({}),
 };
 
