@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-label="Sentier dans les collines de la Kibira" preserveAspectRatio="xMidYMid slice">
+<defs><linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe8d8"/><stop offset="1" stop-color="#f4f1e6"/></linearGradient></defs>
+<rect width="1600" height="1000" fill="url(#s)"/>
+<path d="M0 470 Q260 330 520 430 T1040 400 T1600 420 V1000 H0 Z" fill="#74c69d"/>
+<path d="M0 580 Q300 460 640 560 T1300 520 T1600 560 V1000 H0 Z" fill="#40916c"/>
+<path d="M0 720 Q400 600 820 700 T1600 680 V1000 H0 Z" fill="#2d6a4f"/>
+<path d="M760 1000 Q700 900 860 830 Q1000 770 900 700 Q840 650 930 600" stroke="#b5562f" stroke-width="70" fill="none" stroke-linecap="round"/>
+<g fill="#1b4332"><path d="M80 760 l40 -110 l40 110 Z"/><path d="M210 790 l40 -110 l40 110 Z"/><path d="M340 820 l40 -110 l40 110 Z"/><path d="M470 760 l40 -110 l40 110 Z"/><path d="M600 790 l40 -110 l40 110 Z"/><path d="M730 820 l40 -110 l40 110 Z"/><path d="M860 760 l40 -110 l40 110 Z"/><path d="M990 790 l40 -110 l40 110 Z"/><path d="M1120 820 l40 -110 l40 110 Z"/><path d="M1250 760 l40 -110 l40 110 Z"/><path d="M1380 790 l40 -110 l40 110 Z"/><path d="M1510 820 l40 -110 l40 110 Z"/></g>
+<rect y="420" width="1600" height="90" fill="#ffffff" opacity="0.25"/>
+<g font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="24" font-weight="600">
+  <rect x="48" y="44" width="984" height="48" rx="24" fill="rgba(0,0,0,0.28)"/>
+  <text x="72" y="76" fill="#fff">Scène « Collines » — illustration, photo à fournir : scene-collines.webp</text>
+</g>
+</svg>

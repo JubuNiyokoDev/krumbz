@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-label="Rue de Bujumbura au lever du jour" preserveAspectRatio="xMidYMid slice">
+<defs><linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb38a"/><stop offset="0.6" stop-color="#ffe3b3"/><stop offset="1" stop-color="#fff4d6"/></linearGradient></defs>
+<rect width="1600" height="1000" fill="url(#s)"/>
+<circle cx="1180" cy="330" r="120" fill="#fff1c1"/>
+<path d="M0 560 Q300 440 620 520 T1200 480 T1600 520 V1000 H0 Z" fill="#c9a37a" opacity="0.55"/>
+<path d="M0 620 Q400 540 800 610 T1600 590 V1000 H0 Z" fill="#a47a52" opacity="0.6"/>
+<g fill="#5b3f2a" opacity="0.85"><rect x="90" y="470" width="140" height="230"/><rect x="250" y="420" width="110" height="280"/><rect x="380" y="500" width="160" height="200"/><rect x="1240" y="460" width="150" height="240"/><rect x="1400" y="410" width="120" height="290"/></g>
+<path d="M560 1000 L760 640 L840 640 L1040 1000 Z" fill="#6c6a68"/>
+<path d="M796 660 L804 660 L812 1000 L788 1000 Z" fill="#f1e6d2" opacity="0.8"/>
+<g transform="translate(980 600)"><rect width="300" height="120" rx="22" fill="#e4572e"/><rect x="20" y="20" width="60" height="44" rx="8" fill="#ffe8d6"/><rect x="96" y="20" width="60" height="44" rx="8" fill="#ffe8d6"/><rect x="172" y="20" width="60" height="44" rx="8" fill="#ffe8d6"/><circle cx="70" cy="126" r="24" fill="#2b2b2b"/><circle cx="236" cy="126" r="24" fill="#2b2b2b"/></g>
+<g font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="24" font-weight="600">
+  <rect x="48" y="44" width="945" height="48" rx="24" fill="rgba(0,0,0,0.28)"/>
+  <text x="72" y="76" fill="#fff">Scène « En route » — illustration, photo à fournir : scene-matin.webp</text>
+</g>
+</svg>

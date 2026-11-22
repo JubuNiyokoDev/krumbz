@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000" role="img" aria-label="Mocassin Rohero, cognac">
+<defs>
+  <radialGradient id="sh"><stop offset="0" stop-color="#000" stop-opacity="0.28"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+  <linearGradient id="up" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8703f"/><stop offset="1" stop-color="#8b4a24"/></linearGradient>
+  <linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.45"/><stop offset="0.5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+</defs>
+<ellipse cx="510" cy="700" rx="390" ry="34" fill="url(#sh)"/>
+<g transform=" rotate(0 510 560)">
+  <path d="M140 600 L880 600 L876 628 Q870 642 840 642 L172 642 Q142 640 140 620 Z" fill="#2a1a10"/>
+  <path d="M150 602 L165 520 Q180 470 260 470 L420 470 Q520 470 620 500 L760 535 Q850 560 875 602 Z" fill="url(#up)"/>
+  <path d="M236 478 Q330 506 438 476" stroke="#3d1e0c" stroke-width="14" fill="none" stroke-linecap="round"/>
+  <path d="M452 484 Q530 530 640 508" stroke="#3d1e0c" stroke-width="12" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <rect x="520" y="500" width="44" height="18" rx="6" fill="#d4a373"/>
+  <path d="M168 590 Q500 575 868 594" stroke="#3d1e0c" stroke-width="3" stroke-dasharray="10 8" fill="none" opacity="0.55"/>
+  <path d="M165 520 Q180 470 260 470 L330 470 Q230 500 220 580 Z" fill="url(#gl)"/></g>
+<g font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="22" font-weight="600">
+  <rect x="101" y="880" width="798" height="44" rx="22" fill="rgba(20,20,20,0.07)"/>
+  <text x="500" y="909" text-anchor="middle" fill="#4a4a4a">Illustration · photo à fournir : mocassin-rohero-cognac.webp</text>
+</g>
+</svg>

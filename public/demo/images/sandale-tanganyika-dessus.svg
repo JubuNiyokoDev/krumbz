@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000" role="img" aria-label="Sandale Tanganyika, autre vue">
+<defs>
+  <radialGradient id="sh"><stop offset="0" stop-color="#000" stop-opacity="0.28"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+  <linearGradient id="up" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a5530"/><stop offset="1" stop-color="#4f2c16"/></linearGradient>
+  <linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.45"/><stop offset="0.5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+</defs>
+<ellipse cx="510" cy="700" rx="390" ry="34" fill="url(#sh)"/>
+<g transform="translate(1000 0) scale(-1 1) rotate(-5 510 560)">
+  <path d="M150 600 Q150 570 200 566 L800 560 Q870 562 878 590 L876 612 Q870 632 840 632 L180 634 Q150 632 150 610 Z" fill="#d9b382"/>
+  <path d="M152 604 Q500 592 876 598" stroke="#6b3e1f" stroke-width="10" fill="none"/>
+  <path d="M290 566 Q340 452 430 566" stroke="url(#up)" stroke-width="44" fill="none" stroke-linecap="round"/>
+  <path d="M552 562 Q620 430 712 560" stroke="url(#up)" stroke-width="44" fill="none" stroke-linecap="round"/>
+  <path d="M190 566 Q196 492 262 510" stroke="#4f2c16" stroke-width="26" fill="none" stroke-linecap="round"/>
+  <circle cx="262" cy="512" r="14" fill="#e4572e"/></g>
+<g font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="22" font-weight="600">
+  <rect x="82.25" y="880" width="835.5" height="44" rx="22" fill="rgba(20,20,20,0.07)"/>
+  <text x="500" y="909" text-anchor="middle" fill="#4a4a4a">Illustration · photo à fournir : sandale-tanganyika-dessus.webp</text>
+</g>
+</svg>

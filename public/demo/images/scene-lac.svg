@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-label="Plage du lac Tanganyika" preserveAspectRatio="xMidYMid slice">
+<defs><linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7cc6e8"/><stop offset="1" stop-color="#d8f1fb"/></linearGradient><linearGradient id="w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f8fb5"/><stop offset="1" stop-color="#5cc1dc"/></linearGradient></defs>
+<rect width="1600" height="1000" fill="url(#s)"/>
+<path d="M0 500 L180 400 L340 470 L560 360 L800 460 L1020 380 L1260 470 L1420 410 L1600 470 V560 H0 Z" fill="#6d8299" opacity="0.75"/>
+<rect y="540" width="1600" height="260" fill="url(#w)"/>
+<g stroke="#e6f7fd" stroke-width="5" stroke-linecap="round" opacity="0.7"><path d="M160 620 h120"/><path d="M520 660 h180"/><path d="M980 610 h140"/><path d="M1260 700 h200"/><path d="M340 740 h160"/></g>
+<path d="M0 780 Q400 740 800 770 T1600 760 V1000 H0 Z" fill="#f2d5a0"/>
+<g transform="translate(1240 520)"><path d="M40 300 Q30 160 60 0" stroke="#7a5230" stroke-width="22" fill="none"/><path d="M60 0 Q-60 -10 -120 60 M60 0 Q170 -20 220 60 M60 0 Q20 -90 -60 -100 M60 0 Q120 -100 200 -80" stroke="#2d6a4f" stroke-width="26" fill="none" stroke-linecap="round"/></g>
+<g font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="24" font-weight="600">
+  <rect x="48" y="44" width="971" height="48" rx="24" fill="rgba(0,0,0,0.28)"/>
+  <text x="72" y="76" fill="#fff">Scène « Pause au lac » — illustration, photo à fournir : scene-lac.webp</text>
+</g>
+</svg>
