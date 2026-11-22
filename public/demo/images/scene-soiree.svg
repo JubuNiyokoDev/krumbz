@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-label="Soirée dansante en ville" preserveAspectRatio="xMidYMid slice">
+<defs><linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b1b33"/><stop offset="1" stop-color="#4a3f6b"/></linearGradient><radialGradient id="g"><stop offset="0" stop-color="#ffcf7a" stop-opacity="0.75"/><stop offset="1" stop-color="#ffcf7a" stop-opacity="0"/></radialGradient></defs>
+<rect width="1600" height="1000" fill="url(#s)"/>
+<path d="M0 220 Q400 330 800 230 T1600 250" stroke="#2c2c44" stroke-width="4" fill="none"/>
+<g fill="#ffd27a"><circle cx="50" cy="250" r="12"/><circle cx="150" cy="265.576733692346" r="12"/><circle cx="250" cy="278.6942436359809" r="12"/><circle cx="350" cy="287.28156343868903" r="12"/><circle cx="450" cy="289.9829441216602" r="12"/><circle cx="550" cy="286.3718970730273" r="12"/><circle cx="650" cy="277.01852722204603" r="12"/><circle cx="750" cy="263.3995260062362" r="12"/><circle cx="850" cy="247.6650342628968" r="12"/><circle cx="950" cy="232.2991822682059" r="12"/><circle cx="1050" cy="219.72790018768288" r="12"/><circle cx="1150" cy="211.93591704441934" r="12"/><circle cx="1250" cy="210.15341564656637" r="12"/><circle cx="1350" cy="214.66181377119386" r="12"/><circle cx="1450" cy="224.74933448510714" r="12"/><circle cx="1550" cy="238.82338007204297" r="12"/></g>
+<circle cx="200" cy="270" r="140" fill="url(#g)"/><circle cx="500" cy="270" r="140" fill="url(#g)"/><circle cx="800" cy="270" r="140" fill="url(#g)"/><circle cx="1100" cy="270" r="140" fill="url(#g)"/><circle cx="1400" cy="270" r="140" fill="url(#g)"/>
+<path d="M0 700 L1600 700 L1600 1000 L0 1000 Z" fill="#2a2440"/>
+<g stroke="#4a4070" stroke-width="3"><path d="M320 700 L-800 1000"/><path d="M440 700 L-400 1000"/><path d="M560 700 L0 1000"/><path d="M680 700 L400 1000"/><path d="M800 700 L800 1000"/><path d="M920 700 L1200 1000"/><path d="M1040 700 L1600 1000"/><path d="M1160 700 L2000 1000"/><path d="M1280 700 L2400 1000"/><path d="M0 800 H1600"/><path d="M0 900 H1600"/></g>
+<g fill="#e4572e" opacity="0.9"><circle cx="620" cy="560" r="60"/><rect x="580" y="610" width="80" height="170" rx="30"/><circle cx="960" cy="540" r="58"/><rect x="920" y="590" width="80" height="190" rx="30" fill="#f4a261"/></g>
+<g font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="24" font-weight="600">
+  <rect x="48" y="44" width="932" height="48" rx="24" fill="rgba(0,0,0,0.28)"/>
+  <text x="72" y="76" fill="#fff">Scène « Soirée » — illustration, photo à fournir : scene-soiree.webp</text>
+</g>
+</svg>

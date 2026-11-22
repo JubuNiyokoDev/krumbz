@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000" role="img" aria-label="Inyange Kids, profil">
+<defs>
+  <radialGradient id="sh"><stop offset="0" stop-color="#000" stop-opacity="0.28"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+  <linearGradient id="up" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fb0ff"/><stop offset="1" stop-color="#3a86ff"/></linearGradient>
+  <linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.45"/><stop offset="0.5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+</defs>
+<ellipse cx="510" cy="700" rx="390" ry="34" fill="url(#sh)"/>
+<g transform=" rotate(0 510 560)">
+  <path d="M170 590 L850 590 L852 626 Q842 670 780 672 L220 672 Q172 666 170 626 Z" fill="#ffffff"/>
+  <path d="M176 654 L846 654 Q834 672 780 674 L220 674 Q190 670 176 654 Z" fill="#ffbe0b"/>
+  <path d="M180 596 L190 460 Q200 392 270 378 L360 366 Q410 360 430 410 Q470 470 540 482 L690 512 Q800 534 840 572 Q852 584 852 596 Z" fill="url(#up)"/>
+  <rect x="380" y="414" width="190" height="40" rx="18" fill="#ffbe0b" transform="rotate(14 475 434)"/>
+  <rect x="440" y="474" width="190" height="40" rx="18" fill="#ffbe0b" transform="rotate(10 535 494)"/>
+  <path d="M268 384 Q330 420 420 400" stroke="#123a7a" stroke-width="16" fill="none" stroke-linecap="round"/>
+  <circle cx="300" cy="530" r="34" fill="#ff006e" opacity="0.9"/>
+  <path d="M190 460 Q200 392 270 378 L320 372 Q240 420 236 540 Z" fill="url(#gl)"/></g>
+<g font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="22" font-weight="600">
+  <rect x="119.75" y="880" width="760.5" height="44" rx="22" fill="rgba(20,20,20,0.07)"/>
+  <text x="500" y="909" text-anchor="middle" fill="#4a4a4a">Illustration · photo à fournir : inyange-kids-profil.webp</text>
+</g>
+</svg>

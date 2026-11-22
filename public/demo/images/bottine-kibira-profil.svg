@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000" role="img" aria-label="Bottine Kibira, profil">
+<defs>
+  <radialGradient id="sh"><stop offset="0" stop-color="#000" stop-opacity="0.28"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+  <linearGradient id="up" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9986f"/><stop offset="1" stop-color="#a0714f"/></linearGradient>
+  <linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.45"/><stop offset="0.5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+</defs>
+<ellipse cx="510" cy="700" rx="390" ry="34" fill="url(#sh)"/>
+<g transform=" rotate(0 510 560)">
+  <path d="M160 596 L874 596 L876 630 Q868 670 800 672 L210 672 Q162 668 160 630 Z" fill="#2e2a26"/>
+  <g fill="#1a1714"><rect x="200" y="660" width="60" height="16" rx="4"/><rect x="300" y="660" width="60" height="16" rx="4"/><rect x="560" y="660" width="60" height="16" rx="4"/><rect x="660" y="660" width="60" height="16" rx="4"/><rect x="760" y="660" width="60" height="16" rx="4"/></g>
+  <path d="M170 600 L175 360 Q178 250 260 240 L380 238 Q420 240 425 300 L430 420 Q470 470 560 488 L720 520 Q830 545 868 590 L870 600 Z" fill="url(#up)"/>
+  <path d="M262 244 L384 242" stroke="#4a2f1d" stroke-width="18" stroke-linecap="round"/>
+  <g stroke="#f1e3cf" stroke-width="9" stroke-linecap="round">
+    <path d="M404 290 L440 282"/><path d="M406 330 L444 322"/><path d="M410 370 L450 364"/><path d="M420 410 L462 410"/><path d="M446 446 L486 452"/>
+  </g>
+  <path d="M175 360 Q178 250 260 240 L300 240 Q220 300 220 560 L175 560 Z" fill="url(#gl)"/>
+  <path d="M600 500 Q740 520 866 592" stroke="#e4572e" stroke-width="10" fill="none" stroke-linecap="round"/></g>
+<g font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="22" font-weight="600">
+  <rect x="107.25" y="880" width="785.5" height="44" rx="22" fill="rgba(20,20,20,0.07)"/>
+  <text x="500" y="909" text-anchor="middle" fill="#4a4a4a">Illustration · photo à fournir : bottine-kibira-profil.webp</text>
+</g>
+</svg>
