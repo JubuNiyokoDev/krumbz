@@ -78,7 +78,7 @@ export default async function ProductsPage({ params }: PageProps<"/tpl/krumbz/[t
           <SectionHeading id="choose-title" title={p.chooseTitle} />
           <ul className="mt-12 grid gap-6 md:grid-cols-2 lg:gap-8">
             {products.map((product, i) => (
-              <li key={product.id} id={`produit-${product.id}`} data-reveal style={{ "--reveal-delay": `${i * 120}ms` } as CSSProperties}>
+              <li key={product.id} id={`produit-${product.id}`} data-stat-product={product.id} data-reveal style={{ "--reveal-delay": `${i * 120}ms` } as CSSProperties}>
                 <ProductCard
                   product={product}
                   showLearnMore={false}

@@ -14,6 +14,7 @@ import { ExperienceLayer } from "@/components/three/ExperienceLayer";
 import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 import { getStorefrontData, listStorefrontParams } from "@/lib/tenant/storefront";
 import { PausedStorefront } from "@/app/paused/PausedStorefront";
+import { StatsBeacon } from "@/components/stats/StatsBeacon";
 import "@/app/globals.css";
 import "./krumbz.css";
 
@@ -84,6 +85,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/t
             <Footer />
           </SiteShell>
           <OrganizationJsonLd locale={locale} />
+          {data.tenant.features.stats ? <StatsBeacon /> : null}
         </NextIntlClientProvider>
       </body>
     </html>
