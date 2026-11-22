@@ -1,0 +1,12 @@
+# Rundinova Studio — tâches planifiées. Installé : /etc/cron.d/rundinova-studio (root:root 644,
+# sans extension ni point dans le nom, sinon cron l'ignore). Heure du serveur.
+# Journaux : /var/log/rundinova-studio/*.log (rotation : deploy/cron/logrotate-rundinova-studio).
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+MAILTO=""
+
+# Sauvegarde quotidienne 03:15 : pg_dump + uploads, rotation 14 j, copie R2 si RCLONE_REMOTE (ops.env).
+15 3 * * * root /opt/rundinova-studio/scripts/backup.sh >>/var/log/rundinova-studio/backup.log 2>&1
+
+# Surveillance toutes les 5 min : écrit /opt/rundinova-studio/status/health.json (page « Santé »).
+*/5 * * * * root /opt/rundinova-studio/scripts/health.sh >>/var/log/rundinova-studio/health.log 2>&1 || true

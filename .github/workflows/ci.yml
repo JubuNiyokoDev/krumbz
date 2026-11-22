@@ -1,0 +1,109 @@
+# Vérification rapide (bloquante) : typecheck, lint, contenu, build, Playwright SMOKE (bureau).
+# Cible : 3 à 5 min. La suite complète (bureau + mobile) tourne la nuit : e2e-nightly.yml.
+#
+# Déclenchée sur les PR et les branches de travail ; main et staging l'appellent depuis
+# deploy.yml / deploy-staging.yml (workflow_call) pour ne pas la lancer deux fois.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches-ignore: [main, staging]
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  verify:
+    name: verify (typecheck, lint, build, smoke)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    # Base jetable pour l'app multi-vendeurs (ignorée par le Krumbz actuel de main).
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: ci
+          POSTGRES_DB: rundinova_studio
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d rundinova_studio"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      CI: "true"
+      NEXT_TELEMETRY_DISABLED: "1"
+      DATABASE_URL: postgres://postgres:ci@localhost:5432/rundinova_studio
+      PLATFORM_ROOT_DOMAIN: rundinova.com
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci --no-audit --no-fund
+
+      - name: Playwright version
+        id: pw
+        run: echo "version=$(node -p "require('@playwright/test/package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Playwright browsers
+        id: pw-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}-${{ steps.pw.outputs.version }}
+
+      - name: Install Chromium
+        if: steps.pw-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Install Chromium system deps (cached browser)
+        if: steps.pw-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+
+      - name: Database (migrations + Krumbz seed), if the app has one
+        run: |
+          if [ -f scripts/db-migrate.mts ]; then
+            npm run db:migrate
+            npm run db:seed:krumbz
+          else
+            echo "pas de scripts/db-migrate.mts : étape ignorée (Krumbz mono-site)"
+          fi
+
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run content:check
+
+      - name: Cache Next.js build
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('src/**', 'content/**', 'next.config.ts') }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+
+      - run: npm run build
+
+      - name: Playwright smoke (desktop)
+        run: npx playwright test --project=desktop tests/pages.spec.ts tests/order.spec.ts tests/mushroom.spec.ts
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report-smoke
+          path: playwright-report/
+          retention-days: 14

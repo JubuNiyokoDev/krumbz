@@ -1,0 +1,115 @@
+# Préproduction : push sur la branche « staging » → image rundinova-studio:staging-sha-<7>.
+#
+# La préproduction est ARRÊTÉE PAR DÉFAUT (mémoire du VPS) :
+#   - si elle tourne : redéploiement (migrations, contrôle de santé, retour arrière auto) ;
+#   - si elle est arrêtée : le tag est seulement enregistré (release.env) ; elle démarrera avec
+#     cette version au prochain « staging.sh up ». Rien n'est démarré automatiquement.
+# Déploiement sur le VPS seulement si STUDIO_DEPLOY_ENABLED == 'true' (variable de dépôt).
+name: Deploy staging
+
+on:
+  push:
+    branches: [staging]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: deploy-staging
+  cancel-in-progress: true
+
+env:
+  STUDIO_IMAGE: ghcr.io/jubuniyokodev/rundinova-studio
+  SITE_URL: https://staging-krumbz.rundinova.com
+
+jobs:
+  verify:
+    uses: ./.github/workflows/ci.yml
+
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      tag: ${{ steps.meta.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set image tag
+        id: meta
+        run: echo "tag=staging-sha-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          build-args: |
+            NEXT_PUBLIC_SITE_URL=${{ env.SITE_URL }}
+          tags: |
+            ${{ env.STUDIO_IMAGE }}:${{ steps.meta.outputs.tag }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy:
+    needs: [verify, build]
+    if: vars.STUDIO_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      TAG: ${{ needs.build.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Promote ${{ env.TAG }} to staging
+        run: docker buildx imagetools create -t "$STUDIO_IMAGE:staging" "$STUDIO_IMAGE:$TAG"
+
+      - name: Upload compose file and staging.sh
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "deploy/compose.staging.yml,deploy/staging.sh"
+          target: "/opt/rundinova-studio-staging/.incoming"
+          rm: true
+
+      - name: Deploy if running, otherwise record the tag
+        uses: appleboy/ssh-action@v1.2.0
+        env:
+          TAG: ${{ env.TAG }}
+          GITHUB_SHA: ${{ github.sha }}
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          envs: TAG,GITHUB_SHA
+          command_timeout: 12m
+          script: |
+            set -euo pipefail
+            cd /opt/rundinova-studio-staging
+            install -m 644 .incoming/deploy/compose.staging.yml compose.yml
+            install -m 755 .incoming/deploy/staging.sh staging.sh
+            rm -rf .incoming
+            if [ "$(docker inspect -f '{{.State.Running}}' rundinova-studio-staging 2>/dev/null || true)" = "true" ]; then
+              STACK=staging /opt/rundinova-studio/scripts/deploy.sh staging "$TAG"
+            else
+              printf 'TAG=%s\n' "$TAG" > release.env
+              echo "préproduction arrêtée : version $TAG enregistrée pour le prochain « staging.sh up »"
+            fi

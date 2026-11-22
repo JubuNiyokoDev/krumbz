@@ -1,0 +1,10 @@
+# Installé : /etc/logrotate.d/rundinova-studio
+/var/log/rundinova-studio/*.log {
+    weekly
+    rotate 8
+    compress
+    delaycompress
+    missingok
+    notifempty
+    copytruncate
+}

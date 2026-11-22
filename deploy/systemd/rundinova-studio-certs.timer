@@ -1,0 +1,14 @@
+# Rundinova Studio — lance rundinova-studio-certs.service chaque minute (le script sort
+# immédiatement s'il n'y a aucune demande ; verrou : une seule exécution à la fois).
+#   systemctl enable --now rundinova-studio-certs.timer
+[Unit]
+Description=Rundinova Studio - traitement des demandes de certificats (chaque minute)
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=1min
+AccuracySec=10s
+Persistent=false
+
+[Install]
+WantedBy=timers.target
