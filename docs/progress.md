@@ -13,10 +13,11 @@
 ## Fait (suite)
 
 - 2026-11-22 — Super-admin commité (`f454797`, `studio-admin`) : boutiques, comptes, paiements, réglages, stats, santé, journal, QR, cron/billing:expire ; isolation 26/26, e2e 10/10.
-- 2026-11-22 — Intégration `rundinova-studio` : fusion `studio-espace` (`4064e19`) + `studio-admin` (`407a89a`), conflits `package.json` résolus, `npm install`. Contrôles verts : typegen/tsc/eslint/build, isolation 32/32, admin e2e 10/10, espace e2e 2/2. Reste : Playwright complet, parité 28/28, smoke Isoko/Ikirenge/Krumbz.
+- 2026-11-22 — Intégration `rundinova-studio` : fusion `studio-espace` (`4064e19`) + `studio-admin` (`407a89a`), conflits `package.json` résolus, `npm install`. Contrôles verts : typegen/tsc/eslint/build, isolation 32/32.
+- 2026-11-22 — Validation complète intégration : Playwright général 163 pass + 1 flake `scene-framing/famille-maison` repassée seule + 8 timeouts `screenshots.spec` mobile corrigés (`0f1bc68`) puis 24/24 ; admin e2e 10/10 ; espace e2e 2/2 ; parité 28/28 (`PARITY_DIR` racine reports/parity) ; smoke HTTP Krumbz/Isoko/Ikirenge/admin/espace OK (wa.me présents).
 
 ## En cours (sous-agents, branches de worktree)
-- Relancer Playwright complet + parité visuelle 28/28 + smoke Isoko/Ikirenge/Krumbz sur intégration, puis finaliser handoff avant tout push/déploiement.
+- Validation complète effectuée sur `rundinova-studio`. Avant push `main`/déploiement : obtenir accord explicite, puis relancer CI/contrôles si la branche bouge. Décisions D4 et cache `/models`/`/images` restent en attente.
 
 ## Reste à faire
 Étapes 1 à 11 du plan.
