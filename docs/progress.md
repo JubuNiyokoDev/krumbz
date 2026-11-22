@@ -53,7 +53,18 @@
   → krumbz.rundinova.com serait tombé. Ce job est désormais manuel (retour arrière uniquement).
 - Règle : **ne pas pousser `main` avant la bascule** ; la préproduction passe par la branche `staging`.
 
-## Prochaines étapes (accord propriétaire requis)
-1. VPS : créer `/opt/rundinova-studio-staging` (+ `.env` secrets générés sur le serveur), démarrer DB + app de préproduction (≈ 0,8 Go, arrêtable).
-2. nginx (configuration partagée) : première installation du bloc Rundinova Studio pour les hôtes `staging-*` uniquement, avec sauvegarde, `nginx -t`, vérification de tous les sites, retour arrière.
-3. Recette en préproduction, puis bascule Krumbz (19200 → 19300) avec accord.
+## Préproduction (accords du 2026-11-22)
+- Image `rundinova-studio:staging-sha-8431c8d` construite par la CI (branche `staging`, déploiement auto désactivé).
+- VPS : `/opt/rundinova-studio-staging` (`.env` 600, secrets générés sur le serveur), DB 160 Mo + app 512 Mo démarrées
+  (`./staging.sh up|down|status`) ; base initialisée par tunnel SSH (Krumbz, démo Ikirenge, super-admin).
+  Accès recette (htpasswd) : `/root/rundinova-studio-staging-acces.txt` sur le VPS ; mot de passe super-admin provisoire :
+  `~/.rundinova-staging-superadmin.txt` sur le poste du propriétaire.
+- nginx : `conf.d/rundinova-studio.conf` + 2 vhosts **staging seulement** (5 noms explicites, sans joker) via `nginx-safe-apply.sh` :
+  115 sondes OK, aucun site dégradé ; 20 avertissements « protocol options redefined » identiques avant/après (préexistants) ;
+  sauvegarde `/root/nginx-backups/nginx-20261122-163604.tar.gz`.
+- **En cours** : émission des 5 certificats staging (interrompue par une coupure réseau du poste vers le VPS/GitHub).
+
+## Reste à faire
+1. Certificats staging + recette complète (bureau/mobile) sur https://staging-*.rundinova.com.
+2. Production : stack `rundinova-studio` (19300), vhosts isoko/admin/espace + joker (accord), bascule Krumbz 19200 → 19300 (accord), sauvegardes R2 (bucket + jeton à créer par le propriétaire), surveillance.
+3. README + `docs/rapport-final.md`.
