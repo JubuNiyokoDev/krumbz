@@ -66,8 +66,8 @@ before(async () => {
   const rows = await db
     .insert(tenants)
     .values([
-      { slug: `esp-a-${suffix}`, name: "A", status: "active", template: "vitrine", theme, contact: contactA },
-      { slug: `esp-b-${suffix}`, name: "B", status: "active", template: "vitrine", theme, contact: contactB },
+      { slug: `esp-a-${suffix}`, name: "A", status: "active", template: "boutique", theme, contact: contactA },
+      { slug: `esp-b-${suffix}`, name: "B", status: "active", template: "boutique", theme, contact: contactB },
     ])
     .returning({ id: tenants.id });
   [A, B] = rows.map((r) => r.id);

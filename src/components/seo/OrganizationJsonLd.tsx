@@ -1,5 +1,5 @@
 import { isToComplete } from "@/lib/content";
-import { loadKrumbzContent } from "@/templates/krumbz/content";
+import { loadStorefrontContent } from "@/templates/boutique/content";
 import { absoluteUrl } from "@/lib/seo/site";
 import { JsonLd, SCHEMA_IDS } from "./JsonLd";
 
@@ -10,7 +10,7 @@ const known = (value: string | null | undefined): value is string => Boolean(val
  * Values still marked « À COMPLÉTER » are never output.
  */
 export async function OrganizationJsonLd({ locale }: { locale: string }) {
-  const c = await loadKrumbzContent(locale);
+  const c = await loadStorefrontContent(locale);
   const home = absoluteUrl("/");
   const sameAs = c.contact.socials.map((s) => s.url).filter(known);
   const address = {

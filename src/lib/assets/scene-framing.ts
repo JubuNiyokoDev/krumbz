@@ -289,13 +289,13 @@ const MOBILE_MARGIN = 2;
  * - `bandVw`: band height in vw (independent of the phone's aspect ratio),
  * - `focus`: the object-position that centres those boxes.
  */
-export function mobileFraming(f: SceneFraming): { bandVw: number; focus: string; keep: readonly [number, number] } {
+export function mobileFraming(f: SceneFraming, aspect: number = SCENE_ASPECT): { bandVw: number; focus: string; keep: readonly [number, number] } {
   const boxes = [...f.faces, f.sachet];
   const x0 = Math.max(0, Math.min(...boxes.map((b) => b[0])) - MOBILE_MARGIN);
   const x1 = Math.min(100, Math.max(...boxes.map((b) => b[2])) + MOBILE_MARGIN);
   const visible = (x1 - x0) / 100;
   // A band of width W and height H shows W / (H · aspect) of the image width.
-  const bandVw = 100 / (visible * SCENE_ASPECT);
+  const bandVw = 100 / (visible * aspect);
   const x = visible >= 1 ? 50 : x0 / (1 - visible);
   return { bandVw: Math.round(bandVw * 10) / 10, focus: `${Math.round(Math.min(100, x) * 10) / 10}% 50%`, keep: [x0, x1] };
 }

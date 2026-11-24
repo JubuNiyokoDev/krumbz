@@ -1,6 +1,6 @@
 "use client";
 
-import { isStageId, STAGE_ANCHOR_ATTR, STAGE_ATTR, STAGE_IDS, type StageId } from "@/lib/experience/stages";
+import { isStageId, STAGE_ANCHOR_ATTR, STAGE_ATTR, STAGE_POSE_ATTR, stageRank, type StageId } from "@/lib/experience/stages";
 
 /**
  * DOM side of the scroll ↔ 3D contract (see src/lib/experience/stages.ts).
@@ -8,23 +8,25 @@ import { isStageId, STAGE_ANCHOR_ATTR, STAGE_ATTR, STAGE_IDS, type StageId } fro
  */
 export interface AnchorEntry {
   id: StageId;
+  /** Composition name (poses.ts): `data-stage-pose`, or the id. */
+  pose: string;
   element: HTMLElement;
   /** The enclosing `[data-stage]` section, if any (scroll range of the stage). */
   section: HTMLElement | null;
 }
 
-/** Anchors in STAGE_IDS order (document order breaks ties). Hidden anchors are kept; size is checked per frame. */
+/** Anchors in journey order (intro, scenes, benefits, products, cta; document order breaks ties). Hidden anchors are kept; size is checked per frame. */
 export function scanAnchors(root: ParentNode = document): AnchorEntry[] {
   const entries: AnchorEntry[] = [];
   root.querySelectorAll<HTMLElement>(`[${STAGE_ANCHOR_ATTR}]`).forEach((element) => {
     const id = element.getAttribute(STAGE_ANCHOR_ATTR) ?? "";
     if (!isStageId(id)) return;
-    entries.push({ id, element, section: element.closest<HTMLElement>(`[${STAGE_ATTR}]`) });
+    const pose = element.getAttribute(STAGE_POSE_ATTR) || id;
+    entries.push({ id, pose, element, section: element.closest<HTMLElement>(`[${STAGE_ATTR}]`) });
   });
-  const order = (id: StageId) => STAGE_IDS.indexOf(id);
   return entries
     .map((entry, index) => ({ entry, index }))
-    .sort((a, b) => order(a.entry.id) - order(b.entry.id) || a.index - b.index)
+    .sort((a, b) => stageRank(a.entry.id) - stageRank(b.entry.id) || a.index - b.index)
     .map(({ entry }) => entry);
 }
 
@@ -40,7 +42,7 @@ let teardown: (() => void) | null = null;
 
 function computeSignature() {
   return scanAnchors()
-    .map((a) => a.id)
+    .map((a) => `${a.id}:${a.pose}`)
     .join("|");
 }
 
@@ -79,7 +81,7 @@ function start() {
       }
     }
   });
-  observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: [STAGE_ANCHOR_ATTR] });
+  observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: [STAGE_ANCHOR_ATTR, STAGE_POSE_ATTR] });
   window.addEventListener(PAGE_CHANGE_EVENT, onPageChange);
   window.addEventListener("popstate", schedule);
   refresh();

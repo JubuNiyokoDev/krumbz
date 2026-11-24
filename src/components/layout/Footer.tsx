@@ -1,7 +1,7 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { isToComplete } from "@/lib/content";
-import { loadKrumbzContent } from "@/templates/krumbz/content";
+import { loadStorefrontContent } from "@/templates/boutique/content";
 import { MushroomIcon } from "@/components/ui/Icons";
 import { whatsappUrl } from "@/lib/order/whatsapp";
 import { ArrowUpIcon, MailIcon, PhoneIcon, SocialIcon, WhatsAppIcon } from "@/components/ui/Icons";
@@ -13,7 +13,7 @@ const currentYear = () => new Date().getFullYear();
 
 export async function Footer() {
   const locale = await getLocale();
-  const c = await loadKrumbzContent(locale);
+  const c = await loadStorefrontContent(locale);
   const t = await getTranslations("common");
   const socials = c.contact.socials.filter((s) => s.url);
   const year = currentYear();

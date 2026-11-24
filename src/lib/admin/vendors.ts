@@ -28,7 +28,7 @@ export class VendorError extends Error {
 export interface CreateVendorInput {
   name: string;
   slug: string;
-  template: "vitrine";
+  template: "boutique";
   locales: PlatformLocale[];
   theme: TenantTheme;
   content: Record<string, unknown>;

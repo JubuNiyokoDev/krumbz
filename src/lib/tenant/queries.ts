@@ -55,11 +55,9 @@ export async function findStorefront(db: Db, slug: string, locale: string): Prom
   return { tenant, products: rows.map((row) => toProduct(row, images)), locale };
 }
 
-/** Slugs (and locales) of the storefronts of a template, for generateStaticParams. Paused shops excluded. */
-export async function listStorefronts(db: Db, template: TemplateId): Promise<{ slug: string; locales: PlatformLocale[] }[]> {
-  const rows = await db
-    .select({ slug: tenants.slug, locales: tenants.locales, status: tenants.status })
-    .from(tenants)
-    .where(eq(tenants.template, template));
+/** Slugs (and locales) of the storefronts (all templates, or one), for generateStaticParams. Paused shops excluded. */
+export async function listStorefronts(db: Db, template?: TemplateId): Promise<{ slug: string; locales: PlatformLocale[] }[]> {
+  const query = db.select({ slug: tenants.slug, locales: tenants.locales, status: tenants.status }).from(tenants);
+  const rows = template ? await query.where(eq(tenants.template, template)) : await query;
   return rows.filter((row) => row.status !== "paused").map(({ slug, locales }) => ({ slug, locales }));
 }

@@ -38,13 +38,13 @@ export const getStorefrontData = cache(
  * [] without a database (e.g. Docker build): pages are then rendered on first
  * visit and cached.
  */
-export async function listStorefrontParams(template: TemplateId): Promise<{ tenant: string; locale: string }[]> {
+export async function listStorefrontParams(template?: TemplateId): Promise<{ tenant: string; locale: string }[]> {
   if (!hasDatabase()) return [];
   try {
     const shops = await listStorefronts(getDb(), template);
     return shops.flatMap((shop) => shop.locales.map((locale) => ({ tenant: shop.slug, locale })));
   } catch (error) {
-    console.warn(`[storefront] no static params for ${template}: ${(error as Error).message}`);
+    console.warn(`[storefront] no static params${template ? ` for ${template}` : ""}: ${(error as Error).message}`);
     return [];
   }
 }

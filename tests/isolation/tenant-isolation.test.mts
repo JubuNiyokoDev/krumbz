@@ -37,8 +37,8 @@ before(async () => {
   const rows = await db
     .insert(tenants)
     .values([
-      { slug: `iso-a-${suffix}`, name: "A", status: "active", template: "vitrine", theme, contact },
-      { slug: `iso-b-${suffix}`, name: "B", status: "active", template: "vitrine", theme, contact },
+      { slug: `iso-a-${suffix}`, name: "A", status: "active", template: "boutique", theme, contact },
+      { slug: `iso-b-${suffix}`, name: "B", status: "active", template: "boutique", theme, contact },
     ])
     .returning({ id: tenants.id });
   [A, B] = rows.map((r) => r.id);
@@ -100,7 +100,7 @@ describe("forTenant(A) never modifies B", () => {
     const updated = await forTenant(A).tenant.update(patch);
     assert.equal(updated?.name, "A2");
     assert.equal(updated?.status, "active");
-    assert.equal(updated?.template, "vitrine");
+    assert.equal(updated?.template, "boutique");
     assert.equal(updated?.slug, `iso-a-${suffix}`);
   });
 

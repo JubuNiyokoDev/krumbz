@@ -67,7 +67,7 @@ export async function createVendorAction(_state: ActionState | null, form: FormD
       {
         name,
         slug,
-        template: "vitrine",
+        template: "boutique",
         locales,
         theme: DEFAULT_THEME,
         content: starterContent(name),

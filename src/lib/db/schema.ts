@@ -56,7 +56,7 @@ export const tenants = pgTable(
     slug: text("slug").notNull(),
     name: text("name").notNull(),
     status: tenantStatus("status").notNull().default("trial"),
-    template: text("template").$type<TemplateId>().notNull().default("vitrine"),
+    template: text("template").$type<TemplateId>().notNull().default("boutique"),
     /** First = default locale. */
     locales: text("locales").array().$type<PlatformLocale[]>().notNull().default(sql`ARRAY['fr']::text[]`),
     theme: jsonb("theme").$type<TenantTheme>().notNull(),
@@ -70,7 +70,7 @@ export const tenants = pgTable(
   (t) => [
     uniqueIndex("tenants_slug_key").on(t.slug),
     check("tenants_slug_format", sql`${t.slug} ~ '^[a-z0-9][a-z0-9-]{1,30}[a-z0-9]$'`),
-    check("tenants_template_known", sql`${t.template} in ('krumbz', 'vitrine')`),
+    check("tenants_template_known", sql`${t.template} in ('krumbz', 'boutique')`),
   ],
 );
 

@@ -4,7 +4,7 @@ import { scallopPath } from "./Biscuit";
 /**
  * 404 illustration: a biscuit shakes, cracks and crumbles into pieces that
  * fall and scatter (pure CSS/SVG, no WebGL, no JS). With reduced motion the
- * final crumbled state is shown directly (see .crumble-* in krumbz.css).
+ * final crumbled state is shown directly (see .crumble-* in storefront.css).
  */
 const CX = 100;
 const CY = 100;

@@ -43,7 +43,7 @@ test.beforeAll(async () => {
       slug: vendorSlug,
       name: `Boutique ${suffix}`,
       status: "active",
-      template: "vitrine",
+      template: "boutique",
       locales: ["fr"],
       theme: DEFAULT_THEME,
       contact,

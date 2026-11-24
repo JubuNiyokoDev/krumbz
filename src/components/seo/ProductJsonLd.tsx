@@ -1,5 +1,5 @@
 import { isToComplete, type ProductContent } from "@/lib/content";
-import { loadKrumbzContent } from "@/templates/krumbz/content";
+import { loadStorefrontContent } from "@/templates/boutique/content";
 import { absoluteUrl, localizedPath } from "@/lib/seo/site";
 import { resolveImage } from "@/lib/assets/server";
 import { LOCALE_LABELS, type Locale } from "@/i18n/config";
@@ -18,7 +18,7 @@ const known = (value: unknown): value is string => typeof value === "string" && 
  * - Values still marked « À COMPLÉTER » are omitted, never output as data.
  */
 export async function ProductJsonLd({ locale }: { locale: string }) {
-  const c = await loadKrumbzContent(locale);
+  const c = await loadStorefrontContent(locale);
   const home = absoluteUrl("/");
   const lang = locale in LOCALE_LABELS ? LOCALE_LABELS[locale].htmlLang : locale;
   const pageUrl = absoluteUrl(localizedPath(locale as Locale, "/produits"));

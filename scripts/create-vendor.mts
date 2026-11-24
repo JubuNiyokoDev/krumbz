@@ -4,7 +4,7 @@
  *
  *   npm run vendor:create -- <slug> "<Nom de la boutique>" <identifiant> <whatsapp> ["<Nom du vendeur>"] [jours-d-essai]
  *
- * The tenant uses the generic « vitrine » template, the French locale and the default
+ * The tenant uses the single storefront template (« boutique »), the French locale and the default
  * feature set. A 14-day trial subscription is created. The temporary password is printed
  * ONCE with a prefilled WhatsApp link and must be changed at first login.
  * Rejects an existing slug or identifier; never modifies an existing account.
@@ -52,7 +52,7 @@ try {
     if (existing) throw new Error(`L'identifiant « ${identifier} » existe déjà.`);
     const [tenant] = await tx
       .insert(tenants)
-      .values({ slug, name: name.trim(), status: "trial", template: "vitrine", locales: ["fr"], theme, contact, content, scenes: [] })
+      .values({ slug, name: name.trim(), status: "trial", template: "boutique", locales: ["fr"], theme, contact, content, scenes: [] })
       .returning({ id: tenants.id });
     await tx.insert(tenantFeatures).values(FEATURE_KEYS.map((key) => ({ tenantId: tenant.id, key, enabled: ["threeD", "advancedAnimations", "languages", "stats"].includes(key) })));
     await tx.insert(subscriptions).values({

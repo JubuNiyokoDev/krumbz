@@ -51,8 +51,8 @@ before(async () => {
   const rows = await db
     .insert(tenants)
     .values([
-      { slug: slugA, name: "Boutique A", status: "active", template: "vitrine", theme: DEFAULT_THEME, contact, content: starterContent("A"), scenes: [] },
-      { slug: slugB, name: "Boutique B", status: "active", template: "vitrine", theme: DEFAULT_THEME, contact, content: starterContent("B"), scenes: [] },
+      { slug: slugA, name: "Boutique A", status: "active", template: "boutique", theme: DEFAULT_THEME, contact, content: starterContent("A"), scenes: [] },
+      { slug: slugB, name: "Boutique B", status: "active", template: "boutique", theme: DEFAULT_THEME, contact, content: starterContent("B"), scenes: [] },
     ])
     .returning({ id: tenants.id });
   [A, B] = rows.map((r) => r.id);
@@ -91,7 +91,7 @@ describe("création d'une boutique", () => {
       {
         name: "Boutique C",
         slug: `admin-c-${suffix}`,
-        template: "vitrine",
+        template: "boutique",
         locales: ["fr", "rn"],
         theme: DEFAULT_THEME,
         content: starterContent("C"),
@@ -131,7 +131,7 @@ describe("création d'une boutique", () => {
     const input = {
       name: "Intrus",
       slug: slugA,
-      template: "vitrine" as const,
+      template: "boutique" as const,
       locales: ["fr" as const],
       theme: DEFAULT_THEME,
       content: starterContent("Intrus"),

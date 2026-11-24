@@ -2,7 +2,6 @@ import { NextResponse, type NextRequest } from "next/server";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 import { espaceRouting, marketingRouting } from "./i18n/platform";
-import { vitrineRouting } from "./i18n/vitrine-routing";
 import { DEV_TENANT_COOKIE, DEV_TENANT_PARAM, isValidTenantSlug, normalizeHost, resolveHost } from "./lib/tenant/hosts";
 import { requestHostHeader } from "./lib/tenant/request-host";
 import { lookupTenantRoute } from "./lib/tenant/route-cache";
@@ -11,7 +10,7 @@ import { lookupTenantRoute } from "./lib/tenant/route-cache";
  * Multi-tenant routing (docs/plan.md §2–3). Public URLs never change; the host
  * selects an internal route tree:
  *
- *   <slug>.rundinova.com/<path>  → /tpl/<template>/<slug>/<locale>/<path>   (next-intl pathnames: /en/products …)
+ *   <slug>.rundinova.com/<path>  → /tpl/boutique/<slug>/<locale>/<path>     (next-intl pathnames: /en/products …)
  *                                → /paused/<slug>/<locale>                   (status "paused")
  *   isoko.rundinova.com/<path>   → /marketing/<locale>/<path>
  *   espace.rundinova.com/<path>  → /espace/<locale>/<path>
@@ -24,7 +23,6 @@ import { lookupTenantRoute } from "./lib/tenant/route-cache";
  * The slug → template/status lookup is cached in memory (src/lib/tenant/route-cache.ts).
  */
 const storefrontI18n = createMiddleware(routing);
-const vitrineI18n = createMiddleware(vitrineRouting);
 const marketingI18n = createMiddleware(marketingRouting);
 const espaceI18n = createMiddleware(espaceRouting);
 
@@ -96,10 +94,10 @@ export default async function proxy(request: NextRequest): Promise<NextResponse>
         const locale = (route.locales as string[]).includes(first) ? first : route.locales[0];
         response = rewrite(request, `/paused/${route.slug}/${locale}`);
       } else if (pathname === "/sitemap.xml") {
-        response = rewrite(request, `/tpl/${route.template}/${route.slug}/sitemap.xml`);
+        response = rewrite(request, `/tpl/boutique/${route.slug}/sitemap.xml`);
       } else {
-        const i18n = route.template === "vitrine" ? vitrineI18n : storefrontI18n;
-        response = withPrefix(i18n(request), request, `/tpl/${route.template}/${route.slug}`);
+        // One template for every shop (Krumbz included): only the data changes.
+        response = withPrefix(storefrontI18n(request), request, `/tpl/boutique/${route.slug}`);
       }
       break;
     }

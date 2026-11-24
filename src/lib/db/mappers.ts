@@ -1,6 +1,6 @@
 /** DB rows ↔ shared contract types (src/lib/tenant/types.ts). Pure functions. */
 import type { ProductImageRow, ProductRow, TenantRow } from "./schema.ts";
-import type { FeatureKey, Product, Tenant, TenantFeatures } from "../tenant/types.ts";
+import type { FeatureKey, Product, SceneFramingData, Tenant, TenantFeatures, TenantScene } from "../tenant/types.ts";
 
 export const FEATURE_KEYS: FeatureKey[] = ["threeD", "advancedAnimations", "languages", "stats"];
 
@@ -22,7 +22,34 @@ export function toTenant(row: TenantRow, features: TenantFeatures): Tenant {
     contact: row.contact,
     features,
     content: row.content,
-    scenes: row.scenes,
+    scenes: (row.scenes ?? []).map(normalizeScene),
+  };
+}
+
+/** Neutral framing of a scene without measured boxes: people on the left, free side on the right. */
+export const DEFAULT_SCENE_FRAMING: SceneFramingData = {
+  freeSide: "right",
+  faces: [[10, 10, 50, 55]],
+  sachet: [20, 55, 45, 90],
+  wide: "0% 45%",
+  copy: { width: 30 },
+  anchor: { cx: 84, cy: 70, size: 28 },
+};
+
+/** Accepts the legacy scene rows ({ imageUrl, … }, before the single template) and fills the missing fields. */
+export function normalizeScene(raw: TenantScene): TenantScene {
+  const legacy = raw as TenantScene & { imageUrl?: string };
+  const image = raw.image ?? { landscape: legacy.imageUrl ?? "", portrait: null, fallback: null };
+  return {
+    id: raw.id,
+    image: { landscape: image.landscape ?? "", portrait: image.portrait ?? null, fallback: image.fallback ?? null },
+    ...(raw.aspect ? { aspect: raw.aspect } : {}),
+    label: raw.label ?? { fr: "" },
+    title: raw.title ?? { fr: "" },
+    text: raw.text ?? { fr: "" },
+    alt: raw.alt ?? { fr: "" },
+    framing: raw.framing ?? DEFAULT_SCENE_FRAMING,
+    pose: raw.pose ?? null,
   };
 }
 

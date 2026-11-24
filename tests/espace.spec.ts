@@ -37,7 +37,7 @@ test.beforeAll(async () => {
   await db.delete(tenants).where(eq(tenants.slug, slug));
   const [tenant] = await db
     .insert(tenants)
-    .values({ slug, name: shopName, status: "active", template: "vitrine", locales: ["fr"], theme, contact, content: {} })
+    .values({ slug, name: shopName, status: "active", template: "boutique", locales: ["fr"], theme, contact, content: {} })
     .returning({ id: tenants.id });
   tenantId = tenant.id;
   await db.insert(tenantFeatures).values(FEATURE_KEYS.map((key) => ({ tenantId, key, enabled: true })));
