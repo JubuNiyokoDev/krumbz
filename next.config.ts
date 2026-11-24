@@ -21,7 +21,12 @@ const nextConfig: NextConfig = {
     imageSizes: [64, 128, 256, 384],
     // Brand images keep their file name when replaced: keep the optimizer cache short.
     minimumCacheTTL: 60 * 60 * 24,
-    localPatterns: [{ pathname: "/images/**", search: "" }],
+    // Brand images, demo assets and uploads of the shops (src/app/uploads).
+    localPatterns: [
+      { pathname: "/images/**", search: "" },
+      { pathname: "/demo/**", search: "" },
+      { pathname: "/uploads/**", search: "" },
+    ],
   },
   experimental: {
     globalNotFound: true,

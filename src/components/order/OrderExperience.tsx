@@ -8,8 +8,8 @@ import { useCart } from "@/store/cart";
 import { PAYMENT_METHOD_IDS, PAYMENT_PROVIDERS, type PaymentMethodId } from "@/lib/order/payment";
 import type { CustomerInfo, OrderDraft, OrderErrors } from "@/lib/order/types";
 import { buildOrderMessage, validateOrder, whatsappUrl, type WhatsAppTemplate } from "@/lib/order/whatsapp";
-import { PackIllustration } from "@/components/ui/PackIllustration";
-import { Biscuit } from "@/components/ui/Biscuit";
+import { ProductVisual } from "@/components/ui/ProductVisual";
+import { BrandMark } from "@/components/ui/BrandMark";
 import { TextWithToComplete } from "@/components/ui/ToComplete";
 import { ArrowRightIcon, CheckIcon, WhatsAppIcon } from "@/components/ui/Icons";
 import { AddToCartButton } from "./AddToCartButton";
@@ -214,7 +214,7 @@ export function OrderExperience() {
               <li key={product.id} className="group flex flex-col gap-4 rounded-[2rem] bg-cream-deep/60 p-5 ring-1 ring-navy/10 transition-shadow duration-500 hover:shadow-lift sm:p-6">
                 <div className="flex items-center gap-4">
                   <div className="grid h-24 w-24 shrink-0 place-items-center rounded-2xl bg-cream">
-                    <PackIllustration model={product.model} brand="Krumbz" tagline="" className="h-20 w-20 transition-transform duration-700 ease-out-back group-hover:-rotate-6 group-hover:scale-110" />
+                    <ProductVisual model={product.model} image={product.image} brand="Krumbz" tagline="" className="h-20 w-20 transition-transform duration-700 ease-out-back group-hover:-rotate-6 group-hover:scale-110" />
                   </div>
                   <div className="min-w-0">
                     <h3 className="font-display text-2xl font-bold leading-tight">{product.name}</h3>
@@ -261,7 +261,7 @@ export function OrderExperience() {
             </p>
           ) : lines.length === 0 ? (
             <div className="flex flex-col items-center gap-3 py-8 text-center">
-              <Biscuit className="h-20 w-20 animate-crumb-float" />
+              <BrandMark className="h-20 w-20 animate-crumb-float" />
               <p className="font-display text-xl font-semibold">{t("cartEmpty")}</p>
               <p className="text-cream/80">{t("cartEmptyCta")}</p>
             </div>

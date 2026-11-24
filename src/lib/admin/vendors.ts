@@ -10,10 +10,11 @@ import { payments, subscriptions, tenantCertificates, tenantFeatures, tenants, u
 import { getCertificateStatus, recordCertificateStatus, requestCertificate, type CertificateState } from "../tenant/certs.ts";
 import { rootDomain } from "../tenant/hosts.ts";
 import { invalidateTenantRoute } from "../tenant/route-cache.ts";
-import type { FeatureKey, PlatformLocale, Tenant, TenantContact, TenantFeatures, TenantStatus, TenantTheme } from "../tenant/types.ts";
+import type { FeatureKey, PlatformLocale, Tenant, TenantContact, TenantFeatures, TenantScene, TenantStatus, TenantTheme } from "../tenant/types.ts";
 import { AccountError, credentialsMessage, insertVendorUser, whatsappLink } from "./accounts.ts";
 import { audit } from "./audit.ts";
 import { slugProblem } from "./validation.ts";
+import { starterScenes } from "./scenes.ts";
 
 export class VendorError extends Error {
   code: "slug_invalid" | "slug_taken" | "identifier_taken" | "not_found";
@@ -32,6 +33,8 @@ export interface CreateVendorInput {
   locales: PlatformLocale[];
   theme: TenantTheme;
   content: Record<string, unknown>;
+  /** Life-moment scenes (≥ MIN_SCENES; default: starterScenes(slug)). */
+  scenes?: TenantScene[];
   contact: TenantContact;
   features: TenantFeatures;
   account: { identifier: string; name: string };
@@ -96,7 +99,7 @@ export async function createVendor(db: Db, input: CreateVendorInput, ctx: { acto
           theme: input.theme,
           contact: input.contact,
           content: input.content,
-          scenes: [],
+          scenes: input.scenes ?? starterScenes(input.slug),
         })
         .returning({ id: tenants.id });
       await tx.insert(tenantFeatures).values(FEATURE_KEYS.map((key) => ({ tenantId: tenant.id, key, enabled: Boolean(input.features[key]) })));

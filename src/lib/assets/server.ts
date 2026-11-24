@@ -17,9 +17,18 @@ export interface ResolvedImage {
 const PUBLIC_DIR = path.join(process.cwd(), "public");
 const cache = new Map<string, { mtime: number; value: ResolvedImage }>();
 
+const UPLOADS_DIR = path.resolve(process.env.UPLOADS_DIR ?? path.join(process.cwd(), ".data", "uploads"));
+
+/** Absolute file of a public path (/images/…) or of an uploaded file (/uploads/…). */
+function absolutePath(publicPath: string): string {
+  const clean = decodeURIComponent(publicPath.split(/[?#]/)[0]);
+  if (clean.includes("..")) return path.join(PUBLIC_DIR, "__invalid__");
+  return clean.startsWith("/uploads/") ? path.join(UPLOADS_DIR, clean.slice("/uploads/".length)) : path.join(PUBLIC_DIR, clean);
+}
+
 function fileStat(publicPath: string) {
   try {
-    const stat = fs.statSync(path.join(PUBLIC_DIR, publicPath));
+    const stat = fs.statSync(absolutePath(publicPath));
     return stat.isFile() && stat.size > 0 ? stat : null;
   } catch {
     return null;
@@ -38,7 +47,7 @@ export async function resolveImage(publicPath: string, fallback = { width: 1600,
   const hit = cache.get(publicPath);
   if (hit && hit.mtime === stat.mtimeMs) return hit.value;
 
-  const abs = path.join(PUBLIC_DIR, publicPath);
+  const abs = absolutePath(publicPath);
   let value: ResolvedImage;
   try {
     const image = sharp(abs);

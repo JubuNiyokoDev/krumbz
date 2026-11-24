@@ -5,7 +5,7 @@ import { loadStorefrontContent } from "@/templates/boutique/content";
 import { pageMetadata } from "@/lib/seo/site";
 import { resolveImage } from "@/lib/assets/server";
 import { BrandImage } from "@/components/ui/BrandImage";
-import { Biscuit } from "@/components/ui/Biscuit";
+import { BrandMark } from "@/components/ui/BrandMark";
 import { Crumbs } from "@/components/ui/Crumbs";
 import { TextWithToComplete } from "@/components/ui/ToComplete";
 import { PageHero } from "@/components/sections/common/PageHero";
@@ -45,7 +45,7 @@ export default async function StoryPage({ params }: PageProps<"/tpl/boutique/[te
         aside={
           <div aria-hidden className="relative mx-auto hidden aspect-square w-full max-w-md lg:block">
             <div className="blob blob-spin absolute inset-0 bg-gold-light/70" />
-            <Biscuit className="absolute inset-[14%] animate-crumb-float drop-shadow-[0_30px_40px_rgb(164_80_26/0.35)]" />
+            <BrandMark className="absolute inset-[14%] animate-crumb-float drop-shadow-[0_30px_40px_rgb(164_80_26/0.35)]" />
           </div>
         }
       />
@@ -59,7 +59,7 @@ export default async function StoryPage({ params }: PageProps<"/tpl/boutique/[te
               <section key={chapter.id} aria-labelledby={`chapter-${chapter.id}`} className="px-4 py-16 sm:px-6 lg:px-10 lg:py-24">
                 <div className="grain relative mx-auto max-w-[88rem] overflow-hidden rounded-[2.5rem] bg-navy px-6 py-16 text-center text-cream sm:px-12 lg:py-28">
                   <Crumbs className="opacity-70" />
-                  <Biscuit className="mx-auto mb-8 h-24 w-24 animate-crumb-float" />
+                  <BrandMark className="mx-auto mb-8 h-24 w-24 animate-crumb-float" />
                   <p className="font-display text-sm font-semibold tracking-[0.14em] text-gold-light" aria-hidden>
                     {pad(i + 1)} / {pad(s.chapters.length)}
                   </p>

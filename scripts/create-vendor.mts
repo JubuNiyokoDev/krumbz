@@ -17,6 +17,9 @@ import { generateTemporaryPassword, hashPassword } from "../src/lib/db/users.ts"
 import { canonicalIdentifier, normalizePhone } from "../src/lib/espace/validation.ts";
 import { isValidTenantSlug, rootDomain } from "../src/lib/tenant/hosts.ts";
 import type { TenantContact, TenantTheme } from "../src/lib/tenant/types.ts";
+import { starterContent } from "../src/lib/admin/content.ts";
+import { starterScenes } from "../src/lib/admin/scenes.ts";
+import { DEFAULT_THEME } from "../src/lib/admin/theme.ts";
 
 const usage = 'Usage : npm run vendor:create -- <slug> "<Nom>" <identifiant> <whatsapp> ["<Nom vendeur>"] [jours]';
 const [rawSlug, name, rawIdentifier, rawWhatsapp, ownerName = "Vendeur", rawDays = "14"] = process.argv.slice(2);
@@ -29,18 +32,11 @@ if (!slug || !isValidTenantSlug(slug) || !name?.trim() || !identifier || !whatsa
   process.exit(1);
 }
 
-const theme: TenantTheme = {
-  colors: { background: "#ffffff", surface: "#f7f5f2", primary: "#1d3f6e", accent: "#d97706", text: "#1c1b1a", muted: "#5b5955" },
-  fonts: { display: "Fredoka", body: "Nunito" },
-  radius: "soft",
-  logoUrl: null,
-};
+const theme: TenantTheme = DEFAULT_THEME;
 const contact: TenantContact = { whatsapp, phones: [], email: null, address: null, city: null, hours: null, mapUrl: null, socials: [] };
-const content = {
-  tagline: { fr: "Bienvenue dans ma boutique" },
-  "hero.title": { fr: name.trim() },
-  "hero.cta": { fr: "Commander sur WhatsApp" },
-};
+// Complete neutral starter (template schema) + the minimum number of scenes; replaced from the super-admin.
+const content = starterContent(name.trim());
+const scenes = starterScenes(slug);
 
 const db = getDb();
 try {
@@ -52,7 +48,7 @@ try {
     if (existing) throw new Error(`L'identifiant « ${identifier} » existe déjà.`);
     const [tenant] = await tx
       .insert(tenants)
-      .values({ slug, name: name.trim(), status: "trial", template: "boutique", locales: ["fr"], theme, contact, content, scenes: [] })
+      .values({ slug, name: name.trim(), status: "trial", template: "boutique", locales: ["fr"], theme, contact, content, scenes })
       .returning({ id: tenants.id });
     await tx.insert(tenantFeatures).values(FEATURE_KEYS.map((key) => ({ tenantId: tenant.id, key, enabled: ["threeD", "advancedAnimations", "languages", "stats"].includes(key) })));
     await tx.insert(subscriptions).values({

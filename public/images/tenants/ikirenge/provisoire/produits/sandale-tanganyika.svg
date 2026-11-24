@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="80 60 840 840" width="1200" height="1200" role="img" aria-label="Sandale Tanganyika, profil">
+<defs>
+  <radialGradient id="sh"><stop offset="0" stop-color="#000" stop-opacity="0.28"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+  <linearGradient id="up" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b06a3b"/><stop offset="1" stop-color="#7a4423"/></linearGradient>
+  <linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.45"/><stop offset="0.5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+</defs>
+<g transform=" rotate(0 510 560)">
+  <path d="M150 600 Q150 570 200 566 L800 560 Q870 562 878 590 L876 612 Q870 632 840 632 L180 634 Q150 632 150 610 Z" fill="#d9b382"/>
+  <path d="M152 604 Q500 592 876 598" stroke="#6b3e1f" stroke-width="10" fill="none"/>
+  <path d="M290 566 Q340 452 430 566" stroke="url(#up)" stroke-width="44" fill="none" stroke-linecap="round"/>
+  <path d="M552 562 Q620 430 712 560" stroke="url(#up)" stroke-width="44" fill="none" stroke-linecap="round"/>
+  <path d="M190 566 Q196 492 262 510" stroke="#7a4423" stroke-width="26" fill="none" stroke-linecap="round"/>
+  <circle cx="262" cy="512" r="14" fill="#e4572e"/></g>
+</svg>

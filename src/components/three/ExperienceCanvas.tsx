@@ -6,13 +6,17 @@ import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { NeutralToneMapping } from "three";
 import type { TextureMap } from "@/lib/assets/registry";
+import { KRUMBZ_KIT, type StorefrontKit } from "@/lib/storefront/kit";
 import { qualityFor } from "@/lib/three/assets";
+import { createGenericJourneyAssets } from "@/lib/three/generic";
 import { installThreeConsoleFilter } from "@/lib/three/console";
 import { useGlArbiter } from "@/lib/three/glArbiter";
 import type { BrandTexts } from "@/lib/three/labels";
 import { useExperience } from "@/store/experience";
 import { Journey } from "./Journey";
 import { StudioLights } from "./models";
+import { BISCUIT_COUNT } from "./poses";
+import { useGenericAssets } from "./useGenericAssets";
 import { useProductAssets } from "./useProductAssets";
 
 installThreeConsoleFilter();
@@ -23,6 +27,8 @@ export interface ExperienceCanvasProps {
   active: boolean;
   /** Anchor set version (see src/lib/three/anchors.ts). */
   version: number;
+  /** Shop kit (src/lib/storefront/kit.tsx): Krumbz = bespoke procedural products. */
+  kit?: StorefrontKit;
 }
 
 function useBrandTexts(): BrandTexts {
@@ -37,6 +43,33 @@ function useBrandTexts(): BrandTexts {
       promise: t("promise"),
     }),
     [t],
+  );
+}
+
+/** Any other shop: its products (glTF / photo cards) on the same journey. */
+function GenericScene({ kit, active, version }: { kit: StorefrontKit; active: boolean; version: number }) {
+  const setLoadProgress = useExperience((s) => s.setLoadProgress);
+  const setReady = useExperience((s) => s.setReady);
+  const setFailed = useExperience((s) => s.setFailed);
+  const generic = useGenericAssets({
+    products: kit.products,
+    create: (options) => createGenericJourneyAssets({ ...options, biscuitCount: BISCUIT_COUNT }),
+    onProgress: (value) => setLoadProgress(Math.round(8 + value * 84)),
+    onError: (error) => {
+      console.error("[3d] chargement impossible", error);
+      setFailed(true);
+    },
+  });
+  const onFirstFrame = useCallback(() => {
+    setLoadProgress(100);
+    setReady(true);
+  }, [setLoadProgress, setReady]);
+
+  return (
+    <>
+      <StudioLights />
+      {generic ? <Journey generic={generic} version={version} active={active} onFirstFrame={onFirstFrame} /> : null}
+    </>
   );
 }
 
@@ -72,7 +105,7 @@ function Scene({ textures, active, version, brand }: ExperienceCanvasProps & { b
  * The fixed, full-screen WebGL layer of the home journey. Loaded lazily by
  * ExperienceLayer (separate chunk: three, R3F, drei, GSAP live here only).
  */
-export default function ExperienceCanvas({ textures, active, version }: ExperienceCanvasProps) {
+export default function ExperienceCanvas({ textures, active, version, kit = KRUMBZ_KIT }: ExperienceCanvasProps) {
   const capabilities = useExperience((s) => s.capabilities);
   const setFailed = useExperience((s) => s.setFailed);
   const setReady = useExperience((s) => s.setReady);
@@ -130,7 +163,11 @@ export default function ExperienceCanvas({ textures, active, version }: Experien
           onChange={({ factor }) => setDpr(Math.max(1, Math.round((1 + factor * (maxDpr - 1)) * 4) / 4))}
           onFallback={() => setDpr(1)}
         />
-        <Scene textures={textures} active={active} version={version} brand={brand} />
+        {kit.bespoke ? (
+          <Scene textures={textures} active={active} version={version} brand={brand} />
+        ) : (
+          <GenericScene kit={kit} active={active} version={version} />
+        )}
       </Canvas>
     </div>
   );

@@ -2,7 +2,7 @@
  * Vendor theme rules of the super-admin: curated Google Fonts, colour contrast (WCAG 2.x), defaults.
  * Pure: shared by Server Actions and the client editors (live warnings).
  */
-import type { TenantTheme } from "../tenant/types.ts";
+import { PALETTE_KEYS, type PaletteKey, type TenantPalette, type TenantTheme } from "../tenant/types.ts";
 
 /** Curated Google Fonts families (titles). Loaded by the storefront template, never by the admin. */
 export const DISPLAY_FONTS = [
@@ -40,10 +40,26 @@ export const COLOR_FIELDS: { key: keyof TenantTheme["colors"]; label: string }[]
   { key: "muted", label: "Texte secondaire" },
 ];
 
+/** Storefront colour tokens (TenantTheme.palette); empty = derived from the base colours. */
+export const PALETTE_FIELDS: { key: PaletteKey; label: string }[] = [
+  { key: "cream", label: "Fond de page (cream)" },
+  { key: "creamDeep", label: "Bandes alternées (cream-deep)" },
+  { key: "gold", label: "Accent (gold)" },
+  { key: "goldLight", label: "Accent clair (gold-light)" },
+  { key: "goldDark", label: "Accent foncé (gold-dark)" },
+  { key: "rust", label: "Secondaire chaud — surtitres, liens (rust)" },
+  { key: "rustBright", label: "Secondaire vif — focus (rust-bright)" },
+  { key: "navy", label: "Couleur sombre — texte, boutons, sections foncées (navy)" },
+  { key: "navySoft", label: "Sombre adouci (navy-soft)" },
+  { key: "ink", label: "Texte le plus foncé (ink)" },
+  { key: "whatsapp", label: "Boutons WhatsApp" },
+];
+
+/** Default look of a new shop: the Krumbz fonts, neutral colours (palette derived). */
 export const DEFAULT_THEME: TenantTheme = {
   colors: { background: "#faf7f2", surface: "#ffffff", primary: "#1f3a5f", accent: "#d9822b", text: "#1b1b1f", muted: "#5b5f6a" },
-  fonts: { display: "Fraunces", body: "Inter" },
-  radius: "soft",
+  fonts: { display: "Fredoka", body: "Nunito" },
+  radius: "round",
   logoUrl: null,
 };
 
@@ -84,10 +100,38 @@ export function contrastWarnings(colors: TenantTheme["colors"]): string[] {
   return warnings;
 }
 
-export type ThemeInput = { colors: Record<string, string>; display: string; body: string; radius: string };
+export type ThemeInput = {
+  colors: Record<string, string>;
+  /** Optional storefront tokens: empty string = derived. */
+  palette?: Record<string, string>;
+  display: string;
+  body: string;
+  radius: string;
+};
 
-/** Validates the editable part of a theme (the logo is handled separately). */
-export function validateTheme(input: ThemeInput, logoUrl: string | null): { theme: TenantTheme; errors: string[] } {
+/** Validates the optional palette tokens: hex or empty (derived). */
+export function validatePalette(input: Record<string, string> | undefined): { palette: Partial<TenantPalette>; errors: string[] } {
+  const palette: Partial<TenantPalette> = {};
+  const errors: string[] = [];
+  for (const key of PALETTE_KEYS) {
+    const value = (input?.[key] ?? "").trim().toLowerCase();
+    if (!value) continue;
+    if (!isHexColor(value)) {
+      const label = PALETTE_FIELDS.find((f) => f.key === key)?.label ?? key;
+      errors.push(`Couleur « ${label} » invalide (format #rrggbb, ou vide pour la valeur calculée).`);
+      continue;
+    }
+    palette[key] = value;
+  }
+  return { palette, errors };
+}
+
+/** Validates the editable part of a theme (the logo and the icon are handled separately). */
+export function validateTheme(
+  input: ThemeInput,
+  logoUrl: string | null,
+  iconUrl: string | null = null,
+): { theme: TenantTheme; errors: string[] } {
   const errors: string[] = [];
   const colors = {} as TenantTheme["colors"];
   for (const { key, label } of COLOR_FIELDS) {
@@ -95,12 +139,21 @@ export function validateTheme(input: ThemeInput, logoUrl: string | null): { them
     if (!isHexColor(value)) errors.push(`Couleur « ${label} » invalide (format #rrggbb).`);
     colors[key] = isHexColor(value) ? value : DEFAULT_THEME.colors[key];
   }
+  const palette = validatePalette(input.palette);
+  errors.push(...palette.errors);
   if (!(DISPLAY_FONTS as readonly string[]).includes(input.display)) errors.push("Police des titres inconnue.");
   if (!(BODY_FONTS as readonly string[]).includes(input.body)) errors.push("Police du texte inconnue.");
   const radius = RADIUS_OPTIONS.some((o) => o.value === input.radius) ? (input.radius as TenantTheme["radius"]) : null;
   if (!radius) errors.push("Arrondi inconnu.");
   return {
-    theme: { colors, fonts: { display: input.display, body: input.body }, radius: radius ?? "soft", logoUrl },
+    theme: {
+      colors,
+      ...(Object.keys(palette.palette).length ? { palette: palette.palette } : {}),
+      fonts: { display: input.display, body: input.body },
+      radius: radius ?? "soft",
+      logoUrl,
+      ...(iconUrl ? { iconUrl } : {}),
+    },
     errors,
   };
 }

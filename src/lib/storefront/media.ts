@@ -9,6 +9,7 @@ import { scenePath, type SceneId } from "@/lib/assets/registry";
 import { SCENE_FRAMING, type SceneFraming } from "@/lib/assets/scene-framing";
 import { isBespoke, mediaExists } from "@/templates/boutique/content";
 import type { StorefrontData, TenantMedia } from "@/lib/tenant/types";
+import { KRUMBZ_KIT, type StorefrontKit } from "./kit-data";
 
 export interface StorefrontMedia {
   studio: string | null;
@@ -123,4 +124,22 @@ export function storefrontScenes(data: StorefrontData, content: SiteContent): St
       pose: scene.pose || POSE_CYCLE[i % POSE_CYCLE.length],
     };
   });
+}
+
+/** Client kit of a shop (src/lib/storefront/kit.tsx). */
+export function storefrontKit(data: StorefrontData, content: SiteContent, media: StorefrontMedia): StorefrontKit {
+  const bespoke = isBespoke(data.tenant);
+  if (bespoke) return { ...KRUMBZ_KIT, slug: data.tenant.slug, name: data.tenant.name };
+  type Extra = { image?: { url: string } | null; modelUrl?: string | null; featured?: boolean };
+  const products = (content.products.items as (SiteContent["products"]["items"][number] & Extra)[])
+    .map((item) => ({ id: item.id, name: item.name, image: item.image?.url ?? null, modelUrl: item.modelUrl ?? null, featured: !!item.featured }))
+    .sort((a, b) => Number(b.featured) - Number(a.featured));
+  return {
+    bespoke: false,
+    slug: data.tenant.slug,
+    name: data.tenant.name,
+    logoUrl: firstExisting(data.tenant.theme.logoUrl),
+    cutout: media.cutout,
+    products,
+  };
 }

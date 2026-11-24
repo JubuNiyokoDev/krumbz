@@ -3,11 +3,12 @@
 import { addAfterEffect, useFrame, useThree } from "@react-three/fiber";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type Ref } from "react";
 import { Euler, Quaternion, Vector3, type Group, type PerspectiveCamera } from "three";
 import type { StageId } from "@/lib/experience/stages";
 import { scanAnchors, type AnchorEntry } from "@/lib/three/anchors";
 import type { ProductAssets } from "@/lib/three/assets";
+import type { GenericJourneyAssets, GenericObject } from "@/lib/three/generic";
 import { BiscuitModel, CartonModel, SachetModel, setSachetOpen } from "./models";
 import { useSoftShadows, type ShadowCaster } from "./softShadows";
 import { BISCUIT_COUNT, composeStage, type Composition, type ObjectPose } from "./poses";
@@ -107,7 +108,10 @@ interface ScreenRect {
 }
 
 interface JourneyProps {
-  assets: ProductAssets;
+  /** Krumbz (bespoke procedural products). Exactly one of `assets` / `generic` is set. */
+  assets?: ProductAssets | null;
+  /** Any other shop: its products (glTF or photo cards) in the same roles (src/lib/three/generic.ts). */
+  generic?: GenericJourneyAssets | null;
   /** Changes when the anchors in the DOM change. */
   version: number;
   active: boolean;
@@ -120,7 +124,7 @@ interface JourneyProps {
  * frames are requested only while something moves (scroll, intro, damping,
  * idle float of visible products).
  */
-export function Journey({ assets, version, active, onFirstFrame }: JourneyProps) {
+export function Journey({ assets = null, generic = null, version, active, onFirstFrame }: JourneyProps) {
   const gl = useThree((state) => state.gl);
   const scene = useThree((state) => state.scene);
   const camera = useThree((state) => state.camera) as PerspectiveCamera;
@@ -148,7 +152,7 @@ export function Journey({ assets, version, active, onFirstFrame }: JourneyProps)
     return () => {
       cancelled = true;
     };
-  }, [gl, scene, camera, assets, invalidate]);
+  }, [gl, scene, camera, assets, generic, invalidate]);
 
   // Report the first rendered frame with products.
   useEffect(() => {
@@ -286,12 +290,12 @@ export function Journey({ assets, version, active, onFirstFrame }: JourneyProps)
     }
 
     // ---- compositions -------------------------------------------------------
-    const idA = rt.anchors[a].id;
-    const compA = composeStage(idA, { time: rt.time, progress: rt.progress.get(idA) ?? 0.5, intro: rt.intro });
+    const anchorA = rt.anchors[a];
+    const compA = composeStage(anchorA.pose, { time: rt.time, progress: rt.progress.get(anchorA.id) ?? 0.5, intro: rt.intro });
     let compB: Composition | null = null;
     if (rectB && b >= 0) {
-      const idB = rt.anchors[b].id;
-      compB = composeStage(idB, { time: rt.time, progress: rt.progress.get(idB) ?? 0.5, intro: rt.intro });
+      const anchorB = rt.anchors[b];
+      compB = composeStage(anchorB.pose, { time: rt.time, progress: rt.progress.get(anchorB.id) ?? 0.5, intro: rt.intro });
     }
 
     // ---- group: anchor rectangle in world space ------------------------------
@@ -333,11 +337,16 @@ export function Journey({ assets, version, active, onFirstFrame }: JourneyProps)
     const targetOpen = compB ? compA.open + (compB.open - compA.open) * t : compA.open;
     rt.open += (targetOpen - rt.open) * (snap ? 1 : damp(introPlaying ? 16 : 5, dt));
     if (Math.abs(targetOpen - rt.open) > SETTLE_EPSILON) moving = true;
-    setSachetOpen(sachet.current, rt.open);
+    if (assets) setSachetOpen(sachet.current, rt.open);
     const list = casters.current;
     for (let i = 0; i < OBJECT_COUNT; i++) {
       list[i] ??= i === 0 ? { object: null, radius: 0.5, halfHeight: 0.75 } : i === 1 ? { object: null, radius: 0.62, halfHeight: 0.55 } : { object: null, radius: 0.5, halfHeight: 0.42, strength: 0.45 };
-      list[i].object = nodes[i];
+      const item = generic ? genericSlot(generic, i) : null;
+      if (item) {
+        list[i].radius = item.radius;
+        list[i].halfHeight = Math.max(item.halfHeight, i >= 2 ? 0.42 : 0.2);
+      }
+      list[i].object = generic && !item ? null : nodes[i];
     }
     shadows.update(list);
     rt.initialised = true;
@@ -351,6 +360,26 @@ export function Journey({ assets, version, active, onFirstFrame }: JourneyProps)
 
   // Tiny until the first frame places everything: the meshes stay visible so
   // compileAsync() (which skips invisible objects) warms every program up.
+  if (!assets) {
+    // Any other shop: same slots, same poses, its own products.
+    return (
+      <group ref={root} scale={1e-5}>
+        <GenericSlot ref={sachet} item={generic?.main ?? null} />
+        <GenericSlot ref={carton} item={generic?.second ?? null} />
+        {Array.from({ length: BISCUIT_COUNT }, (_, i) => (
+          <GenericSlot
+            key={i}
+            ref={(node: Group | null) => {
+              biscuits.current[i] = node;
+            }}
+            item={generic?.biscuits[i] ?? null}
+          />
+        ))}
+        <primitive object={shadows.group} />
+      </group>
+    );
+  }
+
   return (
     <group ref={root} scale={1e-5}>
       <SachetModel ref={sachet} assets={assets} />
@@ -365,6 +394,22 @@ export function Journey({ assets, version, active, onFirstFrame }: JourneyProps)
         />
       ))}
       <primitive object={shadows.group} />
+    </group>
+  );
+}
+
+/** Object of journey slot `i` (0 = sachet role, 1 = carton role, then biscuit roles), or null. */
+function genericSlot(assets: GenericJourneyAssets, i: number): GenericObject | null {
+  if (i === 0) return assets.main;
+  if (i === 1) return assets.second;
+  return assets.biscuits[i - 2] ?? null;
+}
+
+/** A slot of the generic cast: the product object, or an empty group (nothing to show). */
+function GenericSlot({ item, ref }: { item: GenericObject | null; ref?: Ref<Group> }) {
+  return (
+    <group ref={ref} dispose={null}>
+      {item ? <primitive object={item.object} dispose={null} /> : null}
     </group>
   );
 }

@@ -3,16 +3,19 @@
 import { PerformanceMonitor } from "@react-three/drei";
 import { addAfterEffect, Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useTranslations } from "next-intl";
-import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from "react";
 import { NeutralToneMapping, type Group } from "three";
 import type { TextureMap } from "@/lib/assets/registry";
+import { KRUMBZ_KIT, type StorefrontKit } from "@/lib/storefront/kit";
 import { qualityFor, type ProductAssets } from "@/lib/three/assets";
+import { createGenericViewerAssets, type GenericViewerAssets } from "@/lib/three/generic";
 import { installThreeConsoleFilter } from "@/lib/three/console";
 import type { BrandTexts } from "@/lib/three/labels";
 import { useExperience } from "@/store/experience";
 import { BiscuitModel, CartonModel, SachetModel, setSachetOpen, StudioLights } from "./models";
 import type { ViewerModel } from "./poses";
 import { useSoftShadows, type ShadowCaster } from "./softShadows";
+import { useGenericAssets } from "./useGenericAssets";
 import { useProductAssets } from "./useProductAssets";
 
 installThreeConsoleFilter();
@@ -26,7 +29,10 @@ export interface ViewerController {
 
 export interface ProductViewerCanvasProps {
   textures: TextureMap;
-  model: ViewerModel;
+  /** Krumbz: a ViewerModel; other shops: a product id (src/lib/three/generic.ts viewerProducts). */
+  model: ViewerModel | string;
+  /** Shop kit: Krumbz = bespoke procedural products (default). */
+  kit?: StorefrontKit;
   /** False when scrolled out of view: the loop stops entirely. */
   inView: boolean;
   /** Element receiving drag / pinch / wheel (the focusable wrapper). */
@@ -44,9 +50,53 @@ const AUTO_ROTATE_DELAY = 6000;
 const HOVER_INTENT_MS = 600;
 const REST_YAW = 0.35;
 
-const MODELS: ViewerModel[] = ["sachet", "carton", "biscuit"];
 /** Display scale per model (fits the default framing). */
 const MODEL_SCALE: Record<ViewerModel, number> = { sachet: 1.15, carton: 1.18, biscuit: 1.55 };
+/** Display scale of a shop's product (normalised to a 1.25 box, src/lib/three/generic.ts). */
+const GENERIC_SCALE = 1.15;
+
+/** One selectable object of the turntable. */
+interface ViewerSlot {
+  key: string;
+  scale: number;
+  radius: number;
+  halfHeight: number;
+  render: (ref: (node: Group | null) => void) => ReactNode;
+}
+
+function bespokeSlots(assets: ProductAssets): ViewerSlot[] {
+  return [
+    { key: "sachet", scale: MODEL_SCALE.sachet, radius: 0.5, halfHeight: 0.75, render: (ref) => <SachetModel assets={assets} ref={ref} /> },
+    { key: "carton", scale: MODEL_SCALE.carton, radius: 0.62, halfHeight: 0.55, render: (ref) => <CartonModel assets={assets} ref={ref} /> },
+    {
+      key: "biscuit",
+      scale: MODEL_SCALE.biscuit,
+      radius: 0.5,
+      halfHeight: 0.5,
+      render: (ref) => (
+        <group ref={ref}>
+          <group rotation={[Math.PI / 2 - 0.12, 0, 0]}>
+            <BiscuitModel assets={assets} />
+          </group>
+        </group>
+      ),
+    },
+  ];
+}
+
+function genericSlots(assets: GenericViewerAssets): ViewerSlot[] {
+  return assets.items.map((item) => ({
+    key: item.id,
+    scale: GENERIC_SCALE,
+    radius: item.radius,
+    halfHeight: item.halfHeight,
+    render: (ref) => (
+      <group ref={ref} dispose={null}>
+        <primitive object={item.object} dispose={null} />
+      </group>
+    ),
+  }));
+}
 
 interface ViewState {
   yaw: number;
@@ -58,22 +108,25 @@ interface ViewState {
   velocity: number;
   lastInteraction: number;
   dragging: boolean;
-  scales: Record<ViewerModel, number>;
-  spin: Record<ViewerModel, number>;
+  scales: Record<string, number>;
+  spin: Record<string, number>;
 }
 
 const damp = (lambda: number, dt: number) => 1 - Math.exp(-lambda * dt);
 const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
 
 function ViewerScene({
-  assets,
+  slots,
+  bespoke,
   model,
   targetRef,
   controllerRef,
   onFirstFrame,
 }: {
-  assets: ProductAssets;
-  model: ViewerModel;
+  slots: ViewerSlot[];
+  /** Krumbz: keeps the sachet sealed. */
+  bespoke: boolean;
+  model: string;
   targetRef: RefObject<HTMLElement | null>;
   controllerRef: RefObject<ViewerController | null>;
   onFirstFrame: () => void;
@@ -83,11 +136,11 @@ function ViewerScene({
   const camera = useThree((s) => s.camera);
   const invalidate = useThree((s) => s.invalidate);
   const turntable = useRef<Group>(null);
-  const nodes = useRef<Record<ViewerModel, Group | null>>({ sachet: null, carton: null, biscuit: null });
+  const nodes = useRef<Record<string, Group | null>>({});
   const view = useRef<ViewState | null>(null);
   const [live, setLive] = useState(false);
   const modelRef = useRef(model);
-  const shadows = useSoftShadows(MODELS.length, -1.02, 0.1, 0.55);
+  const shadows = useSoftShadows(slots.length, -1.02, 0.1, 0.55);
   const casters = useRef<ShadowCaster[]>([]);
 
   useEffect(() => {
@@ -117,7 +170,7 @@ function ViewerScene({
     return () => {
       cancelled = true;
     };
-  }, [gl, scene, camera, assets, invalidate]);
+  }, [gl, scene, camera, slots, invalidate]);
 
   useEffect(() => {
     if (!live) return;
@@ -144,8 +197,9 @@ function ViewerScene({
       velocity: 0,
       lastInteraction: 0,
       dragging: false,
-      scales: { sachet: 0, carton: 0, biscuit: 0 },
-      spin: { sachet: -Math.PI * 0.9, carton: 0, biscuit: 0 },
+      scales: Object.fromEntries(slots.map((slot) => [slot.key, 0])),
+      // the first model spins in on load
+      spin: Object.fromEntries(slots.map((slot, i) => [slot.key, i === 0 ? -Math.PI * 0.9 : 0])),
     });
     const touch = () => {
       v.lastInteraction = performance.now();
@@ -262,7 +316,7 @@ function ViewerScene({
       element.removeEventListener("wheel", onWheel);
       controllerRef.current = null;
     };
-  }, [targetRef, controllerRef, invalidate]);
+  }, [targetRef, controllerRef, invalidate, slots]);
 
   useFrame((state, rawDelta) => {
     const v = view.current;
@@ -292,10 +346,13 @@ function ViewerScene({
     state.camera.lookAt(0, 0, 0);
 
     const selected = modelRef.current;
-    for (const name of MODELS) {
+    for (const slot of slots) {
+      const name = slot.key;
       const node = nodes.current[name];
       if (!node) continue;
-      const targetScale = name === selected ? MODEL_SCALE[name] : 0;
+      v.scales[name] ??= 0;
+      v.spin[name] ??= 0;
+      const targetScale = name === selected ? slot.scale : 0;
       const k = damp(name === selected ? 7 : 11, dt);
       v.scales[name] += (targetScale - v.scales[name]) * k;
       v.spin[name] += (0 - v.spin[name]) * damp(5, dt);
@@ -304,10 +361,10 @@ function ViewerScene({
       node.rotation.y = v.spin[name];
       node.visible = v.scales[name] > 1e-3;
     }
-    setSachetOpen(nodes.current.sachet, 0);
-    MODELS.forEach((name, i) => {
-      casters.current[i] ??= { object: null, radius: name === "carton" ? 0.62 : 0.5, halfHeight: name === "sachet" ? 0.75 : name === "carton" ? 0.55 : 0.5 };
-      casters.current[i].object = nodes.current[name];
+    if (bespoke) setSachetOpen(nodes.current.sachet ?? null, 0);
+    slots.forEach((slot, i) => {
+      casters.current[i] ??= { object: null, radius: slot.radius, halfHeight: slot.halfHeight };
+      casters.current[i].object = nodes.current[slot.key] ?? null;
     });
     shadows.update(casters.current);
 
@@ -317,35 +374,23 @@ function ViewerScene({
   return (
     <>
       <group ref={turntable}>
-        <SachetModel
-          assets={assets}
-          ref={(node: Group | null) => {
-            nodes.current.sachet = node;
-          }}
-        />
-        <CartonModel
-          assets={assets}
-          ref={(node: Group | null) => {
-            nodes.current.carton = node;
-          }}
-        />
-        <group
-          ref={(node: Group | null) => {
-            nodes.current.biscuit = node;
-          }}
-        >
-          <group rotation={[Math.PI / 2 - 0.12, 0, 0]}>
-            <BiscuitModel assets={assets} />
-          </group>
-        </group>
+        {slots.map((slot) => (
+          <SlotNode key={slot.key} slot={slot} nodes={nodes} />
+        ))}
       </group>
       <primitive object={shadows.group} />
     </>
   );
 }
 
+function SlotNode({ slot, nodes }: { slot: ViewerSlot; nodes: RefObject<Record<string, Group | null>> }) {
+  return slot.render((node) => {
+    nodes.current[slot.key] = node;
+  });
+}
+
 /** Lazily-loaded WebGL part of ProductViewer (see ProductViewer.tsx). */
-export default function ProductViewerCanvas({ textures, model, inView, targetRef, controllerRef, onReady }: ProductViewerCanvasProps) {
+export default function ProductViewerCanvas({ textures, model, kit = KRUMBZ_KIT, inView, targetRef, controllerRef, onReady }: ProductViewerCanvasProps) {
   const capabilities = useExperience((s) => s.capabilities);
   const setFailed = useExperience((s) => s.setFailed);
   const t = useTranslations("brand");
@@ -394,7 +439,11 @@ export default function ProductViewerCanvas({ textures, model, inView, targetRef
         onFallback={() => setDpr(1)}
       />
       <StudioLights />
-      <ViewerAssets textures={textures} brand={brand} model={model} targetRef={targetRef} controllerRef={controllerRef} onReady={onReady} />
+      {kit.bespoke ? (
+        <ViewerAssets textures={textures} brand={brand} model={model} targetRef={targetRef} controllerRef={controllerRef} onReady={onReady} />
+      ) : (
+        <GenericViewer kit={kit} model={model} targetRef={targetRef} controllerRef={controllerRef} onReady={onReady} />
+      )}
     </Canvas>
   );
 }
@@ -418,6 +467,29 @@ function ViewerAssets({
       setFailed(true);
     },
   });
-  if (!assets) return null;
-  return <ViewerScene assets={assets} model={model} targetRef={targetRef} controllerRef={controllerRef} onFirstFrame={onReady} />;
+  const slots = useMemo(() => (assets ? bespokeSlots(assets) : null), [assets]);
+  if (!slots) return null;
+  return <ViewerScene slots={slots} bespoke model={model} targetRef={targetRef} controllerRef={controllerRef} onFirstFrame={onReady} />;
+}
+
+/** Any other shop: its products (glTF or photo card) on the same turntable. */
+function GenericViewer({
+  kit,
+  model,
+  targetRef,
+  controllerRef,
+  onReady,
+}: Pick<ProductViewerCanvasProps, "model" | "targetRef" | "controllerRef" | "onReady"> & { kit: StorefrontKit }) {
+  const setFailed = useExperience((s) => s.setFailed);
+  const assets = useGenericAssets({
+    products: kit.products,
+    create: createGenericViewerAssets,
+    onError: (error) => {
+      console.error("[3d] visionneuse indisponible", error);
+      setFailed(true);
+    },
+  });
+  const slots = useMemo(() => (assets ? genericSlots(assets) : null), [assets]);
+  if (!slots) return null;
+  return <ViewerScene slots={slots} bespoke={false} model={model} targetRef={targetRef} controllerRef={controllerRef} onFirstFrame={onReady} />;
 }

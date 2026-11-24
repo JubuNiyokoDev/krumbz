@@ -15,6 +15,12 @@ export type ProductContent = SiteContent["products"]["items"][number] & {
   compareAtPrice: number | null;
   /** Promo badge of this product (from the database); falls back to products.promoLabel. */
   promoLabel?: string;
+  /** Shops other than Krumbz (model "product"): photo, 3D model and labels of the two card facts. */
+  image?: { url: string; alt: string; width: number; height: number } | null;
+  images?: { url: string; alt: string; width: number; height: number }[];
+  modelUrl?: string | null;
+  factLabels?: [string, string];
+  featured?: boolean;
 };
 
 const sources: Record<string, unknown> = { fr, en, rn, sw };

@@ -32,7 +32,7 @@ export function MushroomSection({
   items: Nutrient[];
   disclaimer: string;
   cta: string;
-  images?: { harvest: ResolvedImage; closeup: ResolvedImage; harvestAlt: string; closeupAlt: string; placeholderLabel: string };
+  images?: { harvest: ResolvedImage | null; closeup: ResolvedImage | null; harvestAlt: string; closeupAlt: string; placeholderLabel: string };
 }) {
   return (
     <section aria-labelledby="mushroom-title" className="relative overflow-hidden bg-navy py-24 text-cream sm:py-28 lg:py-36">
@@ -43,9 +43,12 @@ export function MushroomSection({
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
           <div>
             <SectionHeading id="mushroom-title" eyebrow={eyebrow} title={title} tone="light" />
+            {intro ? (
             <p data-reveal className="mt-6 max-w-xl text-lg leading-relaxed text-cream/85 sm:text-xl">
               {intro}
             </p>
+            ) : null}
+            {cta ? (
             <Link
               href="/produits"
               data-reveal
@@ -54,22 +57,29 @@ export function MushroomSection({
               {cta}
               <span aria-hidden>→</span>
             </Link>
-            {images ? (
-              <div className="mt-10 grid grid-cols-[0.85fr_1.15fr] items-end gap-4">
+            ) : null}
+            {images && (images.harvest || images.closeup) ? (
+              <div className={`mt-10 grid items-end gap-4 ${images.harvest && images.closeup ? "grid-cols-[0.85fr_1.15fr]" : "max-w-md grid-cols-1"}`}>
+                {images.harvest ? (
                 <div data-reveal="scale" className="relative aspect-[2/3] overflow-hidden rounded-[1.75rem] shadow-lift ring-1 ring-cream/15">
                   <BrandImage image={images.harvest} alt={images.harvestAlt} sizes="(min-width: 1024px) 18vw, 40vw" placeholderLabel={images.placeholderLabel} />
                 </div>
+                ) : null}
+                {images.closeup ? (
                 <div data-reveal="scale" style={{ "--reveal-delay": "120ms" } as CSSProperties} className="relative mb-8 aspect-[4/3] overflow-hidden rounded-[1.75rem] shadow-lift ring-1 ring-cream/15">
                   <BrandImage image={images.closeup} alt={images.closeupAlt} sizes="(min-width: 1024px) 24vw, 52vw" placeholderLabel={images.placeholderLabel} />
                 </div>
+                ) : null}
               </div>
             ) : null}
           </div>
 
           <div>
+            {whyTitle ? (
             <h3 data-reveal className="font-display text-2xl font-bold text-gold-light sm:text-3xl">
               {whyTitle}
             </h3>
+            ) : null}
             <ul className="mt-6 grid gap-4 sm:grid-cols-2">
               {items.map((item, i) => (
                 <li
@@ -89,9 +99,11 @@ export function MushroomSection({
                 </li>
               ))}
             </ul>
+            {disclaimer ? (
             <p data-reveal className="mt-6 text-sm leading-relaxed text-cream/65">
               {disclaimer}
             </p>
+            ) : null}
           </div>
         </div>
       </div>

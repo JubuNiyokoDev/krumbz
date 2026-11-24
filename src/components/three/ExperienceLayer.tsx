@@ -2,6 +2,7 @@
 
 import { lazy, Suspense, useEffect, useState, useSyncExternalStore } from "react";
 import type { TextureMap } from "@/lib/assets/registry";
+import { useKit } from "@/lib/storefront/kit";
 import { getAnchorVersion, getServerAnchorVersion, subscribeAnchors } from "@/lib/three/anchors";
 import { useGlArbiter } from "@/lib/three/glArbiter";
 import { useExperience, useRenderMode } from "@/store/experience";
@@ -27,6 +28,7 @@ export function ExperienceLayer({ textures }: { textures: TextureMap }) {
   const ready = useExperience((s) => s.ready);
   const mode = useRenderMode();
   const viewerClaimed = useGlArbiter((s) => s.viewer !== null);
+  const kit = useKit();
 
   useEffect(() => {
     if (useExperience.getState().capabilities) return;
@@ -76,7 +78,7 @@ export function ExperienceLayer({ textures }: { textures: TextureMap }) {
     <>
       {loaded && !viewerClaimed ? (
         <Suspense fallback={null}>
-          <ExperienceCanvas textures={textures} active={active} version={version} />
+          <ExperienceCanvas textures={textures} active={active} version={version} kit={kit} />
         </Suspense>
       ) : null}
       <ExperienceLoader visible={active && !ready} />

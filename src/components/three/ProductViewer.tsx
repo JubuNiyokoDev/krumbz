@@ -3,7 +3,9 @@
 import { useTranslations } from "next-intl";
 import { lazy, Suspense, useCallback, useEffect, useId, useRef, useState, type JSX, type KeyboardEvent, type ReactNode } from "react";
 import type { TextureMap } from "@/lib/assets/registry";
+import { useKit } from "@/lib/storefront/kit";
 import { useGlArbiter } from "@/lib/three/glArbiter";
+import { viewerProducts } from "@/lib/three/viewerProducts";
 import { useRenderMode, useStaticReason } from "@/store/experience";
 import type { ViewerController } from "./ProductViewerCanvas";
 import { VIEWER_MODELS, type ViewerModel } from "./poses";
@@ -16,7 +18,8 @@ const ZOOM_STEP = 0.85;
 
 export interface ProductViewerProps {
   textures: TextureMap;
-  initialModel?: ViewerModel;
+  /** Krumbz: "sachet" | "carton" | "biscuit"; other shops: a product id (default: the first viewable product). */
+  initialModel?: ViewerModel | string;
   /** Still image shown in static/pending mode and while the 3D loads. */
   fallback: ReactNode;
   className?: string;
@@ -49,9 +52,14 @@ const ICONS = {
  */
 export function ProductViewer({ textures, initialModel = "sachet", fallback, className = "" }: ProductViewerProps): JSX.Element {
   const t = useTranslations("products");
+  const kit = useKit();
   const mode = useRenderMode();
   const staticReason = useStaticReason();
-  const [model, setModel] = useState<ViewerModel>(initialModel);
+  // Krumbz: its three procedural models; other shops: their products with a glTF or a photo.
+  const shopProducts = kit.bespoke ? [] : viewerProducts(kit.products);
+  const models: string[] = kit.bespoke ? [...VIEWER_MODELS] : shopProducts.map((p) => p.id);
+  const [chosen, setModel] = useState<string>(initialModel);
+  const model = models.includes(chosen) ? chosen : (models[0] ?? chosen);
   const [nearViewport, setNearViewport] = useState(false);
   const [inView, setInView] = useState(false);
   const [ready, setReady] = useState(false);
@@ -97,8 +105,12 @@ export function ProductViewer({ textures, initialModel = "sachet", fallback, cla
   const showCanvas = mode === "3d" && owns && !experienceAlive && nearViewport;
 
   const names = t.raw("items") as { model?: string; id?: string; name: string }[];
-  const labelFor = (m: ViewerModel) =>
-    m === "biscuit" ? t("viewer.biscuit") : (names.find((item) => (item.model ?? item.id) === m)?.name ?? t("viewer.biscuit"));
+  const labelFor = (m: string) =>
+    !kit.bespoke
+      ? (shopProducts.find((p) => p.id === m)?.name ?? kit.name)
+      : m === "biscuit"
+        ? t("viewer.biscuit")
+        : (names.find((item) => (item.model ?? item.id) === m)?.name ?? t("viewer.biscuit"));
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     const c = controller.current;
@@ -124,11 +136,12 @@ export function ProductViewer({ textures, initialModel = "sachet", fallback, cla
   const button =
     "inline-flex size-11 items-center justify-center rounded-full bg-cream text-navy shadow-sm ring-1 ring-navy/10 transition hover:bg-gold-light focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-rust-bright disabled:opacity-40 motion-reduce:transition-none";
 
-  if (mode !== "3d") {
+  // Nothing to turn in 3D (no product photo nor model): the still image only.
+  if (mode !== "3d" || models.length === 0) {
     return (
       <figure className={`relative ${className}`}>
         {fallback}
-        {mode === "static" ? (
+        {mode === "static" && models.length > 0 ? (
           <figcaption className="mt-3 text-center text-sm text-navy/70">
             {t("viewer.staticNotice")}
             {staticReason ? <span className="mt-1 block text-xs text-navy/60">{t(`viewer.reasons.${staticReason}`)}</span> : null}
@@ -159,7 +172,7 @@ export function ProductViewer({ textures, initialModel = "sachet", fallback, cla
         {showCanvas ? (
           <div className={`absolute inset-0 transition-opacity duration-700 ${ready ? "opacity-100" : "opacity-0"}`}>
             <Suspense fallback={null}>
-              <ProductViewerCanvas textures={textures} model={model} inView={inView} targetRef={stage} controllerRef={controller} onReady={onReady} />
+              <ProductViewerCanvas textures={textures} model={model} kit={kit} inView={inView} targetRef={stage} controllerRef={controller} onReady={onReady} />
             </Suspense>
           </div>
         ) : null}
@@ -174,7 +187,7 @@ export function ProductViewer({ textures, initialModel = "sachet", fallback, cla
 
       <div className="flex flex-wrap items-center justify-center gap-3">
         <div role="group" aria-label={t("viewer.label")} className="flex flex-wrap justify-center gap-2 rounded-full bg-cream-deep/70 p-1.5">
-          {VIEWER_MODELS.map((m) => (
+          {models.map((m) => (
             <button
               key={m}
               type="button"

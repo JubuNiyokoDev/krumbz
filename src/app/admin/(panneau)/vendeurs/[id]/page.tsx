@@ -10,17 +10,15 @@ import {
   setAccountActiveAction,
   setVendorFeatureAction,
   setVendorStatusAction,
-  updateContentAction,
-  updateScenesAction,
-  updateThemeAction,
   updateVendorInfoAction,
 } from "../../../_actions/vendors";
 import { declarePaymentAction, updateSubscriptionAction } from "../../../_actions/billing";
 import { currentAdmin, dateInputValue, formatBif, formatDate, vendorOr404 } from "../../../_lib/server";
 import { certificateStates } from "@/lib/admin/vendors";
 import { vendorAccounts } from "@/lib/admin/vendors";
-import { CONTENT_FIELDS, getAtPath } from "@/lib/admin/content";
-import { BODY_FONTS, COLOR_FIELDS, DISPLAY_FONTS, RADIUS_OPTIONS } from "@/lib/admin/theme";
+import { ThemeEditor } from "../../../_components/ThemeEditor";
+import { ContentEditor } from "../../../_components/ContentEditor";
+import { ScenesEditor } from "../../../_components/ScenesEditor";
 import { LOCALE_LABELS } from "@/lib/admin/validation";
 import { getDb } from "@/lib/db/client";
 import { payments, subscriptions } from "@/lib/db/schema";
@@ -37,7 +35,6 @@ const FEATURE_LABELS: Record<string, string> = {
   stats: "Statistiques",
 };
 
-const text = (value: unknown, locale: string) => (value && typeof value === "object" ? String((value as Record<string, unknown>)[locale] ?? (value as Record<string, unknown>).fr ?? "") : "");
 
 /** One vendor: identity, look, texts, scenes, features, accounts, subscription, certificates. */
 export default async function VendorPage({ params }: PageProps<"/admin/vendeurs/[id]">) {
@@ -155,127 +152,18 @@ export default async function VendorPage({ params }: PageProps<"/admin/vendeurs/
         </details>
 
         <details className="card">
-          <summary className="cursor-pointer font-semibold">Apparence (thème et logo)</summary>
-          <ActionForm action={updateThemeAction.bind(null, tenant.id)} className="mt-4">
-            <div className="grid gap-4 md:grid-cols-3">
-              {COLOR_FIELDS.map((field) => (
-                <div key={field.key}>
-                  <label className="label" htmlFor={`color-${field.key}`}>
-                    {field.label}
-                  </label>
-                  <input id={`color-${field.key}`} name={`color.${field.key}`} type="color" className="input h-11" defaultValue={tenant.theme.colors[field.key]} />
-                </div>
-              ))}
-              <div>
-                <label className="label" htmlFor="fontDisplay">
-                  Police des titres
-                </label>
-                <select id="fontDisplay" name="fontDisplay" className="input" defaultValue={tenant.theme.fonts.display}>
-                  {DISPLAY_FONTS.map((font) => (
-                    <option key={font} value={font}>
-                      {font}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="label" htmlFor="fontBody">
-                  Police du texte
-                </label>
-                <select id="fontBody" name="fontBody" className="input" defaultValue={tenant.theme.fonts.body}>
-                  {BODY_FONTS.map((font) => (
-                    <option key={font} value={font}>
-                      {font}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="label" htmlFor="radius">
-                  Coins
-                </label>
-                <select id="radius" name="radius" className="input" defaultValue={tenant.theme.radius}>
-                  {RADIUS_OPTIONS.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="md:col-span-2">
-                <label className="label" htmlFor="logo">
-                  Logo (facultatif, 8 Mo maximum)
-                </label>
-                <input id="logo" name="logo" type="file" accept="image/*" className="input" />
-                {tenant.theme.logoUrl ? (
-                  <p className="mt-1 text-xs text-slate-500">
-                    Logo actuel : <span className="break-all">{tenant.theme.logoUrl}</span>
-                  </p>
-                ) : null}
-              </div>
-            </div>
-            <div className="mt-4">
-              <SubmitButton>Enregistrer le thème</SubmitButton>
-            </div>
-          </ActionForm>
+          <summary className="cursor-pointer font-semibold">Apparence (couleurs, polices, logo)</summary>
+          <ThemeEditor tenant={tenant} />
         </details>
 
         <details className="card">
-          <summary className="cursor-pointer font-semibold">Textes de la boutique</summary>
-          <ActionForm action={updateContentAction.bind(null, tenant.id)} className="mt-4">
-            <div className="grid gap-4 md:grid-cols-2">
-              {CONTENT_FIELDS.map((field) => (
-                <div key={field.key}>
-                  <label className="label" htmlFor={`content-${field.key}`}>
-                    {field.label}
-                  </label>
-                  {field.multiline ? (
-                    <textarea id={`content-${field.key}`} name={`content.${field.key}.fr`} className="input" rows={3} maxLength={field.max} defaultValue={text(getAtPath(tenant.content, field.key), "fr")} />
-                  ) : (
-                    <input id={`content-${field.key}`} name={`content.${field.key}.fr`} className="input" maxLength={field.max} defaultValue={text(getAtPath(tenant.content, field.key), "fr")} />
-                  )}
-                  {tenant.locales.filter((l) => l !== "fr").map((locale) => (
-                    <input key={locale} name={`content.${field.key}.${locale}`} className="input mt-1" placeholder={`${LOCALE_LABELS[locale]} (facultatif)`} maxLength={field.max} defaultValue={text(getAtPath(tenant.content, field.key), locale)} />
-                  ))}
-                </div>
-              ))}
-            </div>
-            <div className="mt-4">
-              <SubmitButton>Enregistrer les textes</SubmitButton>
-            </div>
-          </ActionForm>
-          <ActionForm action={updateContentAction.bind(null, tenant.id)} className="mt-6 border-t border-slate-200 pt-4">
-            <label className="label" htmlFor="content-json">
-              Contenu avancé (JSON)
-            </label>
-            <textarea id="content-json" name="contentJson" className="input font-mono text-xs" rows={10} defaultValue={JSON.stringify(tenant.content, null, 2)} />
-            <p className="hint">Remplace tout le contenu. Laisser vide pour repartir d&apos;un objet vide.</p>
-            <div className="mt-3">
-              <SubmitButton variant="secondary">Remplacer le contenu (JSON)</SubmitButton>
-            </div>
-          </ActionForm>
+          <summary className="cursor-pointer font-semibold">Textes et images de la boutique</summary>
+          <ContentEditor tenant={tenant} />
         </details>
 
         <details className="card">
-          <summary className="cursor-pointer font-semibold">Scènes photo</summary>
-          <ActionForm action={updateScenesAction.bind(null, tenant.id)} className="mt-4">
-            <label className="label" htmlFor="scenes">
-              Scènes (JSON) — 12 maximum
-            </label>
-            <textarea id="scenes" name="scenes" className="input font-mono text-xs" rows={12} defaultValue={JSON.stringify(tenant.scenes, null, 2)} />
-            <p className="hint">Chaque scène : id, imageUrl, label, title, text, alt (objets avec au moins une clé « fr »). Pour remplacer une image, joignez un fichier portant le même index ci-dessous.</p>
-            {tenant.scenes.map((scene, index) => (
-              <div key={scene.id} className="mt-2">
-                <label className="label" htmlFor={`scene-${index}`}>
-                  Image de la scène {index + 1} (facultatif)
-                </label>
-                <input id={`scene-${index}`} name={`sceneImage.${index}`} type="file" accept="image/*" className="input" />
-              </div>
-            ))}
-            <div className="mt-4">
-              <SubmitButton>Enregistrer les scènes</SubmitButton>
-            </div>
-          </ActionForm>
+          <summary className="cursor-pointer font-semibold">Scènes « moments de vie » ({tenant.scenes.length})</summary>
+          <ScenesEditor tenant={tenant} />
         </details>
 
         <details className="card">

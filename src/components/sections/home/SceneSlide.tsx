@@ -24,6 +24,8 @@ export function SceneSlide({
   placeholderLabel,
   fallback,
   framing,
+  pose,
+  aspect,
 }: {
   id: StageId;
   index: number;
@@ -37,12 +39,16 @@ export function SceneSlide({
   placeholderLabel: string;
   fallback: ReactNode;
   framing: SceneFraming;
+  /** 3D composition (poses.ts); default: the id (Krumbz). */
+  pose?: string;
+  /** Landscape photo width / height (default: the Krumbz files). */
+  aspect?: number;
 }) {
   const pad = (n: number) => String(n).padStart(2, "0");
   // A real portrait file switches phones to the full-screen layout.
   const layout = portrait.exists ? "full" : "band";
   const { copy, anchor } = framing;
-  const mobile = mobileFraming(framing);
+  const mobile = mobileFraming(framing, aspect);
   const size = `min(${anchor.size}svh, ${(anchor.size * 0.62).toFixed(1)}vw)`;
   const vars = {
     zIndex: index + 1,
@@ -107,7 +113,7 @@ export function SceneSlide({
             <p className={`ks-text max-w-md leading-relaxed text-cream/90 [text-shadow:0_1px_12px_rgb(18_38_74/0.5)]`}>{text}</p>
           </div>
 
-          <StageAnchor id={id} fallback={fallback} className={`ks-anchor z-10`} />
+          <StageAnchor id={id} pose={pose} fallback={fallback} className={`ks-anchor z-10`} />
         </div>
       </div>
     </section>

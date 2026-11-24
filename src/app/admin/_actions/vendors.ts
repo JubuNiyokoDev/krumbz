@@ -5,20 +5,21 @@
  * the tenant from the database: an id coming from a form is only a reference, never
  * a trusted source of ownership or of row contents.
  */
-import { randomUUID } from "node:crypto";
+import { refresh } from "next/cache";
 import { and, eq } from "drizzle-orm";
 import { getDb } from "@/lib/db/client";
 import { users } from "@/lib/db/schema";
 import { credentialsMessage, resetVendorPassword, setVendorAccountActive, createVendorAccount, vendorLoginUrl, whatsappLink } from "@/lib/admin/accounts";
-import { parseContentJson, starterContent } from "@/lib/admin/content";
+import { contentProblems, parseContentJson, starterContent } from "@/lib/admin/content";
+import { scenesProblems, starterScenes } from "@/lib/admin/scenes";
 import { requestTenantCertificates, setFeature, setTenantStatus, updateTenant, VendorError, createVendor, getTenantById } from "@/lib/admin/vendors";
 import { contrastWarnings, DEFAULT_THEME } from "@/lib/admin/theme";
 import { isUuid, normalizeSlug, parseIdentifier, slugProblem } from "@/lib/admin/validation";
 import { FEATURE_KEYS } from "@/lib/db/mappers";
 import { revalidateTenant, revalidateTenants } from "@/lib/tenant/storefront";
-import type { FeatureKey, TenantScene } from "@/lib/tenant/types";
+import type { FeatureKey } from "@/lib/tenant/types";
 import { adminAction, adminVoidAction } from "../_lib/server";
-import { fileOf, imageProblem, mergeContentForm, parseContact, parseFeatures, parseLocales, parseTheme } from "../_lib/parse";
+import { fileOf, imageProblem, mergeContentForm, mergeMediaForm, parseContact, parseFeatures, parseLocales, parseScenesForm, parseTheme } from "../_lib/parse";
 import { storeTenantImage } from "../_lib/media";
 import type { ActionState } from "../_lib/types";
 
@@ -71,6 +72,7 @@ export async function createVendorAction(_state: ActionState | null, form: FormD
         locales,
         theme: DEFAULT_THEME,
         content: starterContent(name),
+        scenes: starterScenes(slug),
         contact: contact.contact,
         features: parseFeatures(form),
         account: { identifier: identifier!, name: ownerName },
@@ -136,23 +138,37 @@ export async function updateThemeAction(tenantId: string, _state: ActionState | 
   return adminAction(async (admin) => {
     const tenant = await vendorOf(tenantId);
     const logo = fileOf(form, "logo");
+    const icon = fileOf(form, "icon");
     const problem = imageProblem(logo);
     if (problem) return bad({ logo: problem });
-    const parsed = parseTheme(form, tenant.theme.logoUrl);
+    const iconProblem = imageProblem(icon);
+    if (iconProblem) return bad({ icon: iconProblem });
+    const removeLogo = form.get("removeLogo") === "on";
+    const removeIcon = form.get("removeIcon") === "on";
+    const parsed = parseTheme(form, tenant.theme.logoUrl, tenant.theme.iconUrl ?? null);
     if (parsed.errors.length) return bad({ theme: parsed.errors.join(" ") });
-    let logoUrl = tenant.theme.logoUrl;
+    let logoUrl = removeLogo ? null : tenant.theme.logoUrl;
     if (logo) logoUrl = (await storeTenantImage(tenant.id, logo, admin.userId, 512)).url;
-    const slug = await updateTenant(getDb(), tenant.id, { theme: { ...parsed.theme, logoUrl } }, { actorUserId: admin.userId, action: "vendor.update_theme" });
+    let iconUrl = removeIcon ? null : (tenant.theme.iconUrl ?? null);
+    if (icon) iconUrl = (await storeTenantImage(tenant.id, icon, admin.userId, 512)).url;
+    const theme = { ...parsed.theme, logoUrl };
+    delete theme.iconUrl;
+    if (iconUrl) theme.iconUrl = iconUrl;
+    const slug = await updateTenant(getDb(), tenant.id, { theme }, { actorUserId: admin.userId, action: "vendor.update_theme" });
     revalidateTenant(slug);
+    refresh();
     return {
       ok: true,
-      message: logo ? "Thème et logo enregistrés." : "Thème enregistré.",
+      message: logo || icon ? "Thème et images enregistrés." : "Thème enregistré.",
       warnings: contrastWarnings(parsed.theme.colors),
     };
   });
 }
 
-/** Guided text fields, or the full JSON editor when `contentJson` is provided. */
+/**
+ * Shop texts in the template's schema: guided fields (content.<locale>.<path>), section images
+ * (`mediaForm` present: media.<key> + uploads), or the full JSON editor when `contentJson` is provided.
+ */
 export async function updateContentAction(tenantId: string, _state: ActionState | null, form: FormData): Promise<ActionState> {
   return adminAction(async (admin) => {
     const tenant = await vendorOf(tenantId);
@@ -162,55 +178,41 @@ export async function updateContentAction(tenantId: string, _state: ActionState 
       const parsed = parseContentJson(rawJson);
       if (!parsed.ok) return bad({ contentJson: parsed.error });
       content = parsed.value;
+    } else if (form.get("mediaForm") !== null) {
+      const merged = await mergeMediaForm(form, tenant.content, async (file) => (await storeTenantImage(tenant.id, file, admin.userId, 2400)).url);
+      if (Object.keys(merged.fields).length) return bad(merged.fields);
+      content = merged.content;
     } else {
       const merged = mergeContentForm(form, tenant.content);
       if (Object.keys(merged.fields).length) return bad(merged.fields);
       content = merged.content;
     }
+    const problems = contentProblems(content);
+    if (problems.length) return bad({ contentJson: problems.join(" ") });
     const slug = await updateTenant(getDb(), tenant.id, { content }, { actorUserId: admin.userId, action: "vendor.update_content" });
     revalidateTenant(slug);
+    refresh();
     return { ok: true, message: "Textes de la boutique enregistrés." };
   });
 }
 
-/** Scenes of the generic template: JSON rows, with an optional image file per index. */
+/**
+ * Life-moment scenes: the whole ordered list is posted (scene.<i>.*, uploads sceneFile.<i>.*), then the
+ * `intent` button adds / removes / moves one. Saved only when valid (≥ MIN_SCENES for a boutique).
+ */
 export async function updateScenesAction(tenantId: string, _state: ActionState | null, form: FormData): Promise<ActionState> {
   return adminAction(async (admin) => {
     const tenant = await vendorOf(tenantId);
-    let rows: unknown;
-    try {
-      rows = JSON.parse(String(form.get("scenes") ?? "[]"));
-    } catch {
-      return bad({ scenes: "Scènes : JSON invalide." });
-    }
-    if (!Array.isArray(rows) || rows.length > 12) return bad({ scenes: "Scènes : une liste de 12 scènes maximum est attendue." });
-    const scenes: TenantScene[] = [];
-    for (let index = 0; index < rows.length; index++) {
-      const row = rows[index] as Record<string, unknown>;
-      const localized = (value: unknown, label: string) => {
-        const v = value && typeof value === "object" ? (value as Record<string, unknown>) : {};
-        const fr = typeof v.fr === "string" ? v.fr.trim() : "";
-        if (!fr) throw new VendorError("not_found", `Scène ${index + 1} : « ${label} » en français est obligatoire.`);
-        return { fr, ...(typeof v.rn === "string" && v.rn.trim() ? { rn: v.rn } : {}) } as TenantScene["label"];
-      };
-      if (!row || typeof row !== "object") throw new VendorError("not_found", `Scène ${index + 1} invalide.`);
-      const file = fileOf(form, `sceneImage.${index}`);
-      const problem = imageProblem(file);
-      if (problem) return bad({ scenes: `Scène ${index + 1} : ${problem}` });
-      const imageUrl = file ? (await storeTenantImage(tenant.id, file, admin.userId, 1600)).url : typeof row.imageUrl === "string" ? row.imageUrl : "";
-      if (!imageUrl) throw new VendorError("not_found", `Scène ${index + 1} : choisissez une image ou indiquez son URL.`);
-      scenes.push({
-        id: typeof row.id === "string" && row.id ? row.id : randomUUID(),
-        imageUrl,
-        label: localized(row.label, "libellé"),
-        title: localized(row.title, "titre"),
-        text: localized(row.text, "texte"),
-        alt: localized(row.alt, "texte alternatif"),
-      });
-    }
-    const slug = await updateTenant(getDb(), tenant.id, { scenes }, { actorUserId: admin.userId, action: "vendor.update_scenes" });
+    const parsed = await parseScenesForm(form, tenant.slug, async (file, kind) => {
+      return (await storeTenantImage(tenant.id, file, admin.userId, kind === "landscape" ? 2400 : 1200)).url;
+    });
+    if (Object.keys(parsed.fields).length) return bad({ scenes: Object.values(parsed.fields).join(" ") });
+    const problems = scenesProblems(parsed.scenes, tenant.template);
+    if (problems.length) return bad({ scenes: problems.slice(0, 6).join(" ") });
+    const slug = await updateTenant(getDb(), tenant.id, { scenes: parsed.scenes }, { actorUserId: admin.userId, action: "vendor.update_scenes" });
     revalidateTenant(slug);
-    return { ok: true, message: `${scenes.length} scène(s) enregistrée(s).` };
+    refresh();
+    return { ok: true, message: `${parsed.scenes.length} scène(s) enregistrée(s).` };
   });
 }
 

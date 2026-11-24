@@ -1,4 +1,3 @@
-import type { StageId } from "@/lib/experience/stages";
 
 /**
  * Per-stage product compositions for the home scroll journey.
@@ -316,7 +315,7 @@ function cta({ time }: PoseContext): Composition {
   return withTucked(sachet, cartonAway(0, -0.1), 0, []);
 }
 
-const STAGES: Record<StageId, (ctx: PoseContext) => Composition> = {
+const STAGES: Record<string, (ctx: PoseContext) => Composition> = {
   intro,
   "couple-jardin": coupleJardin,
   "famille-maison": familleMaison,
@@ -340,8 +339,14 @@ const STAGES: Record<StageId, (ctx: PoseContext) => Composition> = {
   cta,
 };
 
-export function composeStage(stage: StageId, ctx: PoseContext): Composition {
-  return STAGES[stage](ctx);
+/** Every composition name (life-moment scenes of Krumbz, reused by the other shops, + fixed stages). */
+export const POSE_NAMES = Object.keys(STAGES);
+
+/** Composition used for an unknown pose name. */
+export const DEFAULT_POSE = "couple-jardin";
+
+export function composeStage(pose: string, ctx: PoseContext): Composition {
+  return (Object.hasOwn(STAGES, pose) ? STAGES[pose] : STAGES[DEFAULT_POSE])(ctx);
 }
 
 /** Composition shown by the product viewer for each model. */

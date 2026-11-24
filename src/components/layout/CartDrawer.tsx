@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useUi } from "@/hooks/useUi";
 import { useModal } from "@/hooks/useModal";
-import { Biscuit } from "@/components/ui/Biscuit";
+import { BrandMark } from "@/components/ui/BrandMark";
 import { ArrowRightIcon, CloseIcon } from "@/components/ui/Icons";
 import { CartLineItem } from "@/components/order/CartLineItem";
 import { CartTotals } from "@/components/order/CartTotals";
@@ -57,7 +57,7 @@ export function CartDrawer() {
 
         {empty ? (
           <div className="flex flex-1 flex-col items-center justify-center gap-4 px-8 text-center">
-            <Biscuit className="h-28 w-28 animate-crumb-float" />
+            <BrandMark className="h-28 w-28 animate-crumb-float" />
             <p className="font-display text-2xl font-semibold">{t("cartEmpty")}</p>
             <p className="text-navy/75">{t("cartEmptyCta")}</p>
             <Link href="/produits" className="btn btn-gold mt-2">

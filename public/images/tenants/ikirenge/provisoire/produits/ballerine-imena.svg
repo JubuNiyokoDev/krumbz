@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="80 60 840 840" width="1200" height="1200" role="img" aria-label="Ballerine Imena, rose poudré">
+<defs>
+  <radialGradient id="sh"><stop offset="0" stop-color="#000" stop-opacity="0.28"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+  <linearGradient id="up" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6d6d8"/><stop offset="1" stop-color="#e8b4b8"/></linearGradient>
+  <linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.45"/><stop offset="0.5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+</defs>
+<g transform=" rotate(0 510 560)">
+  <path d="M150 600 L878 600 L874 622 Q868 636 840 636 L176 636 Q150 634 150 616 Z" fill="#c98d93"/>
+  <path d="M160 602 Q170 540 240 528 Q360 520 470 540 Q600 560 720 548 Q840 545 872 602 Z" fill="url(#up)"/>
+  <path d="M228 536 Q430 604 646 552" stroke="#9c5b62" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <g fill="#9c5b62"><path d="M640 548 l-34 -22 l0 40 Z"/><path d="M652 548 l34 -22 l0 40 Z"/><circle cx="646" cy="548" r="10"/></g>
+  <path d="M170 560 Q190 530 260 528 Q210 560 210 598 L168 598 Z" fill="url(#gl)"/></g>
+</svg>

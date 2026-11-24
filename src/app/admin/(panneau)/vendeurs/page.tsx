@@ -36,7 +36,7 @@ export default async function VendorsPage() {
           Créer une boutique
         </h2>
         <p className="mb-4 text-sm text-slate-600">
-          Une boutique vitrine est créée avec un essai de {offer.trialDays} jours, un compte vendeur et un mot de passe provisoire à transmettre par WhatsApp.
+          La boutique est créée sur le modèle unique (le même parcours que Krumbz : seuls couleurs, images, nom, textes et produits changent), avec 5 scènes et des textes de départ à remplacer, un essai de {offer.trialDays} jours, un compte vendeur et un mot de passe provisoire à transmettre par WhatsApp.
         </p>
         <ActionForm action={createVendorAction}>
           <div className="grid gap-4 md:grid-cols-2">
