@@ -12,6 +12,41 @@ export function BenefitIcon({ id, className = "" }: { id: string; className?: st
     focusable: false,
   };
   switch (id) {
+    // Generic icons for the other shops (ids: shoe, star, heart, leaf, truck).
+    case "shoe":
+      return (
+        <svg {...common}>
+          <path d="M6 30V18h9c1 4 4 6 8 7l13 3c4 1 6 3 6 6v2H6Z" />
+          <path d="M6 36h36M17 22l3-2M20 25l3-2" />
+        </svg>
+      );
+    case "star":
+      return (
+        <svg {...common}>
+          <path d="m24 7 5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1Z" />
+        </svg>
+      );
+    case "heart":
+      return (
+        <svg {...common}>
+          <path d="M24 39S8 30 8 18a8 8 0 0 1 16-2 8 8 0 0 1 16 2c0 12-16 21-16 21Z" />
+        </svg>
+      );
+    case "leaf":
+      return (
+        <svg {...common}>
+          <path d="M10 38C10 20 22 10 40 9c0 18-10 29-27 29" />
+          <path d="M10 38 28 20" />
+        </svg>
+      );
+    case "truck":
+      return (
+        <svg {...common}>
+          <path d="M5 13h22v20H5ZM27 20h8l7 7v6H27" />
+          <circle cx="13" cy="35" r="3.5" />
+          <circle cx="34" cy="35" r="3.5" />
+        </svg>
+      );
     case "crispy":
       return (
         <svg {...common}>

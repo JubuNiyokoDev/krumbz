@@ -1,34 +1,38 @@
 #!/usr/bin/env node
 /**
- * Seeds the demonstration shop « Ikirenge Shoes » (template vitrine) from the typed demo data used
- * by the template preview. Idempotent: upserts by slug, replaces the product images on each run.
+ * Seeds the demonstration shop « Ikirenge Shoes » on the single storefront template (same experience
+ * as Krumbz, its own palette, texts, scenes and products — scripts/demo/). Idempotent: upserts by slug,
+ * replaces the product images on each run.
  *
  *   npm run db:migrate && npm run db:seed:demo
  *
- * Contact details and the WhatsApp number are PROVISIONAL (owner decision D4), as in the template.
+ * Contact details and the WhatsApp number are PROVISIONAL (fictitious demo). Photos to provide:
+ * docs/demo-ikirenge-photos.md (each file is used as soon as it exists).
  */
 import { randomUUID } from "node:crypto";
 import { eq, sql } from "drizzle-orm";
 import { closeDb, getDb } from "../src/lib/db/client.ts";
 import { productImages, products, subscriptions, tenantFeatures, tenants } from "../src/lib/db/schema.ts";
 import { FEATURE_KEYS } from "../src/lib/db/mappers.ts";
-import { demoTenant, demoProducts } from "../src/templates/vitrine/demo/shoes.ts";
+import type { PlatformLocale, TenantFeatures } from "../src/lib/tenant/types.ts";
+import { ikirengeContact, ikirengeContent, ikirengeScenes, ikirengeTheme } from "./demo/ikirenge.mts";
+import { ikirengeProducts } from "./demo/ikirenge-products.mts";
+
+const features: TenantFeatures = { threeD: true, advancedAnimations: true, languages: true, stats: false };
+const locales: PlatformLocale[] = ["fr", "rn", "en", "sw"];
 
 const db = getDb();
 try {
   const tenantValues = {
-    slug: demoTenant.slug,
-    name: demoTenant.name,
-    status: demoTenant.status,
-    template: demoTenant.template,
-    locales: demoTenant.locales,
-    theme: demoTenant.theme,
-    contact: demoTenant.contact,
-    content: {
-      ...demoTenant.content,
-      gallery: { imageUrl: "/demo/images/scene-lac.svg", tagline: demoTenant.content.tagline },
-    },
-    scenes: demoTenant.scenes,
+    slug: "ikirenge",
+    name: "Ikirenge Shoes",
+    status: "active" as const,
+    template: "boutique" as const,
+    locales,
+    theme: ikirengeTheme,
+    contact: ikirengeContact,
+    content: ikirengeContent as Record<string, unknown>,
+    scenes: ikirengeScenes,
   };
   const [tenant] = await db
     .insert(tenants)
@@ -39,15 +43,12 @@ try {
   for (const key of FEATURE_KEYS) {
     await db
       .insert(tenantFeatures)
-      .values({ tenantId: tenant.id, key, enabled: demoTenant.features[key] })
-      .onConflictDoUpdate({ target: [tenantFeatures.tenantId, tenantFeatures.key], set: { enabled: demoTenant.features[key] } });
+      .values({ tenantId: tenant.id, key, enabled: features[key] })
+      .onConflictDoUpdate({ target: [tenantFeatures.tenantId, tenantFeatures.key], set: { enabled: features[key] } });
   }
-  await db
-    .insert(subscriptions)
-    .values({ tenantId: tenant.id, plan: "demo", status: "active", priceBif: 0 })
-    .onConflictDoNothing();
+  await db.insert(subscriptions).values({ tenantId: tenant.id, plan: "demo", status: "active", priceBif: 0 }).onConflictDoNothing();
 
-  for (const product of demoProducts) {
+  for (const product of ikirengeProducts) {
     const values = {
       tenantId: tenant.id,
       slug: product.slug,
@@ -84,7 +85,7 @@ try {
       );
     }
   }
-  console.log(`[seed] ${demoTenant.slug} (${tenant.id}) : ${demoProducts.length} produit(s).`);
+  console.log(`[seed] ikirenge (${tenant.id}) : ${ikirengeProducts.length} produit(s), ${ikirengeScenes.length} scène(s).`);
 } finally {
   await closeDb();
 }
