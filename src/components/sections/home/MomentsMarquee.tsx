@@ -2,8 +2,8 @@
 export function MomentsMarquee({ labels }: { labels: string[] }) {
   const row = (
     <span className="flex shrink-0 items-center">
-      {labels.map((label) => (
-        <span key={label} className="flex items-center">
+      {labels.map((label, i) => (
+        <span key={`${label}-${i}`} className="flex items-center">
           <span className="px-6 font-display text-[clamp(2rem,6vw,4.5rem)] font-bold leading-none">{label}</span>
           <svg viewBox="0 0 24 24" className="h-7 w-7 shrink-0 text-gold" aria-hidden>
             <circle cx="12" cy="12" r="10" fill="currentColor" />

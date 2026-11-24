@@ -9,6 +9,7 @@ import { resolveImage } from "@/lib/assets/server";
 import { storefrontMedia, storefrontScenes } from "@/lib/storefront/media";
 import { whatsappUrl } from "@/lib/order/whatsapp";
 import { BrandImage } from "@/components/ui/BrandImage";
+import { BrandMark } from "@/components/ui/BrandMark";
 import { HomeIntro } from "@/components/sections/home/HomeIntro";
 import { MomentsMotion } from "@/components/sections/home/MomentsMotion";
 import { MomentsMarquee } from "@/components/sections/home/MomentsMarquee";
@@ -81,7 +82,9 @@ export default async function HomePage({ params }: PageProps<"/tpl/boutique/[ten
     ),
   ]);
 
-  const productFallback = (sizes: string, priority = false) => (
+  // Shops without any product photo yet: their mark instead of an empty picture.
+  const markFallback = <BrandMark className="h-full w-full p-[16%] drop-shadow-[0_18px_30px_rgb(var(--color-navy-rgb)/0.25)]" />;
+  const productFallback = (sizes: string, priority = false) => !bespoke && !studio.exists ? markFallback : (
     <BrandImage image={studio} alt={home.intro.packAlt || c.brand.name} sizes={sizes} priority={priority} placeholderLabel={c.common.imagePlaceholder} imgClassName="object-contain" />
   );
   const allProducts = c.products.items as ProductContent[];
@@ -156,15 +159,15 @@ export default async function HomePage({ params }: PageProps<"/tpl/boutique/[ten
               pose={scene.pose}
               aspect={scene.aspect}
               // Static mode: the cut-out MARIE biscuit sits cleanly on any photo.
-              fallback={
+              fallback={!bespoke && !top.exists ? markFallback : (
                 <BrandImage
                   image={top}
                   alt=""
                   sizes="(orientation: landscape) 19vw, 36vw"
                   placeholderLabel={c.common.imagePlaceholder}
-                  imgClassName="object-contain drop-shadow-[0_18px_30px_rgb(18_38_74/0.45)]"
+                  imgClassName="object-contain drop-shadow-[0_18px_30px_rgb(var(--color-navy-rgb)/0.45)]"
                 />
-              }
+              )}
             />
             {i in BREAK_AFTER ? (
               <MushroomBreak
@@ -192,7 +195,7 @@ export default async function HomePage({ params }: PageProps<"/tpl/boutique/[ten
         toCompleteLabel={c.common.toComplete}
         toCompleteHint={c.common.toCompleteHint}
         fallback={
-          <BrandImage image={top} alt="" sizes="(min-width: 1024px) 30rem, 76vw" placeholderLabel={c.common.imagePlaceholder} imgClassName="object-contain" />
+          !bespoke && !top.exists ? markFallback : <BrandImage image={top} alt="" sizes="(min-width: 1024px) 30rem, 76vw" placeholderLabel={c.common.imagePlaceholder} imgClassName="object-contain" />
         }
       />
       ) : null}

@@ -150,7 +150,7 @@ export function MomentsMotion({
             <span data-progress-fill className="absolute inset-0 origin-top scale-y-0 rounded-full bg-gold" />
           </span>
           {labels.map((label, i) => (
-            <li key={label} className="relative">
+            <li key={`${label}-${i}`} className="relative">
               <button
                 type="button"
                 onClick={() => goTo(i)}

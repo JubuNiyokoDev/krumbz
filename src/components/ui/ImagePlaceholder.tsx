@@ -13,6 +13,21 @@ export function ImagePlaceholder({
   label: string;
   className?: string;
 }) {
+  // Shops other than Krumbz (their files live in /images/tenants/ or /uploads/): a quiet panel in the
+  // shop's colours, without the technical label, until the photo is provided.
+  if (!image.file || image.file.startsWith("/images/tenants/") || image.file.startsWith("/uploads/")) {
+    return (
+      <div
+        aria-hidden
+        data-placeholder={image.file}
+        className={`relative h-full w-full overflow-hidden bg-cream-deep ${className}`}
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 22% 24%, color-mix(in srgb, var(--color-gold-light) 60%, transparent), transparent 46%), radial-gradient(circle at 82% 80%, color-mix(in srgb, var(--color-rust-bright) 24%, transparent), transparent 52%), linear-gradient(160deg, var(--color-cream), var(--color-cream-deep))",
+        }}
+      />
+    );
+  }
   return (
     <div
       role="img"

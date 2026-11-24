@@ -20,7 +20,8 @@ type Phone = { display: string; e164: string };
 export function MobileMenu() {
   const t = useTranslations("nav");
   const brand = useTranslations("brand");
-  const NAV_ITEMS = navItemsFor(useKit().pages);
+  const { pages } = useKit();
+  const NAV_ITEMS = navItemsFor(pages);
   const common = useTranslations("common");
   const contact = useTranslations("contact");
   const pathname = usePathname();
@@ -70,11 +71,13 @@ export function MobileMenu() {
               </Link>
             </li>
           ))}
+          {pages.legal ? (
           <li className="menu-item pt-2" style={{ "--i": NAV_ITEMS.length } as CSSProperties}>
             <Link href="/mentions-legales" className="text-base font-semibold text-cream/80 underline-offset-4 hover:underline">
               {t("legal")}
             </Link>
           </li>
+          ) : null}
         </ul>
       </nav>
 
