@@ -49,8 +49,11 @@ export async function listGalleryShops(locale: PlatformLocale): Promise<GalleryS
   const ordered = [...rows.filter((r) => r.slug === "krumbz"), ...rows.filter((r) => r.slug !== "krumbz")];
   return ordered.map((row) => {
     const gallery = (row.content.gallery ?? {}) as { imageUrl?: unknown; tagline?: unknown };
-    const hero = (row.content.hero ?? {}) as { subtitle?: unknown };
-    const imageUrl = (typeof gallery.imageUrl === "string" && gallery.imageUrl) || row.scenes[0]?.imageUrl || row.theme.logoUrl || "";
+    // Shop texts follow the Krumbz schema per locale: fr.home.intro.subtitle as a tagline fallback.
+    const fr = (row.content.fr ?? {}) as { home?: { intro?: { subtitle?: unknown } } };
+    const hero = { subtitle: fr.home?.intro?.subtitle };
+    const scene = row.scenes[0] as { image?: { landscape?: string; fallback?: string | null } } | undefined;
+    const imageUrl = (typeof gallery.imageUrl === "string" && gallery.imageUrl) || scene?.image?.fallback || row.theme.logoUrl || "";
     return {
       name: row.name,
       url: tenantOrigin(row.slug),
