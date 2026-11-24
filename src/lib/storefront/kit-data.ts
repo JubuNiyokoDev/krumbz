@@ -23,6 +23,8 @@ export interface StorefrontKit {
   cutout: string | null;
   /** Visible products, featured first. */
   products: KitProduct[];
+  /** Optional pages that exist for this shop (navigation only lists those). */
+  pages: { story: boolean; legal: boolean };
 }
 
-export const KRUMBZ_KIT: StorefrontKit = { bespoke: true, slug: "krumbz", name: "Krumbz", logoUrl: null, cutout: null, products: [] };
+export const KRUMBZ_KIT: StorefrontKit = { bespoke: true, slug: "krumbz", name: "Krumbz", logoUrl: null, cutout: null, products: [], pages: { story: true, legal: true } };

@@ -136,6 +136,7 @@ export function storefrontKit(data: StorefrontData, content: SiteContent, media:
     .sort((a, b) => Number(b.featured) - Number(a.featured));
   return {
     bespoke: false,
+    pages: { story: !!content.story.title, legal: content.legal.sections.length > 0 },
     slug: data.tenant.slug,
     name: data.tenant.name,
     logoUrl: firstExisting(data.tenant.theme.logoUrl),

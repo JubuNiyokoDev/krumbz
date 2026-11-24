@@ -11,7 +11,8 @@ import { whatsappUrl } from "@/lib/order/whatsapp";
 import { Crumbs } from "@/components/ui/Crumbs";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Logo } from "./Logo";
-import { NAV_ITEMS } from "./nav";
+import { navItemsFor } from "./nav";
+import { useKit } from "@/lib/storefront/kit";
 
 type Phone = { display: string; e164: string };
 
@@ -19,6 +20,7 @@ type Phone = { display: string; e164: string };
 export function MobileMenu() {
   const t = useTranslations("nav");
   const brand = useTranslations("brand");
+  const NAV_ITEMS = navItemsFor(useKit().pages);
   const common = useTranslations("common");
   const contact = useTranslations("contact");
   const pathname = usePathname();

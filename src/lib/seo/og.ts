@@ -36,3 +36,10 @@ export function ogImage(alt: string) {
   const url = ogImageUrl();
   return { url, ...OG_IMAGE_SIZE, alt, type: url === OG_FALLBACK_PATH ? "image/png" : "image/jpeg" };
 }
+
+/** Share image of a shop other than Krumbz: its og image, else its main product photo (null: none). */
+export function shopOgImage(media: { og: string | null; studio: string | null }, alt: string) {
+  const url = media.og ?? media.studio;
+  if (!url) return null;
+  return media.og ? { url, ...OG_IMAGE_SIZE, alt } : { url, alt };
+}

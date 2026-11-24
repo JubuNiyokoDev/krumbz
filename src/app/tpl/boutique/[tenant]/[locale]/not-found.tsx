@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { CrumbleBiscuit } from "@/components/ui/CrumbleBiscuit";
+import { NotFoundMark } from "@/components/ui/NotFoundMark";
 import { Crumbs } from "@/components/ui/Crumbs";
 import { ArrowRightIcon } from "@/components/ui/Icons";
 
@@ -13,7 +13,7 @@ export default function NotFound() {
       <Crumbs />
       <div className="relative mx-auto grid w-full max-w-[88rem] items-center gap-6 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:px-10">
         <div className="mx-auto w-[min(56vw,17rem)] lg:order-2 lg:w-[min(28vw,24rem)]">
-          <CrumbleBiscuit className="w-full" />
+          <NotFoundMark className="w-full" />
         </div>
         <div className="flex flex-col items-start gap-5 lg:order-1">
           <p className="crumble-code font-display text-[clamp(5rem,20vw,11rem)] font-bold leading-[0.8] tracking-[-0.04em] text-rust" aria-hidden>

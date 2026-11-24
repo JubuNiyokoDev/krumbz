@@ -25,7 +25,7 @@ export async function OrganizationJsonLd({ locale }: { locale: string }) {
       {
         "@type": "Organization",
         "@id": `${home}${SCHEMA_IDS.organization}`,
-        name: c.brand.company,
+        name: c.brand.company || c.brand.name,
         url: home,
         logo: { "@type": "ImageObject", url: absoluteUrl("/icon.png"), width: 512, height: 512 },
         slogan: c.brand.tagline,

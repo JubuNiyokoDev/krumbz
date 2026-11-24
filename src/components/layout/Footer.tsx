@@ -7,7 +7,7 @@ import { whatsappUrl } from "@/lib/order/whatsapp";
 import { ArrowUpIcon, MailIcon, PhoneIcon, SocialIcon, WhatsAppIcon } from "@/components/ui/Icons";
 import { Crumbs } from "@/components/ui/Crumbs";
 import { Logo } from "./Logo";
-import { NAV_ITEMS } from "./nav";
+import { navItemsFor } from "./nav";
 
 const currentYear = () => new Date().getFullYear();
 
@@ -16,6 +16,9 @@ export async function Footer() {
   const c = await loadStorefrontContent(locale);
   const t = await getTranslations("common");
   const socials = c.contact.socials.filter((s) => s.url);
+  const bespoke = c.products.items.every((item) => item.model !== "product");
+  const hasStory = bespoke || !!c.story.title;
+  const hasLegal = bespoke || c.legal.sections.length > 0;
   const year = currentYear();
 
   return (
@@ -27,31 +30,35 @@ export async function Footer() {
             <Link href="/" aria-label={c.nav.homeLabel} className="inline-block rounded-full">
               <Logo name={c.brand.name} tone="light" />
             </Link>
-            <p className="mt-5 font-display text-2xl font-semibold text-gold-light">{c.brand.tagline}</p>
-            <p className="mt-2 text-cream/80">{c.brand.promise}</p>
+            {c.brand.tagline ? <p className="mt-5 font-display text-2xl font-semibold text-gold-light">{c.brand.tagline}</p> : null}
+            {c.brand.promise ? <p className="mt-2 text-cream/80">{c.brand.promise}</p> : null}
+            {c.brand.origin || c.brand.base ? (
             <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-cream/10 px-4 py-2 text-sm font-semibold">
               <span aria-hidden className="inline-block h-2 w-2 rounded-full bg-gold" />
-              {c.brand.origin} ·
-              <MushroomIcon size={18} className="text-gold-light" />
+              {c.brand.origin}{c.brand.origin && c.brand.base ? " ·" : ""}
+              {bespoke ? <MushroomIcon size={18} className="text-gold-light" /> : null}
               {c.brand.base}
             </p>
+            ) : null}
           </div>
 
           <nav aria-label={c.nav.footerNavigation}>
             <h2 className="font-display text-lg font-semibold text-gold-light">{c.footer.navTitle}</h2>
             <ul className="mt-4 space-y-2.5">
-              {NAV_ITEMS.map((item) => (
+              {navItemsFor({ story: hasStory }).map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="text-cream/85 underline-offset-4 transition-colors hover:text-cream hover:underline">
                     {c.nav[item.key]}
                   </Link>
                 </li>
               ))}
+              {hasLegal ? (
               <li>
                 <Link href="/mentions-legales" className="text-cream/85 underline-offset-4 transition-colors hover:text-cream hover:underline">
                   {c.nav.legal}
                 </Link>
               </li>
+              ) : null}
             </ul>
           </nav>
 
@@ -116,10 +123,12 @@ export async function Footer() {
 
         <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-cream/15 pt-6 text-sm text-cream/80 sm:flex-row">
           <p>{t("rights", { year: String(year), company: c.brand.company })}</p>
+          {c.common.madeIn ? (
           <p className="inline-flex items-center gap-2">
             <span aria-hidden>♥</span>
             {c.common.madeIn}
           </p>
+          ) : null}
           <a href="#contenu" className="inline-flex items-center gap-2 rounded-full px-3 py-2 font-semibold text-cream hover:bg-cream/10">
             <ArrowUpIcon size={16} />
             {c.footer.backToTop}

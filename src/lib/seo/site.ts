@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { routing, type AppPathname } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
 import { LOCALE_LABELS, type Locale } from "@/i18n/config";
-import { loadContent } from "@/lib/content";
-import { ogImage, ogImageUrl } from "./og";
+import type { loadContent } from "@/lib/content";
+import { buildStorefrontContent, isBespoke, loadStorefrontData } from "@/templates/boutique/content";
+import { storefrontMedia } from "@/lib/storefront/media";
+import { ogImage, ogImageUrl, shopOgImage } from "./og";
 
 /**
  * Public site URL. Set NEXT_PUBLIC_SITE_URL in Vercel once the domain is known
@@ -27,10 +29,14 @@ export function localizedPath(locale: Locale, href: AppPathname): string {
 
 type PageKey = keyof ReturnType<typeof loadContent>["seo"]["pages"];
 
-/** Metadata for a page: title, description, canonical, hreflang alternates, Open Graph, Twitter. */
-export function pageMetadata(locale: Locale, page: PageKey, href: AppPathname): Metadata {
-  const content = loadContent(locale);
+/** Metadata for a page of the current shop: title, description, canonical, hreflang alternates, Open Graph, Twitter. */
+export async function pageMetadata(locale: Locale, page: PageKey, href: AppPathname): Promise<Metadata> {
+  const data = await loadStorefrontData(locale);
+  const content = buildStorefrontContent(data);
   const { title, description } = content.seo.pages[page];
+  const bespoke = isBespoke(data.tenant);
+  // Krumbz: its share image (or the generated card); other shops: media.og, else their product photo.
+  const image = bespoke ? ogImage(content.seo.ogAlt) : shopOgImage(storefrontMedia(data), content.seo.ogAlt);
   const canonical = localizedPath(locale, href);
   const languages = Object.fromEntries(routing.locales.map((l) => [LOCALE_LABELS[l].htmlLang, localizedPath(l, href)]));
   return {
@@ -42,10 +48,10 @@ export function pageMetadata(locale: Locale, page: PageKey, href: AppPathname): 
       siteName: content.seo.siteName,
       locale: LOCALE_LABELS[locale].ogLocale,
       url: canonical,
-      title: page === "home" ? title : `${title} · Krumbz`,
+      title: page === "home" ? title : `${title} · ${content.seo.siteName}`,
       description,
-      images: [ogImage(content.seo.ogAlt)],
+      images: image ? [image] : [],
     },
-    twitter: { card: "summary_large_image", title, description, images: [ogImageUrl()] },
+    twitter: { card: "summary_large_image", title, description, images: bespoke ? [ogImageUrl()] : image ? [image.url] : [] },
   };
 }

@@ -12,7 +12,8 @@ import { CartIcon, MenuIcon } from "@/components/ui/Icons";
 import { CART_BUMP_EVENT } from "@/components/order/cart-fx";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Logo } from "./Logo";
-import { NAV_ITEMS } from "./nav";
+import { navItemsFor } from "./nav";
+import { useKit } from "@/lib/storefront/kit";
 
 /**
  * Fixed header: transparent at the top of the page, solid once scrolled,
@@ -21,6 +22,7 @@ import { NAV_ITEMS } from "./nav";
 export function Header() {
   const t = useTranslations("nav");
   const brand = useTranslations("brand");
+  const NAV_ITEMS = navItemsFor(useKit().pages);
   const pathname = usePathname();
   const menuOpen = useUi((s) => s.menuOpen);
   const setMenuOpen = useUi((s) => s.setMenuOpen);

@@ -1,7 +1,9 @@
 import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import type { Locale } from "@/i18n/config";
-import { loadStorefrontContent } from "@/templates/boutique/content";
+import { notFound } from "next/navigation";
+import { buildStorefrontContent, isBespoke, loadStorefrontData } from "@/templates/boutique/content";
+import { storefrontMedia } from "@/lib/storefront/media";
 import { pageMetadata } from "@/lib/seo/site";
 import { resolveImage } from "@/lib/assets/server";
 import { BrandImage } from "@/components/ui/BrandImage";
@@ -22,17 +24,31 @@ const pad = (n: number) => String(n).padStart(2, "0");
 
 export default async function StoryPage({ params }: PageProps<"/tpl/boutique/[tenant]/[locale]/notre-histoire">) {
   const { locale } = await params;
-  const c = await loadStorefrontContent(locale);
+  const data = await loadStorefrontData(locale);
+  const c = buildStorefrontContent(data);
+  const bespoke = isBespoke(data.tenant);
+  const media = storefrontMedia(data);
   const s = c.story;
+  // A shop without a story has no story page (and no link to it, see storyAvailable()).
+  if (!bespoke && !s.title) notFound();
   const tc = { label: c.common.toComplete, hint: c.common.toCompleteHint };
-  // « De la forêt du Burundi à votre sachet »: one photo per step, lazy-loaded.
+  // Journey steps: one photo per step, lazy-loaded (Krumbz: « De la forêt du Burundi à votre sachet »).
   const journeyImages = await Promise.all(
-    (["recolte-foret", "marche-champignons", "panier-champignons"] as const).map((name) =>
-      resolveImage(`/images/champignons/${name}.jpg`, { width: 1100, height: 1400 }),
-    ),
+    s.journey.steps.map(async (_, i) => {
+      const file = media.journey[i];
+      if (!file) return null;
+      const image = await resolveImage(file, { width: 1100, height: 1400 });
+      return image.exists || bespoke ? image : null;
+    }),
   );
+  // Chapter photo: Krumbz names a file of /images/story/, other shops give media.story[i].
   const images = await Promise.all(
-    s.chapters.map((chapter) => (chapter.image ? resolveImage(`/images/story/${chapter.image}.jpg`, { width: 2400, height: 1600 }) : null)),
+    s.chapters.map(async (chapter, i) => {
+      const file = bespoke ? (chapter.image ? `/images/story/${chapter.image}.jpg` : null) : (media.story[i] ?? null);
+      if (!file) return null;
+      const image = await resolveImage(file, { width: 2400, height: 1600 });
+      return image.exists || bespoke ? image : null;
+    }),
   );
 
   return (
@@ -50,6 +66,7 @@ export default async function StoryPage({ params }: PageProps<"/tpl/boutique/[te
         }
       />
 
+      {s.chapters.length ? (
       <div className="relative bg-cream pb-10">
         {s.chapters.map((chapter, i) => {
           const image = images[i];
@@ -97,19 +114,27 @@ export default async function StoryPage({ params }: PageProps<"/tpl/boutique/[te
           );
         })}
       </div>
+      ) : null}
 
+      {s.journey.steps.length ? (
       <section aria-labelledby="journey-title" className="relative overflow-hidden bg-navy py-20 text-cream sm:py-24 lg:py-32">
         <div className="mx-auto max-w-[88rem] px-4 sm:px-6 lg:px-10">
           <SectionHeading id="journey-title" eyebrow={s.journey.eyebrow} title={s.journey.title} lead={s.journey.intro} tone="light" align="center" />
           <ol className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
             {s.journey.steps.map((step, i) => (
               <li key={step.title} data-reveal style={{ "--reveal-delay": `${i * 120}ms` } as CSSProperties} className="relative flex flex-col">
+                {journeyImages[i] ? (
                 <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-navy-soft shadow-lift ring-1 ring-cream/10">
-                  <BrandImage image={journeyImages[i]} alt={step.alt} sizes="(min-width: 768px) 30vw, 92vw" placeholderLabel={c.common.imagePlaceholder} />
+                  <BrandImage image={journeyImages[i]!} alt={step.alt} sizes="(min-width: 768px) 30vw, 92vw" placeholderLabel={c.common.imagePlaceholder} />
                   <span aria-hidden className="absolute left-4 top-4 grid h-12 w-12 place-items-center rounded-full bg-gold font-display text-xl font-bold text-navy shadow-biscuit">
-                    {i === 0 ? <MushroomIcon size={24} /> : i + 1}
+                    {i === 0 && bespoke ? <MushroomIcon size={24} /> : i + 1}
                   </span>
                 </div>
+                ) : (
+                <span aria-hidden className="grid h-14 w-14 place-items-center rounded-full bg-gold font-display text-2xl font-bold text-navy shadow-biscuit">
+                  {i + 1}
+                </span>
+                )}
                 <h3 className="mt-5 font-display text-2xl font-bold text-gold-light">{step.title}</h3>
                 <p className="mt-2 text-lg leading-relaxed text-cream/85">{step.text}</p>
               </li>
@@ -117,7 +142,9 @@ export default async function StoryPage({ params }: PageProps<"/tpl/boutique/[te
           </ol>
         </div>
       </section>
+      ) : null}
 
+      {s.values.items.length ? (
       <section aria-labelledby="values-title" className="grain relative overflow-hidden bg-cream-deep py-20 sm:py-24 lg:py-32">
         <div className="mx-auto max-w-[88rem] px-4 sm:px-6 lg:px-10">
           <SectionHeading id="values-title" title={s.values.title} align="center" />
@@ -139,6 +166,7 @@ export default async function StoryPage({ params }: PageProps<"/tpl/boutique/[te
           </ul>
         </div>
       </section>
+      ) : null}
     </>
   );
 }

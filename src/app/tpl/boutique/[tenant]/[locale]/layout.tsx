@@ -6,6 +6,7 @@ import { getMessages, getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { LOCALE_LABELS } from "@/i18n/config";
 import { siteUrl } from "@/lib/seo/site";
+import { tenantOrigin } from "@/lib/tenant/hosts";
 import { resolveTextures } from "@/lib/assets/server";
 import { shopFonts } from "@/app/fonts";
 import { paletteStyle, resolvePalette } from "@/lib/storefront/theme";
@@ -39,7 +40,8 @@ export async function generateMetadata({ params }: LayoutProps<"/tpl/boutique/[t
   // Shops other than Krumbz: their own icon (else logo); Krumbz keeps the app/icon.png files.
   const icon = data && !isBespoke(data.tenant) ? [data.tenant.theme.iconUrl, data.tenant.theme.logoUrl].find((u) => mediaExists(u)) : null;
   return {
-    metadataBase: siteUrl(),
+    // Krumbz: NEXT_PUBLIC_SITE_URL (unchanged); other shops: their own sub-domain.
+    metadataBase: data && !isBespoke(data.tenant) ? new URL(tenantOrigin(data.tenant.slug)) : siteUrl(),
     title: { default: t("defaultTitle"), template: t("titleTemplate") },
     description: t("defaultDescription"),
     applicationName: data?.tenant.name ?? "Krumbz",

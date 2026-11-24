@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import type { Locale } from "@/i18n/config";
 import { loadStorefrontContent } from "@/templates/boutique/content";
@@ -14,11 +15,13 @@ export default async function LegalPage({ params }: PageProps<"/tpl/boutique/[te
   const { locale } = await params;
   const c = await loadStorefrontContent(locale);
   const l = c.legal;
+  // A shop without legal texts has no legal page (and no footer link).
+  if (!l.sections.length) notFound();
   const tc = { label: c.common.toComplete, hint: c.common.toCompleteHint };
 
   return (
     <>
-      <PageHero id="legal-title" title={l.title} lead={<TextWithToComplete value={l.updated} {...tc} />} />
+      <PageHero id="legal-title" title={l.title} lead={l.updated ? <TextWithToComplete value={l.updated} {...tc} /> : undefined} />
       <div className="bg-cream pb-24">
         <div className="mx-auto grid max-w-[88rem] gap-12 px-4 sm:px-6 lg:grid-cols-[18rem_1fr] lg:px-10">
           <nav aria-labelledby="legal-toc" className="lg:sticky lg:top-[calc(var(--header-h)+2rem)] lg:self-start">

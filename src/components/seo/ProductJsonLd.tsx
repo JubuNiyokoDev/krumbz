@@ -29,10 +29,14 @@ export async function ProductJsonLd({ locale }: { locale: string }) {
   const currency = c._meta.currency;
 
   const products = (c.products.items as ProductContent[]).map((item) => {
+    // Krumbz: its studio photos and fact names; other shops: each product's photos and fact labels.
+    const own = item.model === "product";
+    const itemImages = own ? (item.images ?? []).map((image) => absoluteUrl(image.url)) : images;
     const properties = [
-      [c.products.formats.weight, item.weight],
-      [c.products.formats.units, item.unitsPerPack],
+      [own ? (item.factLabels?.[0] ?? "") : c.products.formats.weight, item.weight],
+      [own ? (item.factLabels?.[1] ?? "") : c.products.formats.units, item.unitsPerPack],
     ]
+      .filter(([name]) => !!name)
       .filter(([, value]) => known(value))
       .map(([name, value]) => ({ "@type": "PropertyValue", name, value }));
 
@@ -42,12 +46,12 @@ export async function ProductJsonLd({ locale }: { locale: string }) {
       sku: item.id,
       name: item.name,
       ...(known(item.description) ? { description: item.description } : {}),
-      ...(images.length ? { image: images } : {}),
+      ...(itemImages.length ? { image: itemImages } : {}),
       url: pageUrl,
       inLanguage: lang,
-      countryOfOrigin: { "@type": "Country", name: "Burundi" },
+      ...(own ? {} : { countryOfOrigin: { "@type": "Country", name: "Burundi" } }),
       brand: { "@type": "Brand", "@id": `${home}${SCHEMA_IDS.brand}`, name: c.brand.name },
-      manufacturer: { "@type": "Organization", "@id": `${home}${SCHEMA_IDS.organization}`, name: c.brand.company },
+      manufacturer: { "@type": "Organization", "@id": `${home}${SCHEMA_IDS.organization}`, name: c.brand.company || c.brand.name },
       ...(properties.length ? { additionalProperty: properties } : {}),
       ...(typeof item.price === "number" && Number.isFinite(item.price)
         ? {
