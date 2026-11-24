@@ -22,8 +22,8 @@
   --font-sans: var(--font-nunito), "Nunito", ui-rounded, system-ui, sans-serif;
 
   --radius-blob: 2.5rem;
-  --shadow-biscuit: 0 18px 40px -18px rgb(164 80 26 / 0.45), 0 4px 12px -4px rgb(18 38 74 / 0.15);
-  --shadow-lift: 0 26px 50px -20px rgb(18 38 74 / 0.35);
+  --shadow-biscuit: 0 18px 40px -18px rgb(var(--color-rust-rgb) / 0.45), 0 4px 12px -4px rgb(var(--color-navy-rgb) / 0.15);
+  --shadow-lift: 0 26px 50px -20px rgb(var(--color-navy-rgb) / 0.35);
 
   --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -33,6 +33,12 @@
     0%, 100% { transform: translateY(0) rotate(0deg); }
     50% { transform: translateY(-10px) rotate(6deg); }
   }
+}
+
+/* RGB triplets of the colour tokens (shadows with alpha); per-shop values are set on <html>. */
+:root {
+  --color-navy-rgb: 18 38 74;
+  --color-rust-rgb: 164 80 26;
 }
 
 @layer base {

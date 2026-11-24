@@ -106,11 +106,11 @@ export function SceneSlide({
             </p>
             <h3
               id={`moment-${id}-title`}
-              className={`ks-title font-display font-bold leading-[0.98] tracking-[-0.02em] [text-shadow:0_2px_24px_rgb(18_38_74/0.45)]`}
+              className={`ks-title font-display font-bold leading-[0.98] tracking-[-0.02em] [text-shadow:0_2px_24px_rgb(var(--color-navy-rgb)/0.45)]`}
             >
               {title}
             </h3>
-            <p className={`ks-text max-w-md leading-relaxed text-cream/90 [text-shadow:0_1px_12px_rgb(18_38_74/0.5)]`}>{text}</p>
+            <p className={`ks-text max-w-md leading-relaxed text-cream/90 [text-shadow:0_1px_12px_rgb(var(--color-navy-rgb)/0.5)]`}>{text}</p>
           </div>
 
           <StageAnchor id={id} pose={pose} fallback={fallback} className={`ks-anchor z-10`} />

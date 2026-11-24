@@ -445,7 +445,7 @@ export function OrderExperience() {
 
       {/* Mobile: always-visible summary + next action */}
       {!success ? (
-        <div data-order-bar role="region" aria-label={t("barLabel")} className="fixed inset-x-0 bottom-0 z-40 border-t border-navy/10 bg-cream/95 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 shadow-[0_-12px_30px_-18px_rgb(18_38_74/0.45)] backdrop-blur-md lg:hidden">
+        <div data-order-bar role="region" aria-label={t("barLabel")} className="fixed inset-x-0 bottom-0 z-40 border-t border-navy/10 bg-cream/95 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 shadow-[0_-12px_30px_-18px_rgb(var(--color-navy-rgb)/0.45)] backdrop-blur-md lg:hidden">
           <div className="mx-auto flex max-w-xl items-center gap-3">
             <div className="min-w-0 flex-1">
               <p className="truncate text-xs font-semibold text-navy/65">

@@ -46,29 +46,28 @@ export const nunito = Nunito({
  * Self-hosted by next/font (no request to Google at runtime), not preloaded: the browser only
  * downloads the files of the families a shop actually uses; size-adjusted fallbacks avoid layout shift.
  */
-const common = { subsets: ["latin"] as ("latin")[], display: "swap" as const, preload: false };
-const fraunces = Fraunces({ ...common, variable: "--font-c-fraunces" });
-const playfair = Playfair_Display({ ...common, variable: "--font-c-playfair" });
-const dmSerif = DM_Serif_Display({ ...common, weight: "400", variable: "--font-c-dmserif" });
-const bricolage = Bricolage_Grotesque({ ...common, variable: "--font-c-bricolage" });
-const spaceGrotesk = Space_Grotesk({ ...common, variable: "--font-c-spacegrotesk" });
-const syne = Syne({ ...common, variable: "--font-c-syne" });
-const outfit = Outfit({ ...common, variable: "--font-c-outfit" });
-const poppins = Poppins({ ...common, weight: ["400", "500", "600", "700"], variable: "--font-c-poppins" });
-const montserrat = Montserrat({ ...common, variable: "--font-c-montserrat" });
-const bebas = Bebas_Neue({ ...common, weight: "400", variable: "--font-c-bebas" });
-const archivoBlack = Archivo_Black({ ...common, weight: "400", variable: "--font-c-archivoblack" });
-const lora = Lora({ ...common, variable: "--font-c-lora" });
-const cormorant = Cormorant_Garamond({ ...common, weight: ["500", "600", "700"], variable: "--font-c-cormorant" });
-const inter = Inter({ ...common, variable: "--font-c-inter" });
-const dmSans = DM_Sans({ ...common, variable: "--font-c-dmsans" });
-const manrope = Manrope({ ...common, variable: "--font-c-manrope" });
-const workSans = Work_Sans({ ...common, variable: "--font-c-worksans" });
-const sourceSans = Source_Sans_3({ ...common, variable: "--font-c-sourcesans" });
-const lato = Lato({ ...common, weight: ["400", "700", "900"], variable: "--font-c-lato" });
-const openSans = Open_Sans({ ...common, variable: "--font-c-opensans" });
-const roboto = Roboto({ ...common, weight: ["400", "500", "700"], variable: "--font-c-roboto" });
-const notoSans = Noto_Sans({ ...common, variable: "--font-c-notosans" });
+const fraunces = Fraunces({ subsets: ["latin"], display: "swap", preload: false, variable: "--font-c-fraunces" });
+const playfair = Playfair_Display({ subsets: ["latin"], display: "swap", preload: false, variable: "--font-c-playfair" });
+const dmSerif = DM_Serif_Display({ subsets: ["latin"], display: "swap", preload: false, weight: "400", variable: "--font-c-dmserif" });
+const bricolage = Bricolage_Grotesque({ subsets: ["latin"], display: "swap", preload: false, variable: "--font-c-bricolage" });
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], display: "swap", preload: false, variable: "--font-c-spacegrotesk" });
+const syne = Syne({ subsets: ["latin"], display: "swap", preload: false, variable: "--font-c-syne" });
+const outfit = Outfit({ subsets: ["latin"], display: "swap", preload: false, variable: "--font-c-outfit" });
+const poppins = Poppins({ subsets: ["latin"], display: "swap", preload: false, weight: ["400", "500", "600", "700"], variable: "--font-c-poppins" });
+const montserrat = Montserrat({ subsets: ["latin"], display: "swap", preload: false, variable: "--font-c-montserrat" });
+const bebas = Bebas_Neue({ subsets: ["latin"], display: "swap", preload: false, weight: "400", variable: "--font-c-bebas" });
+const archivoBlack = Archivo_Black({ subsets: ["latin"], display: "swap", preload: false, weight: "400", variable: "--font-c-archivoblack" });
+const lora = Lora({ subsets: ["latin"], display: "swap", preload: false, variable: "--font-c-lora" });
+const cormorant = Cormorant_Garamond({ subsets: ["latin"], display: "swap", preload: false, weight: ["500", "600", "700"], variable: "--font-c-cormorant" });
+const inter = Inter({ subsets: ["latin"], display: "swap", preload: false, variable: "--font-c-inter" });
+const dmSans = DM_Sans({ subsets: ["latin"], display: "swap", preload: false, variable: "--font-c-dmsans" });
+const manrope = Manrope({ subsets: ["latin"], display: "swap", preload: false, variable: "--font-c-manrope" });
+const workSans = Work_Sans({ subsets: ["latin"], display: "swap", preload: false, variable: "--font-c-worksans" });
+const sourceSans = Source_Sans_3({ subsets: ["latin"], display: "swap", preload: false, variable: "--font-c-sourcesans" });
+const lato = Lato({ subsets: ["latin"], display: "swap", preload: false, weight: ["400", "700", "900"], variable: "--font-c-lato" });
+const openSans = Open_Sans({ subsets: ["latin"], display: "swap", preload: false, variable: "--font-c-opensans" });
+const roboto = Roboto({ subsets: ["latin"], display: "swap", preload: false, weight: ["400", "500", "700"], variable: "--font-c-roboto" });
+const notoSans = Noto_Sans({ subsets: ["latin"], display: "swap", preload: false, variable: "--font-c-notosans" });
 
 type LoadedFont = { variable: string };
 

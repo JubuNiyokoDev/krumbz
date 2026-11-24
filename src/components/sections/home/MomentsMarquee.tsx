@@ -7,9 +7,9 @@ export function MomentsMarquee({ labels }: { labels: string[] }) {
           <span className="px-6 font-display text-[clamp(2rem,6vw,4.5rem)] font-bold leading-none">{label}</span>
           <svg viewBox="0 0 24 24" className="h-7 w-7 shrink-0 text-gold" aria-hidden>
             <circle cx="12" cy="12" r="10" fill="currentColor" />
-            <circle cx="9" cy="10" r="1.4" fill="#a4501a" />
-            <circle cx="15" cy="10" r="1.4" fill="#a4501a" />
-            <circle cx="12" cy="15" r="1.4" fill="#a4501a" />
+            <circle cx="9" cy="10" r="1.4" className="fill-rust" />
+            <circle cx="15" cy="10" r="1.4" className="fill-rust" />
+            <circle cx="12" cy="15" r="1.4" className="fill-rust" />
           </svg>
         </span>
       ))}

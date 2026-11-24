@@ -262,7 +262,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <div className="curtain-door" data-door="left" />
         <div className="curtain-door" data-door="right" />
         <div className="curtain-mark">
-          <BrandMark className="h-full w-full drop-shadow-[0_14px_24px_rgb(164_80_26/0.45)]" />
+          <BrandMark className="h-full w-full drop-shadow-[0_14px_24px_rgb(var(--color-rust-rgb)/0.45)]" />
         </div>
       </div>
     </>

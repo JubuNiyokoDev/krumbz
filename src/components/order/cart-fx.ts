@@ -5,7 +5,7 @@ import { prefersReducedMotion } from "@/hooks/useReducedMotion";
 
 export const CART_BUMP_EVENT = "krumbz:cart-bump";
 
-const MINI_BISCUIT = `<svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#e2a23a" stroke="#b97a1c" stroke-width="2.5" stroke-dasharray="4 2.2"/><circle cx="20" cy="20" r="13" fill="#efb551"/><g fill="#a4501a" opacity=".75"><circle cx="20" cy="20" r="1.8"/><circle cx="14" cy="15" r="1.6"/><circle cx="26" cy="15" r="1.6"/><circle cx="14" cy="25" r="1.6"/><circle cx="26" cy="25" r="1.6"/></g></svg>`;
+const MINI_BISCUIT = `<svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><circle cx="20" cy="20" r="18" style="fill:var(--color-gold);stroke:var(--color-gold-dark)" stroke-width="2.5" stroke-dasharray="4 2.2"/><circle cx="20" cy="20" r="13" style="fill:var(--color-gold-light)" opacity=".55"/><g style="fill:var(--color-rust)" opacity=".75"><circle cx="20" cy="20" r="1.8"/><circle cx="14" cy="15" r="1.6"/><circle cx="26" cy="15" r="1.6"/><circle cx="14" cy="25" r="1.6"/><circle cx="26" cy="25" r="1.6"/></g></svg>`;
 
 /** A small biscuit flies from the clicked button to the header cart, then the cart bumps. */
 export function flyToCart(from: HTMLElement | null) {

@@ -55,7 +55,7 @@ export function Header() {
   return (
     <header
       data-hidden={hidden ? "true" : "false"}
-      className={`site-header fixed inset-x-0 top-0 z-50 ${scrolled ? "bg-cream/88 shadow-[0_10px_30px_-20px_rgb(18_38_74/0.45)] backdrop-blur-md" : "bg-transparent"}`}
+      className={`site-header fixed inset-x-0 top-0 z-50 ${scrolled ? "bg-cream/88 shadow-[0_10px_30px_-20px_rgb(var(--color-navy-rgb)/0.45)] backdrop-blur-md" : "bg-transparent"}`}
     >
       <div className="mx-auto flex h-[var(--header-h)] max-w-[88rem] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10">
         <Link href="/" aria-label={t("homeLabel")} className="rounded-full">

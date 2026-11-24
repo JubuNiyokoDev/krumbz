@@ -25,11 +25,10 @@ export function HeroTitle({ id, text, className = "" }: { id?: string; text: str
                 {last ? (
                   <svg viewBox="0 0 300 24" preserveAspectRatio="none" className="absolute -bottom-[0.08em] left-[2%] h-[0.16em] w-[96%] overflow-visible">
                     <path
-                      className="swoosh-path"
                       pathLength={1}
                       d="M4 16 C 60 4, 120 22, 170 12 S 260 6, 296 14"
                       fill="none"
-                      stroke="#e2a23a"
+                      className="swoosh-path stroke-gold"
                       strokeWidth="7"
                       strokeLinecap="round"
                     />

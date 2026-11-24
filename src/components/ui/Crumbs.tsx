@@ -14,7 +14,7 @@ export interface CrumbSpec {
   tone?: "gold" | "light" | "dark" | "rust";
 }
 
-const TONES = { gold: "#e2a23a", light: "#f3c76b", dark: "#b97a1c", rust: "#d2691e" } as const;
+const TONES = { gold: "var(--color-gold)", light: "var(--color-gold-light)", dark: "var(--color-gold-dark)", rust: "var(--color-rust-bright)" } as const;
 const SHAPES = [
   "M3 1 9 0 12 5 10 11 4 12 0 7Z",
   "M2 2 8 0 12 3 11 9 5 12 1 8Z",
@@ -50,7 +50,7 @@ export function Crumbs({ crumbs = DEFAULT_CRUMBS, className = "" }: { crumbs?: C
             } as CSSProperties
           }
         >
-          <path d={SHAPES[i % SHAPES.length]} fill={TONES[c.tone ?? "gold"]} />
+          <path d={SHAPES[i % SHAPES.length]} style={{ fill: TONES[c.tone ?? "gold"] }} />
         </svg>
       ))}
     </div>

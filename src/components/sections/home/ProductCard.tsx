@@ -33,9 +33,10 @@ export function ProductCard({ product, labels, showLearnMore = true }: { product
         <div aria-hidden className="blob absolute h-40 w-40 bg-gold-light/60 transition-transform duration-700 ease-out-back group-hover:scale-110 group-hover:rotate-12" />
         <ProductVisual
           model={product.model}
+          image={product.image}
           brand={labels.brand}
           tagline={product.model === "carton" ? labels.tagline : ""}
-          className="relative h-44 w-44 drop-shadow-[0_18px_22px_rgb(164_80_26/0.3)] transition-transform duration-700 ease-out-back group-hover:-translate-y-2 group-hover:-rotate-3"
+          className="relative h-44 w-44 drop-shadow-[0_18px_22px_rgb(var(--color-rust-rgb)/0.3)] transition-transform duration-700 ease-out-back group-hover:-translate-y-2 group-hover:-rotate-3"
         />
       </div>
       <p className="font-display text-sm font-semibold uppercase tracking-[0.12em] text-rust">{product.short}</p>
