@@ -84,3 +84,20 @@
 - Ordre de mise en production confirmé : 1) modèle unique en préproduction → recette ; 2) production (19300 + vhosts) ;
   3) bascule de krumbz.rundinova.com en dernier, sur accord explicite.
 
+## Modèle unique livré (branche `template-unique`, 2026-11-24)
+- Supprimés : `src/app/tpl/vitrine`, `src/templates/vitrine`, `src/i18n/vitrine-routing.ts`, aperçu `(dev)/demo-vitrine`.
+  Une seule arborescence `src/app/tpl/boutique/[tenant]/[locale]` (ex-Krumbz) ; le proxy y envoie toutes les boutiques.
+  Migration `0001_template_boutique` : `vitrine` → `boutique` (`krumbz` = même modèle + ressources propres à Krumbz).
+- Thème : `TenantTheme.palette` (11 jetons, dérivés de `colors` s'ils manquent, `src/lib/storefront/theme.ts`) posés en
+  variables CSS sur `<html>` ; polices de la liste admin chargées par next/font (sans préchargement, repli ajusté) ;
+  logo image ou marque à l'initiale (`BrandMark`) ; icône/OG par boutique. Krumbz : aucune variable injectée (identique).
+- Textes : schéma Krumbz par langue dans `tenant.content.{fr,en,rn,sw}` + `media` ; base = chaînes d'interface neutres
+  (`src/lib/storefront/neutral.ts`) ; chaque section facultative est masquée sans contenu (histoire et mentions → 404 et
+  liens retirés).
+- Scènes : `tenant.scenes` (photo paysage/portrait + visuel provisoire, cadrage, pose 3D) ; 5 minimum pour une nouvelle
+  boutique ; rappels répartis proportionnellement ; Krumbz garde ses 17 scènes intégrées.
+- Produits : glTF de la boutique sur le parcours/visionneuse, sinon photos détourées en cartes 3D ; cartes produit avec photo.
+- Validation : tsc, eslint, `next build` OK ; isolation 32/32 ; parité Krumbz 28/28 ; admin 10/10, espace 2/2 ;
+  `tests/template-variants.spec.ts` (boutique minimale et complète, bureau + mobile) 6/6.
+- Reste : sitemap et JSON-LD des boutiques encore sur l'URL du site Krumbz ; relecture du kirundi ; photos Ikirenge.
+
