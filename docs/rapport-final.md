@@ -13,7 +13,7 @@
 | HTTPS automatique, cache disque, sauvegardes, surveillance, CI | ✅ 100 % |
 | Mise en production, bascule Krumbz, suppression préproduction | ✅ 25/11/2026 |
 | Branding complémentaire (logo/favicon/polices/SEO par boutique) | ⏳ 65 fichiers modifiés, **non validés**, absents de `main` |
-| Sauvegardes hors serveur (Cloudflare R2) | ⏳ à configurer par le propriétaire (voir §5) |
+| Sauvegardes hors serveur (Cloudflare R2) | ✅ 100 % — bucket créé, première copie vérifiée, rétention 30 j |
 
 ## 2. URLs de production
 
@@ -64,20 +64,28 @@ tar xzf /root/nginx-backups/nginx-20261125-093616.tar.gz -C /
 
 Le conteneur `krumbz` reste démarré au moins une semaine. Les sauvegardes nginx des étapes HTTP/HTTPS sont dans `/root/nginx-backups/` (`092551`, `092833`, `093616`).
 
-## 5. Préproduction
+## 5. Sauvegardes Cloudflare R2 (25/11)
+
+- Bucket : `rundinova-studio-backups` (endpoint `https://c373db36103a5d435da41c5af857e00f.r2.cloudflarestorage.com`).
+- `rclone` installé sur le VPS, remote `r2` configisé en `600` ; `RCLONE_REMOTE=r2:rundinova-studio-backups/production` dans `/opt/rundinova-studio/ops.env` (`600`).
+- Première copie : `20261125T100551Z-first-r2` (`db.dump`, `uploads.tar.gz`, `SHA256SUMS`, `meta.txt`) — marqueur `last-offsite-success` présent.
+- Règle de cycle de vie `expire-30d` : suppression des objets après 30 jours (`maxAge: 2592000`, type `Age`).
+- Le cron `backup.sh` (03:15) copie désormais automatiquement chaque sauvegarde dans R2 ; aucune clé n'est versionnée.
+
+## 6. Préproduction
 
 Les conteneurs `rundinova-studio-staging`, `rundinova-studio-staging-db` et le conteneur de migration ponctuel ont été supprimés via `docker compose down --remove-orphans` (volumes conservés, `/opt/rundinova-studio-staging` intact pour recréer la stack). Les vhosts staging sont désactivés, les certificats staging restent en place sans effet. Les conteneurs `rn77-staging-*` appartiennent à un autre projet : **ils n'ont pas été touchés**.
 
-## 6. Décisions encore attendues du propriétaire
+## 7. Décisions encore attendues du propriétaire
 
 1. Confirmer le numéro Lumicash exact (`25767309309` appliqué par hypothèse ; titulaire `Niyondiko Joffre` confirmé).
 2. Fournir le numéro et le nom EcoCash (actuellement placeholder désactivé).
 3. Fournir les photos réelles des scènes de démonstration et des boutiques.
 4. Valider ou écarter les 65 fichiers du travail de branding complémentaire (non fusionnés).
-5. Cloudflare R2 : créer le bucket + le jeton, puis configurer `rclone` sur le VPS (`RCLONE_REMOTE=r2:rundinova-studio-backups/production`) — `rclone` n'est pas encore installé, les sauvegardes sont donc **locales uniquement** pour l'instant.
+5. ~~Cloudflare R2~~ **Fait le 25/11** : bucket `rundinova-studio-backups` créé, `rclone` installé et configuré en `/root/.config/rclone/rclone.conf` (`600`), `RCLONE_REMOTE` écrit dans `/opt/rundinova-studio/ops.env` (`600`), première sauvegarde `20261125T100551Z-first-r2` vérifiée dans R2, règle de cycle de vie `expire-30d` (suppression à 30 jours) active. Les clés ne sont **ni** dans le dépôt ni dans ce rapport.
 6. Relire la traduction kirundi avant toute communication officielle.
 
-## 7. Procédures utiles
+## 8. Procédures utiles
 
 - Documentation opérationnelle complète : [`docs/ops.md`](ops.md) et [`deploy/nginx/APPLY.md`](../deploy/nginx/APPLY.md).
 - Contrôles CI : `npm run typecheck`, `npm run lint`, `npm run content:check`, `npm run build`, `tests/` (isolation 32/32, parité 28/28, admin 10/10, espace 2/2, variantes 6/6).

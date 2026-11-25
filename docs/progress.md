@@ -116,3 +116,8 @@
 - Bascule Krumbz `19200 → 19300` faite avec `--expect krumbz.rundinova.com` ; image `krumbz:pre-cutover` conservée, sauvegarde Studio `20261125T093543Z-pre-cutover`, ancien conteneur laissé en service. HTTPS public vérifié : krumbz 200, isoko 200, admin 307, espace 307, bons certificats.
 - Préproduction supprimée : `rundinova-studio-staging`, `-db` et le conteneur de migration retirés via `docker compose down --remove-orphans` (volumes et `/opt/rundinova-studio-staging` conservés) ; vhosts staging désactivés. Les conteneurs `rn77-staging-*` (autre projet) n'ont pas été touchés.
 - Reste au propriétaire : valider/écarter les 65 fichiers de branding complémentaire ; confirmer le numéro Lumicash ; fournir EcoCash et les photos réelles ; configurer Cloudflare R2 (`rclone` absent → sauvegardes locales uniquement) ; relire le kirundi. Détails et retour arrière dans [`docs/rapport-final.md`](rapport-final.md).
+
+### Complément du 25/11 (10:06 UTC) — R2 et Lumicash
+- Propriétaire a confirmé **Lumicash `25767309309` / `Niyondiko Joffre`** : valeur déjà active dans `DEFAULT_STUDIO`, `placeholder: false` ; aucun affichage public du numéro (paiement public = lien + QR Amtips).
+- Cloudflare R2 branché : bucket `rundinova-studio-backups` créé via API, `rclone` installé et configuré en `600`, `RCLONE_REMOTE=r2:rundinova-studio-backups/production` dans `ops.env` (`600`), sauvegarde `20261125T100551Z-first-r2` copiée et vérifiée (`last-offsite-success`), règle de cycle de vie `expire-30d` (30 jours) active. Clés absentes du dépôt.
+- Docs mises à jour et poussées sur `main` (`83adb38`, CI `45588765913`) puis complément R2 à committer.

@@ -16,7 +16,9 @@
 - Base de production : migrations appliquées, 1 tenant `krumbz`, 2 produits, compte vendeur `+25767309309` et super-admin `niyondikojoffreasjubu@gmail.com`. Mots de passe **uniquement** dans `/root/rundinova-studio-credentials.txt` (`600`) sur le VPS.
 - Bascule Krumbz faite : `proxy_pass` `19200 → 19300` via `nginx-safe-apply.sh`, image `krumbz:pre-cutover` et sauvegardes `/root/nginx-backups/nginx-20261125-093616.tar.gz` + `/opt/rundinova-studio/backups/20261125T093543Z-pre-cutover`. Ancien conteneur conservé.
 - Préproduction supprimée (`docker compose down --remove-orphans`) ; vhosts staging désactivés ; conteneurs `rn77-staging-*` d'un autre projet **intacts**.
-- **Non fait / à valider par le propriétaire** : 65 fichiers de branding complémentaire (jamais fusionnés), numéro Lumicash exact, EcoCash, photos réelles, sauvegarde R2 (`rclone` absent sur le VPS), relecture kirundi.
+- **Lumicash confirmé** : `25767309309` / `Niyondiko Joffre` (déjà valeur active). Paiement public = lien + QR Amtips, WhatsApp `25767309309`.
+- **R2 configuré le 25/11** : bucket `rundinova-studio-backups`, `rclone` en `600`, `RCLONE_REMOTE` dans `ops.env`, copie `20261125T100551Z-first-r2` vérifiée, rétention 30 j. Aucune clé dans le dépôt.
+- **Non fait / à valider par le propriétaire** : 65 fichiers de branding complémentaire (jamais fusionnés), EcoCash, photos réelles, relecture kirundi.
 
 ---
 
