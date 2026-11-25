@@ -13,15 +13,34 @@ import { credentialsMessage, resetVendorPassword, setVendorAccountActive, create
 import { contentProblems, parseContentJson, starterContent } from "@/lib/admin/content";
 import { scenesProblems, starterScenes } from "@/lib/admin/scenes";
 import { requestTenantCertificates, setFeature, setTenantStatus, updateTenant, VendorError, createVendor, getTenantById } from "@/lib/admin/vendors";
-import { contrastWarnings, DEFAULT_THEME } from "@/lib/admin/theme";
+import { contrastWarnings, DEFAULT_THEME, validateTheme } from "@/lib/admin/theme";
 import { isUuid, normalizeSlug, parseIdentifier, slugProblem } from "@/lib/admin/validation";
 import { FEATURE_KEYS } from "@/lib/db/mappers";
 import { revalidateTenant, revalidateTenants } from "@/lib/tenant/storefront";
-import type { FeatureKey } from "@/lib/tenant/types";
+import { tenantOrigin } from "@/lib/tenant/hosts";
+import type { FeatureKey, TenantTheme } from "@/lib/tenant/types";
 import { adminAction, adminVoidAction } from "../_lib/server";
 import { fileOf, imageProblem, mergeContentForm, mergeMediaForm, parseContact, parseFeatures, parseLocales, parseScenesForm, parseTheme } from "../_lib/parse";
-import { storeTenantImage } from "../_lib/media";
+import { buildBrandTheme, storeTenantImage, uploadErrorMessage } from "../_lib/media";
 import type { ActionState } from "../_lib/types";
+import { resolvePalette } from "@/lib/storefront/theme";
+
+/** Theme of a new shop: the default look with the optional colours / fonts of the creation form. */
+function creationTheme(form: FormData) {
+  const pick = (name: string, fallback: string) => String(form.get(name) ?? "").trim() || fallback;
+  const colors: Record<string, string> = { ...DEFAULT_THEME.colors };
+  for (const key of ["background", "primary", "accent"] as const) colors[key] = pick(`color.${key}`, DEFAULT_THEME.colors[key]);
+  return validateTheme(
+    { colors, palette: {}, display: pick("fontDisplay", DEFAULT_THEME.fonts.display), body: pick("fontBody", DEFAULT_THEME.fonts.body), radius: DEFAULT_THEME.radius },
+    null,
+  );
+}
+
+/** Colours of the generated icons / share card: page background, dark brand colour, accent. */
+function brandColors(theme: TenantTheme) {
+  const p = resolvePalette(theme);
+  return { background: p.cream, primary: p.navy, accent: p.gold };
+}
 
 /** Reads the tenant again from the database; a malformed or unknown id is a not-found. */
 async function vendorOf(tenantId: string) {
@@ -61,6 +80,12 @@ export async function createVendorAction(_state: ActionState | null, form: FormD
     if (!identifier) fields.identifier = "Identifiant invalide : e-mail ou numéro avec indicatif (ex. 25768497372).";
     const contact = parseContact(form);
     Object.assign(fields, contact.fields);
+    // Optional visual identity at creation (everything stays editable on the shop page).
+    const logo = fileOf(form, "logo");
+    const logoError = imageProblem(logo);
+    if (logoError) fields.logo = logoError;
+    const look = creationTheme(form);
+    if (look.errors.length) fields.theme = look.errors.join(" ");
     if (Object.keys(fields).length) return bad(fields);
 
     const created = await createVendor(
@@ -70,7 +95,7 @@ export async function createVendorAction(_state: ActionState | null, form: FormD
         slug,
         template: "boutique",
         locales,
-        theme: DEFAULT_THEME,
+        theme: look.theme,
         content: starterContent(name),
         scenes: starterScenes(slug),
         contact: contact.contact,
@@ -81,7 +106,18 @@ export async function createVendorAction(_state: ActionState | null, form: FormD
       },
       { actorUserId: admin.userId },
     );
+    const warnings: string[] = [];
+    if (logo) {
+      try {
+        const brand = await buildBrandTheme(created.tenantId, look.theme, { logo, icon: null, removeLogo: false, removeIcon: false, colors: brandColors(look.theme) }, admin.userId);
+        const theme: TenantTheme = { ...look.theme, logoUrl: brand.logoUrl, ...(brand.brand ? { brand: brand.brand } : {}) };
+        await updateTenant(db, created.tenantId, { theme }, { actorUserId: admin.userId, action: "vendor.update_theme" });
+      } catch (error) {
+        warnings.push(`Logo non enregistré : ${uploadErrorMessage(error) ?? (error as Error).message} Ajoutez-le depuis la page de la boutique.`);
+      }
+    }
     revalidateTenants();
+    revalidateTenant(slug);
     return {
       ok: true,
       message: `Boutique « ${name} » créée sur ${slug}.`,
@@ -91,7 +127,9 @@ export async function createVendorAction(_state: ActionState | null, form: FormD
         whatsappUrl: created.whatsappUrl,
         loginUrl: vendorLoginUrl(),
       },
+      data: { vendorUrl: `/vendeurs/${created.tenantId}`, shopUrl: tenantOrigin(slug) },
       warnings: [
+        ...warnings,
         ...created.certificates.map((c) => `Certificat ${c.host} : ${c.status}${c.error ? ` — ${c.error}` : ""}.`),
         ...(created.certificateError ? [created.certificateError] : []),
       ],
@@ -147,13 +185,18 @@ export async function updateThemeAction(tenantId: string, _state: ActionState | 
     const removeIcon = form.get("removeIcon") === "on";
     const parsed = parseTheme(form, tenant.theme.logoUrl, tenant.theme.iconUrl ?? null);
     if (parsed.errors.length) return bad({ theme: parsed.errors.join(" ") });
-    let logoUrl = removeLogo ? null : tenant.theme.logoUrl;
-    if (logo) logoUrl = (await storeTenantImage(tenant.id, logo, admin.userId, 512)).url;
-    let iconUrl = removeIcon ? null : (tenant.theme.iconUrl ?? null);
-    if (icon) iconUrl = (await storeTenantImage(tenant.id, icon, admin.userId, 512)).url;
-    const theme = { ...parsed.theme, logoUrl };
+    let brand;
+    try {
+      brand = await buildBrandTheme(tenant.id, tenant.theme, { logo, icon, removeLogo, removeIcon, colors: brandColors(parsed.theme) }, admin.userId);
+    } catch (error) {
+      const message = uploadErrorMessage(error);
+      if (message) return bad({ [icon && !logo ? "icon" : "logo"]: message });
+      throw error;
+    }
+    const theme: TenantTheme = { ...parsed.theme, logoUrl: brand.logoUrl };
     delete theme.iconUrl;
-    if (iconUrl) theme.iconUrl = iconUrl;
+    if (brand.iconUrl) theme.iconUrl = brand.iconUrl;
+    if (brand.brand) theme.brand = brand.brand;
     const slug = await updateTenant(getDb(), tenant.id, { theme }, { actorUserId: admin.userId, action: "vendor.update_theme" });
     revalidateTenant(slug);
     refresh();

@@ -10,6 +10,7 @@ import { useCart } from "@/store/cart";
 import { scrollToTarget, useUi } from "@/hooks/useUi";
 import { prefersReducedMotion, useReducedMotion } from "@/hooks/useReducedMotion";
 import { BrandMark } from "@/components/ui/BrandMark";
+import { useKit } from "@/lib/storefront/kit";
 import { CartDrawer } from "./CartDrawer";
 import { MobileMenu } from "./MobileMenu";
 
@@ -51,6 +52,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
   const pendingRef = useRef<{ path: string; resolve: () => void } | null>(null);
   const busyRef = useRef(false);
   const lastPath = useRef(pathname);
+  const kit = useKit();
+  // Krumbz biscuit / initial mark: turns like a coin. An uploaded logo stays upright (it only scales).
+  const turn = kit.bespoke || !kit.logoUrl;
 
   /* ---------- Cart hydration (+ sync between tabs) ---------- */
   useEffect(() => {
@@ -94,8 +98,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
     await gsap
       .timeline()
       .fromTo(doors, { scaleX: 0 }, { scaleX: 1, duration: 0.62, ease: "expo.inOut" })
-      .fromTo(mark, { scale: 0, rotate: -140 }, { scale: 1, rotate: 0, duration: 0.55, ease: "back.out(2.2)" }, "-=0.28");
-  }, []);
+      .fromTo(mark, { scale: 0, rotate: turn ? -140 : 0 }, { scale: 1, rotate: 0, duration: 0.55, ease: "back.out(2.2)" }, "-=0.28");
+  }, [turn]);
 
   const playOpen = useCallback(async () => {
     const el = curtainRef.current;
@@ -109,11 +113,11 @@ export function SiteShell({ children }: { children: ReactNode }) {
       gsap.killTweensOf(mark);
       await gsap
         .timeline()
-        .to(mark, { scale: 0, rotate: "+=160", duration: 0.42, ease: "back.in(2)" })
+        .to(mark, { scale: 0, rotate: turn ? "+=160" : "+=0", duration: 0.42, ease: "back.in(2)" })
         .to(doors, { scaleX: 0, duration: 0.75, ease: "expo.inOut" }, "-=0.12");
     }
     el.dataset.active = "false";
-  }, []);
+  }, [turn]);
 
   const navigate = useCallback(
     async (href: string) => {
@@ -128,7 +132,11 @@ export function SiteShell({ children }: { children: ReactNode }) {
         await playClose();
         // Waiting state: the biscuit keeps turning while the next page loads.
         const mark = curtainRef.current?.querySelector(".curtain-mark");
-        const spin = prefersReducedMotion() ? null : gsap.to(mark ?? [], { rotate: "+=360", duration: 2.2, ease: "none", repeat: -1, delay: 0.25 });
+        const spin = prefersReducedMotion()
+          ? null
+          : turn
+            ? gsap.to(mark ?? [], { rotate: "+=360", duration: 2.2, ease: "none", repeat: -1, delay: 0.25 })
+            : gsap.to(mark ?? [], { scale: 0.88, duration: 0.7, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 0.25 });
         const arrived = new Promise<void>((resolve) => {
           pendingRef.current = { path: url.pathname, resolve };
         });
@@ -160,7 +168,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         if (curtainRef.current) curtainRef.current.dataset.active = "false";
       }
     },
-    [router, playClose, playOpen],
+    [router, playClose, playOpen, turn],
   );
 
   useEffect(() => {
@@ -262,7 +270,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <div className="curtain-door" data-door="left" />
         <div className="curtain-door" data-door="right" />
         <div className="curtain-mark">
-          <BrandMark className="h-full w-full drop-shadow-[0_14px_24px_rgb(var(--color-rust-rgb)/0.45)]" />
+          {turn ? (
+            <BrandMark className="h-full w-full drop-shadow-[0_14px_24px_rgb(var(--color-rust-rgb)/0.45)]" />
+          ) : (
+            <span className="grid h-full w-full place-items-center rounded-full bg-cream p-[17%] shadow-[0_14px_30px_-6px_rgb(var(--color-rust-rgb)/0.45)] ring-4 ring-gold-light/70">
+              <BrandMark className="h-full w-full" />
+            </span>
+          )}
         </div>
       </div>
     </>

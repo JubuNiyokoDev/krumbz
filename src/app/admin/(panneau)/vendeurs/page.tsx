@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ActionForm, SubmitButton } from "../../_components/ActionForm";
 import { Empty, PageHeader, TenantStatusBadge } from "../../_components/ui";
 import { createVendorAction } from "../../_actions/vendors";
-import { DEFAULT_THEME, RADIUS_OPTIONS } from "@/lib/admin/theme";
+import { BODY_FONTS, DEFAULT_THEME, DISPLAY_FONTS, RADIUS_OPTIONS } from "@/lib/admin/theme";
 import { listVendors } from "@/lib/admin/vendors";
 import { FEATURE_KEYS } from "@/lib/db/mappers";
 import { getDb } from "@/lib/db/client";
@@ -91,6 +91,57 @@ export default async function VendorsPage() {
               <input id="address" name="address" className="input" maxLength={200} />
             </div>
           </div>
+
+          <fieldset className="mt-4 rounded-lg border border-slate-200 p-4">
+            <legend className="label px-1">Identité visuelle (facultatif, modifiable ensuite)</legend>
+            <div className="grid gap-4 md:grid-cols-3">
+              <div>
+                <label className="label" htmlFor="new-color-primary">
+                  Couleur principale
+                </label>
+                <input id="new-color-primary" name="color.primary" type="color" className="input h-11" defaultValue={DEFAULT_THEME.colors.primary} />
+              </div>
+              <div>
+                <label className="label" htmlFor="new-color-accent">
+                  Couleur d&apos;accent
+                </label>
+                <input id="new-color-accent" name="color.accent" type="color" className="input h-11" defaultValue={DEFAULT_THEME.colors.accent} />
+              </div>
+              <div>
+                <label className="label" htmlFor="new-color-background">
+                  Fond des pages
+                </label>
+                <input id="new-color-background" name="color.background" type="color" className="input h-11" defaultValue={DEFAULT_THEME.colors.background} />
+              </div>
+              <div>
+                <label className="label" htmlFor="new-font-display">
+                  Police des titres
+                </label>
+                <select id="new-font-display" name="fontDisplay" className="input" defaultValue={DEFAULT_THEME.fonts.display}>
+                  {DISPLAY_FONTS.map((font) => (
+                    <option key={font}>{font}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="label" htmlFor="new-font-body">
+                  Police du texte
+                </label>
+                <select id="new-font-body" name="fontBody" className="input" defaultValue={DEFAULT_THEME.fonts.body}>
+                  {BODY_FONTS.map((font) => (
+                    <option key={font}>{font}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="label" htmlFor="new-logo">
+                  Logo (PNG, SVG ou JPG)
+                </label>
+                <input id="new-logo" name="logo" type="file" accept="image/png,image/svg+xml,image/jpeg,image/webp,image/avif,.svg" className="input" />
+                <p className="hint">Transparence conservée ; favicon et image de partage générés automatiquement.</p>
+              </div>
+            </div>
+          </fieldset>
 
           <fieldset className="mt-4">
             <legend className="label">Langues de la boutique</legend>

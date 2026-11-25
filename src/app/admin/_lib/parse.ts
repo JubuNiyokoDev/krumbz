@@ -27,7 +27,7 @@ export function fileOf(form: FormData, name: string): File | null {
 export function imageProblem(file: File | null, required = false): string | null {
   if (!file) return required ? "Choisissez une image." : null;
   if (file.size > MAX_IMAGE_BYTES) return "Image trop lourde (8 Mo maximum).";
-  if (file.type && !file.type.startsWith("image/")) return "Ce fichier n'est pas une image (JPEG, PNG, WebP, AVIF).";
+  if (file.type && !file.type.startsWith("image/")) return "Ce fichier n'est pas une image (PNG, SVG, JPEG, WebP, AVIF).";
   return null;
 }
 

@@ -34,8 +34,10 @@ export interface StoredImage {
 }
 
 export class UploadError extends Error {
-  constructor(public code: "too_large" | "not_image" | "empty") {
+  code: "too_large" | "not_image" | "empty";
+  constructor(code: "too_large" | "not_image" | "empty") {
     super(code);
+    this.code = code;
   }
 }
 

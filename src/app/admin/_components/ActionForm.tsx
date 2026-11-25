@@ -67,6 +67,18 @@ export function FormFeedback({ state }: { state: ActionState | null }) {
         </p>
       ))}
       {state.credentials && <CredentialsReveal credentials={state.credentials} />}
+      {typeof state.data?.vendorUrl === "string" ? (
+        <p className="flex flex-wrap gap-4 text-sm">
+          <a className="font-semibold underline" href={state.data.vendorUrl}>
+            Personnaliser la boutique (thème, logo, scènes) →
+          </a>
+          {typeof state.data.shopUrl === "string" ? (
+            <a className="underline" href={state.data.shopUrl} target="_blank" rel="noreferrer" data-testid="created-shop-url">
+              {state.data.shopUrl}
+            </a>
+          ) : null}
+        </p>
+      ) : null}
     </div>
   );
 }

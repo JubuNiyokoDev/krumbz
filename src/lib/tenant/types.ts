@@ -53,6 +53,20 @@ export interface TenantTheme {
   logoUrl: string | null;
   /** Square icon (favicon / apple-touch); defaults to the logo. */
   iconUrl?: string | null;
+  /** Files generated from the logo / icon upload (src/lib/uploads/brand.ts). */
+  brand?: TenantBrandAssets | null;
+}
+
+/** Generated brand set of a shop: displayed logo (alpha kept), original SVG, favicons, share card. */
+export interface TenantBrandAssets {
+  logo: string | null;
+  logoPng: string | null;
+  logoSvg: string | null;
+  icon32: string;
+  icon180: string;
+  icon192: string;
+  icon512: string;
+  og: string | null;
 }
 
 export interface TenantContact {

@@ -82,3 +82,13 @@ export function resolveHost(rawHost: string | null | undefined, options: { devTe
 export function tenantOrigin(slug: string, options: { staging?: boolean } = {}): string {
   return `https://${options.staging ? "staging-" : ""}${slug}.${rootDomain()}`;
 }
+
+/**
+ * Public origin of a host label (shop slug, "isoko") for THIS deployment, read at runtime:
+ * https://<label>.<PLATFORM_ROOT_DOMAIN>, or https://staging-<label>.… when PLATFORM_STAGING=1.
+ * Used for canonical / hreflang / Open Graph / JSON-LD of statically rendered pages (no request host there);
+ * sitemap.xml and robots.txt use the request host itself.
+ */
+export function publicOrigin(label: string): string {
+  return tenantOrigin(label, { staging: process.env.PLATFORM_STAGING === "1" });
+}

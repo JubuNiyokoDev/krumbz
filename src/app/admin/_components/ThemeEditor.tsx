@@ -88,30 +88,44 @@ export function ThemeEditor({ tenant }: { tenant: Tenant }) {
         </div>
         <div className="md:col-span-2">
           <label className="label" htmlFor="logo">
-            Logo (facultatif, 8 Mo maximum) — sinon le nom de la boutique est écrit dans le style du modèle
+            Logo (PNG, SVG ou JPG, 8 Mo maximum) — en-tête, chargement 3D, transition, pied de page, page 404
           </label>
-          <input id="logo" name="logo" type="file" accept="image/*" className="input" />
+          <input id="logo" name="logo" type="file" accept="image/png,image/svg+xml,image/jpeg,image/webp,image/avif,.svg" className="input" />
+          <p className="hint">Transparence conservée (PNG/WebP avec alpha, SVG nettoyé). Sans logo : le nom de la boutique dans le style du modèle.</p>
           {theme.logoUrl ? (
-            <p className="mt-1 text-xs text-slate-500">
-              Logo actuel : <span className="break-all">{theme.logoUrl}</span>{" "}
-              <label className="ml-2 inline-flex items-center gap-1">
-                <input type="checkbox" name="removeLogo" /> retirer
+            <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-slate-500">
+              {/* eslint-disable-next-line @next/next/no-img-element -- admin preview of an upload */}
+              <img
+                src={theme.logoUrl}
+                alt="Logo actuel"
+                data-testid="admin-logo-preview"
+                className="h-12 w-auto max-w-[12rem] rounded bg-[repeating-conic-gradient(#e2e8f0_0_25%,#fff_0_50%)] bg-[length:12px_12px] object-contain p-1"
+              />
+              <label className="inline-flex items-center gap-1">
+                <input type="checkbox" name="removeLogo" /> retirer le logo
               </label>
-            </p>
+            </div>
           ) : null}
         </div>
         <div>
           <label className="label" htmlFor="icon">
-            Icône carrée (favicon, facultatif)
+            Favicon (facultatif, carré) — sinon généré à partir du logo
           </label>
-          <input id="icon" name="icon" type="file" accept="image/*" className="input" />
-          {theme.iconUrl ? (
-            <p className="mt-1 text-xs text-slate-500">
-              Icône actuelle : <span className="break-all">{theme.iconUrl}</span>{" "}
-              <label className="ml-2 inline-flex items-center gap-1">
-                <input type="checkbox" name="removeIcon" /> retirer
-              </label>
-            </p>
+          <input id="icon" name="icon" type="file" accept="image/png,image/svg+xml,image/jpeg,image/webp,image/avif,.svg" className="input" />
+          {theme.brand ? (
+            <div className="mt-2 flex items-end gap-2 text-xs text-slate-500">
+              {[theme.brand.icon32, theme.brand.icon180, theme.brand.icon512].map((src, i) => (
+                // eslint-disable-next-line @next/next/no-img-element -- admin preview of the generated icons
+                <img key={src} src={src} alt="" className={["h-6 w-6", "h-10 w-10 rounded-lg", "h-14 w-14 rounded-xl"][i]} />
+              ))}
+              {theme.iconUrl ? (
+                <label className="ml-2 inline-flex items-center gap-1">
+                  <input type="checkbox" name="removeIcon" /> retirer le favicon
+                </label>
+              ) : (
+                <span>(générés à partir du logo)</span>
+              )}
+            </div>
           ) : null}
         </div>
       </div>

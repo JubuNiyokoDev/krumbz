@@ -98,6 +98,8 @@ services:
       NODE_OPTIONS: --max-old-space-size=320
       DATABASE_URL: postgres://studio:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD manquant dans .env}@db:5432/studio
       TRUST_FORWARDED_HOST: "1"
+      # Canonical / Open Graph / JSON-LD URLs on staging-<slug>.rundinova.com (src/lib/tenant/hosts.ts publicOrigin).
+      PLATFORM_STAGING: "1"
       UPLOADS_DIR: /data/uploads
       CERT_REQUESTS_DIR: /data/cert-requests
       CERT_STATUS_DIR: /data/cert-status

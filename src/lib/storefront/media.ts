@@ -52,7 +52,8 @@ export function storefrontMedia(data: StorefrontData): StorefrontMedia {
   return {
     studio,
     cutout: firstExisting(m.cutout) ?? studio,
-    og: firstExisting(m.og),
+    // Share image: the uploaded one, else the card generated from the logo + palette (src/lib/uploads/brand.ts).
+    og: firstExisting(m.og, data.tenant.theme.brand?.og),
     highlight: firstExisting(m.highlight),
     breaks: (m.breaks ?? []).map((p) => firstExisting(p)),
     harvest: firstExisting(m.harvest),

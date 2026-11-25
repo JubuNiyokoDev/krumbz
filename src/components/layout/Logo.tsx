@@ -7,10 +7,16 @@ import { useKit } from "@/lib/storefront/kit";
 export function Logo({ name, tone = "dark", className = "" }: { name: string; tone?: "dark" | "light"; className?: string }) {
   const kit = useKit();
   if (!kit.bespoke && kit.logoUrl) {
+    // On dark surfaces (footer, mobile menu) the logo sits on a chip of the page colour it was designed for.
     return (
-      <span className={`group/logo inline-flex items-center ${className}`}>
+      <span className={`group/logo inline-flex items-center ${tone === "light" ? "rounded-2xl bg-cream px-3 py-1.5 shadow-sm" : ""} ${className}`}>
         {/* eslint-disable-next-line @next/next/no-img-element -- uploaded logo of any size/format */}
-        <img src={kit.logoUrl} alt={name} className="h-10 w-auto max-w-[11rem] object-contain lg:h-12" />
+        <img
+          src={kit.logoUrl}
+          alt={name}
+          data-shop-logo
+          className="h-10 w-auto max-w-[11rem] object-contain transition-transform duration-700 ease-out-back group-hover/logo:scale-105 lg:h-12"
+        />
       </span>
     );
   }

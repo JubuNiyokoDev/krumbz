@@ -1,6 +1,6 @@
 import { isToComplete } from "@/lib/content";
-import { loadStorefrontContent } from "@/templates/boutique/content";
-import { absoluteUrl } from "@/lib/seo/site";
+import { buildStorefrontContent, isBespoke, loadStorefrontData } from "@/templates/boutique/content";
+import { publicOrigin } from "@/lib/tenant/hosts";
 import { JsonLd, SCHEMA_IDS } from "./JsonLd";
 
 const known = (value: string | null | undefined): value is string => Boolean(value) && !isToComplete(value);
@@ -10,8 +10,13 @@ const known = (value: string | null | undefined): value is string => Boolean(val
  * Values still marked « À COMPLÉTER » are never output.
  */
 export async function OrganizationJsonLd({ locale }: { locale: string }) {
-  const c = await loadStorefrontContent(locale);
-  const home = absoluteUrl("/");
+  const storefront = await loadStorefrontData(locale);
+  const c = buildStorefrontContent(storefront);
+  // Every shop on its own public origin; Krumbz: its icon, other shops: the icon generated from their logo.
+  const bespoke = isBespoke(storefront.tenant);
+  const home = `${publicOrigin(storefront.tenant.slug)}/`;
+  const brandIcon = bespoke ? "/icon.png" : storefront.tenant.theme.brand?.icon512;
+  const logoUrl = brandIcon ? new URL(brandIcon, home).toString() : null;
   const sameAs = c.contact.socials.map((s) => s.url).filter(known);
   const address = {
     "@type": "PostalAddress",
@@ -27,7 +32,7 @@ export async function OrganizationJsonLd({ locale }: { locale: string }) {
         "@id": `${home}${SCHEMA_IDS.organization}`,
         name: c.brand.company || c.brand.name,
         url: home,
-        logo: { "@type": "ImageObject", url: absoluteUrl("/icon.png"), width: 512, height: 512 },
+        ...(logoUrl ? { logo: { "@type": "ImageObject", url: logoUrl, width: 512, height: 512 } } : {}),
         slogan: c.brand.tagline,
         brand: { "@id": `${home}${SCHEMA_IDS.brand}` },
         address,
@@ -47,7 +52,7 @@ export async function OrganizationJsonLd({ locale }: { locale: string }) {
         "@id": `${home}${SCHEMA_IDS.brand}`,
         name: c.brand.name,
         slogan: c.brand.tagline,
-        logo: absoluteUrl("/icon.png"),
+        ...(logoUrl ? { logo: logoUrl } : {}),
       },
     ],
   };

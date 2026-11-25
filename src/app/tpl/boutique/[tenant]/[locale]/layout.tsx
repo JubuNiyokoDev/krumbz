@@ -6,7 +6,7 @@ import { getMessages, getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { LOCALE_LABELS } from "@/i18n/config";
 import { siteUrl } from "@/lib/seo/site";
-import { tenantOrigin } from "@/lib/tenant/hosts";
+import { publicOrigin } from "@/lib/tenant/hosts";
 import { resolveTextures } from "@/lib/assets/server";
 import { shopFonts } from "@/app/fonts";
 import { paletteStyle, resolvePalette } from "@/lib/storefront/theme";
@@ -37,16 +37,45 @@ export async function generateMetadata({ params }: LayoutProps<"/tpl/boutique/[t
   const { tenant, locale } = await params;
   const t = await getTranslations({ locale: locale as (typeof routing.locales)[number], namespace: "seo" });
   const data = await getStorefrontData(tenant, locale);
-  // Shops other than Krumbz: their own icon (else logo); Krumbz keeps the app/icon.png files.
-  const icon = data && !isBespoke(data.tenant) ? [data.tenant.theme.iconUrl, data.tenant.theme.logoUrl].find((u) => mediaExists(u)) : null;
+  // Krumbz: its biscuit icons (public/favicon.ico + app/icon.png, app/apple-icon.png). Other shops: icons generated
+  // from their favicon (else logo), src/lib/uploads/brand.ts; without any image, a monogram in their colours.
+  const shop = data && !isBespoke(data.tenant) ? data.tenant : null;
+  const brand = shop?.theme.brand && mediaExists(shop.theme.brand.icon32) ? shop.theme.brand : null;
+  const legacyIcon = shop && !brand ? [shop.theme.iconUrl, shop.theme.logoUrl].find((u) => mediaExists(u)) : null;
+  let icons: Metadata["icons"];
+  if (!shop) {
+    icons = {
+      icon: [
+        { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
+        { url: "/icon.png", sizes: "512x512", type: "image/png" },
+      ],
+      apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+    };
+  } else if (brand) {
+    icons = {
+      icon: [
+        { url: brand.icon32, sizes: "32x32", type: "image/png" },
+        { url: brand.icon192, sizes: "192x192", type: "image/png" },
+      ],
+      apple: [{ url: brand.icon180, sizes: "180x180", type: "image/png" }],
+    };
+  } else if (legacyIcon) {
+    icons = { icon: legacyIcon, apple: legacyIcon };
+  } else {
+    const p = resolvePalette(shop.theme);
+    const initial = (Array.from(shop.name.trim())[0] ?? "").toUpperCase().replace(/[<>&"']/g, "");
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="${p.gold}"/><text x="32" y="44" text-anchor="middle" font-family="sans-serif" font-size="36" font-weight="700" fill="${p.navy}">${initial}</text></svg>`;
+    icons = { icon: [{ url: `data:image/svg+xml,${encodeURIComponent(svg)}`, type: "image/svg+xml" }] };
+  }
   return {
-    // Krumbz: NEXT_PUBLIC_SITE_URL (unchanged); other shops: their own sub-domain.
-    metadataBase: data && !isBespoke(data.tenant) ? new URL(tenantOrigin(data.tenant.slug)) : siteUrl(),
+    // Every shop (Krumbz included): its own public origin (https://<slug>.rundinova.com); NEXT_PUBLIC_SITE_URL is only a fallback.
+    metadataBase: data ? new URL(publicOrigin(data.tenant.slug)) : siteUrl(),
     title: { default: t("defaultTitle"), template: t("titleTemplate") },
     description: t("defaultDescription"),
     applicationName: data?.tenant.name ?? "Krumbz",
     formatDetection: { telephone: false },
-    ...(icon ? { icons: { icon, apple: icon } } : {}),
+    icons,
+    ...(shop ? { manifest: `/api/manifest/${shop.slug}` } : {}),
   };
 }
 

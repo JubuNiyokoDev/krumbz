@@ -12,7 +12,7 @@
  */
 import "server-only";
 import { cache } from "react";
-import { revalidateTag, unstable_cache } from "next/cache";
+import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
 import { getDb, hasDatabase } from "../db/client.ts";
 import { findStorefront, findTenantBySlug, listStorefronts } from "./queries.ts";
 import { invalidateTenantRoute } from "./route-cache.ts";
@@ -57,6 +57,8 @@ export async function listStorefrontParams(template?: TemplateId): Promise<{ ten
 export function revalidateTenant(slug: string): void {
   revalidateTag(tenantTag(slug), { expire: 0 });
   revalidateTag(GALLERY_TAG, { expire: 0 });
+  // The prerendered pages of the shop too: the next visit renders them again (no stale page after an admin change).
+  revalidatePath(`/tpl/boutique/${slug}`, "layout");
   invalidateTenantRoute(slug);
 }
 

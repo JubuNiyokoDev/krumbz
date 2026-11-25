@@ -1,6 +1,7 @@
 import { isToComplete, type ProductContent } from "@/lib/content";
-import { loadStorefrontContent } from "@/templates/boutique/content";
-import { absoluteUrl, localizedPath } from "@/lib/seo/site";
+import { buildStorefrontContent, loadStorefrontData } from "@/templates/boutique/content";
+import { publicOrigin } from "@/lib/tenant/hosts";
+import { localizedPath } from "@/lib/seo/site";
 import { resolveImage } from "@/lib/assets/server";
 import { LOCALE_LABELS, type Locale } from "@/i18n/config";
 import { JsonLd, SCHEMA_IDS } from "./JsonLd";
@@ -18,7 +19,11 @@ const known = (value: unknown): value is string => typeof value === "string" && 
  * - Values still marked « À COMPLÉTER » are omitted, never output as data.
  */
 export async function ProductJsonLd({ locale }: { locale: string }) {
-  const c = await loadStorefrontContent(locale);
+  const storefront = await loadStorefrontData(locale);
+  const c = buildStorefrontContent(storefront);
+  // URLs of the shop's own public origin (https://<slug>.rundinova.com).
+  const origin = publicOrigin(storefront.tenant.slug);
+  const absoluteUrl = (path: string) => new URL(path, origin).toString();
   const home = absoluteUrl("/");
   const lang = locale in LOCALE_LABELS ? LOCALE_LABELS[locale].htmlLang : locale;
   const pageUrl = absoluteUrl(localizedPath(locale as Locale, "/produits"));
