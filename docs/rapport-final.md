@@ -70,7 +70,7 @@ Le conteneur `krumbz` reste démarré au moins une semaine. Les sauvegardes ngin
 - `rclone` installé sur le VPS, remote `r2` configisé en `600` ; `RCLONE_REMOTE=r2:rundinova-studio-backups/production` dans `/opt/rundinova-studio/ops.env` (`600`).
 - Première copie : `20261125T100551Z-first-r2` (`db.dump`, `uploads.tar.gz`, `SHA256SUMS`, `meta.txt`) — marqueur `last-offsite-success` présent.
 - Règle de cycle de vie `expire-30d` : suppression des objets après 30 jours (`maxAge: 2592000`, type `Age`).
-- Le cron `backup.sh` (03:15) copie désormais automatiquement chaque sauvegarde dans R2 ; aucune clé n'est versionnée.
+- Le cron système est installé : `/etc/cron.d/rundinova-studio` (sauvegarde quotidienne **03:15**, surveillance toutes les 5 min), journalisation dans `/var/log/rundinova-studio/` avec rotation. Il était absent jusqu'ici ; c'est corrigé. Aucune clé n'est versionnée.
 
 ## 6. Préproduction
 
