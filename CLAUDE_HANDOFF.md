@@ -7,6 +7,19 @@
 
 ---
 
+## ✅ ÉTAT FINAL — production ouverte (25/11/2026, OpenCode)
+
+**Toutes les sections ci-dessous sont historiques.** Le rapport opérationnel à jour est [`docs/rapport-final.md`](docs/rapport-final.md).
+
+- `main` = `origin/main` = **`b0d8121`** ; CI `45570254740` lancée, déploiement confirmé côté VPS (`rundinova-studio` healthy, `/api/health` → `{"ok":true,"db":true}`).
+- HTTPS public vérifié : `isoko` (200), `admin` (307), `espace` (307), `krumbz` (200), certificats valides jusqu'en 2027. Aucun DNS/Cloudflare modifié.
+- Base de production : migrations appliquées, 1 tenant `krumbz`, 2 produits, compte vendeur `+25767309309` et super-admin `niyondikojoffreasjubu@gmail.com`. Mots de passe **uniquement** dans `/root/rundinova-studio-credentials.txt` (`600`) sur le VPS.
+- Bascule Krumbz faite : `proxy_pass` `19200 → 19300` via `nginx-safe-apply.sh`, image `krumbz:pre-cutover` et sauvegardes `/root/nginx-backups/nginx-20261125-093616.tar.gz` + `/opt/rundinova-studio/backups/20261125T093543Z-pre-cutover`. Ancien conteneur conservé.
+- Préproduction supprimée (`docker compose down --remove-orphans`) ; vhosts staging désactivés ; conteneurs `rn77-staging-*` d'un autre projet **intacts**.
+- **Non fait / à valider par le propriétaire** : 65 fichiers de branding complémentaire (jamais fusionnés), numéro Lumicash exact, EcoCash, photos réelles, sauvegarde R2 (`rclone` absent sur le VPS), relecture kirundi.
+
+---
+
 ## ⚡ MISE À JOUR — exécution par OpenCode (22/11, à partir de 15 h)
 
 **Les sections 0 à 14 ci-dessous décrivent l'état AVANT cette exécution.** État actuel :

@@ -1,7 +1,13 @@
-# Krumbz — site officiel
+# Rundinova Studio — plateforme de boutiques en ligne
 
-Vitrine e-commerce immersive des biscuits **Krumbz** (Crispy Food Products, Burundi) — « Simple, Croustillant ».
-Les produits (biscuit, sachet, carton) sont en vraie 3D WebGL et accompagnent le visiteur, au défilement, à travers des scènes de la vie quotidienne présentées en images.
+Plateforme multi-vendeurs : une seule boutique par sous-domaine, un seul modèle (celui de Krumbz), des thèmes,
+textes, produits et scènes propres à chaque vendeur. **Krumbz** est la boutique #1 et la référence de parité
+(« Simple, Croustillant », Crispy Food Products, Burundi) ; le site officiel reste `rundinova.com`.
+
+**Production ouverte le 25 novembre 2026** : `https://isoko.rundinova.com` (site public),
+`https://admin.rundinova.com` (super-administration), `https://espace.rundinova.com` (espace vendeur),
+`https://krumbz.rundinova.com` (boutique Krumbz). Voir le **[rapport final](docs/rapport-final.md)** pour l'état
+opérationnel, les identifiants de production (stockés sur le VPS, pas dans le dépôt) et les procédures de retour arrière.
 
 - **Stack** : Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · three.js + React Three Fiber + drei · GSAP + ScrollTrigger · Lenis · zustand · next-intl · detect-gpu · gltf-transform
 - **Pages** : Accueil, Produits (visionneuse 3D), Notre histoire, Commander (panier + WhatsApp), Contact, Mentions légales, 404 animée
@@ -113,38 +119,32 @@ mentions légales, SEO) sont dans un seul fichier : **`content/site.fr.json`**.
 
 ## 4. Déploiement (Docker sur VPS, automatique)
 
-Le site est livré en conteneur Docker et déployé automatiquement à chaque `git push` sur `main`, via
-`.github/workflows/deploy.yml` :
+Chaque `git push` sur `main` déclenche `.github/workflows/deploy.yml` : vérifications (`typecheck`, `lint`,
+`content:check`, tests), build de l'image `ghcr.io/jubuniyokodev/rundinova-studio:<sha>` puis promotion de `:latest`,
+et exécution de `/opt/rundinova-studio/scripts/deploy.sh` sur le VPS. Le service ponctuel `migrate` applique les
+SQL de `drizzle/` avant le démarrage de l'app.
 
-1. **Build** : installe les dépendances, `typecheck`, `lint`, `content:check`, puis construit l'image Docker
-   (`Dockerfile`, build Next.js en mode `standalone`) et la pousse sur
-   [GitHub Container Registry](https://ghcr.io) : `ghcr.io/jubuniyokodev/krumbz:latest`.
-2. **Deploy** : envoie `docker-compose.yml` sur le VPS (`/opt/krumbz`) puis exécute
-   `docker compose pull && docker compose up -d` par SSH.
-3. Sur le VPS, nginx (hors conteneur) sert `https://krumbz.rundinova.com` et `https://www.krumbz.rundinova.com`
-   (certificat Let's Encrypt, renouvellement automatique via `certbot.timer`) et reverse-proxy vers le conteneur
-   (`127.0.0.1:19200`).
+Sur le VPS, l'app écoute sur `127.0.0.1:19300` et la base PostgreSQL tourne dans `rundinova-studio-db`. nginx sert
+les hôtes `isoko`, `admin`, `espace` et le joker `*.rundinova.com`, et reverse-proxy `krumbz.rundinova.com` vers la
+plateforme (l'ancien conteneur `krumbz` sur `19200` est conservé pour retour arrière). Les certificats Let's Encrypt
+sont émis en HTTP-01 par `rundinova-studio-certs.timer` et chargés dynamiquement par nginx — aucun changement DNS,
+aucun CDN. Voir [`deploy/nginx/APPLY.md`](deploy/nginx/APPLY.md) et [`docs/ops.md`](docs/ops.md).
 
 **Secrets du dépôt GitHub** (Settings → Secrets and variables → Actions) : `VPS_HOST`, `VPS_USER`, `VPS_SSH_KEY`
 (clé privée dédiée au déploiement). `GITHUB_TOKEN` (fourni automatiquement) suffit pour pousser l'image sur GHCR.
 
-**Variable d'environnement** : `NEXT_PUBLIC_SITE_URL` est fixée à `https://krumbz.rundinova.com` au moment du build
-Docker (`build-args` du workflow) — elle sert aux balises canoniques, Open Graph et au sitemap.
+**Variables d'environnement** : `DATABASE_URL`, `SESSION_SECRET`, `NEXT_PUBLIC_SITE_URL`,
+`PLATFORM_ROOT_DOMAIN`, `CERT_REQUESTS_DIR` / `CERT_STATUS_DIR` — voir `deploy/env.production.example` et
+`/opt/rundinova-studio/.env` sur le VPS (jamais versionné).
 
-### Build et lancement manuels (sans CI)
-
-```bash
-docker build -t krumbz --build-arg NEXT_PUBLIC_SITE_URL=https://krumbz.rundinova.com .
-docker run --rm -p 3000:3000 krumbz
-```
-
-### Déploiement manuel sur le VPS (dépannage)
+### Contrôle et lancement manuels (dépannage)
 
 ```bash
 ssh root@31.97.33.141
-cd /opt/krumbz
-docker compose pull && docker compose up -d
-docker compose logs -f
+docker ps --filter name=rundinova-studio
+curl -H "Host: admin.rundinova.com" http://127.0.0.1:19300/api/health
+cd /opt/rundinova-studio && bash scripts/health.sh
+bash scripts/backup.sh --label manuel
 ```
 
 ---
@@ -157,7 +157,7 @@ public/images/              Photos (scènes, produits, histoire, og) — voir pu
 public/textures/            Étiquettes appliquées sur les modèles 3D
 public/models/              Ressources 3D générées (cartes de relief du biscuit, modèles optimisés)
 scripts/                    Outils : copie des fichiers tiers, 3D, images, budgets, Lighthouse, contenu
-src/app/[locale]/           Pages (une par route, chemins localisés)
+src/app/tpl/boutique/[tenant]/[locale]  Pages de chaque boutique (modèle unique, chemins localisés)
 src/components/three/       Scène WebGL : biscuit procédural, sachet « pillow pack », carton, parcours au scroll, visionneuse
 src/components/experience/  Ancres DOM qui placent les produits 3D dans chaque section
 src/components/layout/      En-tête, pied de page, défilement fluide, transitions « porte », panier

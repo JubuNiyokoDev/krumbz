@@ -107,3 +107,12 @@
 - **Production NON lancée** : le propriétaire teste d'abord la préproduction.
 - À corriger avant la production : sitemap et données structurées des autres boutiques (URL de Krumbz), visionneuse 3D générique à tester dans un vrai navigateur.
 
+
+## 2026-11-25 — Mise en production terminée (OpenCode)
+
+- `main` poussé en `b0d8121` (fusion de `rundinova-studio`) ; CI `45570254740` lancée ; VPS `rundinova-studio` healthy, `/api/health` → `{"ok":true,"db":true}` (vérification directe, la surveillance GitHub était coupée côté local).
+- nginx production installé sans régression via `nginx-safe-apply.sh` : vhosts HTTP/HTTPS (étapes A et C), certificats Let's Encrypt `isoko`/`admin`/`espace` émis (expiration 2027-02-23), certificat Krumbz installé dans `/etc/rundinova-studio/certs/` ; sondes `--expect` OK, 0 site dégradé. Sauvegardes : `nginx-20261125-092551.tar.gz`, `nginx-20261125-092833.tar.gz`, `nginx-20261125-093616.tar.gz`.
+- Seed production : `1` tenant (`krumbz`), `2` produits, compte vendeur `+25767309309` et super-admin `niyondikojoffreasjubu@gmail.com` ; identifiants dans `/root/rundinova-studio-credentials.txt` (`600`) sur le VPS, jamais dans le dépôt. Les scripts ont été exécutés depuis un dossier temporaire car le conteneur de production n'autorise pas l'écriture dans `/app/node_modules` ; le migrateur fourni (`/app/migrator/node_modules`) a servi à résoudre `drizzle-orm`.
+- Bascule Krumbz `19200 → 19300` faite avec `--expect krumbz.rundinova.com` ; image `krumbz:pre-cutover` conservée, sauvegarde Studio `20261125T093543Z-pre-cutover`, ancien conteneur laissé en service. HTTPS public vérifié : krumbz 200, isoko 200, admin 307, espace 307, bons certificats.
+- Préproduction supprimée : `rundinova-studio-staging`, `-db` et le conteneur de migration retirés via `docker compose down --remove-orphans` (volumes et `/opt/rundinova-studio-staging` conservés) ; vhosts staging désactivés. Les conteneurs `rn77-staging-*` (autre projet) n'ont pas été touchés.
+- Reste au propriétaire : valider/écarter les 65 fichiers de branding complémentaire ; confirmer le numéro Lumicash ; fournir EcoCash et les photos réelles ; configurer Cloudflare R2 (`rclone` absent → sauvegardes locales uniquement) ; relire le kirundi. Détails et retour arrière dans [`docs/rapport-final.md`](rapport-final.md).
