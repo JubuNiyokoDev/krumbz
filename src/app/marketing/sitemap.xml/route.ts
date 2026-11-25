@@ -4,6 +4,9 @@ import { requestHostHeader } from "@/lib/tenant/request-host";
 import { MARKETING_LOCALES, marketingPath } from "@/marketing";
 
 /** isoko.rundinova.com/sitemap.xml (src/proxy.ts): the home in each locale, with hreflang alternates, on the request host. */
+/** Built per request (request host): never prerendered at build time, where no database exists. */
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const h = await headers();
   const host = normalizeHost(requestHostHeader(h));

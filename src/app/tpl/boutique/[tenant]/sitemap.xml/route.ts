@@ -7,6 +7,9 @@ import { isLocalHost, normalizeHost, publicOrigin } from "@/lib/tenant/hosts";
 import { requestHostHeader } from "@/lib/tenant/request-host";
 import { buildStorefrontContent } from "@/templates/boutique/content";
 
+/** Built per request (request host + shop data): never prerendered at build time, where no database exists. */
+export const dynamic = "force-dynamic";
+
 /** Relative importance of each page (every page in routing.pathnames must be listed). */
 const PAGES: Record<AppPathname, { priority: number; changeFrequency: string }> = {
   "/": { priority: 1, changeFrequency: "weekly" },
