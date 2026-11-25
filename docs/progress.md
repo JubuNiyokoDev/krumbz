@@ -101,3 +101,9 @@
   `tests/template-variants.spec.ts` (boutique minimale et complète, bureau + mobile) 6/6.
 - Reste : sitemap et JSON-LD des boutiques encore sur l'URL du site Krumbz ; relecture du kirundi ; photos Ikirenge.
 
+## 2026-11-25 — Modèle unique en préproduction (recette du propriétaire en cours)
+- Branche `rundinova-studio` = `template-unique` (f5ebfa2), image `staging-sha-f5ebfa2` (CI verte), déployée sur le VPS
+  (migration 0001 appliquée), démo Ikirenge rechargée (6 produits, 5 scènes). 7 pages vérifiées en 200.
+- **Production NON lancée** : le propriétaire teste d'abord la préproduction.
+- À corriger avant la production : sitemap et données structurées des autres boutiques (URL de Krumbz), visionneuse 3D générique à tester dans un vrai navigateur.
+
