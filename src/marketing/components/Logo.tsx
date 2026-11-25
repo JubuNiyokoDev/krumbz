@@ -1,27 +1,24 @@
-/** Rundinova Studio mark: a four-point "nova" star in an orbit + wordmark. */
-export function NovaMark({ size = 34, className = "" }: { size?: number; className?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 40 40" aria-hidden focusable={false} className={className}>
-      <circle cx="20" cy="20" r="18.5" fill="none" stroke="currentColor" strokeOpacity="0.35" strokeWidth="1.5" />
-      <path
-        d="M20 5.5c1.1 7.6 3.9 12.4 14.5 14.5-10.6 2.1-13.4 6.9-14.5 14.5-1.1-7.6-3.9-12.4-14.5-14.5C16.1 17.9 18.9 13.1 20 5.5Z"
-        fill="#ff5b2e"
-      />
-      <circle cx="33.5" cy="9" r="2.2" fill="currentColor" />
-    </svg>
-  );
-}
+import Image from "next/image";
+import mark from "../../../public/brand/rundinova-mark.png";
+import markWhite from "../../../public/brand/rundinova-mark-white.png";
 
-/** `compact`: smaller on phones, mark only under 380px (header next to the language switch and CTA). */
-export function Wordmark({ className = "", compact = false }: { className?: string; compact?: boolean }) {
+/**
+ * Rundinova Studio lockup: the RundiNova Tech « RN » mark (transparent PNG cut from the owner's logo,
+ * scripts/brand-rundinova.mjs) + « RundiNova » in the wordmark style, « Studio » in royal blue.
+ */
+export function Wordmark({ tone = "dark", compact = false }: { tone?: "dark" | "light"; compact?: boolean }) {
   return (
-    <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <NovaMark />
-      <span className={`flex flex-col leading-none ${compact ? "max-[379px]:hidden" : ""}`}>
-        <span className={`font-rn-display font-extrabold tracking-[-0.03em] ${compact ? "text-[1rem] sm:text-[1.15rem]" : "text-[1.15rem]"}`}>
-          rundinova
-        </span>
-        <span className="mt-0.5 text-[0.62rem] font-semibold uppercase tracking-[0.32em] opacity-70">studio</span>
+    <span className="inline-flex items-center gap-2.5">
+      <Image
+        src={tone === "light" ? markWhite : mark}
+        alt=""
+        aria-hidden
+        sizes="64px"
+        className={compact ? "h-7 w-auto sm:h-8" : "h-10 w-auto"}
+        loading="eager"
+      />
+      <span className={`whitespace-nowrap font-bold tracking-tight ${compact ? "text-[1.08rem] sm:text-[1.18rem]" : "text-[1.45rem]"} ${tone === "light" ? "text-white" : "text-black"}`}>
+        RundiNova <span className={`${compact ? "hidden min-[420px]:inline " : ""}font-medium ${tone === "light" ? "text-rn-cyan" : "text-rn-blue"}`}>Studio</span>
       </span>
     </span>
   );

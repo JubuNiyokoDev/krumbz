@@ -18,7 +18,7 @@ export interface HeaderText {
   language: string;
 }
 
-/** Fixed header: transparent over the hero, glass once scrolled, hides while scrolling down. */
+/** Fixed header: transparent over the hero, white glass once scrolled, hides while scrolling down. */
 export function Header({
   text: t,
   locale,
@@ -62,13 +62,13 @@ export function Header({
   ];
 
   return (
-    <header ref={ref} className="rn-header fixed inset-x-0 top-0 z-[90] text-rn-cream" onFocus={() => ref.current && (ref.current.dataset.hidden = "false")}>
+    <header ref={ref} className="rn-header fixed inset-x-0 top-0 z-[90] text-black" onFocus={() => ref.current && (ref.current.dataset.hidden = "false")}>
       <div className="mx-auto flex h-[4.5rem] max-w-[1320px] items-center justify-between gap-4 px-5 sm:px-8 md:h-20">
         <a href="#accueil" aria-label={t.home} className="shrink-0">
           <Wordmark compact />
         </a>
         <nav aria-label={t.main} className="hidden lg:block">
-          <ul className="flex items-center gap-8 text-[0.92rem] font-medium">
+          <ul className="flex items-center gap-8 text-[0.9rem] font-semibold">
             {links.map((link) => (
               <li key={link.href}>
                 <a href={link.href} className="rn-navlink">
@@ -83,17 +83,17 @@ export function Header({
             <>
               <LanguageLinks current={locale} hrefs={localeHrefs} label={t.language} className="hidden md:block" />
               <details className="relative md:hidden">
-                <summary className="grid h-10 min-w-10 cursor-pointer list-none place-items-center rounded-full px-2 text-xs font-bold uppercase tracking-wider shadow-[inset_0_0_0_1.5px_rgb(244_239_230/0.35)] [&::-webkit-details-marker]:hidden">
+                <summary className="grid h-10 min-w-10 cursor-pointer list-none place-items-center rounded-full px-2 text-xs font-bold uppercase tracking-wider text-rn-blue shadow-[inset_0_0_0_1.5px_rgb(0_8_184/0.25)] [&::-webkit-details-marker]:hidden">
                   <span className="sr-only">{t.language} : </span>
                   {locale}
                 </summary>
-                <div className="absolute right-0 top-12 rounded-2xl bg-rn-ink-2 p-1.5 shadow-[0_20px_40px_-15px_rgb(0_0_0/0.7),inset_0_0_0_1px_rgb(255_255_255/0.08)]">
+                <div className="absolute right-0 top-12 rounded-2xl bg-white p-1.5 shadow-[0_20px_40px_-15px_rgb(0_8_184/0.35),inset_0_0_0_1px_rgb(0_8_184/0.1)]">
                   <LanguageLinks current={locale} hrefs={localeHrefs} label={t.language} />
                 </div>
               </details>
             </>
           ) : null}
-          <a href="#vitrine" className="rn-btn rn-btn-nova !min-h-[2.75rem] whitespace-nowrap !px-3.5 text-sm sm:!px-5">
+          <a href="#vitrine" className="rn-btn rn-btn-primary !min-h-[2.75rem] whitespace-nowrap !px-3.5 text-sm sm:!px-5">
             {/* Short label on phones and next to the full nav (lg), long label otherwise. */}
             <span className="hidden sm:inline lg:hidden xl:inline">{t.cta}</span>
             <span className="sm:hidden lg:inline xl:hidden">{t.ctaShort}</span>

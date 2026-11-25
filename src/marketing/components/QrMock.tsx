@@ -39,8 +39,8 @@ export function QrMock({ seed, className = "" }: { seed: string; className?: str
   return (
     <svg viewBox={`-1 -1 ${N + 2} ${N + 2}`} className={className} aria-hidden focusable={false} shapeRendering="crispEdges">
       <rect x="-1" y="-1" width={N + 2} height={N + 2} fill="#fff" rx="1" />
-      <path d={cells.join("")} fill="#0d0c12" />
-      <path d={finder(0, 0) + finder(N - 7, 0) + finder(0, N - 7)} fill="#0d0c12" fillRule="evenodd" />
+      <path d={cells.join("")} fill="#0008b8" />
+      <path d={finder(0, 0) + finder(N - 7, 0) + finder(0, N - 7)} fill="#0008b8" fillRule="evenodd" />
     </svg>
   );
 }

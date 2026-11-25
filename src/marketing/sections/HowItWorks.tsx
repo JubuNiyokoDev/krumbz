@@ -1,51 +1,48 @@
-import { WhatsAppIcon } from "@/components/ui/Icons";
 import type { MarketingContent } from "../content";
 import { Split } from "../components/Split";
 
-const STEP_ICONS = [
-  // 1. Chat + photos
-  <svg key="chat" viewBox="0 0 48 48" width="44" height="44" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-    <path d="M8 10h24a4 4 0 0 1 4 4v12a4 4 0 0 1-4 4H18l-8 6v-6H8a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4Z" />
-    <rect x="24" y="22" width="20" height="16" rx="3" fill="#0d0c12" />
-    <circle cx="34" cy="30" r="4" />
-    <path d="M29 22l2-3h6l2 3" />
-  </svg>,
-  // 2. Storefront in 3D
-  <svg key="build" viewBox="0 0 48 48" width="44" height="44" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-    <path d="M24 4 42 14v20L24 44 6 34V14L24 4Z" />
-    <path d="M6 14l18 10 18-10M24 24v20" />
-    <path d="M38 4l1.2 2.8L42 8l-2.8 1.2L38 12l-1.2-2.8L34 8l2.8-1.2L38 4Z" fill="currentColor" />
-  </svg>,
+const ICONS = [
+  // Conversation
+  <path key="a" d="M5 6h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-6l-4 3v-3H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" />,
+  // Storefront
+  <path key="b" d="M4 10l1.5-5h13L20 10M4 10v9h16v-9M4 10c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 3 3M10 19v-4h4v4" />,
+  // Phone + message
+  <path key="c" d="M8 3h8a1.5 1.5 0 0 1 1.5 1.5v15A1.5 1.5 0 0 1 16 21H8a1.5 1.5 0 0 1-1.5-1.5v-15A1.5 1.5 0 0 1 8 3zM11 18h2M9.5 8.5h5M9.5 11.5h3" />,
 ];
 
+/** Three steps on a progress line that fills while scrolling. */
 export function HowItWorks({ c }: { c: MarketingContent }) {
   const h = c.how;
   return (
-    <section id="comment" aria-labelledby="comment-title" className="rn-sheet z-20 bg-rn-paper text-rn-ink">
-      <div className="mx-auto max-w-[1320px] px-5 pb-28 pt-24 sm:px-8 md:pb-36 md:pt-32">
-        <p className="rn-kicker text-rn-nova-deep" data-reveal>
-          {h.kicker}
-        </p>
-        <h2 id="comment-title" data-split className="mt-5 max-w-[16ch] text-[clamp(2.2rem,5.6vw,4.6rem)] font-bold leading-[0.98]">
-          <Split text={h.title} />
-        </h2>
-
-        <div className="relative mt-16 md:mt-24">
-          {/* progress line (desktop) */}
-          <div aria-hidden className="absolute left-0 right-0 top-[2.6rem] hidden h-px bg-rn-ink/12 md:block">
-            <div data-line className="h-full origin-left bg-rn-nova-deep" />
+    <section id="comment" aria-labelledby="comment-title" className="relative bg-white py-24 md:py-32">
+      <div className="rn-container">
+        <div className="max-w-[46rem]">
+          <p className="rn-kicker" data-reveal>
+            {h.kicker}
+          </p>
+          <h2 id="comment-title" data-split className="rn-title mt-5">
+            <Split text={h.title} />
+          </h2>
+        </div>
+        <div className="relative mt-16 md:mt-20">
+          <div aria-hidden className="absolute left-0 right-0 top-[2.1rem] hidden h-[3px] rounded bg-rn-haze md:block">
+            <div data-line className="h-full origin-left rounded bg-gradient-to-r from-rn-blue to-rn-cyan" />
           </div>
-          <ol className="grid gap-12 md:grid-cols-3 md:gap-10">
+          <ol className="grid gap-6 md:grid-cols-3">
             {h.steps.map((step, i) => (
-              <li key={step.title} data-reveal className="relative">
-                <div className="flex items-center gap-5">
-                  <span className="rn-step-num text-[5.2rem] font-bold leading-none text-rn-ink">{String(i + 1).padStart(2, "0")}</span>
-                  <span className="relative z-10 grid h-16 w-16 place-items-center rounded-2xl bg-rn-ink text-rn-cream shadow-[0_20px_40px_-20px_rgb(13_12_18/0.6)]">
-                    {i < 2 ? STEP_ICONS[i] : <WhatsAppIcon size={30} className="text-rn-wa" />}
+              <li key={step.title} data-reveal className="rn-card relative p-7 md:p-8">
+                <div className="flex items-center justify-between">
+                  <span className="relative grid h-[4.2rem] w-[4.2rem] place-items-center rounded-2xl bg-gradient-to-br from-rn-blue to-rn-mid text-white shadow-[0_18px_30px_-14px_rgb(0_8_184/0.7)]">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                      {ICONS[i % ICONS.length]}
+                    </svg>
+                  </span>
+                  <span aria-hidden className="text-[3.4rem] font-extrabold leading-none tracking-tighter text-rn-haze">
+                    0{i + 1}
                   </span>
                 </div>
-                <h3 className="mt-7 text-[1.55rem] font-bold leading-tight">{step.title}</h3>
-                <p className="mt-3 max-w-[30rem] text-[1.02rem] leading-relaxed text-rn-stone">{step.text}</p>
+                <h3 className="mt-7 text-[1.32rem] font-bold leading-snug">{step.title}</h3>
+                <p className="mt-3 leading-relaxed text-rn-gray">{step.text}</p>
               </li>
             ))}
           </ol>

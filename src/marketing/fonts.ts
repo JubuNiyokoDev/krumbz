@@ -1,16 +1,11 @@
-import { Inter, Syne } from "next/font/google";
+import { Montserrat } from "next/font/google";
 
-/** Display: wide, confident grotesk — the studio's signature (distinct from Krumbz' rounded Fredoka). */
-export const syne = Syne({
-  // Variable font: one file covers every weight used (700–800).
+/**
+ * RundiNova Tech typeface: geometric sans of the wordmark (Montserrat), one variable file for every
+ * weight (400–800) — titles and body, so a single font request on the critical path (LCP).
+ */
+export const montserrat = Montserrat({
   subsets: ["latin"],
-  variable: "--font-syne",
-  display: "swap",
-});
-
-/** Body: neutral, very legible on small phone screens. */
-export const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-montserrat",
   display: "swap",
 });

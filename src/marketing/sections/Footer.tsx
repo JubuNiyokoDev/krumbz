@@ -1,13 +1,12 @@
-import { ArrowUpIcon, WhatsAppIcon } from "@/components/ui/Icons";
-import { Magnetic } from "@/components/ui/Magnetic";
-import type { MarketingContent } from "../content";
-import { fill } from "../content";
+import Image from "next/image";
+import { ArrowRightIcon, ArrowUpIcon, WhatsAppIcon } from "@/components/ui/Icons";
+import logo from "../../../public/brand/rundinova-logo.png";
+import { fill, type MarketingContent } from "../content";
 import { whatsappUrl } from "../format";
 import type { MarketingLocale } from "../types";
-import { Split } from "../components/Split";
-import { Wordmark } from "../components/Logo";
 import { LanguageLinks } from "../components/LanguageLinks";
 
+/** Closing call to action + footer (RundiNova Tech logo, languages, WhatsApp). */
 export function Footer({
   c,
   whatsappNumber,
@@ -21,53 +20,46 @@ export function Footer({
 }) {
   const f = c.final;
   const year = new Date().getFullYear();
-
   return (
-    <footer className="relative z-[70] overflow-hidden bg-rn-ink text-rn-cream">
-      <div className="mx-auto max-w-[1320px] px-5 pt-20 sm:px-8 md:pt-28">
-        <div className="flex flex-col gap-10 border-t border-white/10 pt-16 md:flex-row md:items-end md:justify-between">
-          <div>
-            <h2 data-split className="max-w-[14ch] text-[clamp(2.3rem,6vw,5rem)] font-bold leading-[0.95]">
-              <Split text={f.title} />
-            </h2>
-            <p data-reveal className="mt-5 text-lg text-rn-muted">
-              {f.text}
-            </p>
-          </div>
-          <div data-reveal className="flex flex-wrap gap-3">
-            <Magnetic>
-              <a href="#vitrine" className="rn-btn rn-btn-nova">
-                {f.cta}
-              </a>
-            </Magnetic>
-            <a href={whatsappUrl(whatsappNumber, f.greeting)} target="_blank" rel="noopener noreferrer" className="rn-btn rn-btn-ghost text-rn-cream">
-              <WhatsAppIcon size={20} />
-              {f.whatsapp}
-            </a>
-          </div>
+    <footer className="bg-white">
+      <div className="rn-container py-20 text-center md:py-28">
+        <h2 data-reveal className="mx-auto max-w-[18ch] text-[clamp(2.1rem,1.2rem+4vw,4.8rem)] font-extrabold leading-[1.02] tracking-tight">
+          <span className="rn-gradient-text">{f.title}</span>
+        </h2>
+        <p data-reveal className="mx-auto mt-5 max-w-[30rem] text-lg text-rn-gray">
+          {f.text}
+        </p>
+        <div data-reveal className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+          <a href="#vitrine" className="rn-btn rn-btn-primary">
+            {f.cta}
+            <ArrowRightIcon size={18} />
+          </a>
+          <a href={whatsappUrl(whatsappNumber, f.greeting)} target="_blank" rel="noopener noreferrer" className="rn-btn rn-btn-outline">
+            <WhatsAppIcon size={18} />
+            {f.whatsapp}
+          </a>
         </div>
-
-        <div className="mt-20 grid gap-8 text-sm text-rn-muted md:grid-cols-3 md:items-center">
-          <div className="text-rn-cream">
-            <Wordmark />
-            <p className="mt-3 max-w-[20rem] text-rn-muted">{c.footer.tagline}</p>
-          </div>
-          <div className="md:justify-self-center">
-            {localeHrefs ? <LanguageLinks current={locale} hrefs={localeHrefs} label={c.nav.language} /> : null}
-          </div>
-          <div className="flex items-center gap-6 md:justify-self-end">
-            <span>{c.footer.domain}</span>
-            <a href="#accueil" className="inline-flex items-center gap-1.5 font-semibold text-rn-cream">
-              {c.footer.top}
-              <ArrowUpIcon size={16} />
-            </a>
-          </div>
-        </div>
-        <p className="mt-8 pb-6 text-xs text-rn-muted">{fill(c.footer.rights, { year })}</p>
       </div>
-      <p aria-hidden className="rn-giant -mb-[0.12em] select-none whitespace-nowrap text-center text-[12.8vw]">
-        rundinova
-      </p>
+      <div className="border-t border-rn-line">
+        <div className="rn-container grid gap-10 py-12 md:grid-cols-[1.2fr_1fr] md:items-end">
+          <div>
+            <Image src={logo} alt="RundiNova Tech" sizes="180px" className="h-24 w-auto" />
+            <p className="mt-4 max-w-[22rem] text-sm leading-relaxed text-rn-gray">{c.footer.tagline}</p>
+            <p className="mt-1 text-sm font-semibold text-rn-blue">{c.footer.company}</p>
+          </div>
+          <div className="flex flex-col items-start gap-5 md:items-end">
+            {localeHrefs ? <LanguageLinks current={locale} hrefs={localeHrefs} label={c.nav.language} /> : null}
+            <div className="flex items-center gap-5 text-sm font-semibold">
+              <span className="text-rn-gray">{c.footer.domain}</span>
+              <a href="#accueil" className="inline-flex items-center gap-1.5 text-rn-blue hover:underline">
+                {c.footer.top}
+                <ArrowUpIcon size={14} />
+              </a>
+            </div>
+          </div>
+        </div>
+        <p className="rn-container pb-8 text-xs text-rn-gray">{fill(c.footer.rights, { year })}</p>
+      </div>
     </footer>
   );
 }

@@ -89,7 +89,7 @@ export const DEFAULT_STUDIO: StudioSettings = {
   whatsappPlaceholder: false,
   lumicash: { number: "25767309309", name: "Niyondiko Joffre", placeholder: false },
   ecocash: { number: "25700000000", name: "Rundinova Studio", placeholder: true },
-  paymentLink: "https://amtips.app/t/1645db99-16f5-4d53-b20f-074a0ab0c207?campaign=2e1f738f-61a2-48bb-a19b-ec12cac67b99",
+  paymentLink: "https://amtips.app/t/1645db99-16f5-4d53-b20f-074a0ab0c207?campaign=6d132585-b887-41f5-bf92-639935406cd1",
   paymentQrPath: "/images/payment/amtips-qr.png",
 };
 

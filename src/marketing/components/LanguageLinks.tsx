@@ -30,7 +30,7 @@ export function LanguageLinks({
                 aria-current={active ? "true" : undefined}
                 title={NAMES[locale]}
                 className={`grid h-9 min-w-9 place-items-center rounded-full px-2 text-xs font-bold uppercase tracking-wider transition-colors ${
-                  active ? "bg-rn-cream text-rn-ink" : "text-rn-muted hover:text-rn-cream"
+                  active ? "bg-rn-blue text-white" : "text-rn-gray hover:text-rn-blue"
                 }`}
               >
                 <span className="sr-only">{NAMES[locale]}</span>

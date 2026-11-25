@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getMarketingContent } from "./content";
 import { MARKETING_LOCALES, type MarketingLocale } from "./types";
+import { publicOrigin } from "@/lib/tenant/hosts";
 
 /** Public address of the marketing site (owner decision: rundinova.com stays the company site). */
 export const MARKETING_ORIGIN = "https://isoko.rundinova.com";
@@ -30,7 +31,8 @@ export function rundinovaMetadata(
   languages["x-default"] = path("fr");
 
   return {
-    metadataBase: new URL(MARKETING_ORIGIN),
+    // Public origin of this deployment (isoko / staging-isoko on PLATFORM_ROOT_DOMAIN).
+    metadataBase: new URL(publicOrigin("isoko")),
     title: c.meta.title,
     description: c.meta.description,
     applicationName: c.meta.siteName,
@@ -42,13 +44,22 @@ export function rundinovaMetadata(
       description: c.meta.description,
       url: path(locale),
       locale: { fr: "fr_BI", rn: "rn_BI", en: "en_GB", sw: "sw_TZ" }[locale],
+      images: [{ url: "/brand/rundinova-og.png", width: 1200, height: 630, alt: c.meta.siteName }],
     },
-    twitter: { card: "summary_large_image", title: c.meta.title, description: c.meta.description },
+    twitter: { card: "summary_large_image", title: c.meta.title, description: c.meta.description, images: ["/brand/rundinova-og.png"] },
     formatDetection: { telephone: false },
+    // RundiNova Tech icons (scripts/brand-rundinova.mjs), never the Krumbz ones.
+    icons: {
+      icon: [
+        { url: "/brand/rn-icon-32.png", sizes: "32x32", type: "image/png" },
+        { url: "/brand/rn-icon-192.png", sizes: "192x192", type: "image/png" },
+      ],
+      apple: [{ url: "/brand/rn-icon-180.png", sizes: "180x180", type: "image/png" }],
+    },
   };
 }
 
-export const RUNDINOVA_THEME_COLOR = "#0d0c12";
+export const RUNDINOVA_THEME_COLOR = "#ffffff";
 
 /** <html lang> per locale (Kirundi = "rn"). */
 export const MARKETING_HTML_LANG: Record<MarketingLocale, string> = { fr: "fr", rn: "rn", en: "en", sw: "sw" };

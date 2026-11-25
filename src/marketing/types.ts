@@ -14,12 +14,17 @@ export interface MarketingOffer {
 /** Launch offer (owner decision). Fallback only: the live values come from the super-admin settings. */
 export const DEFAULT_MARKETING_OFFER: MarketingOffer = { launchPrice: 50_000, monthlyPrice: 10_000, currency: "BIF" };
 
-/** A storefront shown in the gallery (first = featured). */
+/** A partner storefront (« Nos boutiques partenaires »; first = featured in the hero). */
 export interface MarketingShop {
+  slug?: string;
   name: string;
   url: string;
-  /** Local `/images/...` path (optimised by next/image) or absolute URL. */
+  /** Local `/images/...` path (optimised by next/image), an upload, or "" (typographic poster). */
   imageUrl: string;
+  /** Shop logo (transparent), or null. */
+  logoUrl?: string | null;
+  /** The shop's palette: page colour, dark brand colour, accent. */
+  colors?: { background: string; primary: string; accent: string };
   tagline: string;
 }
 

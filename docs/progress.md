@@ -121,3 +121,28 @@
 - Propriétaire a confirmé **Lumicash `25767309309` / `Niyondiko Joffre`** : valeur déjà active dans `DEFAULT_STUDIO`, `placeholder: false` ; aucun affichage public du numéro (paiement public = lien + QR Amtips).
 - Cloudflare R2 branché : bucket `rundinova-studio-backups` créé via API, `rclone` installé et configuré en `600`, `RCLONE_REMOTE=r2:rundinova-studio-backups/production` dans `ops.env` (`600`), sauvegarde `20261125T100551Z-first-r2` copiée et vérifiée (`last-offsite-success`), règle de cycle de vie `expire-30d` (30 jours) active. Clés absentes du dépôt.
 - Docs mises à jour et poussées sur `main` (`83adb38`, CI `45588765913`) puis complément R2 à committer.
+
+## 2026-11-25 — Image de marque 100 % par boutique + refonte isoko (branche `branding`)
+- **Marque de chaque boutique** (Krumbz inchangé, parité 28/28) : le logo de la boutique remplace le biscuit Krumbz dans
+  l'en-tête, le pied de page et le menu mobile (pastille couleur de fond sur fond sombre), le chargement 3D
+  (`ExperienceLoader`), la transition « porte » (`curtain-mark`, logo droit qui pulse au lieu de tourner), la page 404 et
+  l'erreur. Polices du thème partout (variables CSS sur `<html>`, chargement et transition compris).
+- **Téléversement du logo** (super-admin → Vendeurs → fiche → Thème, et dès la création) : PNG, SVG, JPG, WebP, AVIF.
+  `src/lib/uploads/brand.ts` : PNG maître avec transparence (marges transparentes rognées), WebP alpha affiché, SVG
+  d'origine nettoyé (scripts, `on*`, liens externes retirés ; servi avec une CSP stricte), favicon facultatif séparé,
+  sinon icônes générées depuis le logo (32, 180 opaque, 192/512 + manifeste `/api/manifest/<slug>`), image de partage
+  1200 × 630 (logo + palette) utilisée quand `media.og` est vide. Régénéré à chaque enregistrement du thème.
+- **Création d'une boutique** : couleurs principale / accent / fond, polices et logo dans le formulaire de création ;
+  la vitrine `<slug>.rundinova.com` existe aussitôt (5 scènes de départ), demande de certificat écrite.
+  Spécification de bout en bout : `tests/new-shop.spec.ts`.
+- **URL par boutique** : canonical, hreflang, Open Graph, JSON-LD sur `https://<slug>.<PLATFORM_ROOT_DOMAIN>`
+  (`publicOrigin`, `PLATFORM_STAGING=1` → `staging-<slug>`), `sitemap.xml` sur l'hôte de la requête et limité aux pages
+  existantes de la boutique et à ses langues ; `NEXT_PUBLIC_SITE_URL` n'est plus qu'un repli. Sitemap isoko ajouté.
+- **Favicon Krumbz** déplacé de `src/app/favicon.ico` vers `public/favicon.ico` (il s'affichait sur toutes les boutiques
+  et sur isoko) ; Krumbz le déclare explicitement.
+- **Isoko refondu** aux couleurs RundiNova Tech (bleu roi #0008B8, bleu profond, bleu moyen, cyan #08B8F0, noir, blanc),
+  Montserrat, logo détouré (`scripts/brand-rundinova.mjs` → `public/brand/`), carrousel 3D « Nos boutiques partenaires »
+  (boutiques actives / en essai, Krumbz d'abord ; `HIDE_DEMO_TENANTS=1` masque la démo Ikirenge), bloc
+  « RundiNova Tech Payment » (Joffre Niyondiko), nouveau lien Amtips (campagne 6d132585…) et QR régénéré.
+- À faire au déploiement : vérifier qu'aucune valeur `settings.rundinova.paymentLink` ancienne n'écrase le nouveau lien ;
+  `HIDE_DEMO_TENANTS=1` en production ; `PLATFORM_STAGING: "1"` est dans `deploy/compose.staging.yml`.

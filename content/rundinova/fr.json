@@ -69,17 +69,22 @@
     ]
   },
   "shops": {
-    "kicker": "Les boutiques",
-    "title": "Des vitrines qui donnent envie",
-    "lead": "Chaque vitrine est créée sur mesure pour son commerce. Voici les premières.",
+    "kicker": "Vitrines en ligne",
+    "title": "Nos boutiques partenaires",
+    "lead": "Chaque boutique a sa propre vitrine, à sa propre adresse en .rundinova.com. Faites-les défiler, puis visitez-les.",
     "visit": "Visiter la vitrine",
-    "first": "Premier client",
     "imageAlt": "Vitrine de {name}",
     "yours": {
       "title": "Votre boutique ici",
       "text": "Votre nom, vos produits, votre adresse en .rundinova.com.",
       "cta": "Je veux ma vitrine"
-    }
+    },
+    "carousel": "Boutiques partenaires",
+    "prev": "Boutique précédente",
+    "next": "Boutique suivante",
+    "slide": "{index} sur {total}",
+    "hint": "Glissez ou utilisez les flèches",
+    "palette": "Couleurs de la boutique"
   },
   "why": {
     "kicker": "Pourquoi l'image compte",
@@ -243,6 +248,17 @@
     "tagline": "Studio d'image pour les petits commerces du Burundi.",
     "domain": "isoko.rundinova.com",
     "rights": "© {year} Rundinova Studio. Tous droits réservés.",
-    "top": "Haut de page"
+    "top": "Haut de page",
+    "company": "Rundinova Studio est un service de RundiNova Tech."
+  },
+  "brand": "par RundiNova Tech",
+  "payment": {
+    "label": "RundiNova Tech Payment",
+    "holderLabel": "Bénéficiaire",
+    "holder": "Joffre Niyondiko",
+    "title": "Paiement Amtips",
+    "lead": "Scannez le QR code ou ouvrez le lien pour voir tous les moyens de paiement disponibles, puis envoyez la preuve sur WhatsApp.",
+    "cta": "Ouvrir le lien de paiement",
+    "qrAlt": "QR code de paiement Amtips de RundiNova Tech"
   }
 }

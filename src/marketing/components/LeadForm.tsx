@@ -91,7 +91,7 @@ export function LeadForm({ text: t, whatsappNumber }: { text: LeadFormText; what
   if (sentUrl) {
     return (
       <div ref={statusRef} tabIndex={-1} role="status" className="flex min-h-[26rem] flex-col items-start justify-center outline-none">
-        <span className="rn-ping grid h-14 w-14 place-items-center rounded-full bg-rn-wa text-rn-ink">
+        <span className="rn-ping grid h-14 w-14 place-items-center rounded-full bg-rn-cyan text-black">
           <WhatsAppIcon size={28} />
         </span>
         <p className="mt-7 font-rn-display text-[1.9rem] font-bold leading-tight">{t.sent.title}</p>
@@ -117,7 +117,7 @@ export function LeadForm({ text: t, whatsappNumber }: { text: LeadFormText; what
   );
   const error = (f: Field) =>
     errors[f] ? (
-      <p id={`${id(f)}-error`} className="mt-1.5 text-sm text-[#ff8a6b]">
+      <p id={`${id(f)}-error`} className="mt-1.5 text-sm font-semibold text-rn-ice">
         {errors[f]}
       </p>
     ) : null;

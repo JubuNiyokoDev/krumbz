@@ -69,17 +69,22 @@
     ]
   },
   "shops": {
-    "kicker": "Amaduka",
-    "title": "Ibicerekaniro biryoshe kuraba",
-    "lead": "Icerekaniro cose gikorwa ku bw'iduka ryaco. Ehe ivya mbere.",
+    "kicker": "Ibicerekaniro biri ku murongo",
+    "title": "Amaduka dukorana",
+    "lead": "Iduka rimwe rimwe rifise icerekaniro caryo, kuri aderese yaryo .rundinova.com. Bicishemwo, hanyuma ubifungure.",
     "visit": "Fungura icerekaniro",
-    "first": "Umukiriya wa mbere",
     "imageAlt": "Icerekaniro ca {name}",
     "yours": {
       "title": "Iduka ryawe hano",
       "text": "Izina ryawe, ibicuruzwa vyawe, aderese yawe .rundinova.com.",
       "cta": "Ndashaka icerekaniro canje"
-    }
+    },
+    "carousel": "Amaduka dukorana",
+    "prev": "Iduka riheruka",
+    "next": "Iduka rikurikira",
+    "slide": "{index} muri {total}",
+    "hint": "Kwegeza canke ukoreshe uturanga",
+    "palette": "Amabara y'iduka"
   },
   "why": {
     "kicker": "Igituma isura ihambaye",
@@ -243,6 +248,17 @@
     "tagline": "Sitidiyo y'isura y'abadandaza bato b'i Burundi.",
     "domain": "isoko.rundinova.com",
     "rights": "© {year} Rundinova Studio. Uburenganzira bwose burafatiwe.",
-    "top": "Subira hejuru"
+    "top": "Subira hejuru",
+    "company": "Rundinova Studio ni igikorwa ca RundiNova Tech."
+  },
+  "brand": "na RundiNova Tech",
+  "payment": {
+    "label": "RundiNova Tech Payment",
+    "holderLabel": "Uwakira",
+    "holder": "Joffre Niyondiko",
+    "title": "Kwishura na Amtips",
+    "lead": "Scana QR canke ufungure umurongo kugira ubone uburyo bwose bwo kwishura, hanyuma wohereze icemezo kuri WhatsApp.",
+    "cta": "Gufungura umurongo",
+    "qrAlt": "QR yo kwishura Amtips ya RundiNova Tech"
   }
 }

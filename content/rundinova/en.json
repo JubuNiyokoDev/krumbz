@@ -69,17 +69,22 @@
     ]
   },
   "shops": {
-    "kicker": "The shops",
-    "title": "Storefronts that make people want to buy",
-    "lead": "Each storefront is tailor-made for its business. Here are the first ones.",
+    "kicker": "Live storefronts",
+    "title": "Our partner shops",
+    "lead": "Each shop has its own storefront at its own .rundinova.com address. Swipe through them, then pay a visit.",
     "visit": "Visit the storefront",
-    "first": "First client",
     "imageAlt": "{name} storefront",
     "yours": {
       "title": "Your shop here",
       "text": "Your name, your products, your own .rundinova.com address.",
       "cta": "I want my storefront"
-    }
+    },
+    "carousel": "Partner shops",
+    "prev": "Previous shop",
+    "next": "Next shop",
+    "slide": "{index} of {total}",
+    "hint": "Drag or use the arrows",
+    "palette": "Shop colours"
   },
   "why": {
     "kicker": "Why image matters",
@@ -243,6 +248,17 @@
     "tagline": "Image studio for Burundi's small businesses.",
     "domain": "isoko.rundinova.com",
     "rights": "© {year} Rundinova Studio. All rights reserved.",
-    "top": "Back to top"
+    "top": "Back to top",
+    "company": "Rundinova Studio is a RundiNova Tech service."
+  },
+  "brand": "by RundiNova Tech",
+  "payment": {
+    "label": "RundiNova Tech Payment",
+    "holderLabel": "Payee",
+    "holder": "Joffre Niyondiko",
+    "title": "Pay with Amtips",
+    "lead": "Scan the QR code or open the link to see all available payment methods, then send the proof on WhatsApp.",
+    "cta": "Open payment link",
+    "qrAlt": "RundiNova Tech Amtips payment QR code"
   }
 }

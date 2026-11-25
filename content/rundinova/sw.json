@@ -69,17 +69,22 @@
     ]
   },
   "shops": {
-    "kicker": "Maduka",
-    "title": "Tovuti zinazovutia wateja",
-    "lead": "Kila tovuti inaundwa maalum kwa biashara yake. Hizi ndizo za kwanza.",
+    "kicker": "Tovuti zilizo hewani",
+    "title": "Maduka washirika wetu",
+    "lead": "Kila duka lina tovuti yake, kwenye anwani yake ya .rundinova.com. Zipitie, kisha uzitembelee.",
     "visit": "Tembelea tovuti",
-    "first": "Mteja wa kwanza",
     "imageAlt": "Tovuti ya {name}",
     "yours": {
       "title": "Duka lako hapa",
       "text": "Jina lako, bidhaa zako, anwani yako ya .rundinova.com.",
       "cta": "Nataka tovuti yangu"
-    }
+    },
+    "carousel": "Maduka washirika",
+    "prev": "Duka lililotangulia",
+    "next": "Duka linalofuata",
+    "slide": "{index} kati ya {total}",
+    "hint": "Buruta au tumia mishale",
+    "palette": "Rangi za duka"
   },
   "why": {
     "kicker": "Kwa nini taswira ni muhimu",
@@ -243,6 +248,17 @@
     "tagline": "Studio ya taswira kwa wafanyabiashara wadogo wa Burundi.",
     "domain": "isoko.rundinova.com",
     "rights": "© {year} Rundinova Studio. Haki zote zimehifadhiwa.",
-    "top": "Rudi juu"
+    "top": "Rudi juu",
+    "company": "Rundinova Studio ni huduma ya RundiNova Tech."
+  },
+  "brand": "na RundiNova Tech",
+  "payment": {
+    "label": "RundiNova Tech Payment",
+    "holderLabel": "Mpokeaji",
+    "holder": "Joffre Niyondiko",
+    "title": "Lipa kwa Amtips",
+    "lead": "Changanua QR au fungua kiungo kuona njia zote za malipo, kisha tuma uthibitisho kwenye WhatsApp.",
+    "cta": "Fungua kiungo cha malipo",
+    "qrAlt": "QR ya malipo ya Amtips ya RundiNova Tech"
   }
 }
